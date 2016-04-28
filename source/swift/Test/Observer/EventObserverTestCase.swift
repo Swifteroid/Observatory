@@ -61,5 +61,4 @@ public class EventObserver: Observatory.EventObserver
         willSet {
         }
     }
-
 } 

@@ -50,10 +50,11 @@ public class EventObserver: Observer
         var localEventHandler: Any?
         var globalEventHandler: Any?
 
-        // Verify that we can work with the given handler, by default both hanlers receive event object, local handlers 
+        // Verify that we can work with the given handler, by default both handlers receive event object, local handlers 
         // must also return event in case it should continue dispatching. We may not always need or want to implement any 
         // of these, therefore if we normalise all recognised relaxed signatures here before storing them.
 
+        // @formatter:off
         if handler is Block {
             globalEventHandler = global ? { (event: NSEvent) in (handler as! Block)() } : nil
             localEventHandler = local ? { (event: NSEvent) -> NSEvent? in (handler as! Block)(); return event } : nil
@@ -73,6 +74,7 @@ public class EventObserver: Observer
             globalEventHandler = global ? handler as? GlobalConventionHandlerBlock : nil
             localEventHandler = local ? { (event: NSEvent) -> NSEvent? in (handler as! GlobalConventionHandlerBlock)(event: event); return event } : nil
         }
+        // @formatter:on
 
         if global && globalEventHandler == nil || local && localEventHandler == nil {
             throw Error.UnrecognisedHandlerSignature
@@ -126,8 +128,12 @@ public class EventObserver: Observer
     }
 }
 
+// MARK: weakening
+
 extension EventObserver
 {
+    // @formatter:off
+
     public class func weakenHandler<T:AnyObject>(instance: T, method: (T) -> GlobalEventHandler) -> GlobalEventHandler {
         return { [unowned instance] (event: NSEvent) in method(instance)(event: event) }
     }
@@ -135,6 +141,8 @@ extension EventObserver
     public class func weakenHandler<T:AnyObject>(instance: T, method: (T) -> LocalEventHandler) -> LocalEventHandler {
         return { [unowned instance] (event: NSEvent) in method(instance)(event: event) }
     }
+
+    // @formatter:on
 }
 
 extension EventObserver

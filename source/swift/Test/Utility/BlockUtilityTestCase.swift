@@ -30,7 +30,7 @@ public class BlockUtilityTestCase: XCTestCase
         expect(unownedFoo1).notTo(beNil())
         expect(unownedFoo2).to(beNil())
 
-        // Both handlers are not nill even though `foo2` no longer exists. You'll get a massive fail if try
+        // Both handlers are not nil even though `foo2` no longer exists. You'll get a massive fail if try
         // invoking it. Typically observers get automatically deinitialised and release all references.
 
         expect(handler1).notTo(beNil())

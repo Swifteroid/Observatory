@@ -3,7 +3,7 @@ import Foundation
 public class Observer
 {
     /*
-    Block is a very basic callback 
+    Block is a very basic callback. 
     */
     public typealias Block = () -> Void
 
