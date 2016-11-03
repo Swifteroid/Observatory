@@ -29,11 +29,11 @@ public class NotificationObserverTestCase: XCTestCase
 
         expect(foo).to(equal(2))
         expect(bar).to(equal(1))
-        
+
         // Deactivated observer must not catch anything.
-        
+
         observer.active = false
-        
+
         center.postNotificationName("foo", object: observable)
         center.postNotificationName("bar", object: observable)
 

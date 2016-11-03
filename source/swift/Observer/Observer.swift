@@ -50,7 +50,7 @@ extension Observer
 /*
 Provides an easy access to handler weakening methods within the class.
 */
-public protocol ObserverHandler: AnyObject
+public protocol ObserverHandler: class
 {
     func weakenHandler(method: (Self) -> Observer.Block) -> Observer.Block
 }

@@ -7,14 +7,14 @@ and local contexts.
 public class EventObserver: Observer
 {
     public typealias SELF = EventObserver
-    public typealias GlobalEventHandler = (event:NSEvent) -> ()
-    public typealias LocalEventHandler = (event:NSEvent) -> NSEvent?
+    public typealias GlobalEventHandler = (event: NSEvent) -> ()
+    public typealias LocalEventHandler = (event: NSEvent) -> NSEvent?
 
-    public typealias GlobalHandlerBlock = (event:NSEvent) -> Void
-    public typealias GlobalConventionHandlerBlock = @convention(block) (event:NSEvent) -> Void
+    public typealias GlobalHandlerBlock = (event: NSEvent) -> Void
+    public typealias GlobalConventionHandlerBlock = @convention(block) (event: NSEvent) -> Void
 
-    public typealias LocalHandlerBlock = (event:NSEvent) -> NSEvent?
-    public typealias LocalConventionHandlerBlock = @convention(block) (event:NSEvent) -> NSEvent?
+    public typealias LocalHandlerBlock = (event: NSEvent) -> NSEvent?
+    public typealias LocalConventionHandlerBlock = @convention(block) (event: NSEvent) -> NSEvent?
 
     override public var active: Bool {
         didSet {
@@ -161,8 +161,8 @@ extension EventObserver
     public class HandlerDefinition: Equatable
     {
         public typealias SELF = HandlerDefinition
-        public typealias Handler = (original:Any, global:Any?, local:Any?)
-        public typealias Monitor = (global:AnyObject?, local:AnyObject?)
+        public typealias Handler = (original: Any, global: Any?, local: Any?)
+        public typealias Monitor = (global: AnyObject?, local: AnyObject?)
 
         public private(set) var mask: NSEventMask
         public private(set) var handler: Handler

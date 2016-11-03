@@ -12,13 +12,8 @@ public class NotificationObserverTestCase: XCTestCase
         var foo: Int = 0
         var bar: Int = 0
 
-        try! observer.add("foo", observable: nil) {
-            foo += 1
-        }
-
-        try! observer.add("bar", observable: observable) {
-            bar += 1
-        }
+        try! observer.add("foo", observable: nil) { foo += 1 }
+        try! observer.add("bar", observable: observable) { bar += 1 }
 
         // Foo will get caught on all objects, bar will only be caught on observable.
 
@@ -29,11 +24,11 @@ public class NotificationObserverTestCase: XCTestCase
 
         expect(foo).to(equal(2))
         expect(bar).to(equal(1))
-        
+
         // Deactivated observer must not catch anything.
-        
+
         observer.active = false
-        
+
         center.postNotificationName("foo", object: observable)
         center.postNotificationName("bar", object: observable)
 

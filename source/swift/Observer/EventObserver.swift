@@ -7,14 +7,14 @@ and local contexts.
 public class EventObserver: Observer
 {
     public typealias SELF = EventObserver
-    public typealias GlobalEventHandler = (event:NSEvent) -> ()
-    public typealias LocalEventHandler = (event:NSEvent) -> NSEvent?
+    public typealias GlobalEventHandler = (event: NSEvent) -> ()
+    public typealias LocalEventHandler = (event: NSEvent) -> NSEvent?
 
-    public typealias GlobalHandlerBlock = (event:NSEvent) -> Void
-    public typealias GlobalConventionHandlerBlock = @convention(block) (event:NSEvent) -> Void
+    public typealias GlobalHandlerBlock = (event: NSEvent) -> Void
+    public typealias GlobalConventionHandlerBlock = @convention(block) (event: NSEvent) -> Void
 
-    public typealias LocalHandlerBlock = (event:NSEvent) -> NSEvent?
-    public typealias LocalConventionHandlerBlock = @convention(block) (event:NSEvent) -> NSEvent?
+    public typealias LocalHandlerBlock = (event: NSEvent) -> NSEvent?
+    public typealias LocalConventionHandlerBlock = @convention(block) (event: NSEvent) -> NSEvent?
 
     override public var active: Bool {
         didSet {
@@ -57,10 +57,16 @@ public class EventObserver: Observer
         // @formatter:off
         if handler is Block {
             globalEventHandler = global ? { (event: NSEvent) in (handler as! Block)() } : nil
-            localEventHandler = local ? { (event: NSEvent) -> NSEvent? in (handler as! Block)(); return event } : nil
+            localEventHandler = local ? { (event: NSEvent) -> NSEvent? in
+                (handler as! Block)();
+                return event
+                } : nil
         } else if handler is ConventionBlock {
             globalEventHandler = global ? { (event: NSEvent) in (handler as! ConventionBlock)() } : nil
-            localEventHandler = local ? { (event: NSEvent) -> NSEvent? in (handler as! ConventionBlock)(); return event } : nil
+            localEventHandler = local ? { (event: NSEvent) -> NSEvent? in
+                (handler as! ConventionBlock)();
+                return event
+                } : nil
         } else if handler is LocalEventHandler {
             globalEventHandler = global ? { (event: NSEvent) in (handler as! LocalEventHandler)(event: event) } : nil
             localEventHandler = local ? handler as? LocalEventHandler : nil
@@ -69,10 +75,16 @@ public class EventObserver: Observer
             localEventHandler = local ? handler as? LocalConventionHandlerBlock : nil
         } else if handler is GlobalEventHandler {
             globalEventHandler = global ? handler as? GlobalEventHandler : nil
-            localEventHandler = local ? { (event: NSEvent) -> NSEvent? in (handler as! GlobalEventHandler)(event: event); return event } : nil
+            localEventHandler = local ? { (event: NSEvent) -> NSEvent? in
+                (handler as! GlobalEventHandler)(event: event);
+                return event
+                } : nil
         } else if handler is GlobalConventionHandlerBlock {
             globalEventHandler = global ? handler as? GlobalConventionHandlerBlock : nil
-            localEventHandler = local ? { (event: NSEvent) -> NSEvent? in (handler as! GlobalConventionHandlerBlock)(event: event); return event } : nil
+            localEventHandler = local ? { (event: NSEvent) -> NSEvent? in
+                (handler as! GlobalConventionHandlerBlock)(event: event);
+                return event
+                } : nil
         }
         // @formatter:on
 
@@ -161,8 +173,8 @@ extension EventObserver
     public class HandlerDefinition: Equatable
     {
         public typealias SELF = HandlerDefinition
-        public typealias Handler = (original:Any, global:Any?, local:Any?)
-        public typealias Monitor = (global:AnyObject?, local:AnyObject?)
+        public typealias Handler = (original: Any, global: Any?, local: Any?)
+        public typealias Monitor = (global: AnyObject?, local: AnyObject?)
 
         public private(set) var mask: NSEventMask
         public private(set) var handler: Handler

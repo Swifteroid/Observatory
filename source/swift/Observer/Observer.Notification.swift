@@ -7,8 +7,8 @@ notification handler observer creates handler definition – it manages that spe
 public class NotificationObserver: Observer
 {
     public typealias SELF = NotificationObserver
-    public typealias HandlerBlock = (notification:NSNotification) -> ()
-    public typealias ConventionHandlerBlock = @convention(block) (notification:NSNotification) -> ()
+    public typealias HandlerBlock = (notification: NSNotification) -> ()
+    public typealias ConventionHandlerBlock = @convention(block) (notification: NSNotification) -> ()
 
     override public var active: Bool {
         didSet {
@@ -43,7 +43,7 @@ public class NotificationObserver: Observer
     }
 
     /*
-    Create new observaion for the specified notification name and observable target.
+    Create new observation for the specified notification name and observable target.
     */
     func add(name: String, observable: AnyObject?, queue: NSOperationQueue?, handler: Any) throws -> SELF {
         var notificationHandler: Any
@@ -100,9 +100,9 @@ public class NotificationObserver: Observer
         while i < n {
             if let definition: HandlerDefinition = self.definitions[i] where (name == nil && !strict || definition.name == name) && (observable == nil && !strict || definition.observable === observable) && (queue == nil && !strict || definition.queue === queue) && (handler == nil && !strict || handler != nil && SELF.compareBlocks(definition.handler.original, handler)) {
                 self.definitions.removeAtIndex(i)
-                
+
                 // Don't do `i -= 1` – this is not a for loop, these good days are in the past now…
-                
+
                 n -= 1
             } else {
                 i += 1
@@ -150,7 +150,7 @@ extension NotificationObserver
 
 extension NotificationObserver
 {
-    
+
     /*
     Handler definition provides a way of storing and managing individual notification handlers, most properties
     represent arguments passed into `NSNotificationCenter.addObserverForName` method.
@@ -158,7 +158,7 @@ extension NotificationObserver
     public class HandlerDefinition: Equatable
     {
         public typealias SELF = HandlerDefinition
-        public typealias Handler = (original:Any, normalised:Any)
+        public typealias Handler = (original: Any, normalised: Any)
 
         public private(set) var name: String
         public private(set) var observable: AnyObject?
