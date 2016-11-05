@@ -100,9 +100,6 @@ public class NotificationObserver: Observer
         while i < n {
             if let definition: HandlerDefinition = self.definitions[i] where (name == nil && !strict || definition.name == name) && (observable == nil && !strict || definition.observable === observable) && (queue == nil && !strict || definition.queue === queue) && (handler == nil && !strict || handler != nil && SELF.compareBlocks(definition.handler.original, handler)) {
                 self.definitions.removeAtIndex(i)
-
-                // Don't do `i -= 1` – this is not a for loop, these good days are in the past now…
-
                 n -= 1
             } else {
                 i += 1
@@ -202,7 +199,8 @@ extension NotificationObserver
 }
 
 public func ==(left: NotificationObserver.HandlerDefinition, right: NotificationObserver.HandlerDefinition) -> Bool {
-    return left.name == right.name &&
+    return true &&
+        left.name == right.name &&
         left.observable === right.observable &&
         left.queue == right.queue &&
         NotificationObserver.compareBlocks(left.handler.original, right.handler.original)

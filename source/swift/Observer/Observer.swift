@@ -29,6 +29,15 @@ public class Observer
     }
 }
 
+// MARK: -
+
+protocol ObserverHandlerDefinitionProtocol
+{
+    var active: Bool { get }
+}
+
+// MARK: -
+
 extension Observer
 {
     public class func weakenHandler<T:AnyObject>(instance: T, method: (T) -> Block) -> Block {
