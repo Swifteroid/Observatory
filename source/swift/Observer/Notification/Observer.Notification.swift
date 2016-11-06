@@ -1,8 +1,8 @@
 import Foundation
 
 /*
-Notification observer provides an interface for registering and managing multiple notification handlers. When we register  
-notification handler observer creates handler definition – it manages that specific notification-handler association. 
+Notification observer provides an interface for registering and managing multiple notification handlers. When we register
+notification handler observer creates handler definition – it manages that specific notification-handler association.
 */
 public class NotificationObserver: Observer
 {
@@ -31,7 +31,9 @@ public class NotificationObserver: Observer
     /*
     Registered notification handler definitions.
     */
-    internal var definitions: [HandlerDefinition] = []
+    public private(set) var definitions: [HandlerDefinition] = []
+
+    // MARK: -
 
     public init(center: NSNotificationCenter? = nil) {
         self.center = center ?? NSNotificationCenter.defaultCenter()
@@ -42,10 +44,12 @@ public class NotificationObserver: Observer
         self.active = active
     }
 
+    // MARK: -
+
     /*
     Create new observation for the specified notification name and observable target.
     */
-    func add(name: String, observable: AnyObject?, queue: NSOperationQueue?, handler: Any) throws -> SELF {
+    public func add(name: String, observable: AnyObject?, queue: NSOperationQueue?, handler: Any) throws -> SELF {
         var notificationHandler: Any
 
         if handler is Block {
@@ -129,12 +133,14 @@ public class NotificationObserver: Observer
         return self.remove(nil, observable: observable, queue: nil, handler: nil, strict: false)
     }
 
-    override public class func compareBlocks(block1: Any, _ block2: Any) -> Bool {
-        if block1 is ConventionHandlerBlock && block2 is ConventionHandlerBlock && unsafeBitCast(block1 as! ConventionHandlerBlock, AnyObject.self) === unsafeBitCast(block2 as! ConventionHandlerBlock, AnyObject.self) {
-            return true
-        }
+    // MARK: -
 
-        return Observer.compareBlocks(block1, block2)
+    override public class func compareBlocks(lhs: Any, _ rhs: Any) -> Bool {
+        if lhs is ConventionHandlerBlock && rhs is ConventionHandlerBlock {
+            return unsafeBitCast(lhs as! ConventionHandlerBlock, AnyObject.self) === unsafeBitCast(rhs as! ConventionHandlerBlock, AnyObject.self)
+        } else {
+            return Observer.compareBlocks(lhs, rhs)
+        }
     }
 }
 
@@ -143,67 +149,6 @@ extension NotificationObserver
     public class func weakenHandler<T:AnyObject>(instance: T, method: (T) -> HandlerBlock) -> HandlerBlock {
         return { [unowned instance] (notification: NSNotification) in method(instance)(notification: notification) }
     }
-}
-
-extension NotificationObserver
-{
-
-    /*
-    Handler definition provides a way of storing and managing individual notification handlers, most properties
-    represent arguments passed into `NSNotificationCenter.addObserverForName` method.
-    */
-    public class HandlerDefinition: Equatable
-    {
-        public typealias SELF = HandlerDefinition
-        public typealias Handler = (original: Any, normalised: Any)
-
-        public private(set) var name: String
-        public private(set) var observable: AnyObject?
-        public private(set) var queue: NSOperationQueue?
-        public private(set) var handler: Handler
-
-        public private(set) var observer: AnyObject?
-        public private(set) var center: NSNotificationCenter?
-
-        init(name: String, observable: AnyObject?, queue: NSOperationQueue?, handler: Handler) {
-            self.name = name
-            self.observable = observable
-            self.queue = queue
-            self.handler = handler
-        }
-
-        /*
-        Activates definition by attaching handler to specified notification center.  
-        */
-        public func activate(center: NSNotificationCenter) -> SELF {
-            if self.observer == nil {
-                self.observer = center.addObserverForName(self.name, object: self.observable, queue: self.queue, usingBlock: self.handler.normalised as! HandlerBlock)
-                self.center = center
-            }
-            return self
-        }
-
-        public func deactivate() -> SELF {
-            if let observer: AnyObject = self.observer, center: NSNotificationCenter = self.center {
-                center.removeObserver(observer)
-                self.observer = nil
-                self.center = nil
-            }
-            return self
-        }
-
-        deinit {
-            self.deactivate()
-        }
-    }
-}
-
-public func ==(left: NotificationObserver.HandlerDefinition, right: NotificationObserver.HandlerDefinition) -> Bool {
-    return true &&
-        left.name == right.name &&
-        left.observable === right.observable &&
-        left.queue == right.queue &&
-        NotificationObserver.compareBlocks(left.handler.original, right.handler.original)
 }
 
 public protocol NotificationObserverHandler: ObserverHandler

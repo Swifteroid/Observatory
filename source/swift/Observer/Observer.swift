@@ -2,38 +2,34 @@ import Foundation
 
 public class Observer
 {
-    /*
-    Block is a very basic callback. 
-    */
-    public typealias Block = () -> Void
+    public typealias Block = () -> ()
 
     /*
     Convention block represents an Objective-C compatible closure, which is stored as reference – the main reason
-    to have it is it's ability to be compared against other blocks.
+    to have it is it's ability to be compared against other blocks. This is useful when we want to be able to remove
+    handlers observer by handler as well as other parameters.
     */
-    public typealias ConventionBlock = @convention(block) () -> Void
+    public typealias ConventionBlock = @convention(block) () -> ()
 
     /* 
     Specifies whether the observer is active or not.
     */
     public var active: Bool = false
 
+    // MARK: -
+
     public init() {
     }
 
-    /*
-    Compares two blocks for equality.
-    */
-    public class func compareBlocks(block1: Any, _ block2: Any) -> Bool {
-        return block1 is ConventionBlock && block2 is ConventionBlock && unsafeBitCast(block1 as! ConventionBlock, AnyObject.self) === unsafeBitCast(block2 as! ConventionBlock, AnyObject.self)
+    // MARK: -
+
+    public class func compareBlocks(lhs: Any, _ rhs: Any) -> Bool {
+        if (lhs is ConventionBlock && rhs is ConventionBlock) {
+            return unsafeBitCast(lhs as! ConventionBlock, AnyObject.self) === unsafeBitCast(rhs as! ConventionBlock, AnyObject.self)
+        } else {
+            return false
+        }
     }
-}
-
-// MARK: -
-
-protocol ObserverHandlerDefinitionProtocol
-{
-    var active: Bool { get }
 }
 
 // MARK: -
