@@ -7,32 +7,24 @@ and local contexts.
 public class EventObserver: Observer
 {
     public typealias SELF = EventObserver
-    public typealias GlobalEventHandler = (event: NSEvent) -> ()
-    public typealias LocalEventHandler = (event: NSEvent) -> NSEvent?
-
-    public typealias GlobalHandlerBlock = (event: NSEvent) -> Void
-    public typealias GlobalConventionHandlerBlock = @convention(block) (event: NSEvent) -> Void
-
-    public typealias LocalHandlerBlock = (event: NSEvent) -> NSEvent?
-    public typealias LocalConventionHandlerBlock = @convention(block) (event: NSEvent) -> NSEvent?
 
     override public var active: Bool {
         didSet {
             if oldValue == self.active {
                 return
             } else if self.active {
-                for definition: HandlerDefinition in self.definitions {
+                for definition: EventObserverHandlerDefinition in self.definitions {
                     definition.activate()
                 }
             } else {
-                for definition: HandlerDefinition in self.definitions {
+                for definition: EventObserverHandlerDefinition in self.definitions {
                     definition.deactivate()
                 }
             }
         }
     }
 
-    internal var definitions: [HandlerDefinition] = []
+    public internal(set) var definitions: [EventObserverHandlerDefinition] = []
 
     // MARK: -
 
@@ -47,52 +39,10 @@ public class EventObserver: Observer
     Add new event observation and activate it if observer is active. 
     */
     public func add(mask: NSEventMask, global: Bool, local: Bool, handler: Any) throws -> SELF {
-        if !global && !local {
-            throw Error.UnspecifiedContext
-        }
+        let factory: EventObserverHandlerDefinitionFactory = EventObserverHandlerDefinitionFactory(mask: mask, global: global, local: local, handler: handler)
+        let definition: EventObserverHandlerDefinition = try! factory.construct()
 
-        var localEventHandler: Any?
-        var globalEventHandler: Any?
-
-        // Verify that we can work with the given handler, by default both handlers receive event object, local handlers 
-        // must also return event in case it should continue dispatching. We may not always need or want to implement any 
-        // of these, therefore if we normalise all recognised relaxed signatures here before storing them.
-
-        // @formatter:off
-        if handler is Block {
-            globalEventHandler = global ? { (event: NSEvent) in (handler as! Block)() } : nil
-            localEventHandler = local ? { (event: NSEvent) -> NSEvent? in (handler as! Block)(); return event } : nil
-        } else if handler is ConventionBlock {
-            globalEventHandler = global ? { (event: NSEvent) in (handler as! ConventionBlock)() } : nil
-            localEventHandler = local ? { (event: NSEvent) -> NSEvent? in (handler as! ConventionBlock)(); return event } : nil
-        } else if handler is LocalEventHandler {
-            globalEventHandler = global ? { (event: NSEvent) in (handler as! LocalEventHandler)(event: event) } : nil
-            localEventHandler = local ? handler as? LocalEventHandler : nil
-        } else if handler is LocalConventionHandlerBlock {
-            globalEventHandler = global ? { (event: NSEvent) in (handler as! LocalConventionHandlerBlock)(event: event) } : nil
-            localEventHandler = local ? handler as? LocalConventionHandlerBlock : nil
-        } else if handler is GlobalEventHandler {
-            globalEventHandler = global ? handler as? GlobalEventHandler : nil
-            localEventHandler = local ? { (event: NSEvent) -> NSEvent? in (handler as! GlobalEventHandler)(event: event); return event } : nil
-        } else if handler is GlobalConventionHandlerBlock {
-            globalEventHandler = global ? handler as? GlobalConventionHandlerBlock : nil
-            localEventHandler = local ? { (event: NSEvent) -> NSEvent? in (handler as! GlobalConventionHandlerBlock)(event: event); return event } : nil
-        }
-        // @formatter:on
-
-        if global && globalEventHandler == nil || local && localEventHandler == nil {
-            throw Error.UnrecognisedHandlerSignature
-        }
-
-        let definition: HandlerDefinition = HandlerDefinition(mask: mask, handler: (original: handler, global: globalEventHandler, local: localEventHandler))
-
-        // Make sure we're not adding the same definition twice and register observer with notification center
-        // if observer is active. Comparison of handlers would only work with @convention(block) signatures.
-
-        if self.definitions.contains(definition) {
-            return self
-        }
-
+        guard !self.definitions.contains(definition) else { return self }
         self.definitions.append(self.active ? definition.activate() : definition)
 
         return self
@@ -107,7 +57,7 @@ public class EventObserver: Observer
         var n: Int = self.definitions.count
 
         while i < n {
-            if let definition: HandlerDefinition = self.definitions[i] where mask == definition.mask && (handler == nil || SELF.compareBlocks(definition.handler.original, handler)) {
+            if let definition: EventObserverHandlerDefinition = self.definitions[i] where mask == definition.mask && (handler == nil || SELF.compareBlocks(definition.handler.original, handler)) {
                 self.definitions.removeAtIndex(i)
 
                 // Don't do `i -= 1` – this is not a for loop, these good days are in the bast now…
@@ -124,10 +74,10 @@ public class EventObserver: Observer
     // MARK: -
 
     override public class func compareBlocks(lhs: Any, _ rhs: Any) -> Bool {
-        if lhs is GlobalConventionHandlerBlock && rhs is GlobalConventionHandlerBlock {
-            return unsafeBitCast(lhs as! GlobalConventionHandlerBlock, AnyObject.self) === unsafeBitCast(rhs as! GlobalConventionHandlerBlock, AnyObject.self)
-        } else if lhs is LocalConventionHandlerBlock && rhs is LocalConventionHandlerBlock {
-            return unsafeBitCast(lhs as! LocalConventionHandlerBlock, AnyObject.self) === unsafeBitCast(rhs as! LocalConventionHandlerBlock, AnyObject.self)
+        if lhs is EventObserverConventionHandler.Global && rhs is EventObserverConventionHandler.Global {
+            return unsafeBitCast(lhs as! EventObserverConventionHandler.Global, AnyObject.self) === unsafeBitCast(rhs as! EventObserverConventionHandler.Global, AnyObject.self)
+        } else if lhs is EventObserverConventionHandler.Local && rhs is EventObserverConventionHandler.Local {
+            return unsafeBitCast(lhs as! EventObserverConventionHandler.Local, AnyObject.self) === unsafeBitCast(rhs as! EventObserverConventionHandler.Local, AnyObject.self)
         } else {
             return Observer.compareBlocks(lhs, rhs)
         }
@@ -138,40 +88,29 @@ public class EventObserver: Observer
 
 extension EventObserver
 {
-    public class func weakenHandler<T:AnyObject>(instance: T, method: (T) -> GlobalEventHandler) -> GlobalEventHandler {
+    public class func weakenHandler<T:AnyObject>(instance: T, method: (T) -> EventObserverHandler.Global) -> EventObserverHandler.Global {
         return { [unowned instance] (event: NSEvent) in method(instance)(event: event) }
     }
 
-    public class func weakenHandler<T:AnyObject>(instance: T, method: (T) -> LocalEventHandler) -> LocalEventHandler {
+    public class func weakenHandler<T:AnyObject>(instance: T, method: (T) -> EventObserverHandler.Local) -> EventObserverHandler.Local {
         return { [unowned instance] (event: NSEvent) in method(instance)(event: event) }
     }
 }
 
-extension EventObserver
+public protocol EventObserverHandlerProtocol: ObserverHandlerProtocol
 {
-    public enum Error: ErrorType
-    {
-        /*
-        Event context, global or local, was not specified. 
-        */
-        case UnspecifiedContext
-    }
+    func weakenHandler(method: (Self) -> EventObserverHandler.Global) -> EventObserverHandler.Global
+
+    func weakenHandler(method: (Self) -> EventObserverHandler.Local) -> EventObserverHandler.Local
 }
 
-public protocol EventObserverHandler: ObserverHandler
+extension EventObserverHandlerProtocol
 {
-    func weakenHandler(method: (Self) -> EventObserver.GlobalEventHandler) -> EventObserver.GlobalEventHandler
-
-    func weakenHandler(method: (Self) -> EventObserver.LocalEventHandler) -> EventObserver.LocalEventHandler
-}
-
-extension EventObserverHandler
-{
-    public func weakenHandler(method: (Self) -> EventObserver.GlobalEventHandler) -> EventObserver.GlobalEventHandler {
+    public func weakenHandler(method: (Self) -> EventObserverHandler.Global) -> EventObserverHandler.Global {
         return EventObserver.weakenHandler(self, method: method)
     }
 
-    public func weakenHandler(method: (Self) -> EventObserver.LocalEventHandler) -> EventObserver.LocalEventHandler {
+    public func weakenHandler(method: (Self) -> EventObserverHandler.Local) -> EventObserverHandler.Local {
         return EventObserver.weakenHandler(self, method: method)
     }
 }

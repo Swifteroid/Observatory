@@ -20,8 +20,14 @@
 		6948DEFF8C292066D8801689 /* Observer.HotKey.HandlerDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696C2D8AB42589661E0DC10D /* Observer.HotKey.HandlerDefinition.swift */; };
 		695A02AC8AE48193A0337C20 /* Extension.Carbon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E201FF597397654B4DD260 /* Extension.Carbon.swift */; };
 		695FF209EE4580CAB7B1C9BC /* Observer.HotKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696A7EB556F2791741F92DE2 /* Observer.HotKey.swift */; };
+		697761271895402059498DAC /* Observer.HotKey.HandlerDefinition.Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692A68A7E172C8358C84D97C /* Observer.HotKey.HandlerDefinition.Factory.swift */; };
 		69867A0A91B27CAC21F1671E /* Observer.Event.HandlerDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69470962620FF547E76616CE /* Observer.Event.HandlerDefinition.swift */; };
+		699E980FBC6FA145482C74DF /* Observer.Notification.Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69254F6F79273CD9E99E7841 /* Observer.Notification.Handler.swift */; };
+		69A6BC05F61D96900EAAD5DA /* Observer.Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E0D8F18036BFA1A3BCEFC2 /* Observer.Handler.swift */; };
+		69AA70DB746B33D42CFE0A7B /* Observer.Event.Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E15852F13756EC20445E2A /* Observer.Event.Handler.swift */; };
 		69AB467ABC16748E0936AB58 /* Observer.HandlerDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6942C9E9427EDEACDF0BC0A4 /* Observer.HandlerDefinition.swift */; };
+		69B6923163F303A78F99ACDA /* Observer.Notification.HandlerDefinition.Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F7CB1685C91617071B3A44 /* Observer.Notification.HandlerDefinition.Factory.swift */; };
+		69EBE204779A71AC666F4364 /* Observer.Event.HandlerDefinition.Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6939BF2B84BEA59EDEC4361B /* Observer.Event.HandlerDefinition.Factory.swift */; };
 		E69200F81CDDE19200C4FEAD /* Observatory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6D7642A1CDDBA100071CCB0 /* Observatory.framework */; };
 		E69200FE1CDDE73200C4FEAD /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17FD067B10D4AE9721BC1CFD /* Nimble.framework */; };
 		E69200FF1CDDE73200C4FEAD /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17FD0C2A7528C09C26213A9F /* Quick.framework */; };
@@ -65,6 +71,9 @@
 		17FD0C595B95409A07A95D6C /* Observatory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Observatory.h; sourceTree = "<group>"; };
 		17FD0FB52C88D5670C574EAD /* Test.Observer.Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Observer.Notification.swift; sourceTree = "<group>"; };
 		6913548B96119D429F0C99EF /* Test.Observer.HotKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Observer.HotKey.swift; sourceTree = "<group>"; };
+		69254F6F79273CD9E99E7841 /* Observer.Notification.Handler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Notification.Handler.swift; sourceTree = "<group>"; };
+		692A68A7E172C8358C84D97C /* Observer.HotKey.HandlerDefinition.Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.HotKey.HandlerDefinition.Factory.swift; sourceTree = "<group>"; };
+		6939BF2B84BEA59EDEC4361B /* Observer.Event.HandlerDefinition.Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Event.HandlerDefinition.Factory.swift; sourceTree = "<group>"; };
 		6942C9E9427EDEACDF0BC0A4 /* Observer.HandlerDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = file.HandlerDefinition; path = Observer.HandlerDefinition.swift; sourceTree = "<group>"; };
 		69470962620FF547E76616CE /* Observer.Event.HandlerDefinition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Event.HandlerDefinition.swift; sourceTree = "<group>"; };
 		695AFB416AF0439638564057 /* Observer.Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Event.swift; sourceTree = "<group>"; };
@@ -73,7 +82,10 @@
 		696C2D8AB42589661E0DC10D /* Observer.HotKey.HandlerDefinition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.HotKey.HandlerDefinition.swift; sourceTree = "<group>"; };
 		69B3F997388A2645D8C2D0B2 /* Observer.Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Notification.swift; sourceTree = "<group>"; };
 		69D782B1BF1A76BD24B7144E /* Cartfile.resolved */ = {isa = PBXFileReference; lastKnownFileType = file.resolved; path = Cartfile.resolved; sourceTree = "<group>"; };
+		69E0D8F18036BFA1A3BCEFC2 /* Observer.Handler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Handler.swift; sourceTree = "<group>"; };
+		69E15852F13756EC20445E2A /* Observer.Event.Handler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Event.Handler.swift; sourceTree = "<group>"; };
 		69E201FF597397654B4DD260 /* Extension.Carbon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.Carbon.swift; sourceTree = "<group>"; };
+		69F7CB1685C91617071B3A44 /* Observer.Notification.HandlerDefinition.Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Notification.HandlerDefinition.Factory.swift; sourceTree = "<group>"; };
 		E69200F31CDDE19100C4FEAD /* Test.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Test.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6D7642A1CDDBA100071CCB0 /* Observatory.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Observatory.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -107,6 +119,7 @@
 				691AEF60DB80C628D185744A /* Event */,
 				69A59FF244500EA45A883E55 /* HotKey */,
 				6942C9E9427EDEACDF0BC0A4 /* Observer.HandlerDefinition.swift */,
+				69E0D8F18036BFA1A3BCEFC2 /* Observer.Handler.swift */,
 			);
 			path = Observer;
 			sourceTree = "<group>";
@@ -222,6 +235,8 @@
 			children = (
 				695AFB416AF0439638564057 /* Observer.Event.swift */,
 				69470962620FF547E76616CE /* Observer.Event.HandlerDefinition.swift */,
+				6939BF2B84BEA59EDEC4361B /* Observer.Event.HandlerDefinition.Factory.swift */,
+				69E15852F13756EC20445E2A /* Observer.Event.Handler.swift */,
 			);
 			path = Event;
 			sourceTree = "<group>";
@@ -239,6 +254,8 @@
 			children = (
 				69B3F997388A2645D8C2D0B2 /* Observer.Notification.swift */,
 				695DF646AEDFDC84B4C56D91 /* Observer.Notification.HandlerDefinition.swift */,
+				69F7CB1685C91617071B3A44 /* Observer.Notification.HandlerDefinition.Factory.swift */,
+				69254F6F79273CD9E99E7841 /* Observer.Notification.Handler.swift */,
 			);
 			path = Notification;
 			sourceTree = "<group>";
@@ -248,6 +265,7 @@
 			children = (
 				696A7EB556F2791741F92DE2 /* Observer.HotKey.swift */,
 				696C2D8AB42589661E0DC10D /* Observer.HotKey.HandlerDefinition.swift */,
+				692A68A7E172C8358C84D97C /* Observer.HotKey.HandlerDefinition.Factory.swift */,
 			);
 			path = HotKey;
 			sourceTree = "<group>";
@@ -393,6 +411,12 @@
 				693FF17545F4335ED9AC31D8 /* Observer.Notification.HandlerDefinition.swift in Sources */,
 				6948DEFF8C292066D8801689 /* Observer.HotKey.HandlerDefinition.swift in Sources */,
 				69867A0A91B27CAC21F1671E /* Observer.Event.HandlerDefinition.swift in Sources */,
+				69EBE204779A71AC666F4364 /* Observer.Event.HandlerDefinition.Factory.swift in Sources */,
+				69AA70DB746B33D42CFE0A7B /* Observer.Event.Handler.swift in Sources */,
+				69A6BC05F61D96900EAAD5DA /* Observer.Handler.swift in Sources */,
+				697761271895402059498DAC /* Observer.HotKey.HandlerDefinition.Factory.swift in Sources */,
+				69B6923163F303A78F99ACDA /* Observer.Notification.HandlerDefinition.Factory.swift in Sources */,
+				699E980FBC6FA145482C74DF /* Observer.Notification.Handler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

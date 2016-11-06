@@ -1,69 +1,67 @@
 import Foundation
 
-extension EventObserver
+public class EventObserverHandlerDefinition: ObserverHandlerDefinition, Equatable
 {
-    public class HandlerDefinition: Equatable
-    {
-        public typealias SELF = HandlerDefinition
-        public typealias Handler = (original: Any, global: Any?, local: Any?)
-        public typealias Monitor = (global: AnyObject?, local: AnyObject?)
+    public typealias Handler = (original: Any, global: Any?, local: Any?)
+    public typealias Monitor = (global: AnyObject?, local: AnyObject?)
 
-        public private(set) var mask: NSEventMask
-        public private(set) var handler: Handler
+    public private(set) var mask: NSEventMask
+    public private(set) var handler: Handler
 
-        public private(set) var monitor: Monitor?
+    public private(set) var monitor: Monitor?
 
-        // MARK: -
+    // MARK: -
 
-        init(mask: NSEventMask, handler: Handler) {
-            self.mask = mask
-            self.handler = handler
-        }
+    init(mask: NSEventMask, handler: Handler) {
+        self.mask = mask
+        self.handler = handler
+    }
 
-        // MARK: -
+    // MARK: -
 
-        public func activate() -> SELF {
-            if self.monitor == nil {
-                var monitor: Monitor = Monitor(local: nil, global: nil)
+    public func activate() -> Self {
+        if self.monitor == nil {
+            var monitor: Monitor = Monitor(local: nil, global: nil)
 
-                if let handler: GlobalEventHandler = self.handler.local as? GlobalEventHandler {
-                    monitor.global = NSEvent.addGlobalMonitorForEventsMatchingMask(self.mask, handler: handler)
-                }
-
-                if let handler: LocalEventHandler = self.handler.local as? LocalEventHandler {
-                    monitor.local = NSEvent.addLocalMonitorForEventsMatchingMask(self.mask, handler: handler)
-                }
-
-                self.monitor = monitor
+            if let handler: EventObserverHandler.Global = self.handler.local as? EventObserverHandler.Global {
+                monitor.global = NSEvent.addGlobalMonitorForEventsMatchingMask(self.mask, handler: handler)
             }
-            return self
-        }
 
-        public func deactivate() -> SELF {
-            if let monitor: Monitor = self.monitor {
-                if let monitor: AnyObject = monitor.local {
-                    NSEvent.removeMonitor(monitor)
-                }
-
-                if let monitor: AnyObject = monitor.global {
-                    NSEvent.removeMonitor(monitor)
-                }
-
-                self.monitor = nil
+            if let handler: EventObserverHandler.Local = self.handler.local as? EventObserverHandler.Local {
+                monitor.local = NSEvent.addLocalMonitorForEventsMatchingMask(self.mask, handler: handler)
             }
-            return self
+
+            self.monitor = monitor
         }
 
-        deinit {
-            self.deactivate()
+        return self
+    }
+
+    public func deactivate() -> Self {
+        if let monitor: Monitor = self.monitor {
+            if let monitor: AnyObject = monitor.local {
+                NSEvent.removeMonitor(monitor)
+            }
+
+            if let monitor: AnyObject = monitor.global {
+                NSEvent.removeMonitor(monitor)
+            }
+
+            self.monitor = nil
         }
+
+        return self
+    }
+
+    deinit {
+        self.deactivate()
     }
 }
 
-public func ==(left: EventObserver.HandlerDefinition, right: EventObserver.HandlerDefinition) -> Bool {
+public func ==(lhs: EventObserverHandlerDefinition, rhs: EventObserverHandlerDefinition) -> Bool {
     return true &&
-        left.mask == right.mask &&
-        EventObserver.compareBlocks(left.handler.original, right.handler.original) &&
-        (left.handler.global == nil && right.handler.global == nil || left.handler.global != nil && right.handler.global != nil) &&
-        (left.handler.local == nil && right.handler.local == nil || left.handler.local != nil && right.handler.local != nil)
+        lhs.mask == rhs.mask &&
+        EventObserver.compareBlocks(lhs.handler.original, rhs.handler.original) &&
+        (lhs.handler.global == nil && rhs.handler.global == nil || lhs.handler.global != nil && rhs.handler.global != nil) &&
+        (lhs.handler.local == nil && rhs.handler.local == nil || lhs.handler.local != nil && rhs.handler.local != nil)
 }

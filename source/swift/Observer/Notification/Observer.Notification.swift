@@ -7,19 +7,19 @@ notification handler observer creates handler definition – it manages that spe
 public class NotificationObserver: Observer
 {
     public typealias SELF = NotificationObserver
-    public typealias HandlerBlock = (notification: NSNotification) -> ()
-    public typealias ConventionHandlerBlock = @convention(block) (notification: NSNotification) -> ()
+
+    // MARK: -
 
     override public var active: Bool {
         didSet {
             if self.active == oldValue {
                 return
             } else if self.active {
-                for definition: HandlerDefinition in self.definitions {
+                for definition: NotificationObserverHandlerDefinition in self.definitions {
                     definition.activate(self.center)
                 }
             } else {
-                for definition: HandlerDefinition in self.definitions {
+                for definition: NotificationObserverHandlerDefinition in self.definitions {
                     definition.deactivate()
                 }
             }
@@ -31,7 +31,7 @@ public class NotificationObserver: Observer
     /*
     Registered notification handler definitions.
     */
-    public private(set) var definitions: [HandlerDefinition] = []
+    public internal(set) var definitions: [NotificationObserverHandlerDefinition] = []
 
     // MARK: -
 
@@ -50,27 +50,10 @@ public class NotificationObserver: Observer
     Create new observation for the specified notification name and observable target.
     */
     public func add(name: String, observable: AnyObject?, queue: NSOperationQueue?, handler: Any) throws -> SELF {
-        var notificationHandler: Any
+        let factory: NotificationObserverHandlerDefinitionFactory = NotificationObserverHandlerDefinitionFactory(name: name, observable: observable, queue: queue, handler: handler)
+        let definition: NotificationObserverHandlerDefinition = try! factory.construct()
 
-        if handler is Block {
-            notificationHandler = { (notification: NSNotification) in (handler as! Block)() }
-        } else if handler is ConventionBlock {
-            notificationHandler = { (notification: NSNotification) in (handler as! ConventionBlock)() }
-        } else if handler is HandlerBlock || handler is ConventionHandlerBlock {
-            notificationHandler = handler
-        } else {
-            throw Error.UnrecognisedHandlerSignature
-        }
-
-        let definition: HandlerDefinition = HandlerDefinition(name: name, observable: observable, queue: queue, handler: (original: handler, normalised: notificationHandler))
-
-        // Make sure we're not adding the same definition twice and register observer with notification center
-        // if observer is active. Comparison of handlers would only work with @convention(block) signatures.
-
-        if self.definitions.contains(definition) {
-            return self
-        }
-
+        guard !self.definitions.contains(definition) else { return self }
         self.definitions.append(self.active ? definition.activate(center) : definition)
 
         return self
@@ -102,7 +85,7 @@ public class NotificationObserver: Observer
         var n: Int = self.definitions.count
 
         while i < n {
-            if let definition: HandlerDefinition = self.definitions[i] where (name == nil && !strict || definition.name == name) && (observable == nil && !strict || definition.observable === observable) && (queue == nil && !strict || definition.queue === queue) && (handler == nil && !strict || handler != nil && SELF.compareBlocks(definition.handler.original, handler)) {
+            if let definition: NotificationObserverHandlerDefinition = self.definitions[i] where (name == nil && !strict || definition.name == name) && (observable == nil && !strict || definition.observable === observable) && (queue == nil && !strict || definition.queue === queue) && (handler == nil && !strict || handler != nil && SELF.compareBlocks(definition.handler.original, handler)) {
                 self.definitions.removeAtIndex(i)
                 n -= 1
             } else {
@@ -136,8 +119,8 @@ public class NotificationObserver: Observer
     // MARK: -
 
     override public class func compareBlocks(lhs: Any, _ rhs: Any) -> Bool {
-        if lhs is ConventionHandlerBlock && rhs is ConventionHandlerBlock {
-            return unsafeBitCast(lhs as! ConventionHandlerBlock, AnyObject.self) === unsafeBitCast(rhs as! ConventionHandlerBlock, AnyObject.self)
+        if lhs is NotificationObserverConventionHandler && rhs is NotificationObserverConventionHandler {
+            return unsafeBitCast(lhs as! NotificationObserverConventionHandler, AnyObject.self) === unsafeBitCast(rhs as! NotificationObserverConventionHandler, AnyObject.self)
         } else {
             return Observer.compareBlocks(lhs, rhs)
         }
@@ -146,19 +129,19 @@ public class NotificationObserver: Observer
 
 extension NotificationObserver
 {
-    public class func weakenHandler<T:AnyObject>(instance: T, method: (T) -> HandlerBlock) -> HandlerBlock {
+    public class func weakenHandler<T:AnyObject>(instance: T, method: (T) -> NotificationObserverHandler) -> NotificationObserverHandler {
         return { [unowned instance] (notification: NSNotification) in method(instance)(notification: notification) }
     }
 }
 
-public protocol NotificationObserverHandler: ObserverHandler
+public protocol NotificationObserverHandlerProtocol: ObserverHandlerProtocol
 {
-    func weakenHandler(method: (Self) -> NotificationObserver.HandlerBlock) -> NotificationObserver.HandlerBlock
+    func weakenHandler(method: (Self) -> NotificationObserverHandler) -> NotificationObserverHandler
 }
 
-extension NotificationObserverHandler
+extension NotificationObserverHandlerProtocol
 {
-    public func weakenHandler(method: (Self) -> NotificationObserver.HandlerBlock) -> NotificationObserver.HandlerBlock {
+    public func weakenHandler(method: (Self) -> NotificationObserverHandler) -> NotificationObserverHandler {
         return NotificationObserver.weakenHandler(self, method: method)
     }
 }

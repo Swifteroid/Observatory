@@ -55,7 +55,7 @@ public class EventObserverTestCase: XCTestCase
 
 public class EventObserver: Observatory.EventObserver
 {
-    override public var definitions: [HandlerDefinition] {
+    override public var definitions: [EventObserverHandlerDefinition] {
         didSet {
         }
         willSet {

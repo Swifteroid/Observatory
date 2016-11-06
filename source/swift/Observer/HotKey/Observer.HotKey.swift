@@ -17,6 +17,8 @@ private func getEventHotKeyId(event: EventRef) -> EventHotKeyID {
     return pointer.memory
 }
 
+// MARK: -
+
 public class HotKeyObserver: Observer
 {
 
@@ -24,7 +26,7 @@ public class HotKeyObserver: Observer
 
     // MARK: -
 
-    internal var definitions: [HandlerDefinition] = []
+    public internal(set) var definitions: [HotKeyObserverHandlerDefinition] = []
 
     // MARK: -
 
@@ -90,7 +92,7 @@ public class HotKeyObserver: Observer
     private func handleHotKey(identifier: EventHotKeyID) {
         for definition in self.definitions {
             if definition.hotKeyIdentifier == identifier {
-                (definition.handler as! Block)()
+                (definition.handler as! ObserverHandler)()
                 break
             }
         }
@@ -106,23 +108,10 @@ public class HotKeyObserver: Observer
     // MARK: -
 
     public func add(key: UInt32, modifier: UInt32, handler: Any) throws -> HotKeyObserver {
-        var hotKeyHandler: Any
+        let factory: HotKeyObserverHandlerDefinitionFactory = HotKeyObserverHandlerDefinitionFactory(key: key, modifier: modifier, handler: handler)
+        let definition: HotKeyObserverHandlerDefinition = try! factory.construct()
 
-        if handler is Block || handler is ConventionBlock {
-            hotKeyHandler = handler
-        } else {
-            throw Observer.Error.UnrecognisedHandlerSignature
-        }
-
-        let definition: HandlerDefinition = HandlerDefinition(key: key, modifier: modifier, handler: hotKeyHandler)
-
-        // Make sure we're not adding the same definition twice and register observer with notification center
-        // if observer is active. Comparison of handlers would only work with @convention(block) signatures.
-
-        if self.definitions.contains(definition) {
-            return self
-        }
-
+        guard !self.definitions.contains(definition) else { return self }
         self.definitions.append(self.active ? (try! definition.activate(self.eventHandlerReference)) : definition)
 
         return self
@@ -133,7 +122,7 @@ public class HotKeyObserver: Observer
         var n: Int = self.definitions.count
 
         while i < n {
-            if let definition: HandlerDefinition = self.definitions[i] where (definition.key == key) && (definition.modifier == modifier) && (handler == nil && !strict || handler != nil && self.dynamicType.compareBlocks(definition.handler, handler)) {
+            if let definition: HotKeyObserverHandlerDefinition = self.definitions[i] where (definition.key == key) && (definition.modifier == modifier) && (handler == nil && !strict || handler != nil && self.dynamicType.compareBlocks(definition.handler, handler)) {
                 self.definitions.removeAtIndex(i)
                 n -= 1
             } else {
@@ -153,12 +142,12 @@ public class HotKeyObserver: Observer
     }
 }
 
+// MARK: -
+
 extension HotKeyObserver
 {
     public enum Error: ErrorType
     {
-        case HotKeyRegisterFail
-        case HotKeyUnregisterFail
         case UppInstallFailed
         case UppRemoveFail
     }

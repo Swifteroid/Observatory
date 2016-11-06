@@ -38,7 +38,7 @@ public class BlockUtilityTestCase: XCTestCase
     }
 }
 
-private class Foo: NotificationObserverHandler
+private class Foo: NotificationObserverHandlerProtocol
 {
     private func handle() {
     }

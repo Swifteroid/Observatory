@@ -52,13 +52,3 @@ public class EventObserverTestCase: XCTestCase
         // Nothing here…
     }
 }
-
-public class EventObserver: Observatory.EventObserver
-{
-    override public var definitions: [HandlerDefinition] {
-        didSet {
-        }
-        willSet {
-        }
-    }
-} 
