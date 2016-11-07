@@ -1,7 +1,7 @@
 import Foundation
 import Carbon
 
-public class HotKeyObserverHandlerDefinition: Equatable, ObserverHandlerDefinitionProtocol
+public class HotKeyObserverHandlerDefinition: ObserverHandlerDefinitionProtocol
 {
     /*
     Keeps global count track of unique ids used for hot keys.
@@ -33,10 +33,12 @@ public class HotKeyObserverHandlerDefinition: Equatable, ObserverHandlerDefiniti
 
     public private(set) var active: Bool = false
 
-    public func activate(eventHandler: EventHandlerRef) throws -> Self {
-        guard !self.active else {
+    public func activate(eventHandler: EventHandlerRef) throws -> HotKeyObserverHandlerDefinition {
+        guard self.inactive else {
             return self
         }
+
+        // Todo: should use proper signature, find examples…
 
         let identifier: EventHotKeyID = EventHotKeyID(signature: 0, id: self.dynamicType.constructUniqueHotKeyId())
         var reference: EventHotKeyRef = nil
