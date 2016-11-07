@@ -11,7 +11,7 @@ http://stackoverflow.com/a/4640190/458356 – OSX keyboard shortcut background a
 http://stackoverflow.com/a/34864422/458356
 */
 
-private func getEventHotKeyId(event: EventRef) -> EventHotKeyID {
+private func getEventHotKey(event: EventRef) -> EventHotKeyID {
     let pointer: UnsafeMutablePointer<EventHotKeyID> = UnsafeMutablePointer.alloc(1)
     GetEventParameter(event, EventParamName(kEventParamDirectObject), EventParamType(typeEventHotKeyID), nil, sizeof(EventHotKeyID), nil, pointer)
     return pointer.memory
@@ -21,8 +21,13 @@ private func getEventHotKeyId(event: EventRef) -> EventHotKeyID {
 
 public class HotKeyObserver: Observer
 {
+    private typealias EventHandler = EventHandlerUPP
+    private typealias EventHandlerPointer = EventHandlerRef
+    private typealias EventHotKeyHandler = (EventHotKeyID) -> ()
+    private typealias EventHotKeyHandlerPointer = UnsafeMutablePointer<EventHotKeyHandler>
 
-    private var eventHandlerReference: EventHandlerRef!
+    private var eventHandlerPointer: EventHandlerPointer!
+    private var eventHotKeyHandlerPointer: EventHotKeyHandlerPointer!
 
     // MARK: -
 
@@ -30,79 +35,72 @@ public class HotKeyObserver: Observer
 
     // MARK: -
 
-    override public var active: Bool {
-        didSet {
-            if active == oldValue {
-                return
-            } else if active {
-                try! self.activate()
-            } else if !self.active {
-                try! self.deactivate()
-            }
-        }
-    }
-
-    private func activate() throws {
+    override internal func activate() {
 
         // Before we can register any hot keys we must register an event handler with carbon framework.
 
-        var eventType: EventTypeSpec = EventTypeSpec(eventClass: OSType(kEventClassKeyboard), eventKind: UInt32(kEventHotKeyPressed))
-        var eventHandler: EventHandlerRef = nil
+        let (eventHandler, eventHotKeyHandler) = try! self.constructEventHandler()
 
-        let eventHandlerPointer: UnsafeMutablePointer<(EventHotKeyID) -> ()> = UnsafeMutablePointer.alloc(1)
-        eventHandlerPointer.initialize(self.handleHotKey)
-
-        // Create universal procedure pointer, so it can be passed to C.
-
-        let eventHandlerUpp: EventHandlerUPP = { (nextHandler: EventHandlerCallRef, event: EventRef, pointer: UnsafeMutablePointer<Void>) -> OSStatus in
-            UnsafeMutablePointer<(EventHotKeyID) -> ()>(pointer).memory(getEventHotKeyId(event))
-            return CallNextEventHandler(nextHandler, event)
-        }
-
-        guard let status: OSStatus = InstallEventHandler(GetApplicationEventTarget(), eventHandlerUpp, 1, &eventType, eventHandlerPointer, &eventHandler) where status == Darwin.noErr else {
-            throw Error.UppInstallFailed
-        }
-
-        self.eventHandlerReference = eventHandler
-
-        // Now we can activate handlers.
+        self.eventHandlerPointer = eventHandler
+        self.eventHotKeyHandlerPointer = eventHotKeyHandler
 
         for definition in self.definitions {
             try! definition.activate(eventHandler)
         }
     }
 
-    private func deactivate() throws {
+    override internal func deactivate() {
 
-        // Deactivation goes in reverse, first deactivate definitions…
+        // Deactivation goes in reverse, first deactivate definitions then event handler.
 
         for definition in self.definitions {
             try! definition.deactivate()
         }
 
-        // Than remove the event handler.
+        try! self.destructEventHandler(self.eventHandlerPointer, eventHotKeyHandler: self.eventHotKeyHandlerPointer)
 
-        guard let status: OSStatus = RemoveEventHandler(self.eventHandlerReference) where status == Darwin.noErr else {
-            throw Error.UppRemoveFail
-        }
-
-        self.eventHandlerReference = nil
-    }
-
-    private func handleHotKey(identifier: EventHotKeyID) {
-        for definition in self.definitions {
-            if definition.hotKeyIdentifier == identifier {
-                (definition.handler as! ObserverHandler)()
-                break
-            }
-        }
+        self.eventHandlerPointer = nil
+        self.eventHotKeyHandlerPointer = nil
     }
 
     // MARK: -
 
-    public convenience init(active: Bool) {
-        self.init()
-        self.active = active
+    private func constructEventHandler() throws -> (EventHandlerPointer, EventHotKeyHandlerPointer) {
+        var eventType: EventTypeSpec = EventTypeSpec(eventClass: OSType(kEventClassKeyboard), eventKind: UInt32(kEventHotKeyPressed))
+
+        let eventHandler: EventHandler
+        var eventHandlerPointer: EventHandlerPointer = nil
+        let eventHotKeyHandlerPointer: UnsafeMutablePointer<EventHotKeyHandler> = UnsafeMutablePointer.alloc(1)
+
+        eventHandler = { (nextHandler: EventHandlerCallRef, event: EventRef, pointer: UnsafeMutablePointer<Void>) -> OSStatus in
+            UnsafeMutablePointer<EventHotKeyHandler>(pointer).memory(getEventHotKey(event))
+            return CallNextEventHandler(nextHandler, event)
+        }
+
+        eventHotKeyHandlerPointer.initialize({ [unowned self] (identifier: EventHotKeyID) in
+            for definition in self.definitions {
+                if definition.hotKeyIdentifier == identifier {
+                    (definition.handler as! ObserverHandler)()
+                    break
+                }
+            }
+        })
+
+        // Create universal procedure pointer, so it can be passed to C.
+
+        guard let status: OSStatus = InstallEventHandler(GetApplicationEventTarget(), eventHandler, 1, &eventType, eventHotKeyHandlerPointer, &eventHandlerPointer) where status == Darwin.noErr else {
+            throw Error.UppInstallFailed
+        }
+
+        return (eventHandlerPointer, eventHotKeyHandlerPointer)
+    }
+
+    private func destructEventHandler(eventHandler: EventHandlerPointer, eventHotKeyHandler: EventHotKeyHandlerPointer) throws {
+        guard let status: OSStatus = RemoveEventHandler(eventHandler) where status == Darwin.noErr else {
+            throw Error.UppRemoveFail
+        }
+
+        eventHotKeyHandler.dealloc(1)
     }
 
     // MARK: -
@@ -112,7 +110,7 @@ public class HotKeyObserver: Observer
         let definition: HotKeyObserverHandlerDefinition = try! factory.construct()
 
         guard !self.definitions.contains(definition) else { return self }
-        self.definitions.append(self.active ? (try! definition.activate(self.eventHandlerReference)) : definition)
+        self.definitions.append(self.active ? (try! definition.activate(self.eventHandlerPointer)) : definition)
 
         return self
     }

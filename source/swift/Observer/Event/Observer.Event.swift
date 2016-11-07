@@ -28,16 +28,20 @@ public class EventObserver: Observer
 
     // MARK: -
 
-    public convenience init(active: Bool) {
-        self.init()
-        self.active = active
+    override internal func activate() {
+        for definition: EventObserverHandlerDefinition in self.definitions {
+            definition.activate()
+        }
+    }
+
+    override internal func deactivate() {
+        for definition: EventObserverHandlerDefinition in self.definitions {
+            definition.deactivate()
+        }
     }
 
     // MARK: -
 
-    /*
-    Add new event observation and activate it if observer is active. 
-    */
     public func add(mask: NSEventMask, global: Bool, local: Bool, handler: Any) throws -> SELF {
         let factory: EventObserverHandlerDefinitionFactory = EventObserverHandlerDefinitionFactory(mask: mask, global: global, local: local, handler: handler)
         let definition: EventObserverHandlerDefinition = try! factory.construct()

@@ -5,11 +5,37 @@ public class Observer
     /* 
     Specifies whether the observer is active or not.
     */
-    public var active: Bool = false
+    public var active: Bool = false {
+        didSet {
+            if self.active == oldValue {
+                return
+            } else if self.active {
+                self.activate()
+            } else {
+                self.deactivate()
+            }
+        }
+    }
+
+    internal func activate() {
+        // …
+    }
+
+    internal func deactivate() {
+        // …
+    }
 
     // MARK: -
 
     public init() {
+    }
+
+    public convenience init(active: Bool) {
+        self.init()
+
+        // Otherwise `didSet` won't get invoked.
+
+        ({ self.active = active })()
     }
 
     // MARK: -

@@ -10,51 +10,44 @@ public class NotificationObserver: Observer
 
     // MARK: -
 
-    override public var active: Bool {
-        didSet {
-            if self.active == oldValue {
-                return
-            } else if self.active {
-                for definition: NotificationObserverHandlerDefinition in self.definitions {
-                    definition.activate(self.center)
-                }
-            } else {
-                for definition: NotificationObserverHandlerDefinition in self.definitions {
-                    definition.deactivate()
-                }
-            }
+    public var center: NSNotificationCenter?
+
+    public private(set) var definitions: [NotificationObserverHandlerDefinition] = []
+
+    // MARK: -
+
+    override internal func activate() {
+        for definition: NotificationObserverHandlerDefinition in self.definitions {
+            definition.activate(self.center ?? NSNotificationCenter.defaultCenter())
         }
     }
 
-    public let center: NSNotificationCenter
-
-    /*
-    Registered notification handler definitions.
-    */
-    public internal(set) var definitions: [NotificationObserverHandlerDefinition] = []
-
-    // MARK: -
-
-    public init(center: NSNotificationCenter? = nil) {
-        self.center = center ?? NSNotificationCenter.defaultCenter()
-    }
-
-    public convenience init(active: Bool, center: NSNotificationCenter? = nil) {
-        self.init(center: center)
-        self.active = active
+    override internal func deactivate() {
+        for definition: NotificationObserverHandlerDefinition in self.definitions {
+            definition.deactivate()
+        }
     }
 
     // MARK: -
 
-    /*
-    Create new observation for the specified notification name and observable target.
-    */
+    convenience init(center: NSNotificationCenter) {
+        self.init()
+        self.center = center
+    }
+
+    public convenience init(active: Bool, center: NSNotificationCenter) {
+        self.init(active: active)
+        self.center = center
+    }
+
+    // MARK: -
+
     public func add(name: String, observable: AnyObject?, queue: NSOperationQueue?, handler: Any) throws -> SELF {
         let factory: NotificationObserverHandlerDefinitionFactory = NotificationObserverHandlerDefinitionFactory(name: name, observable: observable, queue: queue, handler: handler)
         let definition: NotificationObserverHandlerDefinition = try! factory.construct()
 
         guard !self.definitions.contains(definition) else { return self }
-        self.definitions.append(self.active ? definition.activate(center) : definition)
+        self.definitions.append(self.active ? definition.activate(center ?? NSNotificationCenter.defaultCenter()) : definition)
 
         return self
     }
