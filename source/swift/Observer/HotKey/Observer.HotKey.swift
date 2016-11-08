@@ -116,16 +116,8 @@ public class HotKeyObserver: Observer
     }
 
     public func remove(key: UInt32, modifier: UInt32, handler: Any?, strict: Bool) -> Self {
-        var i: Int = 0
-        var n: Int = self.definitions.count
-
-        while i < n {
-            if let definition: HotKeyObserverHandlerDefinition = self.definitions[i] where (definition.key == key) && (definition.modifier == modifier) && (handler == nil && !strict || handler != nil && self.dynamicType.compareBlocks(definition.handler, handler)) {
-                self.definitions.removeAtIndex(i)
-                n -= 1
-            } else {
-                i += 1
-            }
+        for (index, _) in self.filter(key, modifier: modifier, handler: handler, strict: strict).reverse() {
+            self.definitions.removeAtIndex(index)
         }
 
         return self
@@ -137,6 +129,17 @@ public class HotKeyObserver: Observer
 
     public func remove(key: UInt32, modifier: UInt32) -> Self {
         return self.remove(key, modifier: modifier, handler: nil, strict: false)
+    }
+
+    // MARK: -
+
+    private func filter(key: UInt32, modifier: UInt32, handler: Any?, strict: Bool) -> [(index: Int, element: HotKeyObserverHandlerDefinition)] {
+        return self.definitions.enumerate().filter({ (_: Int, definition: HotKeyObserverHandlerDefinition) in
+            return true &&
+                (definition.key == key) &&
+                (definition.modifier == modifier) &&
+                (handler == nil && !strict || handler != nil && self.dynamicType.compareBlocks(definition.handler, handler))
+        })
     }
 }
 

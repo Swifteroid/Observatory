@@ -56,57 +56,63 @@ public class NotificationObserver: Observer
         return try self.add(name, observable: observable, queue: nil, handler: handler)
     }
 
-    public func add(names: [String], observable: AnyObject?, queue: NSOperationQueue?, handler: Any) throws -> SELF {
+    public func add(names: [String], observable: AnyObject?, queue: NSOperationQueue?, handler: Any) throws -> Self {
         for name in names {
             try self.add(name, observable: observable, queue: queue, handler: handler)
         }
+
         return self
     }
 
-    public func add(names: [String], observable: AnyObject?, handler: Any) throws -> SELF {
+    public func add(names: [String], observable: AnyObject?, handler: Any) throws -> Self {
         for name in names {
             try self.add(name, observable: observable, handler: handler)
         }
+
         return self
     }
 
-    /*
-    When removing in non-strict mode the method treat nil values as matching.
-    */
     public func remove(name: String?, observable: AnyObject?, queue: NSOperationQueue?, handler: Any?, strict: Bool) -> Self {
-        var i: Int = 0
-        var n: Int = self.definitions.count
-
-        while i < n {
-            if let definition: NotificationObserverHandlerDefinition = self.definitions[i] where (name == nil && !strict || definition.name == name) && (observable == nil && !strict || definition.observable === observable) && (queue == nil && !strict || definition.queue === queue) && (handler == nil && !strict || handler != nil && SELF.compareBlocks(definition.handler.original, handler)) {
-                self.definitions.removeAtIndex(i)
-                n -= 1
-            } else {
-                i += 1
-            }
+        for (index, _) in self.filter(name, observable: observable, queue: queue, handler: handler, strict: strict).reverse() {
+            self.definitions.removeAtIndex(index)
         }
 
         return self
     }
 
-    public func remove(name: String?, observable: AnyObject?, queue: NSOperationQueue?, handler: Any?) -> SELF {
+    public func remove(name: String?, observable: AnyObject?, queue: NSOperationQueue?, handler: Any?) -> Self {
         return self.remove(name, observable: observable, queue: queue, handler: handler, strict: false)
     }
 
-    public func remove(name: String?, observable: AnyObject?, handler: Any?) -> SELF {
+    public func remove(name: String?, observable: AnyObject?, handler: Any?) -> Self {
         return self.remove(name, observable: observable, queue: nil, handler: handler, strict: false)
     }
 
-    public func remove(name: String?, observable: AnyObject?) -> SELF {
+    public func remove(name: String?, observable: AnyObject?) -> Self {
         return self.remove(name, observable: observable, queue: nil, handler: nil, strict: false)
     }
 
-    public func remove(name: String) -> SELF {
+    public func remove(name: String) -> Self {
         return self.remove(name, observable: nil, queue: nil, handler: nil, strict: false)
     }
 
-    public func remove(observable: AnyObject) -> SELF {
+    public func remove(observable: AnyObject) -> Self {
         return self.remove(nil, observable: observable, queue: nil, handler: nil, strict: false)
+    }
+
+    // MARK: -
+
+    /*
+    Nil values are treated as matching when filtering in non-strict mode.
+    */
+    private func filter(name: String?, observable: AnyObject?, queue: NSOperationQueue?, handler: Any?, strict: Bool) -> [(index: Int, element: NotificationObserverHandlerDefinition)] {
+        return self.definitions.enumerate().filter({ (_: Int, definition: NotificationObserverHandlerDefinition) in
+            return true &&
+                (name == nil && !strict || definition.name == name) &&
+                (observable == nil && !strict || definition.observable === observable) &&
+                (queue == nil && !strict || definition.queue === queue) &&
+                (handler == nil && !strict || handler != nil && self.dynamicType.compareBlocks(definition.handler.original, handler))
+        })
     }
 
     // MARK: -

@@ -56,23 +56,30 @@ public class EventObserver: Observer
         return try self.add(mask, global: true, local: true, handler: handler)
     }
 
-    public func remove(mask: NSEventMask, handler: Any? = nil) throws -> SELF {
-        var i: Int = 0
-        var n: Int = self.definitions.count
-
-        while i < n {
-            if let definition: EventObserverHandlerDefinition = self.definitions[i] where mask == definition.mask && (handler == nil || SELF.compareBlocks(definition.handler.original, handler)) {
-                self.definitions.removeAtIndex(i)
-
-                // Don't do `i -= 1` – this is not a for loop, these good days are in the bast now…
-
-                n -= 1
-            } else {
-                i += 1
-            }
+    public func remove(mask: NSEventMask, handler: Any?, strict: Bool) -> Self {
+        for (index, _) in self.filter(mask, handler: handler, strict: strict).reverse() {
+            self.definitions.removeAtIndex(index)
         }
 
         return self
+    }
+
+    public func remove(mask: NSEventMask, handler: Any?) -> Self {
+        return self.remove(mask, handler: handler, strict: false)
+    }
+
+    public func remove(mask: NSEventMask) -> Self {
+        return self.remove(mask, handler: nil, strict: false)
+    }
+
+    // MARK: -
+
+    private func filter(mask: NSEventMask, handler: Any?, strict: Bool) -> [(index: Int, element: EventObserverHandlerDefinition)] {
+        return self.definitions.enumerate().filter({ (_: Int, definition: EventObserverHandlerDefinition) in
+            return true &&
+                (mask == definition.mask) &&
+                (handler == nil && !strict || handler != nil && self.dynamicType.compareBlocks(definition.handler.original, handler))
+        })
     }
 
     // MARK: -
