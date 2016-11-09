@@ -6,7 +6,7 @@ import XCTest
 public class HotKeyObserverTestCase: XCTestCase
 {
     public func test() {
-        let observer: HotKeyObserver = HotKeyObserver(active: true)
+        let observer: HotkeyObserver = HotkeyObserver(active: true)
         let modifier: CGEventFlags = CGEventFlags(rawValue: CGEventFlags.MaskCommand.rawValue | CGEventFlags.MaskShift.rawValue)!
         let fooKey: CGKeyCode = CGKeyCode(kVK_ANSI_5)
         let barKey: CGKeyCode = CGKeyCode(kVK_ANSI_6)
@@ -14,8 +14,8 @@ public class HotKeyObserverTestCase: XCTestCase
         var foo: Int = 0
         var bar: Int = 0
 
-        try! observer.add(UInt32(kVK_ANSI_5), modifier: UInt32(Carbon.cmdKey | Carbon.shiftKey)) { foo += 1 }
-        try! observer.add(UInt32(kVK_ANSI_6), modifier: UInt32(Carbon.cmdKey | Carbon.shiftKey)) { bar += 1 }
+        try! observer.add(KeyboardHotkey(key: UInt32(kVK_ANSI_5), modifier: UInt32(Carbon.cmdKey | Carbon.shiftKey))) { foo += 1 }
+        try! observer.add(KeyboardHotkey(key: UInt32(kVK_ANSI_6), modifier: UInt32(Carbon.cmdKey | Carbon.shiftKey))) { bar += 1 }
 
         self.postHotKeyEvent(fooKey, flag: modifier)
         self.postHotKeyEvent(barKey, flag: modifier)
@@ -45,7 +45,7 @@ public class HotKeyObserverTestCase: XCTestCase
 
         // Removing must work.
 
-        observer.remove(UInt32(kVK_ANSI_5), modifier: UInt32(Carbon.cmdKey | Carbon.shiftKey))
+        observer.remove(KeyboardHotkey(key: UInt32(kVK_ANSI_5), modifier: UInt32(Carbon.cmdKey | Carbon.shiftKey)))
 
         self.postHotKeyEvent(fooKey, flag: modifier)
 

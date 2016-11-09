@@ -11,7 +11,7 @@ http://stackoverflow.com/a/4640190/458356 – OSX keyboard shortcut background a
 http://stackoverflow.com/a/34864422/458356
 */
 
-private func getEventHotKey(event: EventRef) -> EventHotKeyID {
+private func getEventHotkey(event: EventRef) -> EventHotKeyID {
     let pointer: UnsafeMutablePointer<EventHotKeyID> = UnsafeMutablePointer.alloc(1)
     GetEventParameter(event, EventParamName(kEventParamDirectObject), EventParamType(typeEventHotKeyID), nil, sizeof(EventHotKeyID), nil, pointer)
     return pointer.memory
@@ -19,19 +19,19 @@ private func getEventHotKey(event: EventRef) -> EventHotKeyID {
 
 // MARK: -
 
-public class HotKeyObserver: Observer
+public class HotkeyObserver: Observer
 {
     private typealias EventHandler = EventHandlerUPP
     private typealias EventHandlerPointer = EventHandlerRef
-    private typealias EventHotKeyHandler = (EventHotKeyID) -> ()
-    private typealias EventHotKeyHandlerPointer = UnsafeMutablePointer<EventHotKeyHandler>
+    private typealias EventHotkeyHandler = (EventHotKeyID) -> ()
+    private typealias EventHotkeyHandlerPointer = UnsafeMutablePointer<EventHotkeyHandler>
 
     private var eventHandlerPointer: EventHandlerPointer!
-    private var eventHotKeyHandlerPointer: EventHotKeyHandlerPointer!
+    private var eventHotkeyHandlerPointer: EventHotkeyHandlerPointer!
 
     // MARK: -
 
-    public internal(set) var definitions: [HotKeyObserverHandlerDefinition] = []
+    public internal(set) var definitions: [HotkeyObserverHandlerDefinition] = []
 
     // MARK: -
 
@@ -39,10 +39,10 @@ public class HotKeyObserver: Observer
 
         // Before we can register any hot keys we must register an event handler with carbon framework.
 
-        let (eventHandler, eventHotKeyHandler) = try! self.constructEventHandler()
+        let (eventHandler, eventHotkeyHandler) = try! self.constructEventHandler()
 
         self.eventHandlerPointer = eventHandler
-        self.eventHotKeyHandlerPointer = eventHotKeyHandler
+        self.eventHotkeyHandlerPointer = eventHotkeyHandler
 
         for definition in self.definitions {
             try! definition.activate(eventHandler)
@@ -57,29 +57,29 @@ public class HotKeyObserver: Observer
             try! definition.deactivate()
         }
 
-        try! self.destructEventHandler(self.eventHandlerPointer, eventHotKeyHandler: self.eventHotKeyHandlerPointer)
+        try! self.destructEventHandler(self.eventHandlerPointer, eventHotkeyHandler: self.eventHotkeyHandlerPointer)
 
         self.eventHandlerPointer = nil
-        self.eventHotKeyHandlerPointer = nil
+        self.eventHotkeyHandlerPointer = nil
     }
 
     // MARK: -
 
-    private func constructEventHandler() throws -> (EventHandlerPointer, EventHotKeyHandlerPointer) {
+    private func constructEventHandler() throws -> (EventHandlerPointer, EventHotkeyHandlerPointer) {
         var eventType: EventTypeSpec = EventTypeSpec(eventClass: OSType(kEventClassKeyboard), eventKind: UInt32(kEventHotKeyPressed))
 
         let eventHandler: EventHandler
         var eventHandlerPointer: EventHandlerPointer = nil
-        let eventHotKeyHandlerPointer: UnsafeMutablePointer<EventHotKeyHandler> = UnsafeMutablePointer.alloc(1)
+        let eventHotkeyHandlerPointer: UnsafeMutablePointer<EventHotkeyHandler> = UnsafeMutablePointer.alloc(1)
 
         eventHandler = { (nextHandler: EventHandlerCallRef, event: EventRef, pointer: UnsafeMutablePointer<Void>) -> OSStatus in
-            UnsafeMutablePointer<EventHotKeyHandler>(pointer).memory(getEventHotKey(event))
+            UnsafeMutablePointer<EventHotkeyHandler>(pointer).memory(getEventHotkey(event))
             return CallNextEventHandler(nextHandler, event)
         }
 
-        eventHotKeyHandlerPointer.initialize({ [unowned self] (identifier: EventHotKeyID) in
+        eventHotkeyHandlerPointer.initialize({ [unowned self] (identifier: EventHotKeyID) in
             for definition in self.definitions {
-                if definition.hotKeyIdentifier == identifier {
+                if definition.hotkeyIdentifier == identifier {
                     (definition.handler as! ObserverHandler)()
                     break
                 }
@@ -88,26 +88,26 @@ public class HotKeyObserver: Observer
 
         // Create universal procedure pointer, so it can be passed to C.
 
-        guard let status: OSStatus = InstallEventHandler(GetApplicationEventTarget(), eventHandler, 1, &eventType, eventHotKeyHandlerPointer, &eventHandlerPointer) where status == Darwin.noErr else {
+        guard let status: OSStatus = InstallEventHandler(GetApplicationEventTarget(), eventHandler, 1, &eventType, eventHotkeyHandlerPointer, &eventHandlerPointer) where status == Darwin.noErr else {
             throw Error.UppInstallFailed
         }
 
-        return (eventHandlerPointer, eventHotKeyHandlerPointer)
+        return (eventHandlerPointer, eventHotkeyHandlerPointer)
     }
 
-    private func destructEventHandler(eventHandler: EventHandlerPointer, eventHotKeyHandler: EventHotKeyHandlerPointer) throws {
+    private func destructEventHandler(eventHandler: EventHandlerPointer, eventHotkeyHandler: EventHotkeyHandlerPointer) throws {
         guard let status: OSStatus = RemoveEventHandler(eventHandler) where status == Darwin.noErr else {
             throw Error.UppRemoveFail
         }
 
-        eventHotKeyHandler.dealloc(1)
+        eventHotkeyHandler.dealloc(1)
     }
 
     // MARK: -
 
-    public func add(key: UInt32, modifier: UInt32, handler: Any) throws -> HotKeyObserver {
-        let factory: HotKeyObserverHandlerDefinitionFactory = HotKeyObserverHandlerDefinitionFactory(key: key, modifier: modifier, handler: handler)
-        let definition: HotKeyObserverHandlerDefinition = try! factory.construct()
+    public func add(hotkey: KeyboardHotkey, handler: Any) throws -> HotkeyObserver {
+        let factory: HotkeyObserverHandlerDefinitionFactory = HotkeyObserverHandlerDefinitionFactory(hotkey: hotkey, handler: handler)
+        let definition: HotkeyObserverHandlerDefinition = try! factory.construct()
 
         guard !self.definitions.contains(definition) else { return self }
         self.definitions.append(self.active ? (try! definition.activate(self.eventHandlerPointer)) : definition)
@@ -115,29 +115,28 @@ public class HotKeyObserver: Observer
         return self
     }
 
-    public func remove(key: UInt32, modifier: UInt32, handler: Any?, strict: Bool) -> Self {
-        for (index, _) in self.filter(key, modifier: modifier, handler: handler, strict: strict).reverse() {
+    public func remove(hotkey: KeyboardHotkey, handler: Any?, strict: Bool) -> Self {
+        for (index, _) in self.filter(hotkey, handler: handler, strict: strict).reverse() {
             self.definitions.removeAtIndex(index)
         }
 
         return self
     }
 
-    public func remove(key: UInt32, modifier: UInt32, handler: Any) -> Self {
-        return self.remove(key, modifier: modifier, handler: handler, strict: false)
+    public func remove(hotkey: KeyboardHotkey, handler: Any) -> Self {
+        return self.remove(hotkey, handler: handler, strict: false)
     }
 
-    public func remove(key: UInt32, modifier: UInt32) -> Self {
-        return self.remove(key, modifier: modifier, handler: nil, strict: false)
+    public func remove(hotkey: KeyboardHotkey) -> Self {
+        return self.remove(hotkey, handler: nil, strict: false)
     }
 
     // MARK: -
 
-    private func filter(key: UInt32, modifier: UInt32, handler: Any?, strict: Bool) -> [(index: Int, element: HotKeyObserverHandlerDefinition)] {
-        return self.definitions.enumerate().filter({ (_: Int, definition: HotKeyObserverHandlerDefinition) in
+    private func filter(hotkey: KeyboardHotkey, handler: Any?, strict: Bool) -> [(index: Int, element: HotkeyObserverHandlerDefinition)] {
+        return self.definitions.enumerate().filter({ (_: Int, definition: HotkeyObserverHandlerDefinition) in
             return true &&
-                (definition.key == key) &&
-                (definition.modifier == modifier) &&
+                (definition.hotkey == hotkey) &&
                 (handler == nil && !strict || handler != nil && self.dynamicType.compareBlocks(definition.handler, handler))
         })
     }
@@ -145,7 +144,7 @@ public class HotKeyObserver: Observer
 
 // MARK: -
 
-extension HotKeyObserver
+extension HotkeyObserver
 {
     public enum Error: ErrorType
     {
