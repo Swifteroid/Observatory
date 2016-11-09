@@ -27,8 +27,10 @@
 		69AA70DB746B33D42CFE0A7B /* Observer.Event.Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E15852F13756EC20445E2A /* Observer.Event.Handler.swift */; };
 		69AB467ABC16748E0936AB58 /* Observer.HandlerDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6942C9E9427EDEACDF0BC0A4 /* Observer.HandlerDefinition.swift */; };
 		69B6923163F303A78F99ACDA /* Observer.Notification.HandlerDefinition.Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F7CB1685C91617071B3A44 /* Observer.Notification.HandlerDefinition.Factory.swift */; };
+		69D7F2BE3034A96729AA0949 /* Keyboard.Modifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B6E3849F1A78D910CDA2F7 /* Keyboard.Modifier.swift */; };
 		69EBE204779A71AC666F4364 /* Observer.Event.HandlerDefinition.Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6939BF2B84BEA59EDEC4361B /* Observer.Event.HandlerDefinition.Factory.swift */; };
 		69EECB57AAC934D69E4DEE8B /* Keyboard.Hotkey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694A2B4EB9AA38CE994312C9 /* Keyboard.Hotkey.swift */; };
+		69F1ADAA0E683F41DB80A1CB /* Keyboard.Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69FA6B1FE3D1A14CD0AF3FF5 /* Keyboard.Key.swift */; };
 		E69200F81CDDE19200C4FEAD /* Observatory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6D7642A1CDDBA100071CCB0 /* Observatory.framework */; };
 		E69200FE1CDDE73200C4FEAD /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17FD067B10D4AE9721BC1CFD /* Nimble.framework */; };
 		E69200FF1CDDE73200C4FEAD /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17FD0C2A7528C09C26213A9F /* Quick.framework */; };
@@ -83,11 +85,13 @@
 		696A7EB556F2791741F92DE2 /* Observer.Hotkey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Hotkey.swift; sourceTree = "<group>"; };
 		696C2D8AB42589661E0DC10D /* Observer.Hotkey.HandlerDefinition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Hotkey.HandlerDefinition.swift; sourceTree = "<group>"; };
 		69B3F997388A2645D8C2D0B2 /* Observer.Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Notification.swift; sourceTree = "<group>"; };
+		69B6E3849F1A78D910CDA2F7 /* Keyboard.Modifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.Modifier.swift; sourceTree = "<group>"; };
 		69D782B1BF1A76BD24B7144E /* Cartfile.resolved */ = {isa = PBXFileReference; lastKnownFileType = file.resolved; path = Cartfile.resolved; sourceTree = "<group>"; };
 		69E0D8F18036BFA1A3BCEFC2 /* Observer.Handler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Handler.swift; sourceTree = "<group>"; };
 		69E15852F13756EC20445E2A /* Observer.Event.Handler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Event.Handler.swift; sourceTree = "<group>"; };
 		69E201FF597397654B4DD260 /* Extension.Carbon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.Carbon.swift; sourceTree = "<group>"; };
 		69F7CB1685C91617071B3A44 /* Observer.Notification.HandlerDefinition.Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Notification.HandlerDefinition.Factory.swift; sourceTree = "<group>"; };
+		69FA6B1FE3D1A14CD0AF3FF5 /* Keyboard.Key.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.Key.swift; sourceTree = "<group>"; };
 		E69200F31CDDE19100C4FEAD /* Test.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Test.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6D7642A1CDDBA100071CCB0 /* Observatory.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Observatory.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -277,6 +281,8 @@
 			isa = PBXGroup;
 			children = (
 				694A2B4EB9AA38CE994312C9 /* Keyboard.Hotkey.swift */,
+				69FA6B1FE3D1A14CD0AF3FF5 /* Keyboard.Key.swift */,
+				69B6E3849F1A78D910CDA2F7 /* Keyboard.Modifier.swift */,
 			);
 			path = Keyboard;
 			sourceTree = "<group>";
@@ -429,6 +435,8 @@
 				69B6923163F303A78F99ACDA /* Observer.Notification.HandlerDefinition.Factory.swift in Sources */,
 				699E980FBC6FA145482C74DF /* Observer.Notification.Handler.swift in Sources */,
 				69EECB57AAC934D69E4DEE8B /* Keyboard.Hotkey.swift in Sources */,
+				69F1ADAA0E683F41DB80A1CB /* Keyboard.Key.swift in Sources */,
+				69D7F2BE3034A96729AA0949 /* Keyboard.Modifier.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

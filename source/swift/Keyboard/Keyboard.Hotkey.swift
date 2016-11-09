@@ -9,6 +9,11 @@ public struct KeyboardHotkey: Equatable
         self.key = key
         self.modifier = modifier
     }
+
+    public init(key: UInt32, modifier: KeyboardModifier) {
+        self.key = key
+        self.modifier = modifier.rawValue
+    }
 }
 
 public func ==(lhs: KeyboardHotkey, rhs: KeyboardHotkey) -> Bool {
