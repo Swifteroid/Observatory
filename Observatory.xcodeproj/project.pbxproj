@@ -84,6 +84,7 @@
 		695DF646AEDFDC84B4C56D91 /* Observer.Notification.HandlerDefinition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Notification.HandlerDefinition.swift; sourceTree = "<group>"; };
 		696A7EB556F2791741F92DE2 /* Observer.Hotkey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Hotkey.swift; sourceTree = "<group>"; };
 		696C2D8AB42589661E0DC10D /* Observer.Hotkey.HandlerDefinition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Hotkey.HandlerDefinition.swift; sourceTree = "<group>"; };
+		697EDBC98FFDECF7FF264F3A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		69B3F997388A2645D8C2D0B2 /* Observer.Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Notification.swift; sourceTree = "<group>"; };
 		69B6E3849F1A78D910CDA2F7 /* Keyboard.Modifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.Modifier.swift; sourceTree = "<group>"; };
 		69D782B1BF1A76BD24B7144E /* Cartfile.resolved */ = {isa = PBXFileReference; lastKnownFileType = file.resolved; path = Cartfile.resolved; sourceTree = "<group>"; };
@@ -294,6 +295,7 @@
 				17FD0498F691994B815B5FB3 /* dependency */,
 				E6D7642B1CDDBA100071CCB0 /* product */,
 				17FD0BB4EDB0784084E6A631 /* source */,
+				697EDBC98FFDECF7FF264F3A /* README.md */,
 			);
 			sourceTree = "<group>";
 		};
