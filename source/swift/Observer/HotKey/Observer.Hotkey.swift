@@ -80,7 +80,7 @@ public class HotkeyObserver: Observer
         eventHotkeyHandlerPointer.initialize({ [unowned self] (identifier: EventHotKeyID) in
             for definition in self.definitions {
                 if definition.hotkeyIdentifier == identifier {
-                    (definition.handler as! ObserverHandler)()
+                    (definition.handler.normalised as! HotkeyObserverHandler)(hotkey: definition.hotkey)
                     break
                 }
             }

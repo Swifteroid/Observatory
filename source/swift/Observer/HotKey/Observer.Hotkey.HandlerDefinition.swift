@@ -3,6 +3,7 @@ import Carbon
 
 public class HotkeyObserverHandlerDefinition: ObserverHandlerDefinitionProtocol
 {
+
     /*
     Keeps global count track of unique ids used for hotkeys.
     */
@@ -15,9 +16,11 @@ public class HotkeyObserverHandlerDefinition: ObserverHandlerDefinitionProtocol
 
     // MARK: -
 
+    public typealias Handler = (original: Any, normalised: Any)
+
     public let hotkey: KeyboardHotkey
 
-    public let handler: Any
+    public let handler: Handler
 
     // MARK: -
 
@@ -69,7 +72,7 @@ public class HotkeyObserverHandlerDefinition: ObserverHandlerDefinitionProtocol
 
     // MARK: -
 
-    public init(hotkey: KeyboardHotkey, handler: Any) {
+    public init(hotkey: KeyboardHotkey, handler: Handler) {
         self.hotkey = hotkey
         self.handler = handler
     }
