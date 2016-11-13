@@ -76,30 +76,32 @@ public struct KeyboardKey
     public static let CapsLock = UInt32(kVK_CapsLock)
     public static let Command = UInt32(kVK_Command)
     public static let Control = UInt32(kVK_Control)
+    public static let Option = UInt32(kVK_Option)
+    public static let Shift = UInt32(kVK_Shift)
+
+    public static let Function = UInt32(kVK_Function)
+    public static let Mute = UInt32(kVK_Mute)
+    public static let VolumeDown = UInt32(kVK_VolumeDown)
+    public static let VolumeUp = UInt32(kVK_VolumeUp)
+    public static let RightControl = UInt32(kVK_RightControl)
+    public static let RightOption = UInt32(kVK_RightOption)
+    public static let RightShift = UInt32(kVK_RightShift)
+
     public static let Delete = UInt32(kVK_Delete)
     public static let DownArrow = UInt32(kVK_DownArrow)
     public static let End = UInt32(kVK_End)
     public static let Escape = UInt32(kVK_Escape)
     public static let ForwardDelete = UInt32(kVK_ForwardDelete)
-    public static let Function = UInt32(kVK_Function)
     public static let Help = UInt32(kVK_Help)
     public static let Home = UInt32(kVK_Home)
     public static let LeftArrow = UInt32(kVK_LeftArrow)
-    public static let Mute = UInt32(kVK_Mute)
-    public static let Option = UInt32(kVK_Option)
     public static let PageDown = UInt32(kVK_PageDown)
     public static let PageUp = UInt32(kVK_PageUp)
     public static let Return = UInt32(kVK_Return)
     public static let RightArrow = UInt32(kVK_RightArrow)
-    public static let RightControl = UInt32(kVK_RightControl)
-    public static let RightOption = UInt32(kVK_RightOption)
-    public static let RightShift = UInt32(kVK_RightShift)
-    public static let Shift = UInt32(kVK_Shift)
     public static let Space = UInt32(kVK_Space)
     public static let Tab = UInt32(kVK_Tab)
     public static let UpArrow = UInt32(kVK_UpArrow)
-    public static let VolumeDown = UInt32(kVK_VolumeDown)
-    public static let VolumeUp = UInt32(kVK_VolumeUp)
 
     public static let F1 = UInt32(kVK_F1)
     public static let F2 = UInt32(kVK_F2)
@@ -122,4 +124,74 @@ public struct KeyboardKey
     public static let F19 = UInt32(kVK_F19)
     public static let F20 = UInt32(kVK_F20)
 
+    // MARK: -
+
+    public static let names: [UInt32: String] = [
+        KeyboardKey.KeypadClear: "⌧",
+        KeyboardKey.KeypadEnter: "⌅",
+
+        KeyboardKey.Delete: "⌫",
+        KeyboardKey.DownArrow: "↓",
+        KeyboardKey.End: "↘",
+        KeyboardKey.Escape: "⎋",
+        KeyboardKey.ForwardDelete: "⌦",
+        KeyboardKey.Help: "?⃝",
+        KeyboardKey.Home: "↖",
+        KeyboardKey.LeftArrow: "←",
+        KeyboardKey.PageDown: "⇟",
+        KeyboardKey.PageUp: "⇞",
+        KeyboardKey.Return: "↩",
+        KeyboardKey.RightArrow: "→",
+        KeyboardKey.Space: "Space",
+        KeyboardKey.Tab: "⇥",
+        KeyboardKey.UpArrow: "↑",
+
+        KeyboardKey.F1: "F1",
+        KeyboardKey.F2: "F2",
+        KeyboardKey.F3: "F3",
+        KeyboardKey.F4: "F4",
+        KeyboardKey.F5: "F5",
+        KeyboardKey.F6: "F6",
+        KeyboardKey.F7: "F7",
+        KeyboardKey.F8: "F8",
+        KeyboardKey.F9: "F9",
+        KeyboardKey.F10: "F10",
+        KeyboardKey.F11: "F11",
+        KeyboardKey.F12: "F12",
+        KeyboardKey.F13: "F13",
+        KeyboardKey.F14: "F14",
+        KeyboardKey.F15: "F15",
+        KeyboardKey.F16: "F16",
+        KeyboardKey.F17: "F17",
+        KeyboardKey.F18: "F18",
+        KeyboardKey.F19: "F19",
+        KeyboardKey.F20: "F20"
+    ]
+
+    // MARK: -
+
+    public static func getName(key: UInt32, names: [UInt32: String]? = nil) -> String? {
+        if let map: [UInt32: String] = names ?? self.names where map.keys.contains(key) {
+            return map[key]
+        }
+
+        let maxStringLength: Int = 4
+        var stringBuffer: [UniChar] = [UniChar](count: maxStringLength, repeatedValue: 0)
+        var stringLength: Int = 0
+
+        let modifierKeys: UInt32 = 0
+        var deadKeys: UInt32 = 0
+        let keyboardType: UInt32 = UInt32(LMGetKbdType())
+
+        let source: TISInputSource = TISCopyCurrentASCIICapableKeyboardInputSource().takeRetainedValue()
+        let layoutDataPointer: UnsafeMutablePointer<Void> = TISGetInputSourceProperty(source, kTISPropertyUnicodeKeyLayoutData)
+        let layoutData: NSData = Unmanaged<CFData>.fromOpaque(COpaquePointer(layoutDataPointer)).takeUnretainedValue() as NSData
+        let layoutPointer: UnsafePointer<UCKeyboardLayout> = UnsafePointer(layoutData.bytes)
+
+        guard let status: OSStatus = UCKeyTranslate(layoutPointer, UInt16(key), UInt16(kUCKeyActionDown), modifierKeys, keyboardType, UInt32(kUCKeyTranslateNoDeadKeysMask), &deadKeys, maxStringLength, &stringLength, &stringBuffer) where status == Darwin.noErr else {
+            return nil
+        }
+
+        return String(utf16CodeUnits: stringBuffer, count: stringLength).uppercaseString
+    }
 }

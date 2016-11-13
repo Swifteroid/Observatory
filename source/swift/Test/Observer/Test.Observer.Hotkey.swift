@@ -14,8 +14,8 @@ public class HotKeyObserverTestCase: XCTestCase
         var foo: Int = 0
         var bar: Int = 0
 
-        try! observer.add(KeyboardHotkey(key: KeyboardKey.Five, modifier: [KeyboardModifier.CmdKey, KeyboardModifier.ShiftKey])) { foo += 1 }
-        try! observer.add(KeyboardHotkey(key: KeyboardKey.Six, modifier: [KeyboardModifier.CmdKey, KeyboardModifier.ShiftKey])) { bar += 1 }
+        try! observer.add(KeyboardHotkey(key: KeyboardKey.Five, modifier: [KeyboardModifier.CommandKey, KeyboardModifier.ShiftKey])) { foo += 1 }
+        try! observer.add(KeyboardHotkey(key: KeyboardKey.Six, modifier: [KeyboardModifier.CommandKey, KeyboardModifier.ShiftKey])) { bar += 1 }
 
         self.postHotKeyEvent(fooKey, flag: modifier)
         self.postHotKeyEvent(barKey, flag: modifier)
@@ -45,11 +45,13 @@ public class HotKeyObserverTestCase: XCTestCase
 
         // Removing must work.
 
-        observer.remove(KeyboardHotkey(key: KeyboardKey.Five, modifier: [KeyboardModifier.CmdKey, KeyboardModifier.ShiftKey]))
+        observer.remove(KeyboardHotkey(key: KeyboardKey.Five, modifier: [KeyboardModifier.CommandKey, KeyboardModifier.ShiftKey]))
 
         self.postHotKeyEvent(fooKey, flag: modifier)
 
         expect(foo).to(equal(2))
+
+        Swift.print(KeyboardKey.getName((KeyboardKey.Escape)))
     }
 
     private func sendHotKeyEvent(identifier: EventHotKeyID) {

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		087EE7A11E1C26E500093E0E /* Observatory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6D7642A1CDDBA100071CCB0 /* Observatory.framework */; };
 		17FD01F0C5CDC9AB876B713D /* Utility.Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0B1EA563BA18A0FF1A1E /* Utility.Block.swift */; };
 		17FD02AF5E5BB3924165E7F5 /* Observatory.h in Headers */ = {isa = PBXBuildFile; fileRef = 17FD0C595B95409A07A95D6C /* Observatory.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		17FD09333DDFBDB565AE71D6 /* Test.Observer.Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0FB52C88D5670C574EAD /* Test.Observer.Notification.swift */; };
@@ -17,11 +18,14 @@
 		692A798F43BAD5A83C172C18 /* Observer.Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B3F997388A2645D8C2D0B2 /* Observer.Notification.swift */; };
 		693FF17545F4335ED9AC31D8 /* Observer.Notification.HandlerDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695DF646AEDFDC84B4C56D91 /* Observer.Notification.HandlerDefinition.swift */; };
 		6944BD1A9C58D937FAFA277A /* Test.Observer.Hotkey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6913548B96119D429F0C99EF /* Test.Observer.Hotkey.swift */; };
+		69463BC3FE78DFDFF7E4811D /* Entrypoint.Hotkey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69075FE79F68E0841F0C4F3F /* Entrypoint.Hotkey.swift */; };
 		6948DEFF8C292066D8801689 /* Observer.Hotkey.HandlerDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696C2D8AB42589661E0DC10D /* Observer.Hotkey.HandlerDefinition.swift */; };
 		695A02AC8AE48193A0337C20 /* Extension.Carbon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E201FF597397654B4DD260 /* Extension.Carbon.swift */; };
 		695FF209EE4580CAB7B1C9BC /* Observer.Hotkey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696A7EB556F2791741F92DE2 /* Observer.Hotkey.swift */; };
+		696D3A557EB588B0DF1D4A12 /* hotkey.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69895A4A6E8AD3526544EA4E /* hotkey.storyboard */; };
 		697761271895402059498DAC /* Observer.Hotkey.HandlerDefinition.Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692A68A7E172C8358C84D97C /* Observer.Hotkey.HandlerDefinition.Factory.swift */; };
 		69867A0A91B27CAC21F1671E /* Observer.Event.HandlerDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69470962620FF547E76616CE /* Observer.Event.HandlerDefinition.swift */; };
+		698F6783628A36723D11D9C7 /* Observer.Hotkey.Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690846470A79592866B262DD /* Observer.Hotkey.Recorder.swift */; };
 		699E980FBC6FA145482C74DF /* Observer.Notification.Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69254F6F79273CD9E99E7841 /* Observer.Notification.Handler.swift */; };
 		69A6BC05F61D96900EAAD5DA /* Observer.Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E0D8F18036BFA1A3BCEFC2 /* Observer.Handler.swift */; };
 		69AA70DB746B33D42CFE0A7B /* Observer.Event.Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E15852F13756EC20445E2A /* Observer.Event.Handler.swift */; };
@@ -40,6 +44,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		087EE7A21E1C26EE00093E0E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E6D764211CDDBA100071CCB0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E6D764291CDDBA100071CCB0;
+			remoteInfo = Observatory;
+		};
 		E69200F91CDDE19200C4FEAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E6D764211CDDBA100071CCB0 /* Project object */;
@@ -64,9 +75,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		087EE7921E1C1FF500093E0E /* Hotkey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hotkey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		17FD00047290331A81F60B66 /* Observer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
 		17FD067B10D4AE9721BC1CFD /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Nimble.framework; sourceTree = "<group>"; };
-		17FD075A8875FD2B64DDEF70 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.info; path = Info.plist; sourceTree = "<group>"; };
 		17FD08630B9F202D77AAFA51 /* Test.Observer.Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Observer.Event.swift; sourceTree = "<group>"; };
 		17FD09DEC21D8E672877A6C0 /* Cartfile.private */ = {isa = PBXFileReference; lastKnownFileType = file.private; path = Cartfile.private; sourceTree = "<group>"; };
 		17FD0AA941C722BB20EED3A3 /* Test.Utility.Block.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Utility.Block.swift; sourceTree = "<group>"; };
@@ -74,12 +85,17 @@
 		17FD0C2A7528C09C26213A9F /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Quick.framework; sourceTree = "<group>"; };
 		17FD0C595B95409A07A95D6C /* Observatory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Observatory.h; sourceTree = "<group>"; };
 		17FD0FB52C88D5670C574EAD /* Test.Observer.Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Observer.Notification.swift; sourceTree = "<group>"; };
+		69075FE79F68E0841F0C4F3F /* Entrypoint.Hotkey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entrypoint.Hotkey.swift; sourceTree = "<group>"; };
+		690846470A79592866B262DD /* Observer.Hotkey.Recorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Hotkey.Recorder.swift; sourceTree = "<group>"; };
 		6913548B96119D429F0C99EF /* Test.Observer.Hotkey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Observer.Hotkey.swift; sourceTree = "<group>"; };
+		691492DAECCDA8F37886F020 /* Observatory.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Observatory.plist; sourceTree = "<group>"; };
 		69254F6F79273CD9E99E7841 /* Observer.Notification.Handler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Notification.Handler.swift; sourceTree = "<group>"; };
 		692A68A7E172C8358C84D97C /* Observer.Hotkey.HandlerDefinition.Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Hotkey.HandlerDefinition.Factory.swift; sourceTree = "<group>"; };
+		692C0EE3AC3E3172836E1B96 /* Hotkey.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Hotkey.plist; sourceTree = "<group>"; };
 		6939BF2B84BEA59EDEC4361B /* Observer.Event.HandlerDefinition.Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Event.HandlerDefinition.Factory.swift; sourceTree = "<group>"; };
 		6942C9E9427EDEACDF0BC0A4 /* Observer.HandlerDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = file.HandlerDefinition; path = Observer.HandlerDefinition.swift; sourceTree = "<group>"; };
 		69470962620FF547E76616CE /* Observer.Event.HandlerDefinition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Event.HandlerDefinition.swift; sourceTree = "<group>"; };
+		6949810C46B669082CB49E6A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Hotkey/Base.lproj/hotkey.storyboard; sourceTree = SOURCE_ROOT; };
 		694A2B4EB9AA38CE994312C9 /* Keyboard.Hotkey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.Hotkey.swift; sourceTree = "<group>"; };
 		695AFB416AF0439638564057 /* Observer.Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Event.swift; sourceTree = "<group>"; };
 		695DF646AEDFDC84B4C56D91 /* Observer.Notification.HandlerDefinition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Notification.HandlerDefinition.swift; sourceTree = "<group>"; };
@@ -100,6 +116,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		087EE78F1E1C1FF500093E0E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				087EE7A11E1C26E500093E0E /* Observatory.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E69200F01CDDE19100C4FEAD /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -162,7 +186,8 @@
 		17FD030F7F2C5CA3191B2040 /* accessory */ = {
 			isa = PBXGroup;
 			children = (
-				17FD075A8875FD2B64DDEF70 /* Info.plist */,
+				692739BC3F963DB95B757C64 /* info */,
+				69FE70738BA9A7D2F71070B9 /* storyboard */,
 			);
 			path = accessory;
 			sourceTree = "<group>";
@@ -212,6 +237,7 @@
 				17FD006891151A1C7A52E6DB /* Test */,
 				692EF077C1E4BDE986C066AC /* Extension */,
 				69F9A90A0718D95A26454540 /* Keyboard */,
+				69EFE5D1754E51DFE6DB6324 /* Entrypoint */,
 			);
 			path = swift;
 			sourceTree = "<group>";
@@ -251,6 +277,15 @@
 			path = Event;
 			sourceTree = "<group>";
 		};
+		692739BC3F963DB95B757C64 /* info */ = {
+			isa = PBXGroup;
+			children = (
+				691492DAECCDA8F37886F020 /* Observatory.plist */,
+				692C0EE3AC3E3172836E1B96 /* Hotkey.plist */,
+			);
+			path = info;
+			sourceTree = "<group>";
+		};
 		692EF077C1E4BDE986C066AC /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -277,8 +312,17 @@
 				696C2D8AB42589661E0DC10D /* Observer.Hotkey.HandlerDefinition.swift */,
 				692A68A7E172C8358C84D97C /* Observer.Hotkey.HandlerDefinition.Factory.swift */,
 				69F5760B7CD1564EE1F1442B /* Observer.Hotkey.Handler.swift */,
+				690846470A79592866B262DD /* Observer.Hotkey.Recorder.swift */,
 			);
 			path = HotKey;
+			sourceTree = "<group>";
+		};
+		69EFE5D1754E51DFE6DB6324 /* Entrypoint */ = {
+			isa = PBXGroup;
+			children = (
+				69075FE79F68E0841F0C4F3F /* Entrypoint.Hotkey.swift */,
+			);
+			path = Entrypoint;
 			sourceTree = "<group>";
 		};
 		69F9A90A0718D95A26454540 /* Keyboard */ = {
@@ -289,6 +333,14 @@
 				69B6E3849F1A78D910CDA2F7 /* Keyboard.Modifier.swift */,
 			);
 			path = Keyboard;
+			sourceTree = "<group>";
+		};
+		69FE70738BA9A7D2F71070B9 /* storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				69895A4A6E8AD3526544EA4E /* hotkey.storyboard */,
+			);
+			path = storyboard;
 			sourceTree = "<group>";
 		};
 		E6D764201CDDBA100071CCB0 = {
@@ -307,6 +359,7 @@
 			children = (
 				E6D7642A1CDDBA100071CCB0 /* Observatory.framework */,
 				E69200F31CDDE19100C4FEAD /* Test.xctest */,
+				087EE7921E1C1FF500093E0E /* Hotkey.app */,
 			);
 			name = product;
 			sourceTree = "<group>";
@@ -325,6 +378,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		087EE7911E1C1FF500093E0E /* Hotkey */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 087EE7A01E1C1FF500093E0E /* Build configuration list for PBXNativeTarget "Hotkey" */;
+			buildPhases = (
+				087EE78E1E1C1FF500093E0E /* Sources */,
+				087EE78F1E1C1FF500093E0E /* Frameworks */,
+				087EE7901E1C1FF500093E0E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				087EE7A31E1C26EE00093E0E /* PBXTargetDependency */,
+			);
+			name = Hotkey;
+			productName = Hotkey;
+			productReference = 087EE7921E1C1FF500093E0E /* Hotkey.app */;
+			productType = "com.apple.product-type.application";
+		};
 		E69200F21CDDE19100C4FEAD /* Test */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E69200FD1CDDE19200C4FEAD /* Build configuration list for PBXNativeTarget "Test" */;
@@ -371,6 +442,9 @@
 				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = Swifteroid;
 				TargetAttributes = {
+					087EE7911E1C1FF500093E0E = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
 					E69200F21CDDE19100C4FEAD = {
 						CreatedOnToolsVersion = 7.3;
 					};
@@ -385,6 +459,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = E6D764201CDDBA100071CCB0;
 			productRefGroup = E6D7642B1CDDBA100071CCB0 /* product */;
@@ -393,11 +468,20 @@
 			targets = (
 				E6D764291CDDBA100071CCB0 /* Observatory */,
 				E69200F21CDDE19100C4FEAD /* Test */,
+				087EE7911E1C1FF500093E0E /* Hotkey */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		087EE7901E1C1FF500093E0E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				696D3A557EB588B0DF1D4A12 /* hotkey.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E6D764281CDDBA100071CCB0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -408,6 +492,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		087EE78E1E1C1FF500093E0E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				69463BC3FE78DFDFF7E4811D /* Entrypoint.Hotkey.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E69200EF1CDDE19100C4FEAD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -443,12 +535,18 @@
 				69F1ADAA0E683F41DB80A1CB /* Keyboard.Key.swift in Sources */,
 				69D7F2BE3034A96729AA0949 /* Keyboard.Modifier.swift in Sources */,
 				69F0DD3C8FEE48FD092C33EC /* Observer.Hotkey.Handler.swift in Sources */,
+				698F6783628A36723D11D9C7 /* Observer.Hotkey.Recorder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		087EE7A31E1C26EE00093E0E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E6D764291CDDBA100071CCB0 /* Observatory */;
+			targetProxy = 087EE7A21E1C26EE00093E0E /* PBXContainerItemProxy */;
+		};
 		E69200FA1CDDE19200C4FEAD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = E6D764291CDDBA100071CCB0 /* Observatory */;
@@ -456,7 +554,53 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		69895A4A6E8AD3526544EA4E /* hotkey.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6949810C46B669082CB49E6A /* Base */,
+			);
+			name = hotkey.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		087EE79E1E1C1FF500093E0E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		087EE79F1E1C1FF500093E0E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 		E69200FB1CDDE19200C4FEAD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -465,6 +609,7 @@
 					"$(PROJECT_DIR)/dependency/Carthage/Build/Mac",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_MODULE_NAME = Observatory;
 				PRODUCT_NAME = Test;
 			};
 			name = Debug;
@@ -477,6 +622,7 @@
 					"$(PROJECT_DIR)/dependency/Carthage/Build/Mac",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_MODULE_NAME = Observatory;
 				PRODUCT_NAME = Test;
 			};
 			name = Release;
@@ -513,7 +659,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "$(SRCROOT)/accessory/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/accessory/info/$(PRODUCT_MODULE_NAME).plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -549,7 +695,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "$(SRCROOT)/accessory/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/accessory/info/$(PRODUCT_MODULE_NAME).plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.swifteroid.observatory;
@@ -563,6 +709,7 @@
 				DEFINES_MODULE = YES;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_MODULE_NAME = Observatory;
 				PRODUCT_NAME = Observatory;
 			};
 			name = Debug;
@@ -573,6 +720,7 @@
 				DEFINES_MODULE = YES;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_MODULE_NAME = Observatory;
 				PRODUCT_NAME = Observatory;
 			};
 			name = Release;
@@ -580,6 +728,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		087EE7A01E1C1FF500093E0E /* Build configuration list for PBXNativeTarget "Hotkey" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				087EE79E1E1C1FF500093E0E /* Debug */,
+				087EE79F1E1C1FF500093E0E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		E69200FD1CDDE19200C4FEAD /* Build configuration list for PBXNativeTarget "Test" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
