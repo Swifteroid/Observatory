@@ -3,7 +3,7 @@ import Carbon
 import Nimble
 import XCTest
 
-public class HotKeyObserverTestCase: XCTestCase
+public class HotkeyObserverTestCase: XCTestCase
 {
     public func test() {
         let observer: HotkeyObserver = HotkeyObserver(active: true)
@@ -50,8 +50,6 @@ public class HotKeyObserverTestCase: XCTestCase
         self.postHotKeyEvent(fooKey, flag: modifier)
 
         expect(foo).to(equal(2))
-
-        Swift.print(KeyboardKey.getName((KeyboardKey.Escape)))
     }
 
     private func sendHotKeyEvent(identifier: EventHotKeyID) {

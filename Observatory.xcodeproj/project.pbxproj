@@ -31,6 +31,7 @@
 		69AA70DB746B33D42CFE0A7B /* Observer.Event.Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E15852F13756EC20445E2A /* Observer.Event.Handler.swift */; };
 		69AB467ABC16748E0936AB58 /* Observer.HandlerDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6942C9E9427EDEACDF0BC0A4 /* Observer.HandlerDefinition.swift */; };
 		69B6923163F303A78F99ACDA /* Observer.Notification.HandlerDefinition.Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F7CB1685C91617071B3A44 /* Observer.Notification.HandlerDefinition.Factory.swift */; };
+		69D75B07331D950C156C8B69 /* Test.Keyboard.Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6930CDFE4CA3FA4B49FEDC5C /* Test.Keyboard.Key.swift */; };
 		69D7F2BE3034A96729AA0949 /* Keyboard.Modifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B6E3849F1A78D910CDA2F7 /* Keyboard.Modifier.swift */; };
 		69EBE204779A71AC666F4364 /* Observer.Event.HandlerDefinition.Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6939BF2B84BEA59EDEC4361B /* Observer.Event.HandlerDefinition.Factory.swift */; };
 		69EECB57AAC934D69E4DEE8B /* Keyboard.Hotkey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694A2B4EB9AA38CE994312C9 /* Keyboard.Hotkey.swift */; };
@@ -92,6 +93,7 @@
 		69254F6F79273CD9E99E7841 /* Observer.Notification.Handler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Notification.Handler.swift; sourceTree = "<group>"; };
 		692A68A7E172C8358C84D97C /* Observer.Hotkey.HandlerDefinition.Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Hotkey.HandlerDefinition.Factory.swift; sourceTree = "<group>"; };
 		692C0EE3AC3E3172836E1B96 /* Hotkey.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Hotkey.plist; sourceTree = "<group>"; };
+		6930CDFE4CA3FA4B49FEDC5C /* Test.Keyboard.Key.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Keyboard.Key.swift; sourceTree = "<group>"; };
 		6939BF2B84BEA59EDEC4361B /* Observer.Event.HandlerDefinition.Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Event.HandlerDefinition.Factory.swift; sourceTree = "<group>"; };
 		6942C9E9427EDEACDF0BC0A4 /* Observer.HandlerDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = file.HandlerDefinition; path = Observer.HandlerDefinition.swift; sourceTree = "<group>"; };
 		69470962620FF547E76616CE /* Observer.Event.HandlerDefinition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Event.HandlerDefinition.swift; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 			children = (
 				17FD0DFD88228FD00A5189C7 /* Utility */,
 				17FD084D44D28B4C53DE8125 /* Observer */,
+				69EAA559BD11344CD8488382 /* Keyboard */,
 			);
 			path = Test;
 			sourceTree = "<group>";
@@ -315,6 +318,14 @@
 				690846470A79592866B262DD /* Observer.Hotkey.Recorder.swift */,
 			);
 			path = HotKey;
+			sourceTree = "<group>";
+		};
+		69EAA559BD11344CD8488382 /* Keyboard */ = {
+			isa = PBXGroup;
+			children = (
+				6930CDFE4CA3FA4B49FEDC5C /* Test.Keyboard.Key.swift */,
+			);
+			path = Keyboard;
 			sourceTree = "<group>";
 		};
 		69EFE5D1754E51DFE6DB6324 /* Entrypoint */ = {
@@ -508,6 +519,7 @@
 				17FD09333DDFBDB565AE71D6 /* Test.Observer.Notification.swift in Sources */,
 				17FD0B85FEC16B87116CF4A8 /* Test.Observer.Event.swift in Sources */,
 				6944BD1A9C58D937FAFA277A /* Test.Observer.Hotkey.swift in Sources */,
+				69D75B07331D950C156C8B69 /* Test.Keyboard.Key.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -608,8 +620,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/dependency/Carthage/Build/Mac",
 				);
+				INFOPLIST_FILE = "$(SRCROOT)/accessory/info/Observatory.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_MODULE_NAME = Observatory;
+				PRODUCT_MODULE_NAME = Test;
 				PRODUCT_NAME = Test;
 			};
 			name = Debug;
@@ -621,8 +634,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/dependency/Carthage/Build/Mac",
 				);
+				INFOPLIST_FILE = "$(SRCROOT)/accessory/info/Observatory.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_MODULE_NAME = Observatory;
+				PRODUCT_MODULE_NAME = Test;
 				PRODUCT_NAME = Test;
 			};
 			name = Release;

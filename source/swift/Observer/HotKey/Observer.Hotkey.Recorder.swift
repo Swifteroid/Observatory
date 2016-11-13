@@ -124,7 +124,7 @@ public class HotkeyRecorderButton: NSButton
             NSBeep()
             return true
         } else if self.recording {
-            self.hotkey = KeyboardHotkey(key: UInt32(event.keyCode), modifier: self.modifier!)
+            self.hotkey = KeyboardHotkey(key: event.keyCode, modifier: self.modifier!)
             self.recording = false
             return true
         }

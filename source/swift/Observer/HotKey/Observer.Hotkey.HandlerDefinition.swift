@@ -44,7 +44,7 @@ public class HotkeyObserverHandlerDefinition: ObserverHandlerDefinitionProtocol
         let identifier: EventHotKeyID = EventHotKeyID(signature: 0, id: self.dynamicType.constructUniqueHotkeyIdentifier())
         var reference: EventHotKeyRef = nil
 
-        guard let status: OSStatus = RegisterEventHotKey(self.hotkey.key, self.hotkey.modifier, identifier, GetApplicationEventTarget(), OptionBits(0), &reference) where status == Darwin.noErr else {
+        guard let status: OSStatus = RegisterEventHotKey(UInt32(self.hotkey.key), self.hotkey.modifier, identifier, GetApplicationEventTarget(), OptionBits(0), &reference) where status == Darwin.noErr else {
             throw Error.HotkeyRegisterFail
         }
 
