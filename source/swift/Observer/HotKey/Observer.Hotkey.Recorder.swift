@@ -12,6 +12,9 @@ public class HotkeyRecorderButton: NSButton
     // MARK: -
 
     public private(set) var hotkey: KeyboardHotkey? {
+        willSet {
+            NSNotificationCenter.defaultCenter().postNotificationName(Notification.HotkeyWillChange, object: self)
+        }
         didSet {
             if self.hotkey == oldValue { return }
             self.needsDisplay = true
@@ -161,6 +164,7 @@ extension HotkeyRecorderButton
 {
     public struct Notification
     {
+        public static let HotkeyWillChange: String = "HotkeyRecorderButtonHotkeyWillChangeNotification"
         public static let HotkeyDidChange: String = "HotkeyRecorderButtonHotkeyDidChangeNotification"
     }
 }
