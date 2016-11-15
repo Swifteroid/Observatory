@@ -32,12 +32,44 @@ public class HotkeyObserverHandlerDefinition: ObserverHandlerDefinitionProtocol
 
     // MARK: -
 
-    public private(set) var active: Bool = false
-
-    public func activate(eventHandler: EventHandlerRef) throws -> HotkeyObserverHandlerDefinition {
-        guard self.inactive else {
-            return self
+    public var ignored: Bool = false {
+        didSet {
+            if self.ignored == oldValue { return }
+            try! self.update()
         }
+    }
+
+    public private(set) var active: Bool = false {
+        didSet {
+            if self.active == oldValue { return }
+            try! self.update()
+        }
+    }
+
+    public func activate() throws -> Self {
+        self.active = true
+        return self
+    }
+
+    public func deactivate() throws -> Self {
+        self.active = false
+        return self
+    }
+
+    private func update() throws {
+        let newActive: Bool = self.active && !self.ignored
+        let oldActive: Bool = self.hotkeyIdentifier ?? nil != nil && self.hotkeyReference ?? nil != nil
+
+        if newActive && !oldActive {
+            try self.registerEventHotkey()
+        } else if !newActive && oldActive {
+            try self.unregisterEventHotkey()
+        }
+    }
+
+    // MARK: -
+
+    private func registerEventHotkey() throws {
 
         // Todo: should use proper signature, find examples…
 
@@ -50,24 +82,15 @@ public class HotkeyObserverHandlerDefinition: ObserverHandlerDefinitionProtocol
 
         self.hotkeyIdentifier = identifier
         self.hotkeyReference = reference
-        self.active = true
-
-        return self
     }
 
-    public func deactivate() throws -> Self {
-        guard self.active else {
-            return self
-        }
-
+    private func unregisterEventHotkey() throws {
         guard let status: OSStatus = UnregisterEventHotKey(self.hotkeyReference) where status == Darwin.noErr else {
             throw Error.HotkeyUnregisterFail
         }
 
         self.hotkeyIdentifier = nil
-        self.active = false
-
-        return self
+        self.hotkeyReference = nil
     }
 
     // MARK: -

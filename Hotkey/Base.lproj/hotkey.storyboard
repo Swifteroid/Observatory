@@ -668,24 +668,30 @@
         <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController id="XfG-lQ-9wD" sceneMemberID="viewController">
+                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="Hotkey" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7EV-ma-YF8" customClass="HotkeyRecorderButton" customModule="Observatory">
-                                <rect key="frame" x="200" y="134" width="81" height="32"/>
-                                <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qYG-S4-HWh">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                            </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Y5w-5O-sPc" customClass="HotkeyRecorderButton" customModule="Observatory">
                                 <rect key="frame" x="200" y="101" width="81" height="32"/>
                                 <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="6N4-OK-W7F">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="command" value="bar"/>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7EV-ma-YF8" customClass="HotkeyRecorderButton" customModule="Observatory">
+                                <rect key="frame" x="200" y="134" width="81" height="32"/>
+                                <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qYG-S4-HWh">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="command" value="foo"/>
+                                </userDefinedRuntimeAttributes>
                             </button>
                         </subviews>
                         <constraints>
@@ -696,6 +702,10 @@
                             <constraint firstItem="Y5w-5O-sPc" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="rV9-OW-Rf9"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="buttonBar" destination="Y5w-5O-sPc" id="QZf-ep-lEO"/>
+                        <outlet property="buttonFoo" destination="7EV-ma-YF8" id="Mmf-ac-2Za"/>
+                    </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>

@@ -1,9 +1,17 @@
 import Foundation
 
-public struct KeyboardHotkey: Equatable
+public struct KeyboardHotkey: Equatable, Hashable
 {
     public var key: UInt16
     public var modifier: UInt32
+
+    // MARK: -
+
+    public var hashValue: Int {
+        return Int(UInt64(self.modifier) << 16 | UInt64(self.key))
+    }
+
+    // MARK: -
 
     public init(key: UInt16, modifier: UInt32) {
         self.key = key

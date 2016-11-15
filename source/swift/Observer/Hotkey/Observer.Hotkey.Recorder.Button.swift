@@ -2,7 +2,7 @@ import AppKit
 import Foundation
 import Carbon
 
-public class HotkeyRecorderButton: NSButton
+public class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
 {
 
     // MARK: intercom
@@ -11,27 +11,50 @@ public class HotkeyRecorderButton: NSButton
 
     // MARK: -
 
-    public private(set) var hotkey: KeyboardHotkey? {
+    public var hotkey: KeyboardHotkey? {
         willSet {
             NSNotificationCenter.defaultCenter().postNotificationName(Notification.HotkeyWillChange, object: self)
         }
         didSet {
             if self.hotkey == oldValue { return }
+
+            if let oldValue: KeyboardHotkey = oldValue where HotkeyCenter.instance.hotkeys[oldValue] == self.command {
+                HotkeyCenter.instance.hotkeys.removeValueForKey(oldValue)
+            }
+
+            if let newValue: KeyboardHotkey = self.hotkey {
+                HotkeyCenter.instance.hotkeys[newValue] = self.command
+            }
+
             self.needsDisplay = true
             NSNotificationCenter.defaultCenter().postNotificationName(Notification.HotkeyDidChange, object: self)
         }
     }
 
-    private var modifier: KeyboardModifier? {
-        didSet {
-            if self.modifier == oldValue { return }
-            self.needsDisplay = true
-        }
-    }
+    @IBInspectable public var command: String!
 
     public var recording: Bool = false {
         didSet {
             if self.recording == oldValue { return }
+            self.modifier = nil
+            self.needsDisplay = true
+
+            // Let hotkey center know that current recorder changed.
+
+            if self.recording {
+                HotkeyCenter.instance.recorder = self
+            } else if HotkeyCenter.instance.recorder === self {
+                HotkeyCenter.instance.recorder = nil
+            }
+        }
+    }
+
+    /*
+    Stores temporary modifier while hotkey is being recorded.
+    */
+    private var modifier: KeyboardModifier? {
+        didSet {
+            if self.modifier == oldValue { return }
             self.needsDisplay = true
         }
     }
@@ -115,8 +138,8 @@ public class HotkeyRecorderButton: NSButton
         }
 
         if event.keyCode == UInt16(KeyboardKey.Delete) && self.modifier == nil && self.hotkey != nil {
-            self.recording = false
             self.hotkey = nil
+            self.recording = false
             return true
         }
 
@@ -127,8 +150,15 @@ public class HotkeyRecorderButton: NSButton
             NSBeep()
             return true
         } else if self.recording {
-            self.hotkey = KeyboardHotkey(key: event.keyCode, modifier: self.modifier!)
-            self.recording = false
+            let hotkey: KeyboardHotkey = KeyboardHotkey(key: event.keyCode, modifier: self.modifier!)
+
+            if HotkeyCenter.instance.hotkeys.keys.contains(hotkey) && HotkeyCenter.instance.hotkeys[hotkey] != self.command {
+                NSBeep()
+            } else {
+                self.hotkey = hotkey
+                self.recording = false
+            }
+
             return true
         }
 
@@ -138,6 +168,10 @@ public class HotkeyRecorderButton: NSButton
         }
 
         return super.performKeyEquivalent(event)
+    }
+
+    private func handleWindowDidResignKeyNotification() {
+        self.recording = false
     }
 
     override public func flagsChanged(event: NSEvent) {
@@ -153,7 +187,7 @@ public class HotkeyRecorderButton: NSButton
         }
 
         if let newWindow: NSWindow = newWindow {
-            try! self.windowNotificationObserver.add(NSWindowDidBecomeKeyNotification, observable: newWindow, handler: { [unowned self] in self.recording = false })
+            try! self.windowNotificationObserver.add(NSWindowDidResignKeyNotification, observable: newWindow, handler: { [unowned self] in self.handleWindowDidResignKeyNotification() })
         }
     }
 }

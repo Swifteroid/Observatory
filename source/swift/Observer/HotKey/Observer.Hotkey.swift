@@ -45,7 +45,7 @@ public class HotkeyObserver: Observer
         self.eventHotkeyHandlerPointer = eventHotkeyHandler
 
         for definition in self.definitions {
-            try! definition.activate(eventHandler)
+            try! definition.activate()
         }
     }
 
@@ -110,7 +110,7 @@ public class HotkeyObserver: Observer
         let definition: HotkeyObserverHandlerDefinition = try! factory.construct()
 
         guard !self.definitions.contains(definition) else { return self }
-        self.definitions.append(self.active ? (try! definition.activate(self.eventHandlerPointer)) : definition)
+        self.definitions.append(self.active ? (try! definition.activate()) : definition)
 
         return self
     }
@@ -139,6 +139,13 @@ public class HotkeyObserver: Observer
                 (definition.hotkey == hotkey) &&
                 (handler == nil && !strict || handler != nil && self.dynamicType.compareBlocks(definition.handler, handler))
         })
+    }
+
+    // MARK: -
+
+    override public init() {
+        super.init()
+        HotkeyCenter.instance.register(self)
     }
 }
 
