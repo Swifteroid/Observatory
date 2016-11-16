@@ -76,8 +76,8 @@ public class HotkeyObserverHandlerDefinition: ObserverHandlerDefinitionProtocol
         let identifier: EventHotKeyID = EventHotKeyID(signature: 0, id: self.dynamicType.constructUniqueHotkeyIdentifier())
         var reference: EventHotKeyRef = nil
 
-        guard let status: OSStatus = RegisterEventHotKey(UInt32(self.hotkey.key), self.hotkey.modifier, identifier, GetApplicationEventTarget(), OptionBits(0), &reference) where status == Darwin.noErr else {
-            throw Error.HotkeyRegisterFail
+        if let status: OSStatus = RegisterEventHotKey(UInt32(self.hotkey.key), self.hotkey.modifier, identifier, GetApplicationEventTarget(), OptionBits(0), &reference) where status != Darwin.noErr {
+            throw Error.HotkeyRegisterFail(status: status)
         }
 
         self.hotkeyIdentifier = identifier
@@ -85,8 +85,8 @@ public class HotkeyObserverHandlerDefinition: ObserverHandlerDefinitionProtocol
     }
 
     private func unregisterEventHotkey() throws {
-        guard let status: OSStatus = UnregisterEventHotKey(self.hotkeyReference) where status == Darwin.noErr else {
-            throw Error.HotkeyUnregisterFail
+        if let status: OSStatus = UnregisterEventHotKey(self.hotkeyReference) where status != Darwin.noErr {
+            throw Error.HotkeyUnregisterFail(status: status)
         }
 
         self.hotkeyIdentifier = nil
@@ -117,7 +117,7 @@ extension HotkeyObserverHandlerDefinition
 {
     public enum Error: ErrorType
     {
-        case HotkeyRegisterFail
-        case HotkeyUnregisterFail
+        case HotkeyRegisterFail(status: OSStatus)
+        case HotkeyUnregisterFail(status: OSStatus)
     }
 }
