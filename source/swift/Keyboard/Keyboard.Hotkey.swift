@@ -5,10 +5,20 @@ public struct KeyboardHotkey: Equatable, Hashable
     public var key: UInt16
     public var modifier: UInt32
 
+    public var value: UInt64 {
+        get {
+            return UInt64(self.modifier) << 16 | UInt64(self.key)
+        }
+        set {
+            self.key = UInt16(truncatingBitPattern: newValue)
+            self.modifier = UInt32(truncatingBitPattern: newValue >> 16)
+        }
+    }
+
     // MARK: -
 
     public var hashValue: Int {
-        return Int(UInt64(self.modifier) << 16 | UInt64(self.key))
+        return Int(self.value)
     }
 
     // MARK: -
@@ -21,6 +31,11 @@ public struct KeyboardHotkey: Equatable, Hashable
     public init(key: UInt16, modifier: KeyboardModifier) {
         self.key = key
         self.modifier = modifier.rawValue
+    }
+
+    public init(value: UInt64) {
+        self.key = UInt16(truncatingBitPattern: value)
+        self.modifier = UInt32(truncatingBitPattern: value >> 16)
     }
 }
 
