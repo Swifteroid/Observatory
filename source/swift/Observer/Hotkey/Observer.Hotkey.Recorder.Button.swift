@@ -18,12 +18,12 @@ public class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
         didSet {
             if self.hotkey == oldValue { return }
 
-            if let oldValue: KeyboardHotkey = oldValue where HotkeyCenter.instance.hotkeys[oldValue] == self.command {
-                HotkeyCenter.instance.hotkeys.removeValueForKey(oldValue)
+            if let oldValue: KeyboardHotkey = oldValue where HotkeyCenter.instance.commands[oldValue] == self.command {
+                HotkeyCenter.instance.commands.removeValueForKey(oldValue)
             }
 
             if let newValue: KeyboardHotkey = self.hotkey {
-                HotkeyCenter.instance.hotkeys[newValue] = self.command
+                HotkeyCenter.instance.commands[newValue] = self.command
             }
 
             self.needsDisplay = true
@@ -48,6 +48,8 @@ public class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
             }
         }
     }
+
+    // MARK: -
 
     /*
     Stores temporary modifier while hotkey is being recorded.
@@ -152,7 +154,7 @@ public class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
         } else if self.recording {
             let hotkey: KeyboardHotkey = KeyboardHotkey(key: event.keyCode, modifier: self.modifier!)
 
-            if HotkeyCenter.instance.hotkeys.keys.contains(hotkey) && HotkeyCenter.instance.hotkeys[hotkey] != self.command {
+            if HotkeyCenter.instance.commands.keys.contains(hotkey) && HotkeyCenter.instance.commands[hotkey] != self.command {
                 NSBeep()
             } else {
                 self.hotkey = hotkey
