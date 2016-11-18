@@ -39,24 +39,21 @@ public class HotkeyObserverHandlerDefinition: ObserverHandlerDefinitionProtocol
         }
     }
 
-    public private(set) var active: Bool = false {
-        didSet {
-            if self.active == oldValue { return }
-            try! self.update()
-        }
-    }
+    public private(set) var active: Bool = false
 
     public func activate() throws -> Self {
+        guard !self.active else { return self }
         self.active = true
-        return self
+        return try self.update()
     }
 
     public func deactivate() throws -> Self {
+        guard self.active else { return self }
         self.active = false
-        return self
+        return try self.update()
     }
 
-    private func update() throws {
+    private func update() throws -> Self {
         let newActive: Bool = self.active && !self.ignored
         let oldActive: Bool = self.hotkeyIdentifier ?? nil != nil && self.hotkeyReference ?? nil != nil
 
@@ -65,6 +62,8 @@ public class HotkeyObserverHandlerDefinition: ObserverHandlerDefinitionProtocol
         } else if !newActive && oldActive {
             try self.unregisterEventHotkey()
         }
+
+        return self
     }
 
     // MARK: -
@@ -77,7 +76,11 @@ public class HotkeyObserverHandlerDefinition: ObserverHandlerDefinitionProtocol
         var reference: EventHotKeyRef = nil
 
         if let status: OSStatus = RegisterEventHotKey(UInt32(self.hotkey.key), self.hotkey.modifier, identifier, GetApplicationEventTarget(), OptionBits(0), &reference) where status != Darwin.noErr {
-            throw Error.HotkeyRegisterFail(status: status)
+            if Int(status) == eventHotKeyExistsErr {
+                throw Error.HotkeyAlreadyRegistered
+            } else {
+                throw Error.HotkeyRegisterFail(status: status)
+            }
         }
 
         self.hotkeyIdentifier = identifier
@@ -117,6 +120,7 @@ extension HotkeyObserverHandlerDefinition
 {
     public enum Error: ErrorType
     {
+        case HotkeyAlreadyRegistered
         case HotkeyRegisterFail(status: OSStatus)
         case HotkeyUnregisterFail(status: OSStatus)
     }

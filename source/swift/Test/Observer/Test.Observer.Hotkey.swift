@@ -52,6 +52,17 @@ public class HotkeyObserverTestCase: XCTestCase
         expect(foo).to(equal(2))
     }
 
+    public func testError() {
+        let observerFoo: HotkeyObserver = HotkeyObserver(active: true)
+        let observerBar: HotkeyObserver = HotkeyObserver(active: true)
+        let hotkey: KeyboardHotkey = KeyboardHotkey(key: KeyboardKey.Five, modifier: [KeyboardModifier.CommandKey, KeyboardModifier.ShiftKey])
+
+        // Todo: for some reason refuses to work when expect expression is wrapped in brackets, check in Swift 3.
+
+        try! observerFoo.add(hotkey, handler: {})
+        expect { try observerBar.add(hotkey, handler: {}) }.to(throwError(HotkeyObserverHandlerDefinition.Error.HotkeyAlreadyRegistered))
+    }
+
     private func sendHotKeyEvent(identifier: EventHotKeyID) {
         let eventHotKeyIdPointer: UnsafeMutablePointer<EventHotKeyID> = UnsafeMutablePointer.alloc(1)
         eventHotKeyIdPointer.initialize(identifier)

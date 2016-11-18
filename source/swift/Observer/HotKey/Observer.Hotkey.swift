@@ -107,10 +107,10 @@ public class HotkeyObserver: Observer
 
     public func add(hotkey: KeyboardHotkey, handler: Any) throws -> HotkeyObserver {
         let factory: HotkeyObserverHandlerDefinitionFactory = HotkeyObserverHandlerDefinitionFactory(hotkey: hotkey, handler: handler)
-        let definition: HotkeyObserverHandlerDefinition = try! factory.construct()
+        let definition: HotkeyObserverHandlerDefinition = try factory.construct()
 
         guard !self.definitions.contains(definition) else { return self }
-        self.definitions.append(self.active ? (try! definition.activate()) : definition)
+        self.definitions.append(self.active ? (try definition.activate()) : definition)
 
         return self
     }
