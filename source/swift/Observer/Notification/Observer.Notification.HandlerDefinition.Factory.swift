@@ -20,19 +20,20 @@ public class NotificationObserverHandlerDefinitionFactory
 
     public func construct() throws -> NotificationObserverHandlerDefinition {
         var definition: NotificationObserverHandlerDefinition!
-        var handler: Any
+        let originalHandler: Any = self.handler
+        var normalisedHandler: Any
 
-        if self.handler is ObserverHandler {
-            handler = { (notification: NSNotification) in (definition.handler.original as! ObserverHandler)() }
-        } else if self.handler is ObserverConventionHandler {
-            handler = { (notification: NSNotification) in (definition.handler.original as! ObserverConventionHandler)() }
-        } else if self.handler is NotificationObserverHandler || self.handler is NotificationObserverConventionHandler {
-            handler = self.handler
+        if originalHandler is ObserverHandler {
+            normalisedHandler = { (notification: NSNotification) in (originalHandler as! ObserverHandler)() }
+        } else if originalHandler is ObserverConventionHandler {
+            normalisedHandler = { (notification: NSNotification) in (originalHandler as! ObserverConventionHandler)() }
+        } else if originalHandler is NotificationObserverHandler || originalHandler is NotificationObserverConventionHandler {
+            normalisedHandler = originalHandler
         } else {
             throw Observer.Error.UnrecognisedHandlerSignature
         }
 
-        definition = NotificationObserverHandlerDefinition(name: self.name, observable: self.observable, queue: self.queue, handler: (original: self.handler, normalised: handler))
+        definition = NotificationObserverHandlerDefinition(name: self.name, observable: self.observable, queue: self.queue, handler: (original: originalHandler, normalised: normalisedHandler))
         return definition
     }
 }

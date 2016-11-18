@@ -16,19 +16,20 @@ public class HotkeyObserverHandlerDefinitionFactory
 
     public func construct() throws -> HotkeyObserverHandlerDefinition {
         var definition: HotkeyObserverHandlerDefinition!
-        var handler: Any
+        let originalHandler: Any = self.handler
+        var normalisedHandler: Any
 
-        if self.handler is ObserverHandler {
-            handler = { (hotkey: KeyboardHotkey) in (definition.handler.original as! ObserverHandler)() }
-        } else if self.handler is ObserverConventionHandler {
-            handler = { (hotkey: KeyboardHotkey) in (definition.handler.original as! ObserverConventionHandler)() }
-        } else if self.handler is HotkeyObserverHandler {
-            handler = self.handler
+        if originalHandler is ObserverHandler {
+            normalisedHandler = { (hotkey: KeyboardHotkey) in (originalHandler as! ObserverHandler)() }
+        } else if originalHandler is ObserverConventionHandler {
+            normalisedHandler = { (hotkey: KeyboardHotkey) in (originalHandler as! ObserverConventionHandler)() }
+        } else if originalHandler is HotkeyObserverHandler {
+            normalisedHandler = originalHandler
         } else {
             throw Observer.Error.UnrecognisedHandlerSignature
         }
 
-        definition = HotkeyObserverHandlerDefinition(hotkey: self.hotkey, handler: (original: self.handler, normalised: handler))
+        definition = HotkeyObserverHandlerDefinition(hotkey: self.hotkey, handler: (original: originalHandler, normalised: normalisedHandler))
         return definition
     }
 }

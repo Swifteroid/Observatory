@@ -24,6 +24,7 @@ public class EventObserverHandlerDefinitionFactory
         }
 
         var definition: EventObserverHandlerDefinition!
+        let originalHandler: Any = self.handler
         var localHandler: Any?
         var globalHandler: Any?
 
@@ -32,24 +33,24 @@ public class EventObserverHandlerDefinitionFactory
         // of these, therefore if we normalise all recognised relaxed signatures here before storing them.
 
         // @formatter:off
-        if self.handler is ObserverHandler {
-            globalHandler = self.global ? { (event: NSEvent) in (definition.handler.original as! ObserverHandler)() } : nil
-            localHandler = self.local ? { (event: NSEvent) -> NSEvent? in (definition.handler.original as! ObserverHandler)(); return event } : nil
-        } else if self.handler is ObserverConventionHandler {
-            globalHandler = self.global ? { (event: NSEvent) in (definition.handler.original as! ObserverConventionHandler)() } : nil
-            localHandler = self.local ? { (event: NSEvent) -> NSEvent? in (definition.handler.original as! ObserverConventionHandler)(); return event } : nil
-        } else if self.handler is EventObserverHandler.Local {
-            globalHandler = self.global ? { (event: NSEvent) in (definition.handler.original as! EventObserverHandler.Local)(event: event) } : nil
-            localHandler = self.local ? self.handler as? EventObserverHandler.Local : nil
-        } else if self.handler is EventObserverConventionHandler.Local {
-            globalHandler = self.global ? { (event: NSEvent) in (definition.handler.original as! EventObserverConventionHandler.Local)(event: event) } : nil
-            localHandler = self.local ? self.handler as? EventObserverConventionHandler.Local : nil
-        } else if self.handler is EventObserverHandler.Global {
-            globalHandler = self.global ? self.handler as? EventObserverHandler.Global : nil
-            localHandler = self.local ? { (event: NSEvent) -> NSEvent? in (definition.handler.original as! EventObserverHandler.Global)(event: event); return event } : nil
-        } else if self.handler is EventObserverConventionHandler.Global {
-            globalHandler = self.global ? self.handler as? EventObserverConventionHandler.Global : nil
-            localHandler = self.local ? { (event: NSEvent) -> NSEvent? in (definition.handler.original as! EventObserverConventionHandler.Global)(event: event); return event } : nil
+        if originalHandler is ObserverHandler {
+            globalHandler = self.global ? { (event: NSEvent) in (originalHandler as! ObserverHandler)() } : nil
+            localHandler = self.local ? { (event: NSEvent) -> NSEvent? in (originalHandler as! ObserverHandler)(); return event } : nil
+        } else if originalHandler is ObserverConventionHandler {
+            globalHandler = self.global ? { (event: NSEvent) in (originalHandler as! ObserverConventionHandler)() } : nil
+            localHandler = self.local ? { (event: NSEvent) -> NSEvent? in (originalHandler as! ObserverConventionHandler)(); return event } : nil
+        } else if originalHandler is EventObserverHandler.Local {
+            globalHandler = self.global ? { (event: NSEvent) in (originalHandler as! EventObserverHandler.Local)(event: event) } : nil
+            localHandler = self.local ? originalHandler as? EventObserverHandler.Local : nil
+        } else if originalHandler is EventObserverConventionHandler.Local {
+            globalHandler = self.global ? { (event: NSEvent) in (originalHandler as! EventObserverConventionHandler.Local)(event: event) } : nil
+            localHandler = self.local ? originalHandler as? EventObserverConventionHandler.Local : nil
+        } else if originalHandler is EventObserverHandler.Global {
+            globalHandler = self.global ? originalHandler as? EventObserverHandler.Global : nil
+            localHandler = self.local ? { (event: NSEvent) -> NSEvent? in (originalHandler as! EventObserverHandler.Global)(event: event); return event } : nil
+        } else if originalHandler is EventObserverConventionHandler.Global {
+            globalHandler = self.global ? originalHandler as? EventObserverConventionHandler.Global : nil
+            localHandler = self.local ? { (event: NSEvent) -> NSEvent? in (originalHandler as! EventObserverConventionHandler.Global)(event: event); return event } : nil
         }
         // @formatter:on
 
@@ -57,7 +58,7 @@ public class EventObserverHandlerDefinitionFactory
             throw Observer.Error.UnrecognisedHandlerSignature
         }
 
-        definition = EventObserverHandlerDefinition(mask: self.mask, handler: (original: self.handler, global: globalHandler, local: localHandler))
+        definition = EventObserverHandlerDefinition(mask: self.mask, handler: (original: originalHandler, global: globalHandler, local: localHandler))
         return definition
     }
 }
