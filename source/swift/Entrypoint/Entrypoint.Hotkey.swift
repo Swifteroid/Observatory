@@ -5,7 +5,7 @@ import Observatory
 {
 }
 
-public class ViewController: NSViewController
+open class ViewController: NSViewController
 {
     @IBOutlet private weak var buttonFoo: HotkeyRecorderButton!
     @IBOutlet private weak var buttonBar: HotkeyRecorderButton!
@@ -16,11 +16,11 @@ public class ViewController: NSViewController
 
     // MARK: -
 
-    override public func viewDidLoad() {
-        try! hotkeyCommandObserver.add(HotkeyCenter.Notification.CommandDidInvoke, observable: HotkeyCenter.instance, handler: { [unowned self] in self.handleHotkeyCommandNotification($0) })
+    override open func viewDidLoad() {
+        try! hotkeyCommandObserver.add(name: HotkeyCenter.Notification.CommandDidInvoke, observable: HotkeyCenter.instance, handler: { [unowned self] in self.handleHotkeyCommandNotification(notification: $0) })
     }
 
-    private func handleHotkeyCommandNotification(notification: NSNotification) {
+    private func handleHotkeyCommandNotification(notification: Notification) {
         let info: [String: AnyObject] = notification.userInfo as! [String: AnyObject]
         let command: String = info[HotkeyCenter.NotificationUserInfo.Command] as! String
         let hotkey: KeyboardHotkey = KeyboardHotkey(value: UInt64(info[HotkeyCenter.NotificationUserInfo.Hotkey] as! Int))

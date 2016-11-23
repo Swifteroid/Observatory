@@ -4,11 +4,9 @@ import Foundation
 Event observer provides a flexible interface for registering and managing multiple event handlers in, both, global
 and local contexts.
 */
-public class EventObserver: Observer
+open class EventObserver: Observer
 {
-    public typealias SELF = EventObserver
-
-    override public var active: Bool {
+    override open var active: Bool {
         didSet {
             if oldValue == self.active {
                 return
@@ -24,7 +22,7 @@ public class EventObserver: Observer
         }
     }
 
-    public internal(set) var definitions: [EventObserverHandlerDefinition] = []
+    open internal(set) var definitions: [EventObserverHandlerDefinition] = []
 
     // MARK: -
 
@@ -42,7 +40,7 @@ public class EventObserver: Observer
 
     // MARK: -
 
-    public func add(mask: NSEventMask, global: Bool, local: Bool, handler: Any) throws -> SELF {
+    @discardableResult open func add(mask: NSEventMask, global: Bool, local: Bool, handler: Any) throws -> Self {
         let factory: EventObserverHandlerDefinitionFactory = EventObserverHandlerDefinitionFactory(mask: mask, global: global, local: local, handler: handler)
         let definition: EventObserverHandlerDefinition = try! factory.construct()
 
@@ -52,76 +50,45 @@ public class EventObserver: Observer
         return self
     }
 
-    public func add(mask: NSEventMask, handler: Any) throws -> SELF {
-        return try self.add(mask, global: true, local: true, handler: handler)
+    @discardableResult open func add(mask: NSEventMask, handler: Any) throws -> Self {
+        return try self.add(mask: mask, global: true, local: true, handler: handler)
     }
 
-    public func remove(mask: NSEventMask, handler: Any?, strict: Bool) -> Self {
-        for (index, _) in self.filter(mask, handler: handler, strict: strict).reverse() {
-            self.definitions.removeAtIndex(index)
+    @discardableResult open func remove(mask: NSEventMask, handler: Any?, strict: Bool) -> Self {
+        for (index, _) in self.filter(mask: mask, handler: handler, strict: strict).reversed() {
+            self.definitions.remove(at: index)
         }
 
         return self
     }
 
-    public func remove(mask: NSEventMask, handler: Any?) -> Self {
-        return self.remove(mask, handler: handler, strict: false)
+    @discardableResult open func remove(mask: NSEventMask, handler: Any?) -> Self {
+        return self.remove(mask: mask, handler: handler, strict: false)
     }
 
-    public func remove(mask: NSEventMask) -> Self {
-        return self.remove(mask, handler: nil, strict: false)
+    @discardableResult open func remove(mask: NSEventMask) -> Self {
+        return self.remove(mask: mask, handler: nil, strict: false)
     }
 
     // MARK: -
 
-    private func filter(mask: NSEventMask, handler: Any?, strict: Bool) -> [(index: Int, element: EventObserverHandlerDefinition)] {
-        return self.definitions.enumerate().filter({ (_: Int, definition: EventObserverHandlerDefinition) in
+    private func filter(mask: NSEventMask, handler: Any?, strict: Bool) -> [(offset: Int, element: EventObserverHandlerDefinition)] {
+        return self.definitions.enumerated().filter({ (_: Int, definition: EventObserverHandlerDefinition) in
             return true &&
                 (mask == definition.mask) &&
-                (handler == nil && !strict || handler != nil && self.dynamicType.compareBlocks(definition.handler.original, handler))
+                (handler == nil && !strict || handler != nil && type(of: self).compareBlocks(definition.handler.original, handler!))
         })
     }
 
     // MARK: -
 
-    override public class func compareBlocks(lhs: Any, _ rhs: Any) -> Bool {
+    override open class func compareBlocks(_ lhs: Any, _ rhs: Any) -> Bool {
         if lhs is EventObserverConventionHandler.Global && rhs is EventObserverConventionHandler.Global {
-            return unsafeBitCast(lhs as! EventObserverConventionHandler.Global, AnyObject.self) === unsafeBitCast(rhs as! EventObserverConventionHandler.Global, AnyObject.self)
+            return unsafeBitCast(lhs as! EventObserverConventionHandler.Global, to: AnyObject.self) === unsafeBitCast(rhs as! EventObserverConventionHandler.Global, to: AnyObject.self)
         } else if lhs is EventObserverConventionHandler.Local && rhs is EventObserverConventionHandler.Local {
-            return unsafeBitCast(lhs as! EventObserverConventionHandler.Local, AnyObject.self) === unsafeBitCast(rhs as! EventObserverConventionHandler.Local, AnyObject.self)
+            return unsafeBitCast(lhs as! EventObserverConventionHandler.Local, to: AnyObject.self) === unsafeBitCast(rhs as! EventObserverConventionHandler.Local, to: AnyObject.self)
         } else {
             return Observer.compareBlocks(lhs, rhs)
         }
-    }
-}
-
-// MARK: weakening
-
-extension EventObserver
-{
-    public class func weakenHandler<T:AnyObject>(instance: T, method: (T) -> EventObserverHandler.Global) -> EventObserverHandler.Global {
-        return { [unowned instance] (event: NSEvent) in method(instance)(event: event) }
-    }
-
-    public class func weakenHandler<T:AnyObject>(instance: T, method: (T) -> EventObserverHandler.Local) -> EventObserverHandler.Local {
-        return { [unowned instance] (event: NSEvent) in method(instance)(event: event) }
-    }
-}
-
-public protocol EventObserverHandlerProtocol: ObserverHandlerProtocol
-{
-    func weakenHandler(method: (Self) -> EventObserverHandler.Global) -> EventObserverHandler.Global
-
-    func weakenHandler(method: (Self) -> EventObserverHandler.Local) -> EventObserverHandler.Local
-}
-
-extension EventObserverHandlerProtocol
-{
-    public func weakenHandler(method: (Self) -> EventObserverHandler.Global) -> EventObserverHandler.Global {
-        return EventObserver.weakenHandler(self, method: method)
-    }
-
-    public func weakenHandler(method: (Self) -> EventObserverHandler.Local) -> EventObserverHandler.Local {
-        return EventObserver.weakenHandler(self, method: method)
     }
 }

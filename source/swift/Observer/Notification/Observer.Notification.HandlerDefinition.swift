@@ -1,30 +1,29 @@
 import Foundation
 
-public class NotificationObserverHandlerDefinition: ObserverHandlerDefinitionProtocol
+open class NotificationObserverHandlerDefinition: ObserverHandlerDefinitionProtocol
 {
-    public typealias SELF = NotificationObserverHandlerDefinition
     public typealias Handler = (original: Any, normalised: Any)
 
-    public let name: String
-    public let observable: AnyObject?
-    public let queue: NSOperationQueue?
-    public let handler: Handler
+    open let name: Notification.Name
+    open let observable: AnyObject?
+    open let queue: OperationQueue?
+    open let handler: Handler
 
     // MARK: -
 
-    public private(set) var observer: AnyObject!
-    public private(set) var center: NSNotificationCenter!
+    open private(set) var observer: AnyObject!
+    open private(set) var center: NotificationCenter!
 
     // MARK: -
 
-    public private(set) var active: Bool = false
+    open private(set) var active: Bool = false
 
-    public func activate(center: NSNotificationCenter) -> NotificationObserverHandlerDefinition {
+    @discardableResult open func activate(center: NotificationCenter) -> NotificationObserverHandlerDefinition {
         guard self.inactive else {
             return self
         }
 
-        let observer: AnyObject = center.addObserverForName(self.name, object: self.observable, queue: self.queue, usingBlock: self.handler.normalised as! NotificationObserverHandler)
+        let observer: AnyObject = center.addObserver(forName: self.name, object: self.observable, queue: self.queue, using: self.handler.normalised as! NotificationObserverHandler)
 
         self.observer = observer
         self.center = center
@@ -33,7 +32,7 @@ public class NotificationObserverHandlerDefinition: ObserverHandlerDefinitionPro
         return self
     }
 
-    public func deactivate() -> Self {
+    @discardableResult open func deactivate() -> Self {
         guard self.active else {
             return self
         }
@@ -49,7 +48,7 @@ public class NotificationObserverHandlerDefinition: ObserverHandlerDefinitionPro
 
     // MARK: -
 
-    init(name: String, observable: AnyObject?, queue: NSOperationQueue?, handler: Handler) {
+    init(name: Notification.Name, observable: AnyObject?, queue: OperationQueue?, handler: Handler) {
         self.name = name
         self.observable = observable
         self.queue = queue

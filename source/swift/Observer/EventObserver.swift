@@ -6,15 +6,14 @@ and local contexts.
 */
 public class EventObserver: Observer
 {
-    public typealias SELF = EventObserver
-    public typealias GlobalEventHandler = (event: NSEvent) -> ()
-    public typealias LocalEventHandler = (event: NSEvent) -> NSEvent?
+    public typealias GlobalEventHandler = (NSEvent) -> ()
+    public typealias LocalEventHandler = (NSEvent) -> NSEvent?
 
-    public typealias GlobalHandlerBlock = (event: NSEvent) -> Void
-    public typealias GlobalConventionHandlerBlock = @convention(block) (event: NSEvent) -> Void
+    public typealias GlobalHandlerBlock = (NSEvent) -> Void
+    public typealias GlobalConventionHandlerBlock = @convention(block) (NSEvent) -> Void
 
-    public typealias LocalHandlerBlock = (event: NSEvent) -> NSEvent?
-    public typealias LocalConventionHandlerBlock = @convention(block) (event: NSEvent) -> NSEvent?
+    public typealias LocalHandlerBlock = (NSEvent) -> NSEvent?
+    public typealias LocalConventionHandlerBlock = @convention(block) (NSEvent) -> NSEvent?
 
     override public var active: Bool {
         didSet {
@@ -42,7 +41,7 @@ public class EventObserver: Observer
     /*
     Add new event observation and activate it if observer is active. 
     */
-    public func add(mask: NSEventMask, global: Bool, local: Bool, handler: Any) throws -> SELF {
+    @discardableResult public func add(mask: NSEventMask, global: Bool, local: Bool, handler: Any) throws -> Self {
         if !global && !local {
             throw Error.UnspecifiedContext
         }
@@ -106,16 +105,16 @@ public class EventObserver: Observer
         return self
     }
 
-    public func add(mask: NSEventMask, handler: Any) throws -> SELF {
+    @discardableResult public func add(mask: NSEventMask, handler: Any) throws -> Self {
         return try self.add(mask, global: true, local: true, handler: handler)
     }
 
-    public func remove(mask: NSEventMask, handler: Any? = nil) throws -> SELF {
+    @discardableResult public func remove(mask: NSEventMask, handler: Any? = nil) throws -> Self {
         var i: Int = 0
         var n: Int = self.definitions.count
 
         while i < n {
-            if let definition: HandlerDefinition = self.definitions[i] where mask == definition.mask && (handler == nil || SELF.compareBlocks(definition.handler.original, handler)) {
+            if let definition: HandlerDefinition = self.definitions[i], mask == definition.mask && (handler == nil || Self.compareBlocks(definition.handler.original, handler)) {
                 self.definitions.removeAtIndex(i)
 
                 // Don't do `i -= 1` – this is not a for loop, these good days are in the bast now…
@@ -129,7 +128,7 @@ public class EventObserver: Observer
         return self
     }
 
-    override public class func compareBlocks(block1: Any, _ block2: Any) -> Bool {
+    override public class func compareBlocks(_ block1: Any, _ block2: Any) -> Bool {
         if block1 is GlobalConventionHandlerBlock && block2 is GlobalConventionHandlerBlock && unsafeBitCast(block1 as! GlobalConventionHandlerBlock, AnyObject.self) === unsafeBitCast(block2 as! GlobalConventionHandlerBlock, AnyObject.self) {
             return true
         } else if block1 is LocalConventionHandlerBlock && block2 is LocalConventionHandlerBlock && unsafeBitCast(block1 as! LocalConventionHandlerBlock, AnyObject.self) === unsafeBitCast(block2 as! LocalConventionHandlerBlock, AnyObject.self) {
@@ -172,7 +171,6 @@ extension EventObserver
 {
     public class HandlerDefinition: Equatable
     {
-        public typealias SELF = HandlerDefinition
         public typealias Handler = (original: Any, global: Any?, local: Any?)
         public typealias Monitor = (global: AnyObject?, local: AnyObject?)
 
@@ -186,7 +184,7 @@ extension EventObserver
             self.handler = handler
         }
 
-        public func activate() -> SELF {
+        @discardableResult public func activate() -> Self {
             if self.monitor == nil {
                 var monitor: Monitor = Monitor(local: nil, global: nil)
 
@@ -203,7 +201,7 @@ extension EventObserver
             return self
         }
 
-        public func deactivate() -> SELF {
+        @discardableResult public func deactivate() -> Self {
             if let monitor: Monitor = self.monitor {
                 if let monitor: AnyObject = monitor.local {
                     NSEvent.removeMonitor(monitor)
@@ -224,11 +222,11 @@ extension EventObserver
     }
 }
 
-public func ==(left: EventObserver.HandlerDefinition, right: EventObserver.HandlerDefinition) -> Bool {
-    return left.mask == right.mask &&
-        EventObserver.compareBlocks(left.handler.original, right.handler.original) &&
-        (left.handler.global == nil && right.handler.global == nil || left.handler.global != nil && right.handler.global != nil) &&
-        (left.handler.local == nil && right.handler.local == nil || left.handler.local != nil && right.handler.local != nil)
+public func ==(lhs: EventObserver.HandlerDefinition, rhs: EventObserver.HandlerDefinition) -> Bool {
+    return lhs.mask == rhs.mask &&
+        EventObserver.compareBlocks(lhs.handler.original, rhs.handler.original) &&
+        (lhs.handler.global == nil && rhs.handler.global == nil || lhs.handler.global != nil && rhs.handler.global != nil) &&
+        (lhs.handler.local == nil && rhs.handler.local == nil || lhs.handler.local != nil && rhs.handler.local != nil)
 }
 
 public protocol EventObserverHandler: ObserverHandler

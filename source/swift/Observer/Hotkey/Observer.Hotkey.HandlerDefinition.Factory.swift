@@ -1,9 +1,9 @@
 import Foundation
 
-public class HotkeyObserverHandlerDefinitionFactory
+open class HotkeyObserverHandlerDefinitionFactory
 {
-    public var hotkey: KeyboardHotkey
-    public var handler: Any
+    open var hotkey: KeyboardHotkey
+    open var handler: Any
 
     // MARK: -
 
@@ -14,7 +14,7 @@ public class HotkeyObserverHandlerDefinitionFactory
 
     // MARK: -
 
-    public func construct() throws -> HotkeyObserverHandlerDefinition {
+    open func construct() throws -> HotkeyObserverHandlerDefinition {
         var definition: HotkeyObserverHandlerDefinition!
         let originalHandler: Any = self.handler
         var normalisedHandler: Any
@@ -26,7 +26,7 @@ public class HotkeyObserverHandlerDefinitionFactory
         } else if originalHandler is HotkeyObserverHandler {
             normalisedHandler = originalHandler
         } else {
-            throw Observer.Error.UnrecognisedHandlerSignature
+            throw Observer.Error.unrecognisedHandlerSignature
         }
 
         definition = HotkeyObserverHandlerDefinition(hotkey: self.hotkey, handler: (original: originalHandler, normalised: normalisedHandler))

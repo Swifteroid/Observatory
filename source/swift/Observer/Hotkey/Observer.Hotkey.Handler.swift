@@ -1,3 +1,3 @@
 import Foundation
 
-public typealias HotkeyObserverHandler = (hotkey: KeyboardHotkey) -> ()
+public typealias HotkeyObserverHandler = (KeyboardHotkey) -> ()

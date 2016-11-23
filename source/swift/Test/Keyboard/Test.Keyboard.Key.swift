@@ -4,9 +4,9 @@ import Foundation
 import Nimble
 import XCTest
 
-public class KeyboardKeyTestCase: XCTestCase
+open class KeyboardKeyTestCase: XCTestCase
 {
-    public func testGetName() {
-        expect(KeyboardKey.getName((KeyboardKey.Escape))).to(equal("⎋"))
+    open func testGetName() {
+        expect(KeyboardKey.getName(key: KeyboardKey.Escape)).to(equal("⎋"))
     }
 }

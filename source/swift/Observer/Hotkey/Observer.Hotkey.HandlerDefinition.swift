@@ -1,7 +1,7 @@
 import Foundation
 import Carbon
 
-public class HotkeyObserverHandlerDefinition: ObserverHandlerDefinitionProtocol
+open class HotkeyObserverHandlerDefinition: ObserverHandlerDefinitionProtocol
 {
 
     /*
@@ -18,42 +18,42 @@ public class HotkeyObserverHandlerDefinition: ObserverHandlerDefinitionProtocol
 
     public typealias Handler = (original: Any, normalised: Any)
 
-    public let hotkey: KeyboardHotkey
+    open let hotkey: KeyboardHotkey
 
-    public let handler: Handler
-
-    // MARK: -
-
-    public private(set) var hotkeyIdentifier: EventHotKeyID!
-
-    public private(set) var hotkeyReference: EventHotKeyRef!
-
-    public private(set) var eventHandler: EventHandlerRef!
+    open let handler: Handler
 
     // MARK: -
 
-    public var ignored: Bool = false {
+    open private(set) var hotkeyIdentifier: EventHotKeyID!
+
+    open private(set) var hotkeyReference: EventHotKeyRef!
+
+    open private(set) var eventHandler: EventHandlerRef!
+
+    // MARK: -
+
+    open var ignored: Bool = false {
         didSet {
             if self.ignored == oldValue { return }
             try! self.update()
         }
     }
 
-    public private(set) var active: Bool = false
+    open private(set) var active: Bool = false
 
-    public func activate() throws -> Self {
+    @discardableResult open func activate() throws -> Self {
         guard !self.active else { return self }
         self.active = true
         return try self.update()
     }
 
-    public func deactivate() throws -> Self {
+    @discardableResult open func deactivate() throws -> Self {
         guard self.active else { return self }
         self.active = false
         return try self.update()
     }
 
-    private func update() throws -> Self {
+    @discardableResult private func update() throws -> Self {
         let newActive: Bool = self.active && !self.ignored
         let oldActive: Bool = self.hotkeyIdentifier ?? nil != nil && self.hotkeyReference ?? nil != nil
 
@@ -72,15 +72,15 @@ public class HotkeyObserverHandlerDefinition: ObserverHandlerDefinitionProtocol
 
         // Todo: should use proper signature, find examples…
 
-        let identifier: EventHotKeyID = EventHotKeyID(signature: 0, id: self.dynamicType.constructUniqueHotkeyIdentifier())
-        var reference: EventHotKeyRef = nil
+        let identifier: EventHotKeyID = EventHotKeyID(signature: 0, id: type(of: self).constructUniqueHotkeyIdentifier())
+        var reference: EventHotKeyRef? = nil
 
-        if let status: OSStatus = RegisterEventHotKey(UInt32(self.hotkey.key), self.hotkey.modifier, identifier, GetApplicationEventTarget(), OptionBits(0), &reference) where status != Darwin.noErr {
-            if Int(status) == eventHotKeyExistsErr {
-                throw Error.HotkeyAlreadyRegistered
-            } else {
-                throw Error.HotkeyRegisterFail(status: status)
-            }
+        let status: OSStatus = RegisterEventHotKey(UInt32(self.hotkey.key), self.hotkey.modifier, identifier, GetApplicationEventTarget(), OptionBits(0), &reference)
+
+        if Int(status) == eventHotKeyExistsErr {
+            throw Error.hotkeyAlreadyRegistered
+        } else if status != Darwin.noErr {
+            throw Error.hotkeyRegisterFail(status: status)
         }
 
         self.hotkeyIdentifier = identifier
@@ -88,9 +88,8 @@ public class HotkeyObserverHandlerDefinition: ObserverHandlerDefinitionProtocol
     }
 
     private func unregisterEventHotkey() throws {
-        if let status: OSStatus = UnregisterEventHotKey(self.hotkeyReference) where status != Darwin.noErr {
-            throw Error.HotkeyUnregisterFail(status: status)
-        }
+        let status: OSStatus = UnregisterEventHotKey(self.hotkeyReference)
+        guard status == Darwin.noErr else { throw Error.hotkeyUnregisterFail(status: status) }
 
         self.hotkeyIdentifier = nil
         self.hotkeyReference = nil
@@ -118,10 +117,10 @@ public func ==(lhs: HotkeyObserverHandlerDefinition, rhs: HotkeyObserverHandlerD
 
 extension HotkeyObserverHandlerDefinition
 {
-    public enum Error: ErrorType
+    public enum Error: Swift.Error
     {
-        case HotkeyAlreadyRegistered
-        case HotkeyRegisterFail(status: OSStatus)
-        case HotkeyUnregisterFail(status: OSStatus)
+        case hotkeyAlreadyRegistered
+        case hotkeyRegisterFail(status: OSStatus)
+        case hotkeyUnregisterFail(status: OSStatus)
     }
 }

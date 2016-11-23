@@ -4,21 +4,17 @@ import Foundation
 Notification observer provides an interface for registering and managing multiple notification handlers. When we register
 notification handler observer creates handler definition – it manages that specific notification-handler association.
 */
-public class NotificationObserver: Observer
+open class NotificationObserver: Observer
 {
-    public typealias SELF = NotificationObserver
+    open var center: NotificationCenter?
 
-    // MARK: -
-
-    public var center: NSNotificationCenter?
-
-    public private(set) var definitions: [NotificationObserverHandlerDefinition] = []
+    open private(set) var definitions: [NotificationObserverHandlerDefinition] = []
 
     // MARK: -
 
     override internal func activate() {
         for definition: NotificationObserverHandlerDefinition in self.definitions {
-            definition.activate(self.center ?? NSNotificationCenter.defaultCenter())
+            definition.activate(center: self.center ?? NotificationCenter.default)
         }
     }
 
@@ -30,74 +26,74 @@ public class NotificationObserver: Observer
 
     // MARK: -
 
-    convenience init(center: NSNotificationCenter) {
+    convenience init(center: NotificationCenter) {
         self.init()
         self.center = center
     }
 
-    public convenience init(active: Bool, center: NSNotificationCenter) {
+    public convenience init(active: Bool, center: NotificationCenter) {
         self.init(active: active)
         self.center = center
     }
 
     // MARK: -
 
-    public func add(name: String, observable: AnyObject?, queue: NSOperationQueue?, handler: Any) throws -> SELF {
+    @discardableResult open func add(name: Notification.Name, observable: AnyObject?, queue: OperationQueue?, handler: Any) throws -> Self {
         let factory: NotificationObserverHandlerDefinitionFactory = NotificationObserverHandlerDefinitionFactory(name: name, observable: observable, queue: queue, handler: handler)
         let definition: NotificationObserverHandlerDefinition = try! factory.construct()
 
         guard !self.definitions.contains(definition) else { return self }
-        self.definitions.append(self.active ? definition.activate(center ?? NSNotificationCenter.defaultCenter()) : definition)
+        self.definitions.append(self.active ? definition.activate(center: center ?? NotificationCenter.default) : definition)
 
         return self
     }
 
-    public func add(name: String, observable: AnyObject?, handler: Any) throws -> SELF {
-        return try self.add(name, observable: observable, queue: nil, handler: handler)
+    @discardableResult open func add(name: Notification.Name, observable: AnyObject?, handler: Any) throws -> Self {
+        return try self.add(name: name, observable: observable, queue: nil, handler: handler)
     }
 
-    public func add(names: [String], observable: AnyObject?, queue: NSOperationQueue?, handler: Any) throws -> Self {
+    @discardableResult open func add(names: [Notification.Name], observable: AnyObject?, queue: OperationQueue?, handler: Any) throws -> Self {
         for name in names {
-            try self.add(name, observable: observable, queue: queue, handler: handler)
+            try self.add(name: name, observable: observable, queue: queue, handler: handler)
         }
 
         return self
     }
 
-    public func add(names: [String], observable: AnyObject?, handler: Any) throws -> Self {
+    @discardableResult open func add(names: [Notification.Name], observable: AnyObject?, handler: Any) throws -> Self {
         for name in names {
-            try self.add(name, observable: observable, handler: handler)
+            try self.add(name: name, observable: observable, handler: handler)
         }
 
         return self
     }
 
-    public func remove(name: String?, observable: AnyObject?, queue: NSOperationQueue?, handler: Any?, strict: Bool) -> Self {
-        for (index, _) in self.filter(name, observable: observable, queue: queue, handler: handler, strict: strict).reverse() {
-            self.definitions.removeAtIndex(index)
+    @discardableResult open func remove(name: Notification.Name?, observable: AnyObject?, queue: OperationQueue?, handler: Any?, strict: Bool) -> Self {
+        for (index, _) in self.filter(name: name, observable: observable, queue: queue, handler: handler, strict: strict).reversed() {
+            self.definitions.remove(at: index)
         }
 
         return self
     }
 
-    public func remove(name: String?, observable: AnyObject?, queue: NSOperationQueue?, handler: Any?) -> Self {
-        return self.remove(name, observable: observable, queue: queue, handler: handler, strict: false)
+    @discardableResult open func remove(name: Notification.Name?, observable: AnyObject?, queue: OperationQueue?, handler: Any?) -> Self {
+        return self.remove(name: name, observable: observable, queue: queue, handler: handler, strict: false)
     }
 
-    public func remove(name: String?, observable: AnyObject?, handler: Any?) -> Self {
-        return self.remove(name, observable: observable, queue: nil, handler: handler, strict: false)
+    @discardableResult open func remove(name: Notification.Name?, observable: AnyObject?, handler: Any?) -> Self {
+        return self.remove(name: name, observable: observable, queue: nil, handler: handler, strict: false)
     }
 
-    public func remove(name: String?, observable: AnyObject?) -> Self {
-        return self.remove(name, observable: observable, queue: nil, handler: nil, strict: false)
+    @discardableResult open func remove(name: Notification.Name?, observable: AnyObject?) -> Self {
+        return self.remove(name: name, observable: observable, queue: nil, handler: nil, strict: false)
     }
 
-    public func remove(name: String) -> Self {
-        return self.remove(name, observable: nil, queue: nil, handler: nil, strict: false)
+    @discardableResult open func remove(name: Notification.Name) -> Self {
+        return self.remove(name: name, observable: nil, queue: nil, handler: nil, strict: false)
     }
 
-    public func remove(observable: AnyObject) -> Self {
-        return self.remove(nil, observable: observable, queue: nil, handler: nil, strict: false)
+    @discardableResult open func remove(observable: AnyObject) -> Self {
+        return self.remove(name: nil, observable: observable, queue: nil, handler: nil, strict: false)
     }
 
     // MARK: -
@@ -105,42 +101,23 @@ public class NotificationObserver: Observer
     /*
     Nil values are treated as matching when filtering in non-strict mode.
     */
-    private func filter(name: String?, observable: AnyObject?, queue: NSOperationQueue?, handler: Any?, strict: Bool) -> [(index: Int, element: NotificationObserverHandlerDefinition)] {
-        return self.definitions.enumerate().filter({ (_: Int, definition: NotificationObserverHandlerDefinition) in
+    private func filter(name: Notification.Name?, observable: AnyObject?, queue: OperationQueue?, handler: Any?, strict: Bool) -> [(offset: Int, element: NotificationObserverHandlerDefinition)] {
+        return self.definitions.enumerated().filter({ (_: Int, definition: NotificationObserverHandlerDefinition) in
             return true &&
                 (name == nil && !strict || definition.name == name) &&
                 (observable == nil && !strict || definition.observable === observable) &&
-                (queue == nil && !strict || definition.queue === queue) &&
-                (handler == nil && !strict || handler != nil && self.dynamicType.compareBlocks(definition.handler.original, handler))
+                (queue == nil && !strict || definition.queue == queue) &&
+                (handler == nil && !strict || handler != nil && type(of: self).compareBlocks(definition.handler.original, handler!))
         })
     }
 
     // MARK: -
 
-    override public class func compareBlocks(lhs: Any, _ rhs: Any) -> Bool {
+    override open class func compareBlocks(_ lhs: Any, _ rhs: Any) -> Bool {
         if lhs is NotificationObserverConventionHandler && rhs is NotificationObserverConventionHandler {
-            return unsafeBitCast(lhs as! NotificationObserverConventionHandler, AnyObject.self) === unsafeBitCast(rhs as! NotificationObserverConventionHandler, AnyObject.self)
+            return unsafeBitCast(lhs as! NotificationObserverConventionHandler, to: AnyObject.self) === unsafeBitCast(rhs as! NotificationObserverConventionHandler, to: AnyObject.self)
         } else {
             return Observer.compareBlocks(lhs, rhs)
         }
-    }
-}
-
-extension NotificationObserver
-{
-    public class func weakenHandler<T:AnyObject>(instance: T, method: (T) -> NotificationObserverHandler) -> NotificationObserverHandler {
-        return { [unowned instance] (notification: NSNotification) in method(instance)(notification: notification) }
-    }
-}
-
-public protocol NotificationObserverHandlerProtocol: ObserverHandlerProtocol
-{
-    func weakenHandler(method: (Self) -> NotificationObserverHandler) -> NotificationObserverHandler
-}
-
-extension NotificationObserverHandlerProtocol
-{
-    public func weakenHandler(method: (Self) -> NotificationObserverHandler) -> NotificationObserverHandler {
-        return NotificationObserver.weakenHandler(self, method: method)
     }
 }

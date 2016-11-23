@@ -2,7 +2,7 @@ import Foundation
 
 /*
 Handler definition provides a way of storing and managing individual notification handlers, most properties
-represent arguments passed into `NSNotificationCenter.addObserverForName` method.
+represent arguments passed into `NotificationCenter.addObserverForName` method.
 */
 public protocol ObserverHandlerDefinitionProtocol: Equatable
 {

@@ -1,22 +1,22 @@
 import Foundation
 
-public class EventObserverHandlerDefinition: ObserverHandlerDefinitionProtocol
+open class EventObserverHandlerDefinition: ObserverHandlerDefinitionProtocol
 {
     public typealias Handler = (original: Any, global: Any?, local: Any?)
     public typealias Monitor = (global: AnyObject?, local: AnyObject?)
 
-    public let mask: NSEventMask
-    public let handler: Handler
+    open let mask: NSEventMask
+    open let handler: Handler
 
     // MARK: -
 
-    public private(set) var monitor: Monitor!
+    open private(set) var monitor: Monitor!
 
     // MARK: -
 
-    public private(set) var active: Bool = false
+    open private(set) var active: Bool = false
 
-    public func activate() -> EventObserverHandlerDefinition {
+    @discardableResult open func activate() -> EventObserverHandlerDefinition {
         guard self.inactive else {
             return self
         }
@@ -24,11 +24,11 @@ public class EventObserverHandlerDefinition: ObserverHandlerDefinitionProtocol
         var monitor: Monitor = Monitor(local: nil, global: nil)
 
         if let handler: EventObserverHandler.Global = self.handler.local as? EventObserverHandler.Global {
-            monitor.global = NSEvent.addGlobalMonitorForEventsMatchingMask(self.mask, handler: handler)
+            monitor.global = NSEvent.addGlobalMonitorForEvents(matching: self.mask, handler: handler) as AnyObject?
         }
 
         if let handler: EventObserverHandler.Local = self.handler.local as? EventObserverHandler.Local {
-            monitor.local = NSEvent.addLocalMonitorForEventsMatchingMask(self.mask, handler: handler)
+            monitor.local = NSEvent.addLocalMonitorForEvents(matching: self.mask, handler: handler) as AnyObject?
         }
 
         self.monitor = monitor
@@ -37,7 +37,7 @@ public class EventObserverHandlerDefinition: ObserverHandlerDefinitionProtocol
         return self
     }
 
-    public func deactivate() -> Self {
+    @discardableResult open func deactivate() -> Self {
         guard self.active else {
             return self
         }

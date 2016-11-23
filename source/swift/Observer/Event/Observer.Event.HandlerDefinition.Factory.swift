@@ -1,11 +1,11 @@
 import Foundation
 
-public class EventObserverHandlerDefinitionFactory
+open class EventObserverHandlerDefinitionFactory
 {
-    public var mask: NSEventMask
-    public var global: Bool
-    public var local: Bool
-    public var handler: Any
+    open var mask: NSEventMask
+    open var global: Bool
+    open var local: Bool
+    open var handler: Any
 
     // MARK: -
 
@@ -18,9 +18,9 @@ public class EventObserverHandlerDefinitionFactory
 
     // MARK: -
 
-    public func construct() throws -> EventObserverHandlerDefinition {
+    open func construct() throws -> EventObserverHandlerDefinition {
         if !self.global && !self.local {
-            throw Error.UnspecifiedContext
+            throw Error.unspecifiedContext
         }
 
         var definition: EventObserverHandlerDefinition!
@@ -40,22 +40,22 @@ public class EventObserverHandlerDefinitionFactory
             globalHandler = self.global ? { (event: NSEvent) in (originalHandler as! ObserverConventionHandler)() } : nil
             localHandler = self.local ? { (event: NSEvent) -> NSEvent? in (originalHandler as! ObserverConventionHandler)(); return event } : nil
         } else if originalHandler is EventObserverHandler.Local {
-            globalHandler = self.global ? { (event: NSEvent) in (originalHandler as! EventObserverHandler.Local)(event: event) } : nil
+            globalHandler = self.global ? { (event: NSEvent) in (originalHandler as! EventObserverHandler.Local)(event) } : nil
             localHandler = self.local ? originalHandler as? EventObserverHandler.Local : nil
         } else if originalHandler is EventObserverConventionHandler.Local {
-            globalHandler = self.global ? { (event: NSEvent) in (originalHandler as! EventObserverConventionHandler.Local)(event: event) } : nil
+            globalHandler = self.global ? { (event: NSEvent) in (originalHandler as! EventObserverConventionHandler.Local)(event) } : nil
             localHandler = self.local ? originalHandler as? EventObserverConventionHandler.Local : nil
         } else if originalHandler is EventObserverHandler.Global {
             globalHandler = self.global ? originalHandler as? EventObserverHandler.Global : nil
-            localHandler = self.local ? { (event: NSEvent) -> NSEvent? in (originalHandler as! EventObserverHandler.Global)(event: event); return event } : nil
+            localHandler = self.local ? { (event: NSEvent) -> NSEvent? in (originalHandler as! EventObserverHandler.Global)(event); return event } : nil
         } else if originalHandler is EventObserverConventionHandler.Global {
             globalHandler = self.global ? originalHandler as? EventObserverConventionHandler.Global : nil
-            localHandler = self.local ? { (event: NSEvent) -> NSEvent? in (originalHandler as! EventObserverConventionHandler.Global)(event: event); return event } : nil
+            localHandler = self.local ? { (event: NSEvent) -> NSEvent? in (originalHandler as! EventObserverConventionHandler.Global)(event); return event } : nil
         }
         // @formatter:on
 
         if self.global && globalHandler == nil || self.local && localHandler == nil {
-            throw Observer.Error.UnrecognisedHandlerSignature
+            throw Observer.Error.unrecognisedHandlerSignature
         }
 
         definition = EventObserverHandlerDefinition(mask: self.mask, handler: (original: originalHandler, global: globalHandler, local: localHandler))
@@ -67,11 +67,11 @@ public class EventObserverHandlerDefinitionFactory
 
 extension EventObserverHandlerDefinitionFactory
 {
-    public enum Error: ErrorType
+    public enum Error: Swift.Error
     {
         /*
         Event context, global or local, was not specified.
         */
-        case UnspecifiedContext
+        case unspecifiedContext
     }
 }

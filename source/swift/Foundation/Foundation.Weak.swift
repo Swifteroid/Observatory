@@ -1,8 +1,8 @@
 import Foundation
 
-public class Weak
+open class Weak
 {
-    public weak var value: AnyObject!
+    open weak var value: AnyObject!
 
     public init(value: AnyObject) {
         self.value = value

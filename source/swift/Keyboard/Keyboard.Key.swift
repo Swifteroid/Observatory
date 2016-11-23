@@ -171,12 +171,14 @@ public struct KeyboardKey
     // MARK: -
 
     public static func getName(key: UInt16, names: [UInt16: String]? = nil) -> String? {
-        if let map: [UInt16: String] = names ?? self.names where map.keys.contains(key) {
+        let map: [UInt16: String] = names ?? self.names
+
+        if map.keys.contains(key) {
             return map[key]
         }
 
         let maxStringLength: Int = 4
-        var stringBuffer: [UniChar] = [UniChar](count: maxStringLength, repeatedValue: 0)
+        var stringBuffer: [UniChar] = [UniChar](repeating: 0, count: maxStringLength)
         var stringLength: Int = 0
 
         let modifierKeys: UInt32 = 0
@@ -184,14 +186,13 @@ public struct KeyboardKey
         let keyboardType: UInt32 = UInt32(LMGetKbdType())
 
         let source: TISInputSource = TISCopyCurrentASCIICapableKeyboardInputSource().takeRetainedValue()
-        let layoutDataPointer: UnsafeMutablePointer<Void> = TISGetInputSourceProperty(source, kTISPropertyUnicodeKeyLayoutData)
-        let layoutData: NSData = Unmanaged<CFData>.fromOpaque(COpaquePointer(layoutDataPointer)).takeUnretainedValue() as NSData
-        let layoutPointer: UnsafePointer<UCKeyboardLayout> = UnsafePointer(layoutData.bytes)
+        let layoutDataPointer: UnsafeMutableRawPointer = TISGetInputSourceProperty(source, kTISPropertyUnicodeKeyLayoutData)
+        let layoutData: Data = Unmanaged<CFData>.fromOpaque(UnsafeRawPointer(layoutDataPointer)).takeUnretainedValue() as Data
+        let layoutPointer: UnsafePointer<UCKeyboardLayout> = (layoutData as NSData).bytes.bindMemory(to: UCKeyboardLayout.self, capacity: layoutData.count)
 
-        guard let status: OSStatus = UCKeyTranslate(layoutPointer, key, UInt16(kUCKeyActionDown), modifierKeys, keyboardType, UInt32(kUCKeyTranslateNoDeadKeysMask), &deadKeys, maxStringLength, &stringLength, &stringBuffer) where status == Darwin.noErr else {
-            return nil
-        }
+        let status: OSStatus = UCKeyTranslate(layoutPointer, key, UInt16(kUCKeyActionDown), modifierKeys, keyboardType, UInt32(kUCKeyTranslateNoDeadKeysMask), &deadKeys, maxStringLength, &stringLength, &stringBuffer)
+        guard status == Darwin.noErr else { return nil }
 
-        return String(utf16CodeUnits: stringBuffer, count: stringLength).uppercaseString
+        return String(utf16CodeUnits: stringBuffer, count: stringLength).uppercased()
     }
 }

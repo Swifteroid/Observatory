@@ -5,7 +5,7 @@ import XCTest
 public class NotificationObserverTestCase: XCTestCase
 {
     public func test() {
-        let center: NSNotificationCenter = NSNotificationCenter.defaultCenter()
+        let center: NotificationCenter = NotificationCenter.default
         let observer: NotificationObserver = NotificationObserver(active: true)
         let observable: AnyObject = NSObject()
 

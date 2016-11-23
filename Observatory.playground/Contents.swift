@@ -6,8 +6,8 @@
 import Foundation
 import Observatory
 
-let center: NSNotificationCenter = NSNotificationCenter.defaultCenter()
-let queue: NSOperationQueue = NSOperationQueue()
+let center: NotificationCenter = NotificationCenter.default
+let queue: OperationQueue = OperationQueue()
 let observable: NSObject = NSObject()
 
 /*:
@@ -24,12 +24,12 @@ var observer: NotificationObserver? = NotificationObserver(active: true)
  */
 
 try! observer!
-    .add("foo", observable: observable) { Swift.print("foo") }
-    .add(["bar", "baz"], observable: observable) { (notification:NSNotification) in Swift.print(notification.name) }
+    .add(name: Notification.Name(rawValue: "foo"), observable: observable) { Swift.print("foo") }
+    .add(names: [Notification.Name(rawValue: "bar"), Notification.Name(rawValue: "baz")], observable: observable) { (notification: Notification) in Swift.print(notification.name) }
 
-center.postNotificationName("foo", object: observable)
-center.postNotificationName("bar", object: observable)
-center.postNotificationName("baz", object: observable)
+center.post(name: Notification.Name(rawValue: "foo"), object: observable)
+center.post(name: Notification.Name(rawValue: "bar"), object: observable)
+center.post(name: Notification.Name(rawValue: "baz"), object: observable)
 
 /*:
  When the observer is no longer needed it can be deactivated and reactivated later, this is
@@ -43,8 +43,8 @@ observer!.active = false
  object or using a combinations.
  */
 
-observer!.remove("foo")
-observer!.remove("bar", observable: observable)
+observer!.remove(name: Notification.Name(rawValue: "foo"))
+observer!.remove(name: Notification.Name(rawValue: "bar"), observable: observable)
 observer!.remove(observable)
 
 /*:

@@ -2,7 +2,7 @@ import AppKit
 import Foundation
 import Carbon
 
-public class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
+open class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
 {
 
     // MARK: intercom
@@ -11,15 +11,15 @@ public class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
 
     // MARK: -
 
-    public var hotkey: KeyboardHotkey? {
+    open var hotkey: KeyboardHotkey? {
         willSet {
-            NSNotificationCenter.defaultCenter().postNotificationName(Notification.HotkeyWillChange, object: self)
+            NotificationCenter.default.post(name: Foundation.Notification.Name(rawValue: Notification.HotkeyWillChange), object: self)
         }
         didSet {
             if self.hotkey == oldValue { return }
 
-            if let oldValue: KeyboardHotkey = oldValue where HotkeyCenter.instance.commands[oldValue] == self.command {
-                HotkeyCenter.instance.commands.removeValueForKey(oldValue)
+            if let oldValue: KeyboardHotkey = oldValue, HotkeyCenter.instance.commands[oldValue] == self.command {
+                HotkeyCenter.instance.commands.removeValue(forKey: oldValue)
             }
 
             if let newValue: KeyboardHotkey = self.hotkey {
@@ -27,13 +27,13 @@ public class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
             }
 
             self.needsDisplay = true
-            NSNotificationCenter.defaultCenter().postNotificationName(Notification.HotkeyDidChange, object: self)
+            NotificationCenter.default.post(name: Foundation.Notification.Name(rawValue: Notification.HotkeyDidChange), object: self)
         }
     }
 
-    @IBInspectable public var command: String!
+    @IBInspectable open var command: String!
 
-    public var recording: Bool = false {
+    open var recording: Bool = false {
         didSet {
             if self.recording == oldValue { return }
             self.modifier = nil
@@ -63,29 +63,29 @@ public class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
 
     // MARK: -
 
-    override public func viewWillDraw() {
+    override open func viewWillDraw() {
         super.viewWillDraw()
         self.update()
     }
 
     private func update() {
-        let style: NSMutableParagraphStyle = self.attributedTitle.attribute(NSParagraphStyleAttributeName, atIndex: 0, effectiveRange: nil) as! NSMutableParagraphStyle
-        let colour: NSColor = self.recording ? (self.modifier == nil ? NSColor.tertiaryLabelColor() : NSColor.secondaryLabelColor()) : NSColor.labelColor()
+        let style: NSMutableParagraphStyle = self.attributedTitle.attribute(NSParagraphStyleAttributeName, at: 0, effectiveRange: nil) as! NSMutableParagraphStyle
+        let colour: NSColor = self.recording ? (self.modifier == nil ? NSColor.tertiaryLabelColor : NSColor.secondaryLabelColor) : NSColor.labelColor
         let title: String
 
         if self.recording {
             self.window!.makeFirstResponder(self)
 
             if let modifier: KeyboardModifier = self.modifier {
-                title = self.modifierToString(modifier)
+                title = self.toString(modifier: modifier)
             } else if let hotkey: KeyboardHotkey = self.hotkey {
-                title = self.hotkeyToString(hotkey)
+                title = self.toString(hotkey: hotkey)
             } else {
                 title = "Record hotkey"
             }
         } else {
             if let hotkey: KeyboardHotkey = self.hotkey {
-                title = self.hotkeyToString(hotkey)
+                title = self.toString(hotkey: hotkey)
             } else {
                 title = "Click to record hotkey"
             }
@@ -96,10 +96,10 @@ public class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
 
     // MARK: -
 
-    public func modifierToString(modifier: KeyboardModifier) -> String {
+    open func toString(modifier: KeyboardModifier) -> String {
         var string: String = ""
 
-        if modifier.contains(KeyboardModifier.AlphaLock) { string += "⇪" }
+        if modifier.contains(KeyboardModifier.CapsLock) { string += "⇪" }
         if modifier.contains(KeyboardModifier.CommandKey) { string += "⌘" }
         if modifier.contains(KeyboardModifier.ControlKey) { string += "⌃" }
         if modifier.contains(KeyboardModifier.OptionKey) { string += "⌥" }
@@ -108,34 +108,34 @@ public class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
         return string
     }
 
-    public func hotkeyToString(hotkey: KeyboardHotkey) -> String {
-        return "\(self.modifierToString(KeyboardModifier(rawValue: hotkey.modifier)))\(KeyboardKey.getName(hotkey.key) ?? "")"
+    open func toString(hotkey: KeyboardHotkey) -> String {
+        return "\(self.toString(modifier: KeyboardModifier(rawValue: hotkey.modifier)))\(KeyboardKey.getName(key: hotkey.key) ?? "")"
     }
 
     // MARK: -
 
-    override public func resignFirstResponder() -> Bool {
+    override open func resignFirstResponder() -> Bool {
         self.recording = false
         return super.resignFirstResponder()
     }
 
-    override public var acceptsFirstResponder: Bool {
-        return self.enabled
+    override open var acceptsFirstResponder: Bool {
+        return self.isEnabled
     }
 
-    override public func mouseDown(event: NSEvent) {
-        super.mouseDown(event)
+    override open func mouseDown(with event: NSEvent) {
+        super.mouseDown(with: event)
         self.recording = true
     }
 
-    override public func keyDown(event: NSEvent) {
-        if !self.performKeyEquivalent(event) {
-            super.keyDown(event)
+    override open func keyDown(with event: NSEvent) {
+        if !self.performKeyEquivalent(with: event) {
+            super.keyDown(with: event)
         }
     }
 
-    override public func performKeyEquivalent(event: NSEvent) -> Bool {
-        guard self.enabled else {
+    override open func performKeyEquivalent(with event: NSEvent) -> Bool {
+        guard self.isEnabled else {
             return false
         }
 
@@ -169,27 +169,27 @@ public class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
             return true
         }
 
-        return super.performKeyEquivalent(event)
+        return super.performKeyEquivalent(with: event)
     }
 
     private func handleWindowDidResignKeyNotification() {
         self.recording = false
     }
 
-    override public func flagsChanged(event: NSEvent) {
+    override open func flagsChanged(with event: NSEvent) {
         self.modifier = KeyboardModifier(flags: event.modifierFlags)
-        super.flagsChanged(event)
+        super.flagsChanged(with: event)
     }
 
     // MARK: -
 
-    override public func viewWillMoveToWindow(newWindow: NSWindow?) {
+    override open func viewWillMove(toWindow newWindow: NSWindow?) {
         if let oldWindow: NSWindow = self.window {
-            self.windowNotificationObserver.remove(oldWindow)
+            self.windowNotificationObserver.remove(observable: oldWindow)
         }
 
         if let newWindow: NSWindow = newWindow {
-            try! self.windowNotificationObserver.add(NSWindowDidResignKeyNotification, observable: newWindow, handler: { [unowned self] in self.handleWindowDidResignKeyNotification() })
+            try! self.windowNotificationObserver.add(name: AppKit.Notification.Name.NSWindowDidResignKey, observable: newWindow, handler: { [unowned self] in self.handleWindowDidResignKeyNotification() })
         }
     }
 }

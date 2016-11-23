@@ -20,7 +20,7 @@ try! observer
     .add(barHotkey) { Swift.print("So bar…") }
 ```
 
-Observe notifications, chose between plain `() -> ()` or standard `(NSNotification) -> ()` signatures.
+Observe notifications, chose between plain `() -> ()` or standard `(Notification) -> ()` signatures.
 
 ```swift
 let observer: NotificationObserver = NotificationObserver(active: true)
@@ -28,7 +28,7 @@ let observable: AnyObject = NSObject()
 
 try! observer
     .add("foo", observable: observable) { Swift.print("Foo captain!") }
-    .add(["bar", "baz"], observable: observable) { (notification: NSNotification) in Swift.print("Yes \(notification.name)!") }
+    .add(["bar", "baz"], observable: observable) { (notification: Notification) in Swift.print("Yes \(notification.name)!") }
 ```
 
 Observe events, like with notifications, you can chose between plain `() -> ()` and standard local `(NSEvent) -> NSEvent?` or global `(NSEvent) -> ()` signatures.
