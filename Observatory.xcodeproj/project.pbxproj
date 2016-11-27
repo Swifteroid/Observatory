@@ -8,10 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		087EE7A11E1C26E500093E0E /* Observatory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6D7642A1CDDBA100071CCB0 /* Observatory.framework */; };
+		17FD004FC46F438970E67287 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17FD04F31938B5123A4484E0 /* Quick.framework */; };
 		17FD02AF5E5BB3924165E7F5 /* Observatory.h in Headers */ = {isa = PBXBuildFile; fileRef = 17FD0C595B95409A07A95D6C /* Observatory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		17FD03080F29623E851E70FA /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 17FD004596B009984060737D /* Nimble.framework */; };
+		17FD062FA3835F152943A9F9 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17FD004596B009984060737D /* Nimble.framework */; };
 		17FD09333DDFBDB565AE71D6 /* Test.Observer.Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0FB52C88D5670C574EAD /* Test.Observer.Notification.swift */; };
 		17FD0B85FEC16B87116CF4A8 /* Test.Observer.Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD08630B9F202D77AAFA51 /* Test.Observer.Event.swift */; };
 		17FD0D9F8177D2BE0BA4276D /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD00047290331A81F60B66 /* Observer.swift */; };
+		17FD0EB9703D525EAC490EA0 /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 17FD04F31938B5123A4484E0 /* Quick.framework */; };
+		17FD0EBC070D00CFDDF1E42D /* Observatory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6D7642A1CDDBA100071CCB0 /* Observatory.framework */; };
 		691406A7FA5E743E6D355085 /* Observer.Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695AFB416AF0439638564057 /* Observer.Event.swift */; };
 		69278DAE5DF6878C3D17C9B7 /* Observer.Hotkey.Recorder.Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696A0BCA9CBCE8BB5919FB26 /* Observer.Hotkey.Recorder.Protocol.swift */; };
 		692A798F43BAD5A83C172C18 /* Observer.Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B3F997388A2645D8C2D0B2 /* Observer.Notification.swift */; };
@@ -39,11 +44,6 @@
 		69EECB57AAC934D69E4DEE8B /* Keyboard.Hotkey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694A2B4EB9AA38CE994312C9 /* Keyboard.Hotkey.swift */; };
 		69F0DD3C8FEE48FD092C33EC /* Observer.Hotkey.Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F5760B7CD1564EE1F1442B /* Observer.Hotkey.Handler.swift */; };
 		69F1ADAA0E683F41DB80A1CB /* Keyboard.Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69FA6B1FE3D1A14CD0AF3FF5 /* Keyboard.Key.swift */; };
-		E69200F81CDDE19200C4FEAD /* Observatory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6D7642A1CDDBA100071CCB0 /* Observatory.framework */; };
-		E69200FE1CDDE73200C4FEAD /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17FD067B10D4AE9721BC1CFD /* Nimble.framework */; };
-		E69200FF1CDDE73200C4FEAD /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17FD0C2A7528C09C26213A9F /* Quick.framework */; };
-		E69201031CDDEA8000C4FEAD /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 17FD067B10D4AE9721BC1CFD /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		E69201041CDDEA8000C4FEAD /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 17FD0C2A7528C09C26213A9F /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,8 +70,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				E69201031CDDEA8000C4FEAD /* Nimble.framework in CopyFiles */,
-				E69201041CDDEA8000C4FEAD /* Quick.framework in CopyFiles */,
+				17FD03080F29623E851E70FA /* Nimble.framework in CopyFiles */,
+				17FD0EB9703D525EAC490EA0 /* Quick.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,10 +80,10 @@
 /* Begin PBXFileReference section */
 		087EE7921E1C1FF500093E0E /* Hotkey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hotkey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		17FD00047290331A81F60B66 /* Observer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
-		17FD067B10D4AE9721BC1CFD /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Nimble.framework; sourceTree = "<group>"; };
+		17FD004596B009984060737D /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/Mac/Nimble.framework; sourceTree = "<group>"; };
+		17FD04F31938B5123A4484E0 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/Mac/Quick.framework; sourceTree = "<group>"; };
 		17FD08630B9F202D77AAFA51 /* Test.Observer.Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Observer.Event.swift; sourceTree = "<group>"; };
 		17FD09DEC21D8E672877A6C0 /* Cartfile.private */ = {isa = PBXFileReference; lastKnownFileType = file.private; path = Cartfile.private; sourceTree = "<group>"; };
-		17FD0C2A7528C09C26213A9F /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Quick.framework; sourceTree = "<group>"; };
 		17FD0C595B95409A07A95D6C /* Observatory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Observatory.h; sourceTree = "<group>"; };
 		17FD0FB52C88D5670C574EAD /* Test.Observer.Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Observer.Notification.swift; sourceTree = "<group>"; };
 		69075FE79F68E0841F0C4F3F /* Entrypoint.Hotkey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entrypoint.Hotkey.swift; sourceTree = "<group>"; };
@@ -134,9 +134,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E69200F81CDDE19200C4FEAD /* Observatory.framework in Frameworks */,
-				E69200FE1CDDE73200C4FEAD /* Nimble.framework in Frameworks */,
-				E69200FF1CDDE73200C4FEAD /* Quick.framework in Frameworks */,
+				17FD0EBC070D00CFDDF1E42D /* Observatory.framework in Frameworks */,
+				17FD062FA3835F152943A9F9 /* Nimble.framework in Frameworks */,
+				17FD004FC46F438970E67287 /* Quick.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,23 +172,6 @@
 			path = Test;
 			sourceTree = "<group>";
 		};
-		17FD01352652BD586D0BE699 /* Build */ = {
-			isa = PBXGroup;
-			children = (
-				17FD027981CFA155999244B0 /* Mac */,
-			);
-			path = Build;
-			sourceTree = "<group>";
-		};
-		17FD027981CFA155999244B0 /* Mac */ = {
-			isa = PBXGroup;
-			children = (
-				17FD067B10D4AE9721BC1CFD /* Nimble.framework */,
-				17FD0C2A7528C09C26213A9F /* Quick.framework */,
-			);
-			path = Mac;
-			sourceTree = "<group>";
-		};
 		17FD030F7F2C5CA3191B2040 /* accessory */ = {
 			isa = PBXGroup;
 			children = (
@@ -198,12 +181,21 @@
 			path = accessory;
 			sourceTree = "<group>";
 		};
+		17FD03E8A37E50A7B5870714 /* Carthage */ = {
+			isa = PBXGroup;
+			children = (
+				17FD004596B009984060737D /* Nimble.framework */,
+				17FD04F31938B5123A4484E0 /* Quick.framework */,
+			);
+			name = Carthage;
+			sourceTree = "<group>";
+		};
 		17FD0498F691994B815B5FB3 /* dependency */ = {
 			isa = PBXGroup;
 			children = (
-				17FD0EC826051DD6D028906B /* Carthage */,
 				17FD09DEC21D8E672877A6C0 /* Cartfile.private */,
 				69D782B1BF1A76BD24B7144E /* Cartfile.resolved */,
+				17FD03E8A37E50A7B5870714 /* Carthage */,
 			);
 			path = dependency;
 			sourceTree = "<group>";
@@ -246,14 +238,6 @@
 				17FD0C595B95409A07A95D6C /* Observatory.h */,
 			);
 			path = c;
-			sourceTree = "<group>";
-		};
-		17FD0EC826051DD6D028906B /* Carthage */ = {
-			isa = PBXGroup;
-			children = (
-				17FD01352652BD586D0BE699 /* Build */,
-			);
-			path = Carthage;
 			sourceTree = "<group>";
 		};
 		69093D907942E6DCF18971AA /* Foundation */ = {
@@ -592,10 +576,8 @@
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -609,22 +591,15 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
 			};
 			name = Release;
 		};
 		E69200FB1CDDE19200C4FEAD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/dependency/Carthage/Build/Mac",
-				);
-				INFOPLIST_FILE = "$(SRCROOT)/accessory/info/Observatory.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				INFOPLIST_FILE = accessory/info/Observatory.plist;
 				PRODUCT_MODULE_NAME = Test;
 				PRODUCT_NAME = Test;
 			};
@@ -633,12 +608,7 @@
 		E69200FC1CDDE19200C4FEAD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/dependency/Carthage/Build/Mac",
-				);
-				INFOPLIST_FILE = "$(SRCROOT)/accessory/info/Observatory.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				INFOPLIST_FILE = accessory/info/Observatory.plist;
 				PRODUCT_MODULE_NAME = Test;
 				PRODUCT_NAME = Test;
 			};
@@ -666,6 +636,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = dependency/Carthage/Build/Mac;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -679,6 +650,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/accessory/info/$(PRODUCT_MODULE_NAME).plist";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -709,6 +681,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = dependency/Carthage/Build/Mac;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -718,6 +691,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/accessory/info/$(PRODUCT_MODULE_NAME).plist";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.swifteroid.observatory;
@@ -729,9 +703,9 @@
 		E6D764331CDDBA100071CCB0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				PRODUCT_MODULE_NAME = Observatory;
 				PRODUCT_NAME = Observatory;
 			};
@@ -740,9 +714,9 @@
 		E6D764341CDDBA100071CCB0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				PRODUCT_MODULE_NAME = Observatory;
 				PRODUCT_NAME = Observatory;
 			};

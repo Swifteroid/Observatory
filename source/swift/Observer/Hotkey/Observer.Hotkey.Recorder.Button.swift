@@ -13,7 +13,7 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
 
     open var hotkey: KeyboardHotkey? {
         willSet {
-            NotificationCenter.default.post(name: Foundation.Notification.Name(rawValue: Notification.HotkeyWillChange), object: self)
+            NotificationCenter.default.post(name: Notification.HotkeyWillChange, object: self)
         }
         didSet {
             if self.hotkey == oldValue { return }
@@ -27,7 +27,7 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
             }
 
             self.needsDisplay = true
-            NotificationCenter.default.post(name: Foundation.Notification.Name(rawValue: Notification.HotkeyDidChange), object: self)
+            NotificationCenter.default.post(name: Notification.HotkeyDidChange, object: self)
         }
     }
 
@@ -159,6 +159,7 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
             } else {
                 self.hotkey = hotkey
                 self.recording = false
+                NotificationCenter.default.post(name: Notification.HotkeyDidRecord, object: self)
             }
 
             return true
@@ -200,7 +201,8 @@ extension HotkeyRecorderButton
 {
     public struct Notification
     {
-        public static let HotkeyWillChange: String = "HotkeyRecorderButtonHotkeyWillChangeNotification"
-        public static let HotkeyDidChange: String = "HotkeyRecorderButtonHotkeyDidChangeNotification"
+        public static let HotkeyWillChange: Foundation.Notification.Name = Foundation.Notification.Name(rawValue: "HotkeyRecorderButtonHotkeyWillChangeNotification")
+        public static let HotkeyDidChange: Foundation.Notification.Name = Foundation.Notification.Name(rawValue: "HotkeyRecorderButtonHotkeyDidChangeNotification")
+        public static let HotkeyDidRecord: Foundation.Notification.Name = Foundation.Notification.Name(rawValue: "HotkeyRecorderButtonHotkeyDidRecordNotification")
     }
 }
