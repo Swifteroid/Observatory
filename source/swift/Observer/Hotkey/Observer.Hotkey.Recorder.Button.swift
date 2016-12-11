@@ -142,6 +142,7 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
         if event.keyCode == UInt16(KeyboardKey.Delete) && self.modifier == nil && self.hotkey != nil {
             self.hotkey = nil
             self.recording = false
+            NotificationCenter.default.post(name: Notification.HotkeyDidRecord, object: self)
             return true
         }
 
