@@ -1,5 +1,4 @@
-import Foundation
-import AppKit
+import AppKit.NSEvent
 import Carbon
 
 /*
@@ -14,24 +13,23 @@ public struct KeyboardModifier: OptionSet
         self.rawValue = rawValue
     }
 
-    public init?(flags: NSEventModifierFlags) {
+    public init(flags: NSEventModifierFlags) {
         var rawValue: UInt32 = 0
 
-        if flags.contains(NSEventModifierFlags.capsLock) { rawValue |= UInt32(Carbon.alphaLock) }
-        if flags.contains(NSEventModifierFlags.option) { rawValue |= UInt32(Carbon.optionKey) }
-        if flags.contains(NSEventModifierFlags.command) { rawValue |= UInt32(Carbon.cmdKey) }
-        if flags.contains(NSEventModifierFlags.control) { rawValue |= UInt32(Carbon.controlKey) }
-        if flags.contains(NSEventModifierFlags.shift) { rawValue |= UInt32(Carbon.shiftKey) }
-
-        if rawValue == 0 {
-            return nil
-        } else {
-            self = KeyboardModifier(rawValue: rawValue)
+        if flags.rawValue & NSEventModifierFlags.deviceIndependentFlagsMask.rawValue != 0 {
+            if flags.contains(NSEventModifierFlags.capsLock) { rawValue |= UInt32(Carbon.alphaLock) }
+            if flags.contains(NSEventModifierFlags.option) { rawValue |= UInt32(Carbon.optionKey) }
+            if flags.contains(NSEventModifierFlags.command) { rawValue |= UInt32(Carbon.cmdKey) }
+            if flags.contains(NSEventModifierFlags.control) { rawValue |= UInt32(Carbon.controlKey) }
+            if flags.contains(NSEventModifierFlags.shift) { rawValue |= UInt32(Carbon.shiftKey) }
         }
+
+        self = KeyboardModifier(rawValue: rawValue)
     }
 
     // MARK: -
 
+    public static let None = KeyboardModifier(rawValue: 0)
     public static let CapsLock = KeyboardModifier(rawValue: UInt32(Carbon.alphaLock))
     public static let CommandKey = KeyboardModifier(rawValue: UInt32(Carbon.cmdKey))
     public static let ControlKey = KeyboardModifier(rawValue: UInt32(Carbon.controlKey))
