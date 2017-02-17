@@ -78,17 +78,23 @@
 		087EE7921E1C1FF500093E0E /* Hotkey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hotkey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		17FD00047290331A81F60B66 /* Observer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
 		17FD004596B009984060737D /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/Mac/Nimble.framework; sourceTree = "<group>"; };
+		17FD00D92CE5001C977C34C8 /* macOS - Framework.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "macOS - Framework.xcconfig"; sourceTree = "<group>"; };
+		17FD0153D441DBE8117C8705 /* Base - Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Base - Release.xcconfig"; sourceTree = "<group>"; };
+		17FD016E3AC5B7437BE4F07B /* macOS - Application.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "macOS - Application.xcconfig"; sourceTree = "<group>"; };
+		17FD049B29A650BABBC10CC6 /* test.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = test.plist; sourceTree = "<group>"; };
 		17FD08630B9F202D77AAFA51 /* Test.Observer.Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Observer.Event.swift; sourceTree = "<group>"; };
+		17FD08C9C8536FA561C0E4C5 /* Test.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Test.xcconfig; sourceTree = "<group>"; };
 		17FD09DEC21D8E672877A6C0 /* Cartfile.private */ = {isa = PBXFileReference; lastKnownFileType = file.private; path = Cartfile.private; sourceTree = "<group>"; };
 		17FD0C595B95409A07A95D6C /* Observatory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Observatory.h; sourceTree = "<group>"; };
+		17FD0ED96CA8568E523C05EA /* Base - Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Base - Debug.xcconfig"; sourceTree = "<group>"; };
 		17FD0FB52C88D5670C574EAD /* Test.Observer.Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Observer.Notification.swift; sourceTree = "<group>"; };
 		69075FE79F68E0841F0C4F3F /* Entrypoint.Hotkey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entrypoint.Hotkey.swift; sourceTree = "<group>"; };
 		690846470A79592866B262DD /* Observer.Hotkey.Recorder.Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Hotkey.Recorder.Button.swift; sourceTree = "<group>"; };
 		6913548B96119D429F0C99EF /* Test.Observer.Hotkey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Observer.Hotkey.swift; sourceTree = "<group>"; };
-		691492DAECCDA8F37886F020 /* Observatory.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Observatory.plist; sourceTree = "<group>"; };
+		691492DAECCDA8F37886F020 /* framework.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = framework.plist; sourceTree = "<group>"; };
 		69254F6F79273CD9E99E7841 /* Observer.Notification.Handler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Notification.Handler.swift; sourceTree = "<group>"; };
 		692A68A7E172C8358C84D97C /* Observer.Hotkey.HandlerDefinition.Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Hotkey.HandlerDefinition.Factory.swift; sourceTree = "<group>"; };
-		692C0EE3AC3E3172836E1B96 /* Hotkey.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Hotkey.plist; sourceTree = "<group>"; };
+		692C0EE3AC3E3172836E1B96 /* hotkey.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = hotkey.plist; sourceTree = "<group>"; };
 		6930CDFE4CA3FA4B49FEDC5C /* Test.Keyboard.Key.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Keyboard.Key.swift; sourceTree = "<group>"; };
 		6939BF2B84BEA59EDEC4361B /* Observer.Event.HandlerDefinition.Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Event.HandlerDefinition.Factory.swift; sourceTree = "<group>"; };
 		6942C9E9427EDEACDF0BC0A4 /* Observer.HandlerDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = file.HandlerDefinition; path = Observer.HandlerDefinition.swift; sourceTree = "<group>"; };
@@ -114,7 +120,7 @@
 		69FA6B1FE3D1A14CD0AF3FF5 /* Keyboard.Key.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.Key.swift; sourceTree = "<group>"; };
 		E609DC891E7BC8C400F919DD /* hotkey.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = hotkey.storyboard; sourceTree = "<group>"; };
 		E609DC8C1E7BCA3200F919DD /* Nimble.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Nimble.framework.dSYM; path = Carthage/Build/Mac/Nimble.framework.dSYM; sourceTree = "<group>"; };
-		E69200F31CDDE19100C4FEAD /* Test.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Test.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E69200F31CDDE19100C4FEAD /* Observatory - Test.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Observatory - Test.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6D7642A1CDDBA100071CCB0 /* Observatory.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Observatory.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -168,11 +174,21 @@
 			path = Test;
 			sourceTree = "<group>";
 		};
+		17FD021F68C207D6BE5401EE /* configuration */ = {
+			isa = PBXGroup;
+			children = (
+				17FD067BD7183F4497D8FE33 /* Configuration */,
+				17FD045154CDB984B09CE2DB /* Target */,
+			);
+			name = configuration;
+			sourceTree = "<group>";
+		};
 		17FD030F7F2C5CA3191B2040 /* accessory */ = {
 			isa = PBXGroup;
 			children = (
 				692739BC3F963DB95B757C64 /* info */,
 				69FE70738BA9A7D2F71070B9 /* storyboard */,
+				17FD021F68C207D6BE5401EE /* configuration */,
 			);
 			path = accessory;
 			sourceTree = "<group>";
@@ -185,6 +201,16 @@
 			name = framework;
 			sourceTree = "<group>";
 		};
+		17FD045154CDB984B09CE2DB /* Target */ = {
+			isa = PBXGroup;
+			children = (
+				17FD098E9D4F645F95274057 /* macOS */,
+				17FD08C9C8536FA561C0E4C5 /* Test.xcconfig */,
+			);
+			name = Target;
+			path = dependency/git/xenomorph/source/Target;
+			sourceTree = SOURCE_ROOT;
+		};
 		17FD0498F691994B815B5FB3 /* dependency */ = {
 			isa = PBXGroup;
 			children = (
@@ -196,6 +222,16 @@
 			path = dependency;
 			sourceTree = "<group>";
 		};
+		17FD067BD7183F4497D8FE33 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				17FD0ED96CA8568E523C05EA /* Base - Debug.xcconfig */,
+				17FD0153D441DBE8117C8705 /* Base - Release.xcconfig */,
+			);
+			name = Configuration;
+			path = dependency/git/xenomorph/source/Configuration;
+			sourceTree = SOURCE_ROOT;
+		};
 		17FD084D44D28B4C53DE8125 /* Observer */ = {
 			isa = PBXGroup;
 			children = (
@@ -204,6 +240,15 @@
 				6913548B96119D429F0C99EF /* Test.Observer.Hotkey.swift */,
 			);
 			path = Observer;
+			sourceTree = "<group>";
+		};
+		17FD098E9D4F645F95274057 /* macOS */ = {
+			isa = PBXGroup;
+			children = (
+				17FD00D92CE5001C977C34C8 /* macOS - Framework.xcconfig */,
+				17FD016E3AC5B7437BE4F07B /* macOS - Application.xcconfig */,
+			);
+			path = macOS;
 			sourceTree = "<group>";
 		};
 		17FD0A6F774EB410DD7ED045 /* dsym */ = {
@@ -266,8 +311,9 @@
 		692739BC3F963DB95B757C64 /* info */ = {
 			isa = PBXGroup;
 			children = (
-				691492DAECCDA8F37886F020 /* Observatory.plist */,
-				692C0EE3AC3E3172836E1B96 /* Hotkey.plist */,
+				691492DAECCDA8F37886F020 /* framework.plist */,
+				692C0EE3AC3E3172836E1B96 /* hotkey.plist */,
+				17FD049B29A650BABBC10CC6 /* test.plist */,
 			);
 			path = info;
 			sourceTree = "<group>";
@@ -355,7 +401,7 @@
 			isa = PBXGroup;
 			children = (
 				E6D7642A1CDDBA100071CCB0 /* Observatory.framework */,
-				E69200F31CDDE19100C4FEAD /* Test.xctest */,
+				E69200F31CDDE19100C4FEAD /* Observatory - Test.xctest */,
 				087EE7921E1C1FF500093E0E /* Hotkey.app */,
 			);
 			name = product;
@@ -393,9 +439,9 @@
 			productReference = 087EE7921E1C1FF500093E0E /* Hotkey.app */;
 			productType = "com.apple.product-type.application";
 		};
-		E69200F21CDDE19100C4FEAD /* Test */ = {
+		E69200F21CDDE19100C4FEAD /* Observatory - Test */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E69200FD1CDDE19200C4FEAD /* Build configuration list for PBXNativeTarget "Test" */;
+			buildConfigurationList = E69200FD1CDDE19200C4FEAD /* Build configuration list for PBXNativeTarget "Observatory - Test" */;
 			buildPhases = (
 				E69200EF1CDDE19100C4FEAD /* Sources */,
 				E69200F01CDDE19100C4FEAD /* Frameworks */,
@@ -406,9 +452,9 @@
 			dependencies = (
 				E69200FA1CDDE19200C4FEAD /* PBXTargetDependency */,
 			);
-			name = Test;
+			name = "Observatory - Test";
 			productName = Observatoryt;
-			productReference = E69200F31CDDE19100C4FEAD /* Test.xctest */;
+			productReference = E69200F31CDDE19100C4FEAD /* Observatory - Test.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		E6D764291CDDBA100071CCB0 /* Observatory */ = {
@@ -450,6 +496,7 @@
 					E6D764291CDDBA100071CCB0 = {
 						CreatedOnToolsVersion = 7.3;
 						LastSwiftMigration = 0820;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -467,7 +514,7 @@
 			projectRoot = "";
 			targets = (
 				E6D764291CDDBA100071CCB0 /* Observatory */,
-				E69200F21CDDE19100C4FEAD /* Test */,
+				E69200F21CDDE19100C4FEAD /* Observatory - Test */,
 				087EE7911E1C1FF500093E0E /* Hotkey */,
 			);
 		};
@@ -560,158 +607,67 @@
 /* Begin XCBuildConfiguration section */
 		087EE79E1E1C1FF500093E0E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 17FD016E3AC5B7437BE4F07B /* macOS - Application.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CODE_SIGN_IDENTITY = "-";
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
+				INFOPLIST_FILE = "$(inherited)/../$(TARGET_NAME:lower).plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
 		087EE79F1E1C1FF500093E0E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 17FD016E3AC5B7437BE4F07B /* macOS - Application.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CODE_SIGN_IDENTITY = "-";
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				INFOPLIST_FILE = "$(inherited)/../$(TARGET_NAME:lower).plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
 		E69200FB1CDDE19200C4FEAD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 17FD08C9C8536FA561C0E4C5 /* Test.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = accessory/info/Observatory.plist;
-				PRODUCT_MODULE_NAME = Test;
-				PRODUCT_NAME = Test;
 			};
 			name = Debug;
 		};
 		E69200FC1CDDE19200C4FEAD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 17FD08C9C8536FA561C0E4C5 /* Test.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = accessory/info/Observatory.plist;
-				PRODUCT_MODULE_NAME = Test;
-				PRODUCT_NAME = Test;
 			};
 			name = Release;
 		};
 		E6D764301CDDBA100071CCB0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 17FD0ED96CA8568E523C05EA /* Base - Debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = dependency/Carthage/Build/Mac;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "$(SRCROOT)/accessory/info/$(PRODUCT_MODULE_NAME).plist";
-				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.swifteroid.observatory;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		E6D764311CDDBA100071CCB0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 17FD0153D441DBE8117C8705 /* Base - Release.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = dependency/Carthage/Build/Mac;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = fast;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "$(SRCROOT)/accessory/info/$(PRODUCT_MODULE_NAME).plist";
-				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.swifteroid.observatory;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
 		E6D764331CDDBA100071CCB0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 17FD00D92CE5001C977C34C8 /* macOS - Framework.xcconfig */;
 			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				DEFINES_MODULE = YES;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				PRODUCT_MODULE_NAME = Observatory;
-				PRODUCT_NAME = Observatory;
 			};
 			name = Debug;
 		};
 		E6D764341CDDBA100071CCB0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 17FD00D92CE5001C977C34C8 /* macOS - Framework.xcconfig */;
 			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				DEFINES_MODULE = YES;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				PRODUCT_MODULE_NAME = Observatory;
-				PRODUCT_NAME = Observatory;
 			};
 			name = Release;
 		};
@@ -727,7 +683,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E69200FD1CDDE19200C4FEAD /* Build configuration list for PBXNativeTarget "Test" */ = {
+		E69200FD1CDDE19200C4FEAD /* Build configuration list for PBXNativeTarget "Observatory - Test" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E69200FB1CDDE19200C4FEAD /* Debug */,
