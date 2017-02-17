@@ -29,7 +29,6 @@
 		695A02AC8AE48193A0337C20 /* Extension.Carbon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E201FF597397654B4DD260 /* Extension.Carbon.swift */; };
 		695E17A9473E8AE54801B65F /* Observer.Hotkey.Center.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BBE5DDA9018F423BA0EFF7 /* Observer.Hotkey.Center.swift */; };
 		695FF209EE4580CAB7B1C9BC /* Observer.Hotkey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696A7EB556F2791741F92DE2 /* Observer.Hotkey.swift */; };
-		696D3A557EB588B0DF1D4A12 /* hotkey.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69895A4A6E8AD3526544EA4E /* hotkey.storyboard */; };
 		697761271895402059498DAC /* Observer.Hotkey.HandlerDefinition.Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692A68A7E172C8358C84D97C /* Observer.Hotkey.HandlerDefinition.Factory.swift */; };
 		69867A0A91B27CAC21F1671E /* Observer.Event.HandlerDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69470962620FF547E76616CE /* Observer.Event.HandlerDefinition.swift */; };
 		698F6783628A36723D11D9C7 /* Observer.Hotkey.Recorder.Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690846470A79592866B262DD /* Observer.Hotkey.Recorder.Button.swift */; };
@@ -44,6 +43,7 @@
 		69EECB57AAC934D69E4DEE8B /* Keyboard.Hotkey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694A2B4EB9AA38CE994312C9 /* Keyboard.Hotkey.swift */; };
 		69F0DD3C8FEE48FD092C33EC /* Observer.Hotkey.Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F5760B7CD1564EE1F1442B /* Observer.Hotkey.Handler.swift */; };
 		69F1ADAA0E683F41DB80A1CB /* Keyboard.Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69FA6B1FE3D1A14CD0AF3FF5 /* Keyboard.Key.swift */; };
+		E609DC8B1E7BC8CA00F919DD /* hotkey.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E609DC891E7BC8C400F919DD /* hotkey.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,7 +97,6 @@
 		6939BF2B84BEA59EDEC4361B /* Observer.Event.HandlerDefinition.Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Event.HandlerDefinition.Factory.swift; sourceTree = "<group>"; };
 		6942C9E9427EDEACDF0BC0A4 /* Observer.HandlerDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = file.HandlerDefinition; path = Observer.HandlerDefinition.swift; sourceTree = "<group>"; };
 		69470962620FF547E76616CE /* Observer.Event.HandlerDefinition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Event.HandlerDefinition.swift; sourceTree = "<group>"; };
-		6949810C46B669082CB49E6A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Hotkey/Base.lproj/hotkey.storyboard; sourceTree = SOURCE_ROOT; };
 		694A2B4EB9AA38CE994312C9 /* Keyboard.Hotkey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.Hotkey.swift; sourceTree = "<group>"; };
 		695AFB416AF0439638564057 /* Observer.Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Event.swift; sourceTree = "<group>"; };
 		695DF646AEDFDC84B4C56D91 /* Observer.Notification.HandlerDefinition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Notification.HandlerDefinition.swift; sourceTree = "<group>"; };
@@ -117,6 +116,7 @@
 		69F5760B7CD1564EE1F1442B /* Observer.Hotkey.Handler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Hotkey.Handler.swift; sourceTree = "<group>"; };
 		69F7CB1685C91617071B3A44 /* Observer.Notification.HandlerDefinition.Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Notification.HandlerDefinition.Factory.swift; sourceTree = "<group>"; };
 		69FA6B1FE3D1A14CD0AF3FF5 /* Keyboard.Key.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.Key.swift; sourceTree = "<group>"; };
+		E609DC891E7BC8C400F919DD /* hotkey.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = hotkey.storyboard; sourceTree = "<group>"; };
 		E69200F31CDDE19100C4FEAD /* Test.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Test.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6D7642A1CDDBA100071CCB0 /* Observatory.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Observatory.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -331,7 +331,7 @@
 		69FE70738BA9A7D2F71070B9 /* storyboard */ = {
 			isa = PBXGroup;
 			children = (
-				69895A4A6E8AD3526544EA4E /* hotkey.storyboard */,
+				E609DC891E7BC8C400F919DD /* hotkey.storyboard */,
 			);
 			path = storyboard;
 			sourceTree = "<group>";
@@ -474,7 +474,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				696D3A557EB588B0DF1D4A12 /* hotkey.storyboard in Resources */,
+				E609DC8B1E7BC8CA00F919DD /* hotkey.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -552,17 +552,6 @@
 			targetProxy = E69200F91CDDE19200C4FEAD /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		69895A4A6E8AD3526544EA4E /* hotkey.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				6949810C46B669082CB49E6A /* Base */,
-			);
-			name = hotkey.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		087EE79E1E1C1FF500093E0E /* Debug */ = {
