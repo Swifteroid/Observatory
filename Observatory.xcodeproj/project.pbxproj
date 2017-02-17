@@ -8,14 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		087EE7A11E1C26E500093E0E /* Observatory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6D7642A1CDDBA100071CCB0 /* Observatory.framework */; };
-		17FD004FC46F438970E67287 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17FD04F31938B5123A4484E0 /* Quick.framework */; };
 		17FD02AF5E5BB3924165E7F5 /* Observatory.h in Headers */ = {isa = PBXBuildFile; fileRef = 17FD0C595B95409A07A95D6C /* Observatory.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		17FD03080F29623E851E70FA /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 17FD004596B009984060737D /* Nimble.framework */; };
 		17FD062FA3835F152943A9F9 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17FD004596B009984060737D /* Nimble.framework */; };
 		17FD09333DDFBDB565AE71D6 /* Test.Observer.Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0FB52C88D5670C574EAD /* Test.Observer.Notification.swift */; };
 		17FD0B85FEC16B87116CF4A8 /* Test.Observer.Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD08630B9F202D77AAFA51 /* Test.Observer.Event.swift */; };
 		17FD0D9F8177D2BE0BA4276D /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD00047290331A81F60B66 /* Observer.swift */; };
-		17FD0EB9703D525EAC490EA0 /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 17FD04F31938B5123A4484E0 /* Quick.framework */; };
 		17FD0EBC070D00CFDDF1E42D /* Observatory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6D7642A1CDDBA100071CCB0 /* Observatory.framework */; };
 		691406A7FA5E743E6D355085 /* Observer.Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695AFB416AF0439638564057 /* Observer.Event.swift */; };
 		69278DAE5DF6878C3D17C9B7 /* Observer.Hotkey.Recorder.Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696A0BCA9CBCE8BB5919FB26 /* Observer.Hotkey.Recorder.Protocol.swift */; };
@@ -71,7 +69,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				17FD03080F29623E851E70FA /* Nimble.framework in CopyFiles */,
-				17FD0EB9703D525EAC490EA0 /* Quick.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,7 +78,6 @@
 		087EE7921E1C1FF500093E0E /* Hotkey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hotkey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		17FD00047290331A81F60B66 /* Observer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
 		17FD004596B009984060737D /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/Mac/Nimble.framework; sourceTree = "<group>"; };
-		17FD04F31938B5123A4484E0 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/Mac/Quick.framework; sourceTree = "<group>"; };
 		17FD08630B9F202D77AAFA51 /* Test.Observer.Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Observer.Event.swift; sourceTree = "<group>"; };
 		17FD09DEC21D8E672877A6C0 /* Cartfile.private */ = {isa = PBXFileReference; lastKnownFileType = file.private; path = Cartfile.private; sourceTree = "<group>"; };
 		17FD0C595B95409A07A95D6C /* Observatory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Observatory.h; sourceTree = "<group>"; };
@@ -117,6 +113,7 @@
 		69F7CB1685C91617071B3A44 /* Observer.Notification.HandlerDefinition.Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Notification.HandlerDefinition.Factory.swift; sourceTree = "<group>"; };
 		69FA6B1FE3D1A14CD0AF3FF5 /* Keyboard.Key.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.Key.swift; sourceTree = "<group>"; };
 		E609DC891E7BC8C400F919DD /* hotkey.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = hotkey.storyboard; sourceTree = "<group>"; };
+		E609DC8C1E7BCA3200F919DD /* Nimble.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Nimble.framework.dSYM; path = Carthage/Build/Mac/Nimble.framework.dSYM; sourceTree = "<group>"; };
 		E69200F31CDDE19100C4FEAD /* Test.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Test.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6D7642A1CDDBA100071CCB0 /* Observatory.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Observatory.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -136,7 +133,6 @@
 			files = (
 				17FD0EBC070D00CFDDF1E42D /* Observatory.framework in Frameworks */,
 				17FD062FA3835F152943A9F9 /* Nimble.framework in Frameworks */,
-				17FD004FC46F438970E67287 /* Quick.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -181,21 +177,21 @@
 			path = accessory;
 			sourceTree = "<group>";
 		};
-		17FD03E8A37E50A7B5870714 /* Carthage */ = {
+		17FD03E8A37E50A7B5870714 /* framework */ = {
 			isa = PBXGroup;
 			children = (
 				17FD004596B009984060737D /* Nimble.framework */,
-				17FD04F31938B5123A4484E0 /* Quick.framework */,
 			);
-			name = Carthage;
+			name = framework;
 			sourceTree = "<group>";
 		};
 		17FD0498F691994B815B5FB3 /* dependency */ = {
 			isa = PBXGroup;
 			children = (
+				17FD0A6F774EB410DD7ED045 /* dsym */,
+				17FD03E8A37E50A7B5870714 /* framework */,
 				17FD09DEC21D8E672877A6C0 /* Cartfile.private */,
 				69D782B1BF1A76BD24B7144E /* Cartfile.resolved */,
-				17FD03E8A37E50A7B5870714 /* Carthage */,
 			);
 			path = dependency;
 			sourceTree = "<group>";
@@ -208,6 +204,14 @@
 				6913548B96119D429F0C99EF /* Test.Observer.Hotkey.swift */,
 			);
 			path = Observer;
+			sourceTree = "<group>";
+		};
+		17FD0A6F774EB410DD7ED045 /* dsym */ = {
+			isa = PBXGroup;
+			children = (
+				E609DC8C1E7BCA3200F919DD /* Nimble.framework.dSYM */,
+			);
+			name = dsym;
 			sourceTree = "<group>";
 		};
 		17FD0BB4EDB0784084E6A631 /* source */ = {
