@@ -1,6 +1,6 @@
 import Foundation
 
-open class EventObserverHandlerDefinitionFactory
+open class AppKitEventObserverHandlerDefinitionFactory
 {
     open var mask: NSEventMask
     open var global: Bool
@@ -18,12 +18,12 @@ open class EventObserverHandlerDefinitionFactory
 
     // MARK: -
 
-    open func construct() throws -> EventObserverHandlerDefinition {
+    open func construct() throws -> AppKitEventObserverHandlerDefinition {
         if !self.global && !self.local {
             throw Error.unspecifiedContext
         }
 
-        var definition: EventObserverHandlerDefinition!
+        var definition: AppKitEventObserverHandlerDefinition!
         let originalHandler: Any = self.handler
         var localHandler: Any?
         var globalHandler: Any?
@@ -39,18 +39,18 @@ open class EventObserverHandlerDefinitionFactory
         } else if originalHandler is ObserverConventionHandler {
             globalHandler = self.global ? { (event: NSEvent) in (originalHandler as! ObserverConventionHandler)() } : nil
             localHandler = self.local ? { (event: NSEvent) -> NSEvent? in (originalHandler as! ObserverConventionHandler)(); return event } : nil
-        } else if originalHandler is EventObserverHandler.Local {
-            globalHandler = self.global ? { (event: NSEvent) in (originalHandler as! EventObserverHandler.Local)(event) } : nil
-            localHandler = self.local ? originalHandler as? EventObserverHandler.Local : nil
-        } else if originalHandler is EventObserverConventionHandler.Local {
-            globalHandler = self.global ? { (event: NSEvent) in (originalHandler as! EventObserverConventionHandler.Local)(event) } : nil
-            localHandler = self.local ? originalHandler as? EventObserverConventionHandler.Local : nil
-        } else if originalHandler is EventObserverHandler.Global {
-            globalHandler = self.global ? originalHandler as? EventObserverHandler.Global : nil
-            localHandler = self.local ? { (event: NSEvent) -> NSEvent? in (originalHandler as! EventObserverHandler.Global)(event); return event } : nil
-        } else if originalHandler is EventObserverConventionHandler.Global {
-            globalHandler = self.global ? originalHandler as? EventObserverConventionHandler.Global : nil
-            localHandler = self.local ? { (event: NSEvent) -> NSEvent? in (originalHandler as! EventObserverConventionHandler.Global)(event); return event } : nil
+        } else if originalHandler is AppKitEventObserverHandler.Local {
+            globalHandler = self.global ? { (event: NSEvent) in (originalHandler as! AppKitEventObserverHandler.Local)(event) } : nil
+            localHandler = self.local ? originalHandler : nil
+        } else if originalHandler is AppKitEventObserverConventionHandler.Local {
+            globalHandler = self.global ? { (event: NSEvent) in (originalHandler as! AppKitEventObserverConventionHandler.Local)(event) } : nil
+            localHandler = self.local ? originalHandler : nil
+        } else if originalHandler is AppKitEventObserverHandler.Global {
+            globalHandler = self.global ? originalHandler : nil
+            localHandler = self.local ? { (event: NSEvent) -> NSEvent? in (originalHandler as! AppKitEventObserverHandler.Global)(event); return event } : nil
+        } else if originalHandler is AppKitEventObserverConventionHandler.Global {
+            globalHandler = self.global ? originalHandler : nil
+            localHandler = self.local ? { (event: NSEvent) -> NSEvent? in (originalHandler as! AppKitEventObserverConventionHandler.Global)(event); return event } : nil
         }
         // @formatter:on
 
@@ -58,14 +58,14 @@ open class EventObserverHandlerDefinitionFactory
             throw Observer.Error.unrecognisedHandlerSignature
         }
 
-        definition = EventObserverHandlerDefinition(mask: self.mask, handler: (original: originalHandler, global: globalHandler, local: localHandler))
+        definition = AppKitEventObserverHandlerDefinition(mask: self.mask, handler: (original: originalHandler, global: globalHandler, local: localHandler))
         return definition
     }
 }
 
 // MARK: -
 
-extension EventObserverHandlerDefinitionFactory
+extension AppKitEventObserverHandlerDefinitionFactory
 {
     public enum Error: Swift.Error
     {

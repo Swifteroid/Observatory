@@ -1,6 +1,6 @@
 import Foundation
 
-open class EventObserverHandlerDefinition: ObserverHandlerDefinitionProtocol
+open class AppKitEventObserverHandlerDefinition: ObserverHandlerDefinitionProtocol
 {
     public typealias Handler = (original: Any, global: Any?, local: Any?)
     public typealias Monitor = (global: AnyObject?, local: AnyObject?)
@@ -16,18 +16,18 @@ open class EventObserverHandlerDefinition: ObserverHandlerDefinitionProtocol
 
     open private(set) var active: Bool = false
 
-    @discardableResult open func activate() -> EventObserverHandlerDefinition {
-        guard self.inactive else {
+    @discardableResult open func activate() -> Self {
+        guard (self as AppKitEventObserverHandlerDefinition).inactive else {
             return self
         }
 
         var monitor: Monitor = Monitor(local: nil, global: nil)
 
-        if let handler: EventObserverHandler.Global = self.handler.local as? EventObserverHandler.Global {
+        if let handler: AppKitEventObserverHandler.Global = self.handler.local as? AppKitEventObserverHandler.Global {
             monitor.global = NSEvent.addGlobalMonitorForEvents(matching: self.mask, handler: handler) as AnyObject?
         }
 
-        if let handler: EventObserverHandler.Local = self.handler.local as? EventObserverHandler.Local {
+        if let handler: AppKitEventObserverHandler.Local = self.handler.local as? AppKitEventObserverHandler.Local {
             monitor.local = NSEvent.addLocalMonitorForEvents(matching: self.mask, handler: handler) as AnyObject?
         }
 
@@ -70,7 +70,7 @@ open class EventObserverHandlerDefinition: ObserverHandlerDefinitionProtocol
     }
 }
 
-public func ==(lhs: EventObserverHandlerDefinition, rhs: EventObserverHandlerDefinition) -> Bool {
+public func ==(lhs: AppKitEventObserverHandlerDefinition, rhs: AppKitEventObserverHandlerDefinition) -> Bool {
     return true &&
         lhs.mask == rhs.mask &&
         EventObserver.compareBlocks(lhs.handler.original, rhs.handler.original) &&

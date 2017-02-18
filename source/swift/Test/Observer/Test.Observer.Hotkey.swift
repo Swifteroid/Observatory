@@ -17,8 +17,8 @@ open class HotkeyObserverTestCase: XCTestCase
         try! observer.add(hotkey: KeyboardHotkey(key: KeyboardKey.Five, modifier: [KeyboardModifier.CommandKey, KeyboardModifier.ShiftKey])) { foo += 1 }
         try! observer.add(hotkey: KeyboardHotkey(key: KeyboardKey.Six, modifier: [KeyboardModifier.CommandKey, KeyboardModifier.ShiftKey])) { bar += 1 }
 
-        self.postHotKeyEvent(key: fooKey, flag: modifier)
-        self.postHotKeyEvent(key: barKey, flag: modifier)
+        self.postHotkeyEvent(key: fooKey, flag: modifier)
+        self.postHotkeyEvent(key: barKey, flag: modifier)
 
         expect(foo).to(equal(1))
         expect(bar).to(equal(1))
@@ -27,8 +27,8 @@ open class HotkeyObserverTestCase: XCTestCase
 
         observer.active = false
 
-        self.postHotKeyEvent(key: fooKey, flag: modifier)
-        self.postHotKeyEvent(key: barKey, flag: modifier)
+        self.postHotkeyEvent(key: fooKey, flag: modifier)
+        self.postHotkeyEvent(key: barKey, flag: modifier)
 
         expect(foo).to(equal(1))
         expect(bar).to(equal(1))
@@ -37,8 +37,8 @@ open class HotkeyObserverTestCase: XCTestCase
 
         observer.active = true
 
-        self.postHotKeyEvent(key: fooKey, flag: modifier)
-        self.postHotKeyEvent(key: barKey, flag: modifier)
+        self.postHotkeyEvent(key: fooKey, flag: modifier)
+        self.postHotkeyEvent(key: barKey, flag: modifier)
 
         expect(foo).to(equal(2))
         expect(bar).to(equal(2))
@@ -47,7 +47,7 @@ open class HotkeyObserverTestCase: XCTestCase
 
         observer.remove(hotkey: KeyboardHotkey(key: KeyboardKey.Five, modifier: [KeyboardModifier.CommandKey, KeyboardModifier.ShiftKey]))
 
-        self.postHotKeyEvent(key: fooKey, flag: modifier)
+        self.postHotkeyEvent(key: fooKey, flag: modifier)
 
         expect(foo).to(equal(2))
     }
@@ -63,7 +63,7 @@ open class HotkeyObserverTestCase: XCTestCase
         expect { try observerBar.add(hotkey: hotkey, handler: {}) }.to(throwError(HotkeyObserverHandlerDefinition.Error.hotkeyAlreadyRegistered))
     }
 
-    private func sendHotKeyEvent(identifier: EventHotKeyID) {
+    private func sendHotkeyEvent(identifier: EventHotKeyID) {
         let eventHotKeyIdPointer: UnsafeMutablePointer<EventHotKeyID> = UnsafeMutablePointer.allocate(capacity: 1)
         eventHotKeyIdPointer.initialize(to: identifier)
 
@@ -76,7 +76,7 @@ open class HotkeyObserverTestCase: XCTestCase
         SendEventToEventTarget(eventPointer, GetApplicationEventTarget())
     }
 
-    private func postHotKeyEvent(key: CGKeyCode, flag: CGEventFlags) {
+    private func postHotkeyEvent(key: CGKeyCode, flag: CGEventFlags) {
         let downEvent: CGEvent = CGEvent(keyboardEventSource: nil, virtualKey: key, keyDown: true)!
         let upEvent: CGEvent = CGEvent(keyboardEventSource: nil, virtualKey: key, keyDown: false)!
         downEvent.flags = flag

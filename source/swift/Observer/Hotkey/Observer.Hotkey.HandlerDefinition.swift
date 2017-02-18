@@ -42,7 +42,7 @@ open class HotkeyObserverHandlerDefinition: ObserverHandlerDefinitionProtocol
     open private(set) var active: Bool = false
 
     @discardableResult open func activate() throws -> Self {
-        guard !self.active else { return self }
+        guard (self as HotkeyObserverHandlerDefinition).inactive else { return self }
         self.active = true
         return try self.update()
     }

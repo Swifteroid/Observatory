@@ -13,13 +13,13 @@ open class NotificationObserver: Observer
     // MARK: -
 
     override internal func activate() {
-        for definition: NotificationObserverHandlerDefinition in self.definitions {
+        for definition in self.definitions {
             definition.activate(center: self.center ?? NotificationCenter.default)
         }
     }
 
     override internal func deactivate() {
-        for definition: NotificationObserverHandlerDefinition in self.definitions {
+        for definition in self.definitions {
             definition.deactivate()
         }
     }

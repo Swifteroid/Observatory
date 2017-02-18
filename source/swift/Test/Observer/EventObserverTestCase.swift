@@ -14,38 +14,38 @@ public class EventObserverTestCase: XCTestCase
         let observer: EventObserver = EventObserver(active: true)
 
         try! observer.add(NSEventMask.AnyEventMask, global: true, local: true, handler: self.handler)
-        expect(observer.definitions[0].handler.global).toNot(beNil())
-        expect(observer.definitions[0].handler.local).toNot(beNil())
-        expect(observer.definitions[0].monitor).toNot(beNil())
+        expect(observer.appKitDefinitions[0].handler.global).toNot(beNil())
+        expect(observer.appKitDefinitions[0].handler.local).toNot(beNil())
+        expect(observer.appKitDefinitions[0].monitor).toNot(beNil())
 
         try! observer.add(NSEventMask.AnyEventMask, global: true, local: false, handler: self.handler)
-        expect(observer.definitions[1].handler.global).toNot(beNil())
-        expect(observer.definitions[1].handler.local).to(beNil())
-        expect(observer.definitions[1].monitor).toNot(beNil())
+        expect(observer.appKitDefinitions[1].handler.global).toNot(beNil())
+        expect(observer.appKitDefinitions[1].handler.local).to(beNil())
+        expect(observer.appKitDefinitions[1].monitor).toNot(beNil())
 
         try! observer.add(NSEventMask.AnyEventMask, global: false, local: true, handler: self.handler)
-        expect(observer.definitions[2].handler.global).to(beNil())
-        expect(observer.definitions[2].handler.local).toNot(beNil())
-        expect(observer.definitions[2].monitor).toNot(beNil())
+        expect(observer.appKitDefinitions[2].handler.global).to(beNil())
+        expect(observer.appKitDefinitions[2].handler.local).toNot(beNil())
+        expect(observer.appKitDefinitions[2].monitor).toNot(beNil())
 
         try! observer.add(NSEventMask.AnyEventMask, handler: self.handler)
-        expect(observer.definitions[3].handler.global).toNot(beNil())
-        expect(observer.definitions[3].handler.local).toNot(beNil())
-        expect(observer.definitions[3].monitor).toNot(beNil())
+        expect(observer.appKitDefinitions[3].handler.global).toNot(beNil())
+        expect(observer.appKitDefinitions[3].handler.local).toNot(beNil())
+        expect(observer.appKitDefinitions[3].monitor).toNot(beNil())
 
         observer.active = false
 
-        expect(observer.definitions[0].monitor).to(beNil())
-        expect(observer.definitions[1].monitor).to(beNil())
-        expect(observer.definitions[2].monitor).to(beNil())
-        expect(observer.definitions[3].monitor).to(beNil())
+        expect(observer.appKitDefinitions[0].monitor).to(beNil())
+        expect(observer.appKitDefinitions[1].monitor).to(beNil())
+        expect(observer.appKitDefinitions[2].monitor).to(beNil())
+        expect(observer.appKitDefinitions[3].monitor).to(beNil())
 
         observer.active = true
 
-        expect(observer.definitions[0].monitor).toNot(beNil())
-        expect(observer.definitions[1].monitor).toNot(beNil())
-        expect(observer.definitions[2].monitor).toNot(beNil())
-        expect(observer.definitions[3].monitor).toNot(beNil())
+        expect(observer.appKitDefinitions[0].monitor).toNot(beNil())
+        expect(observer.appKitDefinitions[1].monitor).toNot(beNil())
+        expect(observer.appKitDefinitions[2].monitor).toNot(beNil())
+        expect(observer.appKitDefinitions[3].monitor).toNot(beNil())
     }
 
     private func handler() {
@@ -55,7 +55,7 @@ public class EventObserverTestCase: XCTestCase
 
 public class EventObserver: Observatory.EventObserver
 {
-    override public var definitions: [EventObserverHandlerDefinition] {
+    override public var definitions: [AppKitEventObserverHandlerDefinition] {
         didSet {
         }
         willSet {

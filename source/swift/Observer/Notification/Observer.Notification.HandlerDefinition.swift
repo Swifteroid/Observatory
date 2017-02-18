@@ -18,8 +18,8 @@ open class NotificationObserverHandlerDefinition: ObserverHandlerDefinitionProto
 
     open private(set) var active: Bool = false
 
-    @discardableResult open func activate(center: NotificationCenter) -> NotificationObserverHandlerDefinition {
-        guard self.inactive else {
+    @discardableResult open func activate(center: NotificationCenter) -> Self {
+        guard (self as NotificationObserverHandlerDefinition).inactive else {
             return self
         }
 

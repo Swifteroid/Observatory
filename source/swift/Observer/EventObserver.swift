@@ -236,7 +236,7 @@ public protocol EventObserverHandler: ObserverHandler
     func weakenHandler(method: (Self) -> EventObserver.LocalEventHandler) -> EventObserver.LocalEventHandler
 }
 
-extension EventObserverHandler
+extension AppKitEventObserverHandler
 {
     public func weakenHandler(method: (Self) -> EventObserver.GlobalEventHandler) -> EventObserver.GlobalEventHandler {
         return EventObserver.weakenHandler(self, method: method)

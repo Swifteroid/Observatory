@@ -18,11 +18,11 @@ open class Observer
     }
 
     internal func activate() {
-        // …
+        abort()
     }
 
     internal func deactivate() {
-        // …
+        abort()
     }
 
     // MARK: -
