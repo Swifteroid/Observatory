@@ -1,4 +1,4 @@
-@testable import Observatory
+import Observatory
 import CoreGraphics
 import Nimble
 import XCTest

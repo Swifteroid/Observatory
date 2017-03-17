@@ -1,4 +1,4 @@
-@testable import Observatory
+import Observatory
 import Carbon
 import Nimble
 import XCTest
