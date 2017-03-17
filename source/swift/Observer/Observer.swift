@@ -1,41 +1,30 @@
 import Foundation
 
-open class Observer
+public protocol ObserverProtocol
+{
+    var active: Bool { get }
+    var inactive: Bool { get }
+}
+
+extension ObserverProtocol
+{
+    public var inactive: Bool {
+        return !self.active
+    }
+}
+
+// MARK: -
+
+open class Observer: ObserverProtocol
 {
     /* 
     Specifies whether the observer is active or not.
     */
-    open var active: Bool = false {
-        didSet {
-            if self.active == oldValue {
-                return
-            } else if self.active {
-                self.activate()
-            } else {
-                self.deactivate()
-            }
-        }
-    }
-
-    internal func activate() {
-        abort()
-    }
-
-    internal func deactivate() {
-        abort()
-    }
+    open internal(set) var active: Bool = false
 
     // MARK: -
 
     public init() {
-    }
-
-    public convenience init(active: Bool) {
-        self.init()
-
-        // Otherwise `didSet` won't get invoked.
-
-        ({ self.active = active })()
     }
 
     // MARK: -

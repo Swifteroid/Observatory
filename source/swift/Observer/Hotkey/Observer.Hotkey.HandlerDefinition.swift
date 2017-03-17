@@ -32,26 +32,33 @@ open class HotkeyObserverHandlerDefinition: ObserverHandlerDefinitionProtocol
 
     // MARK: -
 
-    open var ignored: Bool = false {
-        didSet {
-            if self.ignored == oldValue { return }
-            try! self.update()
-        }
-    }
-
     open private(set) var active: Bool = false
 
-    @discardableResult open func activate() throws -> Self {
-        guard (self as HotkeyObserverHandlerDefinition).inactive else { return self }
-        self.active = true
+    @discardableResult open func activate(_ newValue: Bool = true) throws -> Self {
+        if newValue == self.active { return self }
+        self.active = newValue
         return try self.update()
     }
 
     @discardableResult open func deactivate() throws -> Self {
-        guard self.active else { return self }
-        self.active = false
+        return try self.activate(false)
+    }
+
+    // MARK: -
+
+    open private(set) var ignored: Bool = false
+
+    @discardableResult open func ignore(_ newValue: Bool = true) throws -> Self {
+        if newValue == self.ignored { return self }
+        self.ignored = newValue
         return try self.update()
     }
+
+    @discardableResult open func unignore() throws -> Self {
+        return try self.ignore(false)
+    }
+
+    // MARK: -
 
     @discardableResult private func update() throws -> Self {
         let newActive: Bool = self.active && !self.ignored
@@ -104,7 +111,7 @@ open class HotkeyObserverHandlerDefinition: ObserverHandlerDefinitionProtocol
 
     deinit {
         if self.active {
-            try! self.deactivate()
+            _ = try? self.deactivate()
         }
     }
 }

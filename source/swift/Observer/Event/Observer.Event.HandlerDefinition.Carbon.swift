@@ -18,28 +18,23 @@ open class CarbonEventObserverHandlerDefinition: ObserverHandlerDefinitionProtoc
 
     open private(set) var active: Bool = false
 
-    @discardableResult open func activate() -> Self {
-        guard (self as CarbonEventObserverHandlerDefinition).inactive else {
-            return self
+    @discardableResult open func activate(_ newValue: Bool = true) -> Self {
+        if newValue == self.active { return self }
+
+        if newValue {
+            CFRunLoopAddSource(self.loop, self.source, CFRunLoopMode.commonModes)
+            CGEvent.tapEnable(tap: self.tap, enable: true)
+        } else {
+            CGEvent.tapEnable(tap: self.tap, enable: false)
+            CFRunLoopRemoveSource(self.loop, self.source, CFRunLoopMode.commonModes)
         }
 
-        CFRunLoopAddSource(self.loop, self.source, CFRunLoopMode.commonModes)
-        CGEvent.tapEnable(tap: self.tap, enable: true)
-        self.active = true
-
+        self.active = newValue
         return self
     }
 
     @discardableResult open func deactivate() -> Self {
-        guard self.active else {
-            return self
-        }
-
-        CGEvent.tapEnable(tap: self.tap, enable: false)
-        CFRunLoopRemoveSource(self.loop, self.source, CFRunLoopMode.commonModes)
-        self.active = false
-
-        return self
+        return self.activate(false)
     }
 
     // MARK: -

@@ -6,7 +6,7 @@ import XCTest
 open class HotkeyObserverTestCase: XCTestCase
 {
     open func test() {
-        let observer: HotkeyObserver = HotkeyObserver(active: true)
+        let observer: HotkeyObserver = try! HotkeyObserver(active: true)
         let modifier: CGEventFlags = CGEventFlags(rawValue: CGEventFlags.maskCommand.rawValue | CGEventFlags.maskShift.rawValue)
         let fooKey: CGKeyCode = CGKeyCode(KeyboardKey.Five)
         let barKey: CGKeyCode = CGKeyCode(KeyboardKey.Six)
@@ -25,7 +25,7 @@ open class HotkeyObserverTestCase: XCTestCase
 
         // Deactivated observer must not catch anything.
 
-        observer.active = false
+        try! observer.deactivate()
 
         self.postHotkeyEvent(key: fooKey, flag: modifier)
         self.postHotkeyEvent(key: barKey, flag: modifier)
@@ -35,7 +35,7 @@ open class HotkeyObserverTestCase: XCTestCase
 
         // Reactivated observer must work…
 
-        observer.active = true
+        try! observer.activate()
 
         self.postHotkeyEvent(key: fooKey, flag: modifier)
         self.postHotkeyEvent(key: barKey, flag: modifier)
@@ -45,7 +45,7 @@ open class HotkeyObserverTestCase: XCTestCase
 
         // Removing must work.
 
-        observer.remove(hotkey: KeyboardHotkey(key: KeyboardKey.Five, modifier: [KeyboardModifier.CommandKey, KeyboardModifier.ShiftKey]))
+        try! observer.remove(hotkey: KeyboardHotkey(key: KeyboardKey.Five, modifier: [KeyboardModifier.CommandKey, KeyboardModifier.ShiftKey]))
 
         self.postHotkeyEvent(key: fooKey, flag: modifier)
 
@@ -53,8 +53,8 @@ open class HotkeyObserverTestCase: XCTestCase
     }
 
     open func testError() {
-        let observerFoo: HotkeyObserver = HotkeyObserver(active: true)
-        let observerBar: HotkeyObserver = HotkeyObserver(active: true)
+        let observerFoo: HotkeyObserver = try! HotkeyObserver(active: true)
+        let observerBar: HotkeyObserver = try! HotkeyObserver(active: true)
         let hotkey: KeyboardHotkey = KeyboardHotkey(key: KeyboardKey.Five, modifier: [KeyboardModifier.CommandKey, KeyboardModifier.ShiftKey])
 
         // Todo: for some reason refuses to work when expect expression is wrapped in brackets, check in Swift 3.

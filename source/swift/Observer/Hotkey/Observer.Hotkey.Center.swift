@@ -7,7 +7,7 @@ open class HotkeyCenter
     // MARK: observers
 
     private var weakObservers: [Weak] = [] {
-        didSet { self.update() }
+        didSet { try! self.update() }
     }
 
     private var observers: [HotkeyObserver] {
@@ -25,9 +25,7 @@ open class HotkeyCenter
         return self
     }
 
-    // MARK: -
-
-    private lazy var hotkeyObserver: HotkeyObserver = HotkeyObserver(active: true)
+    private lazy var hotkeyObserver: HotkeyObserver = try! HotkeyObserver(active: true)
 
     private func handle(hotkey: KeyboardHotkey) {
         if let command: String = self.commands[hotkey] {
@@ -43,7 +41,7 @@ open class HotkeyCenter
     open var recorder: HotkeyRecorderProtocol? = nil {
         didSet {
             if self.recorder === oldValue { return }
-            self.update()
+            try! self.update()
         }
     }
 
@@ -51,33 +49,28 @@ open class HotkeyCenter
     Hotkey command master registry is a single source of all hotkeys in the application and associated commands. Associated hotkeys
     are automatically observed and `CommandDidInvoke` notification gets posted when they get invoked.
     */
-    open var commands: [KeyboardHotkey: String] = [:] {
-        didSet {
-            let newValue: [KeyboardHotkey: String] = self.commands
-            guard newValue != oldValue else { return }
+    open private(set) var commands: [KeyboardHotkey: String] = [:]
 
-            // To avoid removing / adding all hotkeys observers we calculate differences
-            // and operate only on them…
+    @discardableResult open func add(hotkey: KeyboardHotkey, command: String) throws -> Self {
+        if self.commands[hotkey] == command { return self }
+        if self.commands[hotkey] == nil { try self.hotkeyObserver.add(hotkey: hotkey, handler: { [unowned self] in self.handle(hotkey: $0) }) }
+        self.commands[hotkey] = command
+        return self
+    }
 
-            let newValueSet: Set<KeyboardHotkey> = Set(newValue.keys)
-            let oldValueSet: Set<KeyboardHotkey> = Set(oldValue.keys)
-
-            for hotkey in Array(oldValueSet.subtracting(newValueSet)) {
-                self.hotkeyObserver.remove(hotkey: hotkey)
-            }
-
-            for hotkey in Array(newValueSet.subtracting(oldValueSet)) {
-                try! self.hotkeyObserver.add(hotkey: hotkey, handler: { [unowned self] in self.handle(hotkey: $0) })
-            }
-        }
+    @discardableResult open func remove(hotkey: KeyboardHotkey) throws -> Self {
+        if self.commands[hotkey] == nil { return self }
+        try self.hotkeyObserver.remove(hotkey: hotkey)
+        self.commands.removeValue(forKey: hotkey)
+        return self
     }
 
     // MARK: -
 
-    open func update() {
+    open func update() throws {
         for observer in self.observers {
             for definition in observer.definitions {
-                definition.ignored = self.recorder != nil
+                try definition.ignore(self.recorder != nil)
             }
         }
     }

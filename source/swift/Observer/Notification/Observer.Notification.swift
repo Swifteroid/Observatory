@@ -12,35 +12,39 @@ open class NotificationObserver: Observer
 
     // MARK: -
 
-    override internal func activate() {
-        for definition in self.definitions {
-            definition.activate(center: self.center ?? NotificationCenter.default)
-        }
-    }
-
-    override internal func deactivate() {
-        for definition in self.definitions {
-            definition.deactivate()
-        }
+    public init(active: Bool = false, center: NotificationCenter? = nil) {
+        super.init()
+        self.center = center
+        self.activate(active)
     }
 
     // MARK: -
 
-    convenience init(center: NotificationCenter) {
-        self.init()
-        self.center = center
+    override open var active: Bool {
+        get { return super.active }
+        set { self.activate(newValue) }
     }
 
-    public convenience init(active: Bool, center: NotificationCenter) {
-        self.init(active: active)
-        self.center = center
+    @discardableResult open func activate(_ newValue: Bool = true) -> Self {
+        if newValue == self.active { return self }
+
+        for definition in self.definitions {
+            definition.activate(newValue, center: self.center ?? NotificationCenter.default)
+        }
+
+        super.active = newValue
+        return self
+    }
+
+    @discardableResult open func deactivate() -> Self {
+        return self.activate(false)
     }
 
     // MARK: -
 
     @discardableResult open func add(name: Notification.Name, observable: AnyObject?, queue: OperationQueue?, handler: Any) throws -> Self {
         let factory: NotificationObserverHandlerDefinitionFactory = NotificationObserverHandlerDefinitionFactory(name: name, observable: observable, queue: queue, handler: handler)
-        let definition: NotificationObserverHandlerDefinition = try! factory.construct()
+        let definition: NotificationObserverHandlerDefinition = try factory.construct()
 
         guard !self.definitions.contains(definition) else { return self }
         self.definitions.append(self.active ? definition.activate(center: center ?? NotificationCenter.default) : definition)

@@ -19,11 +19,11 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
             if self.hotkey == oldValue { return }
 
             if let oldValue: KeyboardHotkey = oldValue, HotkeyCenter.instance.commands[oldValue] == self.command {
-                HotkeyCenter.instance.commands.removeValue(forKey: oldValue)
+                try! HotkeyCenter.instance.remove(hotkey: oldValue)
             }
 
             if let newValue: KeyboardHotkey = self.hotkey {
-                HotkeyCenter.instance.commands[newValue] = self.command
+                try! HotkeyCenter.instance.add(hotkey: newValue, command: self.command)
             }
 
             self.needsDisplay = true

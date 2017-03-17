@@ -12,18 +12,34 @@ open class EventObserver: Observer
 
     // MARK: -
 
-    override internal func activate() {
+    public convenience init(active: Bool) {
+        self.init()
+        self.activate(active)
+    }
+
+    // MARK: -
+
+    override open var active: Bool {
+        get { return super.active }
+        set { self.activate(newValue) }
+    }
+
+    @discardableResult open func activate(_ newValue: Bool = true) -> Self {
 
         // Todo: we should use common store for all definitions where they would be kept in the order 
         // todo: of adding, so we can maintain that order during activation / deactivation.
-        
-        for definition in self.carbonDefinitions { definition.activate() }
-        for definition in self.appKitDefinitions { definition.activate() }
+
+        if newValue == self.active { return self }
+
+        for definition in self.carbonDefinitions { definition.activate(newValue) }
+        for definition in self.appKitDefinitions { definition.activate(newValue) }
+
+        super.active = newValue
+        return self
     }
 
-    override internal func deactivate() {
-        for definition in self.carbonDefinitions { definition.deactivate() }
-        for definition in self.appKitDefinitions { definition.deactivate() }
+    @discardableResult open func deactivate() -> Self {
+        return self.activate(false)
     }
 
     // MARK: -
@@ -36,7 +52,7 @@ open class EventObserver: Observer
             handler: handler
         )
 
-        let definition: AppKitEventObserverHandlerDefinition = try! factory.construct()
+        let definition: AppKitEventObserverHandlerDefinition = try factory.construct()
 
         guard !self.appKitDefinitions.contains(definition) else { return self }
         self.appKitDefinitions.append(self.active ? definition.activate() : definition)
@@ -57,7 +73,7 @@ open class EventObserver: Observer
             handler: handler
         )
 
-        let definition: CarbonEventObserverHandlerDefinition = try! factory.construct()
+        let definition: CarbonEventObserverHandlerDefinition = try factory.construct()
 
         guard !self.carbonDefinitions.contains(definition) else { return self }
         self.carbonDefinitions.append(self.active ? definition.activate() : definition)

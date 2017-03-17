@@ -11,7 +11,7 @@ http://stackoverflow.com/a/4640190/458356 – OSX keyboard shortcut background a
 http://stackoverflow.com/a/34864422/458356
 */
 
-private func getEventHotkey(_ event: EventRef) -> EventHotKeyID {
+private func hotkey(for event: EventRef) -> EventHotKeyID {
     let pointer: UnsafeMutablePointer<EventHotKeyID> = UnsafeMutablePointer.allocate(capacity: 1)
     GetEventParameter(event, EventParamName(kEventParamDirectObject), EventParamType(typeEventHotKeyID), nil, MemoryLayout<EventHotKeyID>.size, nil, pointer)
     return pointer.pointee
@@ -26,8 +26,8 @@ open class HotkeyObserver: Observer
     private typealias EventHotkeyHandler = (EventHotKeyID) -> ()
     private typealias EventHotkeyHandlerPointer = UnsafeMutablePointer<EventHotkeyHandler>
 
-    private var eventHandlerPointer: EventHandlerPointer!
-    private var eventHotkeyHandlerPointer: EventHotkeyHandlerPointer!
+    private var eventHandlerPointer: EventHandlerPointer?
+    private var eventHotkeyHandlerPointer: EventHotkeyHandlerPointer?
 
     // MARK: -
 
@@ -35,32 +35,42 @@ open class HotkeyObserver: Observer
 
     // MARK: -
 
-    override internal func activate() {
-
-        // Before we can register any hot keys we must register an event handler with carbon framework.
-
-        let (eventHandler, eventHotkeyHandler) = try! self.constructEventHandler()
-
-        self.eventHandlerPointer = eventHandler
-        self.eventHotkeyHandlerPointer = eventHotkeyHandler
-
-        for definition in self.definitions {
-            try! definition.activate()
-        }
+    override public init() {
+        super.init()
+        HotkeyCenter.instance.register(observer: self)
     }
 
-    override internal func deactivate() {
+    public convenience init(active: Bool) throws {
+        self.init()
+        try self.activate(active)
+    }
 
-        // Deactivation goes in reverse, first deactivate definitions then event handler.
+    // MARK: -
 
-        for definition in self.definitions {
-            try! definition.deactivate()
+    @discardableResult open func activate(_ newValue: Bool = true) throws -> Self {
+        if newValue == self.active { return self }
+
+        // Before we can register any hot keys we must register an event handler with carbon framework. Deactivation goes
+        // in reverse, first deactivate definitions then event handler.
+
+        if newValue {
+            let (eventHandler, eventHotkeyHandler) = try self.constructEventHandler()
+            self.eventHandlerPointer = eventHandler
+            self.eventHotkeyHandlerPointer = eventHotkeyHandler
+            for definition in self.definitions { try definition.activate() }
+        } else {
+            for definition in self.definitions { try definition.deactivate() }
+            try self.destructEventHandler(self.eventHandlerPointer!, eventHotkeyHandler: self.eventHotkeyHandlerPointer!)
+            self.eventHandlerPointer = nil
+            self.eventHotkeyHandlerPointer = nil
         }
 
-        try! self.destructEventHandler(self.eventHandlerPointer, eventHotkeyHandler: self.eventHotkeyHandlerPointer)
+        self.active = newValue
+        return self
+    }
 
-        self.eventHandlerPointer = nil
-        self.eventHotkeyHandlerPointer = nil
+    @discardableResult open func deactivate() throws -> Self {
+        return try self.activate(false)
     }
 
     // MARK: -
@@ -73,7 +83,7 @@ open class HotkeyObserver: Observer
         let eventHotkeyHandlerPointer: UnsafeMutablePointer<EventHotkeyHandler> = UnsafeMutablePointer.allocate(capacity: 1)
 
         eventHandler = { (nextHandler: EventHandlerCallRef?, event: EventRef?, pointer: UnsafeMutableRawPointer?) -> OSStatus in
-            UnsafeMutablePointer<EventHotkeyHandler>(OpaquePointer(pointer!)).pointee(getEventHotkey(event!))
+            UnsafeMutablePointer<EventHotkeyHandler>(OpaquePointer(pointer!)).pointee(hotkey(for: event!))
             return CallNextEventHandler(nextHandler, event)
         }
 
@@ -113,20 +123,21 @@ open class HotkeyObserver: Observer
         return self
     }
 
-    @discardableResult open func remove(hotkey: KeyboardHotkey, handler: Any?, strict: Bool) -> Self {
-        for (index, _) in self.filter(hotkey: hotkey, handler: handler, strict: strict).reversed() {
+    @discardableResult open func remove(hotkey: KeyboardHotkey, handler: Any?, strict: Bool) throws -> Self {
+        for (index, definition) in self.filter(hotkey: hotkey, handler: handler, strict: strict).reversed() {
+            try definition.deactivate()
             self.definitions.remove(at: index)
         }
 
         return self
     }
 
-    @discardableResult open func remove(hotkey: KeyboardHotkey, handler: Any) -> Self {
-        return self.remove(hotkey: hotkey, handler: handler, strict: false)
+    @discardableResult open func remove(hotkey: KeyboardHotkey, handler: Any) throws -> Self {
+        return try self.remove(hotkey: hotkey, handler: handler, strict: false)
     }
 
-    @discardableResult open func remove(hotkey: KeyboardHotkey) -> Self {
-        return self.remove(hotkey: hotkey, handler: nil, strict: false)
+    @discardableResult open func remove(hotkey: KeyboardHotkey) throws -> Self {
+        return try self.remove(hotkey: hotkey, handler: nil, strict: false)
     }
 
     // MARK: -
@@ -137,13 +148,6 @@ open class HotkeyObserver: Observer
                 (definition.hotkey == hotkey) &&
                 (handler == nil && !strict || handler != nil && type(of: self).compareBlocks(definition.handler, handler!))
         })
-    }
-
-    // MARK: -
-
-    override public init() {
-        super.init()
-        HotkeyCenter.instance.register(observer: self)
     }
 }
 

@@ -11,11 +11,11 @@ internal class Observation
         self.count += 1
     }
 
-    @discardableResult internal func reset() {
+    internal func reset() {
         self.count = 0
     }
 
-    @discardableResult internal func assert(count: Int? = nil, reset: Bool? = nil) {
+    internal func assert(count: Int? = nil, reset: Bool? = nil) {
         if let count: Int = count {
             expect(self.count).to(equal(count))
         } else {
