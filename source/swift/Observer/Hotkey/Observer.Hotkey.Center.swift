@@ -2,7 +2,7 @@ import Foundation
 
 open class HotkeyCenter
 {
-    open static let instance: HotkeyCenter = HotkeyCenter()
+    open static let `default`: HotkeyCenter = HotkeyCenter()
 
     // MARK: observers
 

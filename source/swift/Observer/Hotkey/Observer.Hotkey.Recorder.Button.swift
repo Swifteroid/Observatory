@@ -18,12 +18,12 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
         didSet {
             if self.hotkey == oldValue { return }
 
-            if let oldValue: KeyboardHotkey = oldValue, HotkeyCenter.instance.commands[oldValue] == self.command {
-                try! HotkeyCenter.instance.remove(hotkey: oldValue)
+            if let oldValue: KeyboardHotkey = oldValue, HotkeyCenter.default.commands[oldValue] == self.command {
+                try! HotkeyCenter.default.remove(hotkey: oldValue)
             }
 
             if let newValue: KeyboardHotkey = self.hotkey {
-                try! HotkeyCenter.instance.add(hotkey: newValue, command: self.command)
+                try! HotkeyCenter.default.add(hotkey: newValue, command: self.command)
             }
 
             self.needsDisplay = true
@@ -42,9 +42,9 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
             // Let hotkey center know that current recorder changed.
 
             if self.recording {
-                HotkeyCenter.instance.recorder = self
-            } else if HotkeyCenter.instance.recorder === self {
-                HotkeyCenter.instance.recorder = nil
+                HotkeyCenter.default.recorder = self
+            } else if HotkeyCenter.default.recorder === self {
+                HotkeyCenter.default.recorder = nil
             }
         }
     }
@@ -155,7 +155,7 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
         } else if self.recording {
             let hotkey: KeyboardHotkey = KeyboardHotkey(key: event.keyCode, modifier: self.modifier!)
 
-            if HotkeyCenter.instance.commands.keys.contains(hotkey) && HotkeyCenter.instance.commands[hotkey] != self.command {
+            if HotkeyCenter.default.commands.keys.contains(hotkey) && HotkeyCenter.default.commands[hotkey] != self.command {
                 NSBeep()
             } else {
                 self.hotkey = hotkey

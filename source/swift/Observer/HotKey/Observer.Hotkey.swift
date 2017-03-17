@@ -37,7 +37,7 @@ open class HotkeyObserver: Observer
 
     override public init() {
         super.init()
-        HotkeyCenter.instance.register(observer: self)
+        HotkeyCenter.default.register(observer: self)
     }
 
     public convenience init(active: Bool) throws {
