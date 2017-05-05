@@ -109,7 +109,7 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
     }
 
     open func toString(hotkey: KeyboardHotkey) -> String {
-        return "\(self.toString(modifier: KeyboardModifier(rawValue: hotkey.modifier)))\(KeyboardKey.getName(key: hotkey.key) ?? "")"
+        return "\(self.toString(modifier: KeyboardModifier(rawValue: hotkey.modifier)))\(KeyboardKey.name(for: hotkey.key) ?? "")"
     }
 
     // MARK: -
@@ -139,14 +139,14 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
             return false
         }
 
-        if event.keyCode == UInt16(KeyboardKey.Delete) && self.modifier == nil && self.hotkey != nil {
+        if event.keyCode == UInt16(KeyboardKey.delete) && self.modifier == nil && self.hotkey != nil {
             self.hotkey = nil
             self.recording = false
             NotificationCenter.default.post(name: Notification.HotkeyDidRecord, object: self)
             return true
         }
 
-        if self.recording && event.keyCode == UInt16(KeyboardKey.Escape) && self.modifier == nil {
+        if self.recording && event.keyCode == UInt16(KeyboardKey.escape) && self.modifier == nil {
             self.recording = false
             return true
         } else if self.recording && self.modifier == nil {
@@ -166,7 +166,7 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
             return true
         }
 
-        if !self.recording && event.keyCode == UInt16(KeyboardKey.Space) {
+        if !self.recording && event.keyCode == UInt16(KeyboardKey.space) {
             self.recording = true
             return true
         }

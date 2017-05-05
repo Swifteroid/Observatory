@@ -7,6 +7,6 @@ import XCTest
 open class KeyboardKeyTestCase: XCTestCase
 {
     open func testGetName() {
-        expect(KeyboardKey.getName(key: KeyboardKey.Escape)).to(equal("⎋"))
+        expect(KeyboardKey.name(for: KeyboardKey.escape)).to(equal("⎋"))
     }
 }
