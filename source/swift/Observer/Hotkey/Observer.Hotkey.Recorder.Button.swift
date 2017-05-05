@@ -69,14 +69,17 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
     }
 
     private func update() {
-        let style: NSMutableParagraphStyle = self.attributedTitle.attribute(NSParagraphStyleAttributeName, at: 0, effectiveRange: nil) as! NSMutableParagraphStyle
+
+        // In case if title is empty, we still need a valid paragraph style…
+
+        let style: NSMutableParagraphStyle = self.attributedTitle.attribute(NSParagraphStyleAttributeName, at: 0, effectiveRange: nil) as! NSMutableParagraphStyle? ?? NSMutableParagraphStyle(alignment: self.alignment)
         let colour: NSColor = self.recording ? (self.modifier == nil ? NSColor.tertiaryLabelColor : NSColor.secondaryLabelColor) : NSColor.labelColor
         let title: String
 
         if self.recording {
             self.window!.makeFirstResponder(self)
 
-            if let modifier: KeyboardModifier = self.modifier {
+            if let modifier: KeyboardModifier = self.modifier, modifier != [] {
                 title = self.toString(modifier: modifier)
             } else if let hotkey: KeyboardHotkey = self.hotkey {
                 title = self.toString(hotkey: hotkey)
@@ -91,7 +94,11 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
             }
         }
 
-        self.attributedTitle = NSAttributedString(string: title, attributes: [NSForegroundColorAttributeName: colour, NSParagraphStyleAttributeName: style])
+        if title == "" {
+            NSLog("\(self) attempted to set empty title, this shouldn't be happening…")
+        } else {
+            self.attributedTitle = NSAttributedString(string: title, attributes: [NSForegroundColorAttributeName: colour, NSParagraphStyleAttributeName: style])
+        }
     }
 
     // MARK: -
@@ -179,7 +186,11 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
     }
 
     override open func flagsChanged(with event: NSEvent) {
-        self.modifier = KeyboardModifier(flags: event.modifierFlags)
+        if self.recording {
+            let modifier = KeyboardModifier(flags: event.modifierFlags)
+            self.modifier = modifier == [] ? nil : modifier
+        }
+
         super.flagsChanged(with: event)
     }
 
@@ -205,5 +216,13 @@ extension HotkeyRecorderButton
         public static let HotkeyWillChange: Foundation.Notification.Name = Foundation.Notification.Name(rawValue: "HotkeyRecorderButtonHotkeyWillChangeNotification")
         public static let HotkeyDidChange: Foundation.Notification.Name = Foundation.Notification.Name(rawValue: "HotkeyRecorderButtonHotkeyDidChangeNotification")
         public static let HotkeyDidRecord: Foundation.Notification.Name = Foundation.Notification.Name(rawValue: "HotkeyRecorderButtonHotkeyDidRecordNotification")
+    }
+}
+
+extension NSMutableParagraphStyle
+{
+    fileprivate convenience init(alignment: NSTextAlignment) {
+        self.init()
+        self.alignment = alignment
     }
 }
