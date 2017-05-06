@@ -13,29 +13,71 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
 
     open var hotkey: KeyboardHotkey? {
         willSet {
+            if self.hotkey == newValue { return }
             NotificationCenter.default.post(name: Notification.HotkeyWillChange, object: self)
         }
         didSet {
             if self.hotkey == oldValue { return }
 
-            if let oldValue: KeyboardHotkey = oldValue, HotkeyCenter.default.commands[oldValue] == self.command {
-                try! HotkeyCenter.default.remove(hotkey: oldValue)
-            }
+            // Should cancel recording if we're setting hotkey while recording.
 
-            if let newValue: KeyboardHotkey = self.hotkey {
-                try! HotkeyCenter.default.add(hotkey: newValue, command: self.command)
-            }
-
+            self.register()
+            self.recording = false
             self.needsDisplay = true
+
             NotificationCenter.default.post(name: Notification.HotkeyDidChange, object: self)
         }
     }
 
-    @IBInspectable open var command: String!
+    @IBInspectable open var command: String? {
+        didSet {
+            if self.command == oldValue { return }
+
+            self.register()
+            self.needsDisplay = true
+        }
+    }
+
+    // MARK: -
+
+    /*
+    Successfully registered hotkey-command tuple.
+    */
+    private var registration: (hotkey: KeyboardHotkey, command: String)?
+
+    /*
+    Attempts to update registration to current command and hotkey. 
+    */
+    private func register() {
+        let oldHotkey: KeyboardHotkey? = self.registration?.hotkey
+        let newHotkey: KeyboardHotkey? = self.hotkey
+        let oldCommand: String? = self.registration?.command
+        let newCommand: String? = self.command
+
+        if newHotkey == oldHotkey && newCommand == oldCommand {
+            return
+        }
+
+        if let oldHotkey: KeyboardHotkey = oldHotkey, HotkeyCenter.default.commands[oldHotkey] == self.command {
+            try! HotkeyCenter.default.remove(hotkey: oldHotkey)
+        }
+
+        if let newHotkey: KeyboardHotkey = newHotkey, let newCommand: String = newCommand {
+            do {
+                try HotkeyCenter.default.add(hotkey: newHotkey, command: newCommand)
+                self.registration = (newHotkey, newCommand)
+            } catch {
+                self.registration = nil
+            }
+        }
+    }
+
+    // MARK: -
 
     open var recording: Bool = false {
         didSet {
             if self.recording == oldValue { return }
+
             self.modifier = nil
             self.needsDisplay = true
 
@@ -73,7 +115,7 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
         // In case if title is empty, we still need a valid paragraph style…
 
         let style: NSMutableParagraphStyle = self.attributedTitle.attribute(NSParagraphStyleAttributeName, at: 0, effectiveRange: nil) as! NSMutableParagraphStyle? ?? NSMutableParagraphStyle(alignment: self.alignment)
-        let colour: NSColor = self.recording ? (self.modifier == nil ? NSColor.tertiaryLabelColor : NSColor.secondaryLabelColor) : NSColor.labelColor
+        let colour: NSColor
         let title: String
 
         if self.recording {
@@ -86,11 +128,27 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
             } else {
                 title = "Record hotkey"
             }
+
+            colour = self.modifier == nil ? NSColor.tertiaryLabelColor : NSColor.secondaryLabelColor
         } else {
             if let hotkey: KeyboardHotkey = self.hotkey {
-                title = String(describing: hotkey)
+
+                // Hotkey and command are set and registered the button will appear normal. If hotkey is set but command is not the button
+                // will appear grayed out. If hotkey and command are set but not registered the button will have a warning.
+
+                if self.registration != nil || self.command == nil {
+                    title = String(describing: hotkey)
+                    colour = self.command == nil ? NSColor.secondaryLabelColor : NSColor.labelColor
+                } else {
+
+                    // Todo: this is all fancy shmancy, but we need a proper solution here…
+
+                    title = "☠️"
+                    colour = NSColor.secondaryLabelColor
+                }
             } else {
                 title = "Click to record hotkey"
+                colour = NSColor.labelColor
             }
         }
 
@@ -123,26 +181,43 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
         }
     }
 
+    /*
+    Handles hotkey recording and returns true when any custom logic was invoked.
+    */
     override open func performKeyEquivalent(with event: NSEvent) -> Bool {
         guard self.isEnabled else {
             return false
         }
 
-        if event.keyCode == UInt16(KeyboardKey.delete) && self.modifier == nil && self.hotkey != nil {
+        // Pressing delete key without any modifiers clears current shortcut.
+
+        if CGKeyCode(event.keyCode) == KeyboardKey.delete && self.modifier == nil && self.hotkey != nil {
             self.hotkey = nil
             self.recording = false
             NotificationCenter.default.post(name: Notification.HotkeyDidRecord, object: self)
             return true
         }
 
-        if self.recording && event.keyCode == UInt16(KeyboardKey.escape) && self.modifier == nil {
+        // Pressing escape without modifiers during recording cancels it, pressing space while not recording starts it.
+
+        if self.recording && CGKeyCode(event.keyCode) == KeyboardKey.escape && self.modifier == nil {
             self.recording = false
             return true
-        } else if self.recording && self.modifier == nil {
-            NSBeep()
+        } else if !self.recording && CGKeyCode(event.keyCode) == KeyboardKey.space {
+            self.recording = true
             return true
-        } else if self.recording {
-            let hotkey: KeyboardHotkey = KeyboardHotkey(key: event.keyCode, modifier: self.modifier!)
+        }
+
+        // If not recording, there's nothing else to do…
+
+        if !self.recording {
+            return super.performKeyEquivalent(with: event)
+        }
+
+        // Pressing any key without modifiers is not a valid shortcut.
+
+        if let modifier: KeyboardModifier = self.modifier {
+            let hotkey: KeyboardHotkey = KeyboardHotkey(key: event.keyCode, modifier: modifier)
 
             if HotkeyCenter.default.commands.keys.contains(hotkey) && HotkeyCenter.default.commands[hotkey] != self.command {
                 NSBeep()
@@ -151,16 +226,11 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
                 self.recording = false
                 NotificationCenter.default.post(name: Notification.HotkeyDidRecord, object: self)
             }
-
-            return true
+        } else {
+            NSBeep()
         }
 
-        if !self.recording && event.keyCode == UInt16(KeyboardKey.space) {
-            self.recording = true
-            return true
-        }
-
-        return super.performKeyEquivalent(with: event)
+        return true
     }
 
     private func handleWindowDidResignKeyNotification() {
@@ -169,7 +239,7 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
 
     override open func flagsChanged(with event: NSEvent) {
         if self.recording {
-            let modifier = KeyboardModifier(flags: event.modifierFlags)
+            let modifier: KeyboardModifier = KeyboardModifier(flags: event.modifierFlags).intersection([.CommandKey, .ControlKey, .OptionKey, .ShiftKey])
             self.modifier = modifier == [] ? nil : modifier
         }
 

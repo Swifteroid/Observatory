@@ -63,6 +63,7 @@
           <option name="ALIGN_MULTILINE_FOR" value="false" />
           <option name="ALIGN_MULTILINE_ARRAY_INITIALIZER_EXPRESSION" value="false" />
           <option name="KEEP_SIMPLE_BLOCKS_IN_ONE_LINE" value="true" />
+          <option name="KEEP_SIMPLE_METHODS_IN_ONE_LINE" value="true" />
           <indentOptions>
             <option name="CONTINUATION_INDENT_SIZE" value="4" />
           </indentOptions>

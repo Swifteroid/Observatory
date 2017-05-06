@@ -52,15 +52,38 @@ open class HotkeyObserverTestCase: XCTestCase
         expect(foo).to(equal(2))
     }
 
+    open func testValidHotkeys() {
+        let hotkeys: [KeyboardHotkey] = [
+            KeyboardHotkey(key: KeyboardKey.a, modifier: []), // Apparently regular keys can be registered without modifiers.
+            KeyboardHotkey(key: KeyboardKey.f5, modifier: []), // Function keys can be registered without modifiers.
+            KeyboardHotkey(key: KeyboardKey.a, modifier: .CommandKey),
+            KeyboardHotkey(key: KeyboardKey.a, modifier: .OptionKey),
+            KeyboardHotkey(key: KeyboardKey.a, modifier: .ControlKey)
+        ]
+
+        for hotkey in hotkeys {
+            expect(expression: { try HotkeyObserver(active: true).add(hotkey: hotkey, handler: {}) }).toNot(throwError())
+        }
+    }
+
+    open func testInvalidHotkeys() {
+        let hotkeys: [KeyboardHotkey] = [
+            KeyboardHotkey(key: KeyboardKey.a, modifier: .CapsLock), // Caps lock is not a valid modifier.
+            KeyboardHotkey(key: KeyboardKey.a, modifier: [.CapsLock, .ControlKey]) // Or any combination.
+        ]
+
+        for hotkey in hotkeys {
+            expect(expression: { try HotkeyObserver(active: true).add(hotkey: hotkey, handler: {}) }).to(throwError(), description: String(describing: hotkey))
+        }
+    }
+
     open func testError() {
         let observerFoo: HotkeyObserver = try! HotkeyObserver(active: true)
         let observerBar: HotkeyObserver = try! HotkeyObserver(active: true)
         let hotkey: KeyboardHotkey = KeyboardHotkey(key: KeyboardKey.five, modifier: [KeyboardModifier.CommandKey, KeyboardModifier.ShiftKey])
 
-        // Todo: for some reason refuses to work when expect expression is wrapped in brackets, check in Swift 3.
-
         try! observerFoo.add(hotkey: hotkey, handler: {})
-        expect { try observerBar.add(hotkey: hotkey, handler: {}) }.to(throwError(HotkeyObserverHandlerDefinition.Error.hotkeyAlreadyRegistered))
+        expect(expression: { try observerBar.add(hotkey: hotkey, handler: {}) }).to(throwError(HotkeyObserverHandlerDefinition.Error.hotkeyAlreadyRegistered))
     }
 
     private func sendHotkeyEvent(identifier: EventHotKeyID) {

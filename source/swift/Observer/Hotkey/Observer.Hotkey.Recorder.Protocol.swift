@@ -16,5 +16,5 @@ public protocol HotkeyRecorderProtocol: class
     /*
     Hotkey command identifier.
     */
-    var command: String! { get set }
+    var command: String? { get set }
 }

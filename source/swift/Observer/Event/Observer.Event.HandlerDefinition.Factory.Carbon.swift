@@ -49,7 +49,7 @@ open class CarbonEventObserverHandlerDefinitionFactory
             throw Observer.Error.unrecognisedHandlerSignature
         }
 
-        definition = CarbonEventObserverHandlerDefinition(mask: self.mask, location: self.location, placement: self.placement, options: self.options, handler: (original: originalHandler, normal: normalHandler))
+        definition = CarbonEventObserverHandlerDefinition(mask: self.mask, location: self.location, placement: self.placement, options: self.options, handler: (original: originalHandler, normal: normalHandler!))
         return definition
     }
 }
