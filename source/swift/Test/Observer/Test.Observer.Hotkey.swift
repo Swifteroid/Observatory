@@ -14,8 +14,8 @@ open class HotkeyObserverTestCase: XCTestCase
         var foo: Int = 0
         var bar: Int = 0
 
-        try! observer.add(hotkey: KeyboardHotkey(key: KeyboardKey.five, modifier: [KeyboardModifier.CommandKey, KeyboardModifier.ShiftKey])) { foo += 1 }
-        try! observer.add(hotkey: KeyboardHotkey(key: KeyboardKey.six, modifier: [KeyboardModifier.CommandKey, KeyboardModifier.ShiftKey])) { bar += 1 }
+        try! observer.add(hotkey: KeyboardHotkey(key: KeyboardKey.five, modifier: [KeyboardModifier.commandKey, KeyboardModifier.shiftKey])) { foo += 1 }
+        try! observer.add(hotkey: KeyboardHotkey(key: KeyboardKey.six, modifier: [KeyboardModifier.commandKey, KeyboardModifier.shiftKey])) { bar += 1 }
 
         self.postHotkeyEvent(key: fooKey, flag: modifier)
         self.postHotkeyEvent(key: barKey, flag: modifier)
@@ -45,7 +45,7 @@ open class HotkeyObserverTestCase: XCTestCase
 
         // Removing must work.
 
-        try! observer.remove(hotkey: KeyboardHotkey(key: KeyboardKey.five, modifier: [KeyboardModifier.CommandKey, KeyboardModifier.ShiftKey]))
+        try! observer.remove(hotkey: KeyboardHotkey(key: KeyboardKey.five, modifier: [KeyboardModifier.commandKey, KeyboardModifier.shiftKey]))
 
         self.postHotkeyEvent(key: fooKey, flag: modifier)
 
@@ -56,9 +56,9 @@ open class HotkeyObserverTestCase: XCTestCase
         let hotkeys: [KeyboardHotkey] = [
             KeyboardHotkey(key: KeyboardKey.a, modifier: []), // Apparently regular keys can be registered without modifiers.
             KeyboardHotkey(key: KeyboardKey.f5, modifier: []), // Function keys can be registered without modifiers.
-            KeyboardHotkey(key: KeyboardKey.a, modifier: .CommandKey),
-            KeyboardHotkey(key: KeyboardKey.a, modifier: .OptionKey),
-            KeyboardHotkey(key: KeyboardKey.a, modifier: .ControlKey)
+            KeyboardHotkey(key: KeyboardKey.a, modifier: .commandKey),
+            KeyboardHotkey(key: KeyboardKey.a, modifier: .optionKey),
+            KeyboardHotkey(key: KeyboardKey.a, modifier: .controlKey)
         ]
 
         for hotkey in hotkeys {
@@ -68,8 +68,8 @@ open class HotkeyObserverTestCase: XCTestCase
 
     open func testInvalidHotkeys() {
         let hotkeys: [KeyboardHotkey] = [
-            KeyboardHotkey(key: KeyboardKey.a, modifier: .CapsLock), // Caps lock is not a valid modifier.
-            KeyboardHotkey(key: KeyboardKey.a, modifier: [.CapsLock, .ControlKey]) // Or any combination.
+            KeyboardHotkey(key: KeyboardKey.a, modifier: .capsLock), // Caps lock is not a valid modifier.
+            KeyboardHotkey(key: KeyboardKey.a, modifier: [.capsLock, .controlKey]) // Or any combination.
         ]
 
         for hotkey in hotkeys {
@@ -80,7 +80,7 @@ open class HotkeyObserverTestCase: XCTestCase
     open func testError() {
         let observerFoo: HotkeyObserver = try! HotkeyObserver(active: true)
         let observerBar: HotkeyObserver = try! HotkeyObserver(active: true)
-        let hotkey: KeyboardHotkey = KeyboardHotkey(key: KeyboardKey.five, modifier: [KeyboardModifier.CommandKey, KeyboardModifier.ShiftKey])
+        let hotkey: KeyboardHotkey = KeyboardHotkey(key: KeyboardKey.five, modifier: [KeyboardModifier.commandKey, KeyboardModifier.shiftKey])
 
         try! observerFoo.add(hotkey: hotkey, handler: {})
         expect(expression: { try observerBar.add(hotkey: hotkey, handler: {}) }).to(throwError(HotkeyObserverHandlerDefinition.Error.hotkeyAlreadyRegistered))

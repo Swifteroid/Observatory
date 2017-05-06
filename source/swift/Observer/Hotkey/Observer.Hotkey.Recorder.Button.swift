@@ -239,7 +239,7 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
 
     override open func flagsChanged(with event: NSEvent) {
         if self.recording {
-            let modifier: KeyboardModifier = KeyboardModifier(flags: event.modifierFlags).intersection([.CommandKey, .ControlKey, .OptionKey, .ShiftKey])
+            let modifier: KeyboardModifier = KeyboardModifier(flags: event.modifierFlags).intersection([.commandKey, .controlKey, .optionKey, .shiftKey])
             self.modifier = modifier == [] ? nil : modifier
         }
 
