@@ -35,4 +35,31 @@ public struct KeyboardModifier: OptionSet
     public static let ControlKey = KeyboardModifier(rawValue: UInt32(Carbon.controlKey))
     public static let OptionKey = KeyboardModifier(rawValue: UInt32(Carbon.optionKey))
     public static let ShiftKey = KeyboardModifier(rawValue: UInt32(Carbon.shiftKey))
+
+    // MARK: -
+
+    public var name: String? {
+        var string: String = ""
+
+        if self.contains(KeyboardModifier.CapsLock) { string += "⇪" }
+        if self.contains(KeyboardModifier.CommandKey) { string += "⌘" }
+        if self.contains(KeyboardModifier.ControlKey) { string += "⌃" }
+        if self.contains(KeyboardModifier.OptionKey) { string += "⌥" }
+        if self.contains(KeyboardModifier.ShiftKey) { string += "⇧" }
+
+        return string == "" ? nil : string
+    }
+
+    public static func name(for modifier: UInt32) -> String? {
+        return KeyboardModifier(rawValue: modifier).name
+    }
+}
+
+// MARK: -
+
+extension KeyboardModifier: CustomStringConvertible
+{
+    public var description: String {
+        return self.name ?? ""
+    }
 }

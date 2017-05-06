@@ -80,15 +80,15 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
             self.window!.makeFirstResponder(self)
 
             if let modifier: KeyboardModifier = self.modifier, modifier != [] {
-                title = self.toString(modifier: modifier)
+                title = String(describing: modifier)
             } else if let hotkey: KeyboardHotkey = self.hotkey {
-                title = self.toString(hotkey: hotkey)
+                title = String(describing: hotkey)
             } else {
                 title = "Record hotkey"
             }
         } else {
             if let hotkey: KeyboardHotkey = self.hotkey {
-                title = self.toString(hotkey: hotkey)
+                title = String(describing: hotkey)
             } else {
                 title = "Click to record hotkey"
             }
@@ -99,24 +99,6 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
         } else {
             self.attributedTitle = NSAttributedString(string: title, attributes: [NSForegroundColorAttributeName: colour, NSParagraphStyleAttributeName: style])
         }
-    }
-
-    // MARK: -
-
-    open func toString(modifier: KeyboardModifier) -> String {
-        var string: String = ""
-
-        if modifier.contains(KeyboardModifier.CapsLock) { string += "⇪" }
-        if modifier.contains(KeyboardModifier.CommandKey) { string += "⌘" }
-        if modifier.contains(KeyboardModifier.ControlKey) { string += "⌃" }
-        if modifier.contains(KeyboardModifier.OptionKey) { string += "⌥" }
-        if modifier.contains(KeyboardModifier.ShiftKey) { string += "⇧" }
-
-        return string
-    }
-
-    open func toString(hotkey: KeyboardHotkey) -> String {
-        return "\(self.toString(modifier: KeyboardModifier(rawValue: hotkey.modifier)))\(KeyboardKey.name(for: hotkey.key) ?? "")"
     }
 
     // MARK: -

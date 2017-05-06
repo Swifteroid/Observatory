@@ -42,3 +42,12 @@ public struct KeyboardHotkey: Equatable, Hashable
 public func ==(lhs: KeyboardHotkey, rhs: KeyboardHotkey) -> Bool {
     return lhs.key == rhs.key && lhs.modifier == rhs.modifier
 }
+
+// MARK: -
+
+extension KeyboardHotkey: CustomStringConvertible
+{
+    public var description: String {
+        return "\(KeyboardModifier.name(for: self.modifier) ?? "")\(KeyboardKey.name(for: self.key) ?? "")"
+    }
+}
