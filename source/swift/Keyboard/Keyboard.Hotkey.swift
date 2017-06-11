@@ -1,3 +1,4 @@
+import AppKit.NSEvent
 import Foundation
 
 public struct KeyboardHotkey: Equatable, Hashable
@@ -36,6 +37,14 @@ public struct KeyboardHotkey: Equatable, Hashable
     public init(value: UInt64) {
         self.key = UInt16(truncatingBitPattern: value)
         self.modifier = UInt32(truncatingBitPattern: value >> 16)
+    }
+
+    public init?(event: NSEvent) {
+        if event.type == .keyUp || event.type == .keyDown || event.type == .flagsChanged {
+            self.init(key: event.keyCode, modifier: KeyboardModifier(flags: event.modifierFlags))
+        } else {
+            return nil
+        }
     }
 }
 
