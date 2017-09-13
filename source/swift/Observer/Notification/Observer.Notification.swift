@@ -1,9 +1,8 @@
 import Foundation
 
-/*
-Notification observer provides an interface for registering and managing multiple notification handlers. When we register
-notification handler observer creates handler definition – it manages that specific notification-handler association.
-*/
+/// Notification observer provides an interface for registering and managing multiple notification handlers. When we register
+/// notification handler observer creates handler definition – it manages that specific notification-handler association.
+
 open class NotificationObserver: Observer
 {
     open var center: NotificationCenter?
