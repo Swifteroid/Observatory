@@ -1,15 +1,13 @@
 import Foundation
 import Carbon
 
-/*
-Useful resources on how to implement shortcuts and work with carbon events.
-
-https://github.com/nathan/hush/blob/master/Hush/HotKey.swift
-http://dbachrach.com/blog/2005/11/program-global-hotkeys-in-cocoa-easily/
-http://stackoverflow.com/a/401244/458356 – How to Capture / Post system-wide Keyboard / Mouse events under Mac OS X?
-http://stackoverflow.com/a/4640190/458356 – OSX keyboard shortcut background application
-http://stackoverflow.com/a/34864422/458356
-*/
+/// Useful resources on how to implement shortcuts and work with carbon events.
+/// 
+/// https://github.com/nathan/hush/blob/master/Hush/HotKey.swift
+/// http://dbachrach.com/blog/2005/11/program-global-hotkeys-in-cocoa-easily/
+/// http://stackoverflow.com/a/401244/458356 – How to Capture / Post system-wide Keyboard / Mouse events under Mac OS X?
+/// http://stackoverflow.com/a/4640190/458356 – OSX keyboard shortcut background application
+/// http://stackoverflow.com/a/34864422/458356
 
 private func hotkey(for event: EventRef) -> EventHotKeyID {
     let pointer: UnsafeMutablePointer<EventHotKeyID> = UnsafeMutablePointer.allocate(capacity: 1)

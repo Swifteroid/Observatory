@@ -1,9 +1,8 @@
 import AppKit
 
-/*
-Event observer provides a flexible interface for registering and managing multiple event handlers in, both, global
-and local contexts.
-*/
+/// Event observer provides a flexible interface for registering and managing multiple event handlers in, both, global
+/// and local contexts.
+
 public class EventObserver: Observer
 {
     public typealias GlobalEventHandler = (NSEvent) -> ()
@@ -38,9 +37,8 @@ public class EventObserver: Observer
         self.active = active
     }
 
-    /*
-    Add new event observation and activate it if observer is active. 
-    */
+    /// Add new event observation and activate it if observer is active. 
+
     @discardableResult public func add(mask: NSEventMask, global: Bool, local: Bool, handler: Any) throws -> Self {
         if !global && !local {
             throw Error.UnspecifiedContext
@@ -160,9 +158,9 @@ extension EventObserver
 {
     public enum Error: ErrorType
     {
-        /*
-        Event context, global or local, was not specified. 
-        */
+
+        /// Event context, global or local, was not specified. 
+
         case UnspecifiedContext
     }
 }

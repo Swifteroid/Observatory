@@ -1,9 +1,8 @@
 import AppKit.NSEvent
 import Carbon
 
-/*
-Check source for comments, some keys are not available on Mac OS X.
-*/
+/// Check source for comments, some keys are not available on Mac OS X.
+
 public struct KeyboardModifier: OptionSet
 {
     public typealias RawValue = UInt32
@@ -13,7 +12,7 @@ public struct KeyboardModifier: OptionSet
         self.rawValue = rawValue
     }
 
-    public init(flags: NSEventModifierFlags) {
+    public init(flags: NSEvent.ModifierFlags) {
         var rawValue: UInt32 = 0
 
         // I'll leave this as a reminder for future generation. Apparently, if you used to deal with CoreGraphics you'd know 
@@ -21,7 +20,7 @@ public struct KeyboardModifier: OptionSet
         // source flags state, or `CGEventSource.flagsState(.hidSystemState)` to be precise. So, an empty flags will have 
         // raw value not of `0` but of `UInt(CGEventSource.flagsState(.hidSystemState).rawValue)`…
 
-        if flags.rawValue & NSEventModifierFlags.deviceIndependentFlagsMask.rawValue != 0 {
+        if flags.rawValue & NSEvent.ModifierFlags.deviceIndependentFlagsMask.rawValue != 0 {
             if flags.contains(.capsLock) { rawValue |= UInt32(Carbon.alphaLock) }
             if flags.contains(.option) { rawValue |= UInt32(Carbon.optionKey) }
             if flags.contains(.command) { rawValue |= UInt32(Carbon.cmdKey) }

@@ -17,9 +17,9 @@ extension ObserverProtocol
 
 open class Observer: ObserverProtocol
 {
-    /* 
-    Specifies whether the observer is active or not.
-    */
+
+    /// Specifies whether the observer is active or not.
+
     open internal(set) var active: Bool = false
 
     // MARK: -

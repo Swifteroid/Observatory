@@ -4,9 +4,8 @@ import Carbon
 open class HotkeyObserverHandlerDefinition: ObserverHandlerDefinitionProtocol
 {
 
-    /*
-    Keeps global count track of unique ids used for hotkeys.
-    */
+    /// Keeps global count track of unique ids used for hotkeys.
+
     private static var uniqueHotkeyId: UInt32 = 0
 
     private static func constructUniqueHotkeyIdentifier() -> UInt32 {

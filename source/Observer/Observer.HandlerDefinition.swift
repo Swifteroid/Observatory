@@ -1,9 +1,8 @@
 import Foundation
 
-/*
-Handler definition provides a way of storing and managing individual notification handlers, most properties
-represent arguments passed into `NotificationCenter.addObserverForName` method.
-*/
+/// Handler definition provides a way of storing and managing individual notification handlers, most properties
+/// represent arguments passed into `NotificationCenter.addObserverForName` method.
+
 public protocol ObserverHandlerDefinitionProtocol: Equatable
 {
     var active: Bool { get }

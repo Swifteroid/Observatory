@@ -101,9 +101,8 @@ open class NotificationObserver: Observer
 
     // MARK: -
 
-    /*
-    Nil values are treated as matching when filtering in non-strict mode.
-    */
+    /// Nil values are treated as matching when filtering in non-strict mode.
+
     private func filter(name: Notification.Name?, observable: AnyObject?, queue: OperationQueue?, handler: Any?, strict: Bool) -> [(offset: Int, element: NotificationObserverHandlerDefinition)] {
         return self.definitions.enumerated().filter({ (_: Int, definition: NotificationObserverHandlerDefinition) in
             return true &&

@@ -11,8 +11,8 @@ public struct KeyboardHotkey: Equatable, Hashable
             return UInt64(self.modifier) << 16 | UInt64(self.key)
         }
         set {
-            self.key = UInt16(truncatingBitPattern: newValue)
-            self.modifier = UInt32(truncatingBitPattern: newValue >> 16)
+            self.key = UInt16(truncatingIfNeeded: newValue)
+            self.modifier = UInt32(truncatingIfNeeded: newValue >> 16)
         }
     }
 
@@ -35,8 +35,8 @@ public struct KeyboardHotkey: Equatable, Hashable
     }
 
     public init(value: UInt64) {
-        self.key = UInt16(truncatingBitPattern: value)
-        self.modifier = UInt32(truncatingBitPattern: value >> 16)
+        self.key = UInt16(truncatingIfNeeded: value)
+        self.modifier = UInt32(truncatingIfNeeded: value >> 16)
     }
 
     public init?(event: NSEvent) {

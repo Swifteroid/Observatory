@@ -2,14 +2,14 @@ import Foundation
 
 open class AppKitEventObserverHandlerDefinitionFactory
 {
-    open var mask: NSEventMask
+    open var mask: NSEvent.EventTypeMask
     open var global: Bool
     open var local: Bool
     open var handler: Any
 
     // MARK: -
 
-    public init(mask: NSEventMask, global: Bool, local: Bool, handler: Any) {
+    public init(mask: NSEvent.EventTypeMask, global: Bool, local: Bool, handler: Any) {
         self.mask = mask
         self.global = global
         self.local = local
@@ -69,9 +69,9 @@ extension AppKitEventObserverHandlerDefinitionFactory
 {
     public enum Error: Swift.Error
     {
-        /*
-        Event context, global or local, was not specified.
-        */
+
+        /// Event context, global or local, was not specified.
+
         case unspecifiedContext
     }
 }

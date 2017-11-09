@@ -1,10 +1,9 @@
 import Foundation
 import Carbon
 
-/*
-Event observer provides a flexible interface for registering and managing multiple event handlers in, both, global
-and local contexts.
-*/
+/// Event observer provides a flexible interface for registering and managing multiple event handlers in, both, global
+/// and local contexts.
+
 open class EventObserver: Observer
 {
     open internal(set) var carbonDefinitions: [CarbonEventObserverHandlerDefinition] = []
@@ -44,7 +43,7 @@ open class EventObserver: Observer
 
     // MARK: -
 
-    @discardableResult open func add(mask: NSEventMask, global: Bool, local: Bool, handler: Any) throws -> Self {
+    @discardableResult open func add(mask: NSEvent.EventTypeMask, global: Bool, local: Bool, handler: Any) throws -> Self {
         let factory: AppKitEventObserverHandlerDefinitionFactory = AppKitEventObserverHandlerDefinitionFactory(
             mask: mask,
             global: global,
@@ -60,7 +59,7 @@ open class EventObserver: Observer
         return self
     }
 
-    @discardableResult open func add(mask: NSEventMask, handler: Any) throws -> Self {
+    @discardableResult open func add(mask: NSEvent.EventTypeMask, handler: Any) throws -> Self {
         return try self.add(mask: mask, global: true, local: true, handler: handler)
     }
 
@@ -81,7 +80,7 @@ open class EventObserver: Observer
         return self
     }
 
-    @discardableResult open func remove(mask: NSEventMask, handler: Any?, strict: Bool) -> Self {
+    @discardableResult open func remove(mask: NSEvent.EventTypeMask, handler: Any?, strict: Bool) -> Self {
         for (index, _) in self.filter(mask: mask, handler: handler, strict: strict).reversed() {
             self.appKitDefinitions.remove(at: index)
         }
@@ -89,17 +88,17 @@ open class EventObserver: Observer
         return self
     }
 
-    @discardableResult open func remove(mask: NSEventMask, handler: Any?) -> Self {
+    @discardableResult open func remove(mask: NSEvent.EventTypeMask, handler: Any?) -> Self {
         return self.remove(mask: mask, handler: handler, strict: false)
     }
 
-    @discardableResult open func remove(mask: NSEventMask) -> Self {
+    @discardableResult open func remove(mask: NSEvent.EventTypeMask) -> Self {
         return self.remove(mask: mask, handler: nil, strict: false)
     }
 
     // MARK: -
 
-    private func filter(mask: NSEventMask, handler: Any?, strict: Bool) -> [(offset: Int, element: AppKitEventObserverHandlerDefinition)] {
+    private func filter(mask: NSEvent.EventTypeMask, handler: Any?, strict: Bool) -> [(offset: Int, element: AppKitEventObserverHandlerDefinition)] {
         return self.appKitDefinitions.enumerated().filter({ (_: Int, definition: AppKitEventObserverHandlerDefinition) in
             return true &&
                 (mask == definition.mask) &&

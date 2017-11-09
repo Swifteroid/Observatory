@@ -1,9 +1,8 @@
 import Foundation
 
-/*
-Notification observer provides an interface for registering and managing multiple notification handlers. When we register  
-notification handler observer creates handler definition – it manages that specific notification-handler association. 
-*/
+/// Notification observer provides an interface for registering and managing multiple notification handlers. When we register  
+/// notification handler observer creates handler definition – it manages that specific notification-handler association. 
+
 public class NotificationObserver: Observer
 {
     public typealias HandlerBlock = (Notification) -> ()
@@ -27,9 +26,8 @@ public class NotificationObserver: Observer
 
     public let center: NotificationCenter
 
-    /*
-    Registered notification handler definitions.
-    */
+    /// Registered notification handler definitions.
+
     internal var definitions: [HandlerDefinition] = []
 
     public init(center: NotificationCenter? = nil) {
@@ -41,9 +39,8 @@ public class NotificationObserver: Observer
         self.active = active
     }
 
-    /*
-    Create new observation for the specified notification name and observable target.
-    */
+    /// Create new observation for the specified notification name and observable target.
+
     @discardableResult func add(name: String, observable: AnyObject?, queue: NSOperationQueue?, handler: Any) throws -> Self {
         var notificationHandler: Any
 
@@ -89,9 +86,8 @@ public class NotificationObserver: Observer
         return self
     }
 
-    /*
-    When removing in non-strict mode the method treat nil values as matching.
-    */
+    /// When removing in non-strict mode the method treat nil values as matching.
+
     @discardableResult public func remove(name: String?, observable: AnyObject?, queue: NSOperationQueue?, handler: Any?, strict: Bool) -> Self {
         var i: Int = 0
         var n: Int = self.definitions.count
@@ -143,10 +139,9 @@ public class NotificationObserver: Observer
 extension NotificationObserver
 {
 
-    /*
-    Handler definition provides a way of storing and managing individual notification handlers, most properties
-    represent arguments passed into `NotificationCenter.addObserverForName` method.
-    */
+    /// Handler definition provides a way of storing and managing individual notification handlers, most properties
+    /// represent arguments passed into `NotificationCenter.addObserverForName` method.
+
     public class HandlerDefinition: Equatable
     {
         public typealias Handler = (original: Any, normalised: Any)
@@ -166,9 +161,8 @@ extension NotificationObserver
             self.handler = handler
         }
 
-        /*
-        Activates definition by attaching handler to specified notification center.  
-        */
+        /// Activates definition by attaching handler to specified notification center.  
+
         @discardableResult public func activate(center: NotificationCenter) -> Self {
             if self.observer == nil {
                 self.observer = center.addObserverForName(self.name, object: self.observable, queue: self.queue, usingBlock: self.handler.normalised as! HandlerBlock)

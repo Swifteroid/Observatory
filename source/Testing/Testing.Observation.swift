@@ -1,8 +1,7 @@
 import Nimble
 
-/*
-Simple observation object for tracking down and asserting observations during testing.
-*/
+/// Simple observation object for tracking down and asserting observations during testing.
+
 internal class Observation
 {
     internal private(set) var count: Int = 0

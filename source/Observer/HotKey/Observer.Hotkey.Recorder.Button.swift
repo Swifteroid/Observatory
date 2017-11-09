@@ -40,14 +40,12 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
 
     // MARK: -
 
-    /*
-    Successfully registered hotkey-command tuple.
-    */
+    /// Successfully registered hotkey-command tuple.
+
     private var registration: (hotkey: KeyboardHotkey, command: String)?
 
-    /*
-    Attempts to update registration to current command and hotkey. 
-    */
+    /// Attempts to update registration to current command and hotkey. 
+
     private func register() {
         let oldHotkey: KeyboardHotkey? = self.registration?.hotkey
         let newHotkey: KeyboardHotkey? = self.hotkey
@@ -93,9 +91,8 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
 
     // MARK: -
 
-    /*
-    Stores temporary modifier while hotkey is being recorded.
-    */
+    /// Stores temporary modifier while hotkey is being recorded.
+
     private var modifier: KeyboardModifier? {
         didSet {
             if self.modifier == oldValue { return }
@@ -114,7 +111,7 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
 
         // In case if title is empty, we still need a valid paragraph style…
 
-        let style: NSMutableParagraphStyle = self.attributedTitle.attribute(NSParagraphStyleAttributeName, at: 0, effectiveRange: nil) as! NSMutableParagraphStyle? ?? NSMutableParagraphStyle(alignment: self.alignment)
+        let style: NSMutableParagraphStyle = self.attributedTitle.attribute(NSAttributedStringKey.paragraphStyle, at: 0, effectiveRange: nil) as! NSMutableParagraphStyle? ?? NSMutableParagraphStyle(alignment: self.alignment)
         let colour: NSColor
         let title: String
 
@@ -155,7 +152,7 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
         if title == "" {
             NSLog("\(self) attempted to set empty title, this shouldn't be happening…")
         } else {
-            self.attributedTitle = NSAttributedString(string: title, attributes: [NSForegroundColorAttributeName: colour, NSParagraphStyleAttributeName: style])
+            self.attributedTitle = NSAttributedString(string: title, attributes: [NSAttributedStringKey.foregroundColor: colour, NSAttributedStringKey.paragraphStyle: style])
         }
     }
 
@@ -181,9 +178,8 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
         }
     }
 
-    /*
-    Handles hotkey recording and returns true when any custom logic was invoked.
-    */
+    /// Handles hotkey recording and returns true when any custom logic was invoked.
+
     override open func performKeyEquivalent(with event: NSEvent) -> Bool {
         guard self.isEnabled else {
             return false
@@ -220,14 +216,14 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
             let hotkey: KeyboardHotkey = KeyboardHotkey(key: event.keyCode, modifier: modifier)
 
             if HotkeyCenter.default.commands.keys.contains(hotkey) && HotkeyCenter.default.commands[hotkey] != self.command {
-                NSBeep()
+                NSSound.beep()
             } else {
                 self.hotkey = hotkey
                 self.recording = false
                 NotificationCenter.default.post(name: Notification.HotkeyDidRecord, object: self)
             }
         } else {
-            NSBeep()
+            NSSound.beep()
         }
 
         return true
@@ -254,7 +250,7 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
         }
 
         if let newWindow: NSWindow = newWindow {
-            try! self.windowNotificationObserver.add(name: AppKit.Notification.Name.NSWindowDidResignKey, observable: newWindow, handler: { [unowned self] in self.handleWindowDidResignKeyNotification() })
+            try! self.windowNotificationObserver.add(name: NSWindow.didResignKeyNotification, observable: newWindow, handler: { [unowned self] in self.handleWindowDidResignKeyNotification() })
         }
     }
 }

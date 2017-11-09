@@ -5,7 +5,7 @@ open class AppKitEventObserverHandlerDefinition: ObserverHandlerDefinitionProtoc
     public typealias Handler = (original: Any, global: Any?, local: Any?)
     public typealias Monitor = (global: Any?, local: Any?)
 
-    open let mask: NSEventMask
+    open let mask: NSEvent.EventTypeMask
     open let handler: Handler
 
     // MARK: -
@@ -42,7 +42,7 @@ open class AppKitEventObserverHandlerDefinition: ObserverHandlerDefinitionProtoc
 
     // MARK: -
 
-    init(mask: NSEventMask, handler: Handler) {
+    init(mask: NSEvent.EventTypeMask, handler: Handler) {
         self.mask = mask
         self.handler = handler
     }
