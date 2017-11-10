@@ -2,7 +2,7 @@ import AppKit
 import Foundation
 import Carbon
 
-open class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
+open class HotkeyRecorderButton: NSButton, HotkeyRecorder
 {
 
     // MARK: intercom
@@ -246,11 +246,11 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorderProtocol
 
     override open func viewWillMove(toWindow newWindow: NSWindow?) {
         if let oldWindow: NSWindow = self.window {
-            self.windowNotificationObserver.remove(observable: oldWindow)
+            self.windowNotificationObserver.remove(observee: oldWindow)
         }
 
         if let newWindow: NSWindow = newWindow {
-            try! self.windowNotificationObserver.add(name: NSWindow.didResignKeyNotification, observable: newWindow, handler: { [unowned self] in self.handleWindowDidResignKeyNotification() })
+            self.windowNotificationObserver.add(name: NSWindow.didResignKeyNotification, observee: newWindow, handler: { [weak self] in self?.handleWindowDidResignKeyNotification() })
         }
     }
 }

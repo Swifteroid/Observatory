@@ -12,46 +12,39 @@ internal class EventObserverTestCase: XCTestCase
     internal func testAppKit() {
         let observer: EventObserver = EventObserver(active: true)
 
-        try! observer.add(mask: NSEvent.EventTypeMask.any, global: true, local: true, handler: {})
+        observer.add(mask: NSEvent.EventTypeMask.any, handler: {})
         expect(observer.appKitDefinitions[0].handler.global).toNot(beNil())
         expect(observer.appKitDefinitions[0].handler.local).toNot(beNil())
         expect(observer.appKitDefinitions[0].monitor).toNot(beNil())
 
-        try! observer.add(mask: NSEvent.EventTypeMask.any, global: true, local: false, handler: {})
+        observer.add(mask: NSEvent.EventTypeMask.any, global: {})
         expect(observer.appKitDefinitions[1].handler.global).toNot(beNil())
         expect(observer.appKitDefinitions[1].handler.local).to(beNil())
         expect(observer.appKitDefinitions[1].monitor).toNot(beNil())
 
-        try! observer.add(mask: NSEvent.EventTypeMask.any, global: false, local: true, handler: {})
+        observer.add(mask: NSEvent.EventTypeMask.any, local: {})
         expect(observer.appKitDefinitions[2].handler.global).to(beNil())
         expect(observer.appKitDefinitions[2].handler.local).toNot(beNil())
         expect(observer.appKitDefinitions[2].monitor).toNot(beNil())
-
-        try! observer.add(mask: NSEvent.EventTypeMask.any, handler: {})
-        expect(observer.appKitDefinitions[3].handler.global).toNot(beNil())
-        expect(observer.appKitDefinitions[3].handler.local).toNot(beNil())
-        expect(observer.appKitDefinitions[3].monitor).toNot(beNil())
 
         observer.active = false
 
         expect(observer.appKitDefinitions[0].monitor).to(beNil())
         expect(observer.appKitDefinitions[1].monitor).to(beNil())
         expect(observer.appKitDefinitions[2].monitor).to(beNil())
-        expect(observer.appKitDefinitions[3].monitor).to(beNil())
 
         observer.active = true
 
         expect(observer.appKitDefinitions[0].monitor).toNot(beNil())
         expect(observer.appKitDefinitions[1].monitor).toNot(beNil())
         expect(observer.appKitDefinitions[2].monitor).toNot(beNil())
-        expect(observer.appKitDefinitions[3].monitor).toNot(beNil())
     }
 
     internal func testCarbon() {
         let observer: EventObserver = EventObserver(active: true)
         let observation: Observation = Observation()
 
-        try! observer.add(mask: NSEvent.EventTypeMask([NSEvent.EventTypeMask.leftMouseDown, NSEvent.EventTypeMask.rightMouseDown]).rawValue, handler: { observation.make() })
+        observer.add(mask: NSEvent.EventTypeMask.leftMouseDown.union(.rightMouseDown).rawValue, handler: { observation.make() })
         Event.postMouseEvent(type: CGEventType.leftMouseDown)
         Event.postMouseEvent(type: CGEventType.leftMouseUp)
         Event.postMouseEvent(type: CGEventType.rightMouseDown)
@@ -62,5 +55,13 @@ internal class EventObserverTestCase: XCTestCase
         Event.postMouseEvent(type: CGEventType.leftMouseDown)
         Event.postMouseEvent(type: CGEventType.leftMouseUp)
         observation.assert(count: 0)
+    }
+
+    private func readmeSample() {
+        let observer: EventObserver = EventObserver(active: true)
+
+        observer
+            .add(mask: .any, handler: { Swift.print("Any is better than none.") })
+            .add(mask: [.leftMouseDown, .leftMouseUp], handler: { Swift.print("It's a \($0.type) event!") })
     }
 }

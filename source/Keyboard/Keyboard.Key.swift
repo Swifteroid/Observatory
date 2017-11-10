@@ -1,5 +1,7 @@
 import Carbon
 
+/// - todo: Use raw value representable?
+
 public struct KeyboardKey
 {
     public static let a: CGKeyCode = CGKeyCode(kVK_ANSI_A)

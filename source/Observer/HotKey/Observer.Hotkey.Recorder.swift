@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol HotkeyRecorderProtocol: class
+public protocol HotkeyRecorder: class
 {
 
     /// Recorder state.

@@ -6,7 +6,7 @@ import XCTest
 open class HotkeyObserverTestCase: XCTestCase
 {
     open func test() {
-        let observer: HotkeyObserver = try! HotkeyObserver(active: true)
+        let observer: HotkeyObserver = HotkeyObserver(active: true)
         let modifier: CGEventFlags = CGEventFlags(rawValue: CGEventFlags.maskCommand.rawValue | CGEventFlags.maskShift.rawValue)
         let fooKey: CGKeyCode = CGKeyCode(KeyboardKey.five)
         let barKey: CGKeyCode = CGKeyCode(KeyboardKey.six)
@@ -14,8 +14,8 @@ open class HotkeyObserverTestCase: XCTestCase
         var foo: Int = 0
         var bar: Int = 0
 
-        try! observer.add(hotkey: KeyboardHotkey(key: KeyboardKey.five, modifier: [KeyboardModifier.commandKey, KeyboardModifier.shiftKey])) { foo += 1 }
-        try! observer.add(hotkey: KeyboardHotkey(key: KeyboardKey.six, modifier: [KeyboardModifier.commandKey, KeyboardModifier.shiftKey])) { bar += 1 }
+        observer.add(hotkey: KeyboardHotkey(key: KeyboardKey.five, modifier: [KeyboardModifier.commandKey, KeyboardModifier.shiftKey])) { foo += 1 }
+        observer.add(hotkey: KeyboardHotkey(key: KeyboardKey.six, modifier: [KeyboardModifier.commandKey, KeyboardModifier.shiftKey])) { bar += 1 }
 
         self.postHotkeyEvent(key: fooKey, flag: modifier)
         self.postHotkeyEvent(key: barKey, flag: modifier)
@@ -25,7 +25,7 @@ open class HotkeyObserverTestCase: XCTestCase
 
         // Deactivated observer must not catch anything.
 
-        try! observer.deactivate()
+        observer.deactivate()
 
         self.postHotkeyEvent(key: fooKey, flag: modifier)
         self.postHotkeyEvent(key: barKey, flag: modifier)
@@ -35,7 +35,7 @@ open class HotkeyObserverTestCase: XCTestCase
 
         // Reactivated observer must work…
 
-        try! observer.activate()
+        observer.activate()
 
         self.postHotkeyEvent(key: fooKey, flag: modifier)
         self.postHotkeyEvent(key: barKey, flag: modifier)
@@ -45,7 +45,7 @@ open class HotkeyObserverTestCase: XCTestCase
 
         // Removing must work.
 
-        try! observer.remove(hotkey: KeyboardHotkey(key: KeyboardKey.five, modifier: [KeyboardModifier.commandKey, KeyboardModifier.shiftKey]))
+        observer.remove(hotkey: KeyboardHotkey(key: KeyboardKey.five, modifier: [KeyboardModifier.commandKey, KeyboardModifier.shiftKey]))
 
         self.postHotkeyEvent(key: fooKey, flag: modifier)
 
@@ -62,28 +62,29 @@ open class HotkeyObserverTestCase: XCTestCase
         ]
 
         for hotkey in hotkeys {
-            expect(expression: { try HotkeyObserver(active: true).add(hotkey: hotkey, handler: {}) }).toNot(throwError())
+            expect(expression: { HotkeyObserver(active: true).add(hotkey: hotkey, handler: {}) }).toNot(throwError())
         }
     }
 
     open func testInvalidHotkeys() {
         let hotkeys: [KeyboardHotkey] = [
-            KeyboardHotkey(key: KeyboardKey.a, modifier: .capsLock), // Caps lock is not a valid modifier.
-            KeyboardHotkey(key: KeyboardKey.a, modifier: [.capsLock, .controlKey]) // Or any combination.
+            KeyboardHotkey(key: KeyboardKey.a, modifier: .capsLockKey), // Caps lock is not a valid modifier.
+            KeyboardHotkey(key: KeyboardKey.a, modifier: [.capsLockKey, .controlKey]) // Or any combination.
         ]
 
         for hotkey in hotkeys {
-            expect(expression: { try HotkeyObserver(active: true).add(hotkey: hotkey, handler: {}) }).to(throwError(), description: String(describing: hotkey))
+            expect(HotkeyObserver(active: true).add(hotkey: hotkey, handler: {}).definitions.first?.error).toNot(beNil(), description: String(describing: hotkey))
         }
     }
 
     open func testError() {
-        let observerFoo: HotkeyObserver = try! HotkeyObserver(active: true)
-        let observerBar: HotkeyObserver = try! HotkeyObserver(active: true)
+        let observerFoo: HotkeyObserver = HotkeyObserver(active: true)
+        let observerBar: HotkeyObserver = HotkeyObserver(active: true)
         let hotkey: KeyboardHotkey = KeyboardHotkey(key: KeyboardKey.five, modifier: [KeyboardModifier.commandKey, KeyboardModifier.shiftKey])
 
-        try! observerFoo.add(hotkey: hotkey, handler: {})
-        expect(expression: { try observerBar.add(hotkey: hotkey, handler: {}) }).to(throwError(HotkeyObserverHandlerDefinition.Error.hotkeyAlreadyRegistered))
+        observerFoo.add(hotkey: hotkey, handler: {})
+        observerBar.add(hotkey: hotkey, handler: {})
+        expect(observerBar.definitions.first?.error).toNot(beNil())
     }
 
     private func sendHotkeyEvent(identifier: EventHotKeyID) {
@@ -118,5 +119,15 @@ open class HotkeyObserverTestCase: XCTestCase
         while ReceiveNextEvent(eventType.count, &eventType, 50 / 1000, true, &pointer) == Darwin.noErr {
             SendEventToEventTarget(pointer, GetApplicationEventTarget())
         }
+    }
+
+    private func readmeSample() {
+        let observer: HotkeyObserver = HotkeyObserver(active: true)
+        let fooHotkey: KeyboardHotkey = KeyboardHotkey(key: KeyboardKey.five, modifier: [.commandKey, .shiftKey])
+        let barHotkey: KeyboardHotkey = KeyboardHotkey(key: KeyboardKey.six, modifier: [.commandKey, .shiftKey])
+
+        observer
+            .add(hotkey: fooHotkey) { Swift.print("Such foo…") }
+            .add(hotkey: barHotkey) { Swift.print("So bar…") }
     }
 }

@@ -34,7 +34,7 @@ public struct KeyboardModifier: OptionSet
     // MARK: -
 
     public static let none = KeyboardModifier(rawValue: 0)
-    public static let capsLock = KeyboardModifier(rawValue: UInt32(Carbon.alphaLock))
+    public static let capsLockKey = KeyboardModifier(rawValue: UInt32(Carbon.alphaLock))
     public static let commandKey = KeyboardModifier(rawValue: UInt32(Carbon.cmdKey))
     public static let controlKey = KeyboardModifier(rawValue: UInt32(Carbon.controlKey))
     public static let optionKey = KeyboardModifier(rawValue: UInt32(Carbon.optionKey))
@@ -45,7 +45,7 @@ public struct KeyboardModifier: OptionSet
     public var name: String? {
         var string: String = ""
 
-        if self.contains(.capsLock) { string += "⇪" }
+        if self.contains(.capsLockKey) { string += "⇪" }
         if self.contains(.commandKey) { string += "⌘" }
         if self.contains(.controlKey) { string += "⌃" }
         if self.contains(.optionKey) { string += "⌥" }

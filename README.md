@@ -12,23 +12,23 @@ Observe global hotkeys.
 
 ```swift
 let observer: HotkeyObserver = HotkeyObserver(active: true)
-let fooHotkey: KeyboardHotkey = KeyboardHotkey(key: KeyboardKey.Five, modifier: [KeyboardModifier.CmdKey, KeyboardModifier.ShiftKey])
-let barHotkey: KeyboardHotkey = KeyboardHotkey(key: KeyboardKey.Six, modifier: [KeyboardModifier.CmdKey, KeyboardModifier.ShiftKey])
+let fooHotkey: KeyboardHotkey = KeyboardHotkey(key: KeyboardKey.five, modifier: [.commandKey, .shiftKey])
+let barHotkey: KeyboardHotkey = KeyboardHotkey(key: KeyboardKey.six, modifier: [.commandKey, .shiftKey])
 
-try! observer
-    .add(fooHotkey) { Swift.print("Such foo…") }
-    .add(barHotkey) { Swift.print("So bar…") }
+observer
+    .add(hotkey: fooHotkey) { Swift.print("Such foo…") }
+    .add(hotkey: barHotkey) { Swift.print("So bar…") }
 ```
 
 Observe notifications, chose between plain `() -> ()` or standard `(Notification) -> ()` signatures.
 
 ```swift
 let observer: NotificationObserver = NotificationObserver(active: true)
-let observable: AnyObject = NSObject()
+let observee: AnyObject = NSObject()
 
-try! observer
-    .add("foo", observable: observable) { Swift.print("Foo captain!") }
-    .add(["bar", "baz"], observable: observable) { (notification: Notification) in Swift.print("Yes \(notification.name)!") }
+observer
+    .add(name: Notification.Name("foo"), observee: observee) { Swift.print("Foo captain!") }
+    .add(names: [Notification.Name("bar"), Notification.Name("baz")], observee: observee) { Swift.print("Yes \($0.name)!") }
 ```
 
 Observe events, like with notifications, you can chose between plain `() -> ()` and standard local `(NSEvent) -> NSEvent?` or global `(NSEvent) -> ()` signatures.
@@ -36,9 +36,9 @@ Observe events, like with notifications, you can chose between plain `() -> ()` 
 ```swift
 let observer: EventObserver = EventObserver(active: true)
 
-try! observer
-    .add(NSEventMask.AnyEventMask, observable: observable) { Swift.print("Any is better than none.") }
-    .add([NSEventMask.LeftMouseDownMask, NSEventMask.LeftMouseUpMask], observable: observable) { (event: NSEvent) in Swift.print("It's a mouse!") }
+observer
+    .add(mask: .any, handler: { Swift.print("Any is better than none.") })
+    .add(mask: [.leftMouseDown, .leftMouseUp], handler: { Swift.print("It's a \($0.type) event!") })
 ```
 
 Checkout `Observatory.playground` for information and examples.

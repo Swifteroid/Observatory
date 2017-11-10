@@ -25,7 +25,7 @@ open class HotkeyCenter
         return self
     }
 
-    private lazy var hotkeyObserver: HotkeyObserver = try! HotkeyObserver(active: true)
+    private lazy var hotkeyObserver: HotkeyObserver = HotkeyObserver(active: true)
 
     private func handle(hotkey: KeyboardHotkey) {
         if let command: String = self.commands[hotkey] {
@@ -37,7 +37,7 @@ open class HotkeyCenter
 
     /// Current hotkey recorder, normally is set and unset by the assigned value itself.
 
-    open var recorder: HotkeyRecorderProtocol? = nil {
+    open var recorder: HotkeyRecorder? = nil {
         didSet {
             if self.recorder === oldValue { return }
             try! self.update()
@@ -51,14 +51,14 @@ open class HotkeyCenter
 
     @discardableResult open func add(hotkey: KeyboardHotkey, command: String) throws -> Self {
         if self.commands[hotkey] == command { return self }
-        if self.commands[hotkey] == nil { try self.hotkeyObserver.add(hotkey: hotkey, handler: { [unowned self] in self.handle(hotkey: $0) }) }
+        if self.commands[hotkey] == nil { self.hotkeyObserver.add(hotkey: hotkey, handler: { [weak self] in self?.handle(hotkey: $0) }) }
         self.commands[hotkey] = command
         return self
     }
 
     @discardableResult open func remove(hotkey: KeyboardHotkey) throws -> Self {
         if self.commands[hotkey] == nil { return self }
-        try self.hotkeyObserver.remove(hotkey: hotkey)
+        self.hotkeyObserver.remove(hotkey: hotkey)
         self.commands.removeValue(forKey: hotkey)
         return self
     }
@@ -68,7 +68,7 @@ open class HotkeyCenter
     open func update() throws {
         for observer in self.observers {
             for definition in observer.definitions {
-                try definition.ignore(self.recorder != nil)
+                 definition.ignore(self.recorder != nil)
             }
         }
     }

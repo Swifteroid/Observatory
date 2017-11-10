@@ -8,7 +8,7 @@ import Observatory
 
 let center: NotificationCenter = NotificationCenter.default
 let queue: OperationQueue = OperationQueue()
-let observable: NSObject = NSObject()
+let observee: NSObject = NSObject()
 
 /*:
  By default observer is not activated, you can activate it with initialiser or 
@@ -23,13 +23,13 @@ var observer: NotificationObserver? = NotificationObserver(active: true)
  go, can omit `notification` parameter in the callback, can use chaining, etc.
  */
 
-try! observer!
-    .add(name: Notification.Name(rawValue: "foo"), observable: observable) { Swift.print("foo") }
-    .add(names: [Notification.Name(rawValue: "bar"), Notification.Name(rawValue: "baz")], observable: observable) { (notification: Notification) in Swift.print(notification.name) }
+observer!
+    .add(name: Notification.Name("foo"), observee: observee) { Swift.print("foo") }
+    .add(names: [Notification.Name("bar"), Notification.Name("baz")], observee: observee) { (notification: Notification) in Swift.print(notification.name) }
 
-center.post(name: Notification.Name(rawValue: "foo"), object: observable)
-center.post(name: Notification.Name(rawValue: "bar"), object: observable)
-center.post(name: Notification.Name(rawValue: "baz"), object: observable)
+center.post(name: Notification.Name("foo"), object: observee)
+center.post(name: Notification.Name("bar"), object: observee)
+center.post(name: Notification.Name("baz"), object: observee)
 
 /*:
  When the observer is no longer needed it can be deactivated and reactivated later, this is
@@ -43,9 +43,9 @@ observer!.active = false
  object or using a combinations.
  */
 
-observer!.remove(name: Notification.Name(rawValue: "foo"))
-observer!.remove(name: Notification.Name(rawValue: "bar"), observable: observable)
-observer!.remove(observable)
+observer!.remove(name: Notification.Name("foo"))
+observer!.remove(name: Notification.Name("bar"), observee: observee)
+observer!.remove(observee: observee)
 
 /*:
  If the observer is no longer needed it can be simply dismissed. It will automatically deactivate

@@ -17,7 +17,7 @@ open class ViewController: NSViewController
     // MARK: -
 
     override open func viewDidLoad() {
-        try! hotkeyCommandObserver.add(name: HotkeyCenter.Notification.CommandDidInvoke, observable: HotkeyCenter.default, handler: { [unowned self] in self.handleHotkeyCommandNotification(notification: $0) })
+        hotkeyCommandObserver.add(name: HotkeyCenter.Notification.CommandDidInvoke, observee: HotkeyCenter.default, handler: { [weak self] in self?.handleHotkeyCommandNotification(notification: $0) })
     }
 
     private func handleHotkeyCommandNotification(notification: Notification) {
