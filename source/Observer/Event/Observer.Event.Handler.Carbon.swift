@@ -74,12 +74,6 @@ extension EventObserver.Handler
             @discardableResult open func deactivate() -> Self {
                 return self.activate(false)
             }
-
-            // MARK: -
-
-            public static func ==(lhs: Definition, rhs: Definition) -> Bool {
-                return lhs.mask == rhs.mask
-            }
         }
     }
 }

@@ -55,15 +55,6 @@ extension NotificationObserver
             @discardableResult open func deactivate() -> Self {
                 return self.activate(false)
             }
-
-            // MARK: -
-
-            public static func ==(lhs: Definition, rhs: Definition) -> Bool {
-                return true &&
-                    lhs.name == rhs.name &&
-                    lhs.observee === rhs.observee &&
-                    lhs.queue == rhs.queue
-            }
         }
     }
 }

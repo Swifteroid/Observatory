@@ -118,12 +118,6 @@ extension HotkeyObserver
                 self.hotkeyIdentifier = nil
                 self.hotkeyReference = nil
             }
-
-            // MARK: -
-
-            public static func ==(lhs: Definition, rhs: Definition) -> Bool {
-                return lhs.hotkey == rhs.hotkey
-            }
         }
     }
 }
