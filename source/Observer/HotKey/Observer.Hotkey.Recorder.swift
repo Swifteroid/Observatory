@@ -15,3 +15,10 @@ public protocol HotkeyRecorder: class
 
     var command: String? { get set }
 }
+
+extension HotkeyRecorder
+{
+    public static var hotkeyWillChangeNotification: Notification.Name { return Notification.Name("HotkeyRecorderHotkeyWillChangeNotification") }
+    public static var hotkeyDidChangeNotification: Notification.Name { return Notification.Name("HotkeyRecorderHotkeyDidChangeNotification") }
+    public static var hotkeyDidRecordNotification: Notification.Name { return Notification.Name("HotkeyRecorderHotkeyDidRecordNotification") }
+}

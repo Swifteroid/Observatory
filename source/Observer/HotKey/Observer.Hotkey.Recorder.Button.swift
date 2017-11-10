@@ -14,7 +14,7 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
     open var hotkey: KeyboardHotkey? {
         willSet {
             if self.hotkey == newValue { return }
-            NotificationCenter.default.post(name: Notification.HotkeyWillChange, object: self)
+            NotificationCenter.default.post(name: type(of: self).hotkeyWillChangeNotification, object: self)
         }
         didSet {
             if self.hotkey == oldValue { return }
@@ -25,7 +25,7 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
             self.recording = false
             self.needsDisplay = true
 
-            NotificationCenter.default.post(name: Notification.HotkeyDidChange, object: self)
+            NotificationCenter.default.post(name: type(of: self).hotkeyDidChangeNotification, object: self)
         }
     }
 
@@ -190,7 +190,7 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
         if CGKeyCode(event.keyCode) == KeyboardKey.delete && self.modifier == nil && self.hotkey != nil {
             self.hotkey = nil
             self.recording = false
-            NotificationCenter.default.post(name: Notification.HotkeyDidRecord, object: self)
+            NotificationCenter.default.post(name: type(of: self).hotkeyDidRecordNotification, object: self)
             return true
         }
 
@@ -220,7 +220,7 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
             } else {
                 self.hotkey = hotkey
                 self.recording = false
-                NotificationCenter.default.post(name: Notification.HotkeyDidRecord, object: self)
+                NotificationCenter.default.post(name: type(of: self).hotkeyDidRecordNotification, object: self)
             }
         } else {
             NSSound.beep()
@@ -250,22 +250,14 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
         }
 
         if let newWindow: NSWindow = newWindow {
-            self.windowNotificationObserver.add(name: NSWindow.didResignKeyNotification, observee: newWindow, handler: { [weak self] in self?.handleWindowDidResignKeyNotification() })
+            self.windowNotificationObserver.add(name: NSWindow.didResignKeyNotification, observee: newWindow, handler: {
+                [weak self] in self?.handleWindowDidResignKeyNotification()
+            })
         }
     }
 }
 
 // MARK: -
-
-extension HotkeyRecorderButton
-{
-    public struct Notification
-    {
-        public static let HotkeyWillChange: Foundation.Notification.Name = Foundation.Notification.Name(rawValue: "HotkeyRecorderButtonHotkeyWillChangeNotification")
-        public static let HotkeyDidChange: Foundation.Notification.Name = Foundation.Notification.Name(rawValue: "HotkeyRecorderButtonHotkeyDidChangeNotification")
-        public static let HotkeyDidRecord: Foundation.Notification.Name = Foundation.Notification.Name(rawValue: "HotkeyRecorderButtonHotkeyDidRecordNotification")
-    }
-}
 
 extension NSMutableParagraphStyle
 {
