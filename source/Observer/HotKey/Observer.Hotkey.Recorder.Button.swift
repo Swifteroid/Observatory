@@ -250,9 +250,7 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
         }
 
         if let newWindow: NSWindow = newWindow {
-            self.windowNotificationObserver.add(name: NSWindow.didResignKeyNotification, observee: newWindow, handler: {
-                [weak self] in self?.handleWindowDidResignKeyNotification()
-            })
+            self.windowNotificationObserver.add(name: NSWindow.didResignKeyNotification, observee: newWindow, handler: { [weak self] in self?.handleWindowDidResignKeyNotification() })
         }
     }
 }

@@ -68,7 +68,7 @@ open class HotkeyCenter
     open func update() throws {
         for observer in self.observers {
             for definition in observer.definitions {
-                 definition.ignore(self.recorder != nil)
+                definition.ignore(self.recorder != nil)
             }
         }
     }

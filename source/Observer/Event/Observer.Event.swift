@@ -76,7 +76,7 @@ extension EventObserver
     }
 
     /// Register AppKit local + global handler with automatic local event forwarding.
-    @discardableResult open func add(mask: NSEvent.EventTypeMask, handler: @escaping (NSEvent) -> Void) -> Self {
+    @discardableResult open func add(mask: NSEvent.EventTypeMask, handler: @escaping (NSEvent) -> ()) -> Self {
         /*@formatter:off*/ return self.add(mask: mask, local: { handler($0); return $0 }, global: handler) /*@formatter:on*/
     }
 
@@ -91,7 +91,7 @@ extension EventObserver
     }
 
     /// Register AppKit local handler with automatic event forwarding.
-    @discardableResult open func add(mask: NSEvent.EventTypeMask, local: @escaping (NSEvent) -> Void) -> Self {
+    @discardableResult open func add(mask: NSEvent.EventTypeMask, local: @escaping (NSEvent) -> ()) -> Self {
         /*@formatter:off*/ return self.add(mask: mask, local: { local($0); return $0 }, global: nil) /*@formatter:on*/
     }
 
@@ -106,7 +106,7 @@ extension EventObserver
     }
 
     /// Register AppKit global handler.
-    @discardableResult open func add(mask: NSEvent.EventTypeMask, global: @escaping (NSEvent) -> Void) -> Self {
+    @discardableResult open func add(mask: NSEvent.EventTypeMask, global: @escaping (NSEvent) -> ()) -> Self {
         /*@formatter:off*/ return self.add(mask: mask, local: nil, global: global) /*@formatter:on*/
     }
 
@@ -121,7 +121,9 @@ extension EventObserver
 
 extension EventObserver
 {
-    @discardableResult open func add(mask: CGEventMask, location: CGEventTapLocation?, placement: CGEventTapPlacement?, options: CGEventTapOptions?, handler: @escaping (CGEvent) -> CGEvent?) -> Self {
+
+    /// Register CoreGraphics handler with manual event forwarding.
+    @discardableResult open func add(mask: CGEventMask, location: CGEventTapLocation? = nil, placement: CGEventTapPlacement? = nil, options: CGEventTapOptions? = nil, handler: @escaping (CGEvent) -> CGEvent?) -> Self {
         return Handler.Carbon.Definition(
             mask: mask,
             location: location ?? CGEventTapLocation.cgSessionEventTap,
@@ -131,22 +133,34 @@ extension EventObserver
     }
 
     /// Register CoreGraphics handler with automatic event forwarding.
-    @discardableResult open func add(mask: CGEventMask, handler: @escaping () -> ()) -> Self {
-        /*@formatter:off*/ return self.add(mask: mask, handler: { handler(); return $0 } as Handler.Carbon.Signature) /*@formatter:on*/
+    @discardableResult open func add(mask: CGEventMask, location: CGEventTapLocation? = nil, placement: CGEventTapPlacement? = nil, options: CGEventTapOptions? = nil, handler: @escaping () -> ()) -> Self {
+        /*@formatter:off*/ return self.add(mask: mask, location: location, placement: placement, options: options, handler: { handler(); return $0 } as Handler.Carbon.Signature) /*@formatter:on*/
     }
 
     /// Register CoreGraphics handler with automatic event forwarding.
-    @discardableResult open func add(mask: CGEventMask, handler: @escaping (CGEvent) -> Void) -> Self {
-        /*@formatter:off*/ return self.add(mask: mask, handler: { handler($0); return $0 } as Handler.Carbon.Signature) /*@formatter:on*/
-    }
-
-    /// Register CoreGraphics handler with manual event forwarding.
-    @discardableResult open func add(mask: CGEventMask, handler: @escaping (CGEvent) -> CGEvent?) -> Self {
-        /*@formatter:off*/ return self.add(mask: mask, location: nil, placement: nil, options: nil, handler: handler) /*@formatter:on*/
+    @discardableResult open func add(mask: CGEventMask, location: CGEventTapLocation? = nil, placement: CGEventTapPlacement? = nil, options: CGEventTapOptions? = nil, handler: @escaping (CGEvent) -> ()) -> Self {
+        /*@formatter:off*/ return self.add(mask: mask, location: location, placement: placement, options: options, handler: { handler($0); return $0 } as Handler.Carbon.Signature) /*@formatter:on*/
     }
 
     @discardableResult open func remove(mask: CGEventMask) -> Self {
         self.carbonDefinitions.filter({ $0.mask == mask }).forEach({ _ = self.remove(definition: $0) })
         return self
+    }
+}
+
+// MARK: - CGEvent with NSEvent.EventTypeMask
+
+extension EventObserver
+{
+    @discardableResult open func add(mask: NSEvent.EventTypeMask, location: CGEventTapLocation?, placement: CGEventTapPlacement? = nil, options: CGEventTapOptions? = nil, handler: @escaping () -> ()) -> Self {
+        return self.add(mask: mask.rawValue, location: location, placement: placement, options: options, handler: handler)
+    }
+
+    @discardableResult open func add(mask: NSEvent.EventTypeMask, location: CGEventTapLocation?, placement: CGEventTapPlacement? = nil, options: CGEventTapOptions? = nil, handler: @escaping (CGEvent) -> ()) -> Self {
+        return self.add(mask: mask.rawValue, location: location, placement: placement, options: options, handler: handler)
+    }
+
+    @discardableResult open func add(mask: NSEvent.EventTypeMask, location: CGEventTapLocation?, placement: CGEventTapPlacement? = nil, options: CGEventTapOptions? = nil, handler: @escaping (CGEvent) -> CGEvent?) -> Self {
+        return self.add(mask: mask.rawValue, location: location, placement: placement, options: options, handler: handler)
     }
 }
