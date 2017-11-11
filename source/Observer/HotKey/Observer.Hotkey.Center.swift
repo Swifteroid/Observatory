@@ -29,7 +29,7 @@ open class HotkeyCenter
 
     private func handle(hotkey: KeyboardHotkey) {
         if let command: String = self.commands[hotkey] {
-            NotificationCenter.default.post(name: Notification.CommandDidInvoke, object: self, userInfo: [NotificationUserInfo.Command: command, NotificationUserInfo.Hotkey: Int(hotkey.value)])
+            NotificationCenter.default.post(name: Notification.CommandDidInvoke, object: self, userInfo: [NotificationUserInfo.Command: command, NotificationUserInfo.Hotkey: hotkey.rawValue])
         }
     }
 

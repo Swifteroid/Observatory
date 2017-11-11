@@ -7,7 +7,7 @@ open class KeyboardHotkeyTestCase: XCTestCase
 {
     open func test() {
         let hotkeyFoo: KeyboardHotkey = KeyboardHotkey(key: KeyboardKey.a, modifier: KeyboardModifier.commandKey)
-        let hotkeyBar: KeyboardHotkey = KeyboardHotkey(value: hotkeyFoo.value)
+        let hotkeyBar: KeyboardHotkey = KeyboardHotkey(rawValue: hotkeyFoo.rawValue)
         expect(hotkeyFoo).to(equal(hotkeyBar))
     }
 }

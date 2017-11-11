@@ -1,62 +1,44 @@
 import AppKit.NSEvent
 import Foundation
 
-public struct KeyboardHotkey: Equatable, Hashable
+public struct KeyboardHotkey: RawRepresentable
 {
-    public var key: UInt16
-    public var modifier: UInt32
-
-    public var value: UInt64 {
-        get {
-            return UInt64(self.modifier) << 16 | UInt64(self.key)
-        }
-        set {
-            self.key = UInt16(truncatingIfNeeded: newValue)
-            self.modifier = UInt32(truncatingIfNeeded: newValue >> 16)
-        }
+    public init(rawValue: Int) {
+        self.init(key: KeyboardKey(UInt16(truncatingIfNeeded: rawValue)), modifier: KeyboardModifier(rawValue: Int(truncatingIfNeeded: rawValue >> 16)))
     }
 
-    // MARK: -
-
-    public var hashValue: Int {
-        return Int(self.value)
-    }
-
-    // MARK: -
-
-    public init(key: UInt16, modifier: UInt32) {
+    public init(key: KeyboardKey, modifier: KeyboardModifier) {
         self.key = key
         self.modifier = modifier
     }
 
-    public init(key: UInt16, modifier: KeyboardModifier) {
-        self.key = key
-        self.modifier = modifier.rawValue
+    public init(_ rawValue: Int) {
+        self.init(rawValue: rawValue)
     }
 
-    public init(value: UInt64) {
-        self.key = UInt16(truncatingIfNeeded: value)
-        self.modifier = UInt32(truncatingIfNeeded: value >> 16)
-    }
-
-    public init?(event: NSEvent) {
+    public init?(_ event: NSEvent) {
         if event.type == .keyUp || event.type == .keyDown || event.type == .flagsChanged {
-            self.init(key: event.keyCode, modifier: KeyboardModifier(flags: event.modifierFlags))
+            self.init(key: KeyboardKey(event), modifier: KeyboardModifier(event))
         } else {
             return nil
         }
     }
+
+    // MARK: -
+
+    public var key: KeyboardKey
+    public var modifier: KeyboardModifier
+    public var rawValue: Int { return self.modifier.rawValue << 16 | self.key.rawValue }
 }
 
-public func ==(lhs: KeyboardHotkey, rhs: KeyboardHotkey) -> Bool {
-    return lhs.key == rhs.key && lhs.modifier == rhs.modifier
+extension KeyboardHotkey: Equatable, Hashable
+{
+    public var hashValue: Int { return Int(self.rawValue) }
 }
-
-// MARK: -
 
 extension KeyboardHotkey: CustomStringConvertible
 {
     public var description: String {
-        return "\(KeyboardModifier.name(for: self.modifier) ?? "")\(KeyboardKey.name(for: self.key) ?? "")"
+        return "\(self.modifier.name ?? "")\(self.key.name ?? "")"
     }
 }

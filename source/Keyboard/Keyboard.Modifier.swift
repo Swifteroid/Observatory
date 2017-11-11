@@ -3,17 +3,14 @@ import Carbon
 
 /// Check source for comments, some keys are not available on Mac OS X.
 
-public struct KeyboardModifier: OptionSet
+public struct KeyboardModifier: RawRepresentable, OptionSet
 {
-    public typealias RawValue = UInt32
-    public let rawValue: UInt32
+    public init(rawValue: Int) { self.rawValue = rawValue }
+    public init(_ rawValue: Int) { self.init(rawValue: rawValue) }
+    public init(_ event: NSEvent) { self.init(event.modifierFlags) }
 
-    public init(rawValue: RawValue) {
-        self.rawValue = rawValue
-    }
-
-    public init(flags: NSEvent.ModifierFlags) {
-        var rawValue: UInt32 = 0
+    public init(_ flags: NSEvent.ModifierFlags) {
+        var rawValue: Int = 0
 
         // I'll leave this as a reminder for future generation. Apparently, if you used to deal with CoreGraphics you'd know 
         // what the fuck modifier flags are made or you are doomed, otherwise. And made of it is from CoreGraphics event 
@@ -21,24 +18,26 @@ public struct KeyboardModifier: OptionSet
         // raw value not of `0` but of `UInt(CGEventSource.flagsState(.hidSystemState).rawValue)`…
 
         if flags.rawValue & NSEvent.ModifierFlags.deviceIndependentFlagsMask.rawValue != 0 {
-            if flags.contains(.capsLock) { rawValue |= UInt32(Carbon.alphaLock) }
-            if flags.contains(.option) { rawValue |= UInt32(Carbon.optionKey) }
-            if flags.contains(.command) { rawValue |= UInt32(Carbon.cmdKey) }
-            if flags.contains(.control) { rawValue |= UInt32(Carbon.controlKey) }
-            if flags.contains(.shift) { rawValue |= UInt32(Carbon.shiftKey) }
+            if flags.contains(.capsLock) { rawValue |= Carbon.alphaLock }
+            if flags.contains(.option) { rawValue |= Carbon.optionKey }
+            if flags.contains(.command) { rawValue |= Carbon.cmdKey }
+            if flags.contains(.control) { rawValue |= Carbon.controlKey }
+            if flags.contains(.shift) { rawValue |= Carbon.shiftKey }
         }
 
         self = KeyboardModifier(rawValue: rawValue)
     }
 
+    public let rawValue: Int
+
     // MARK: -
 
     public static let none = KeyboardModifier(rawValue: 0)
-    public static let capsLockKey = KeyboardModifier(rawValue: UInt32(Carbon.alphaLock))
-    public static let commandKey = KeyboardModifier(rawValue: UInt32(Carbon.cmdKey))
-    public static let controlKey = KeyboardModifier(rawValue: UInt32(Carbon.controlKey))
-    public static let optionKey = KeyboardModifier(rawValue: UInt32(Carbon.optionKey))
-    public static let shiftKey = KeyboardModifier(rawValue: UInt32(Carbon.shiftKey))
+    public static let capsLockKey = KeyboardModifier(rawValue: Carbon.alphaLock)
+    public static let commandKey = KeyboardModifier(rawValue: Carbon.cmdKey)
+    public static let controlKey = KeyboardModifier(rawValue: Carbon.controlKey)
+    public static let optionKey = KeyboardModifier(rawValue: Carbon.optionKey)
+    public static let shiftKey = KeyboardModifier(rawValue: Carbon.shiftKey)
 
     // MARK: -
 
@@ -53,13 +52,12 @@ public struct KeyboardModifier: OptionSet
 
         return string == "" ? nil : string
     }
-
-    public static func name(for modifier: UInt32) -> String? {
-        return KeyboardModifier(rawValue: modifier).name
-    }
 }
 
-// MARK: -
+extension KeyboardModifier: Equatable, Hashable
+{
+    public var hashValue: Int { return Int(self.rawValue) }
+}
 
 extension KeyboardModifier: CustomStringConvertible
 {

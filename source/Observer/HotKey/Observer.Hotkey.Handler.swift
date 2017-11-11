@@ -99,7 +99,7 @@ extension HotkeyObserver
                 let identifier: EventHotKeyID = EventHotKeyID(signature: 0, id: type(of: self).constructUniqueHotkeyIdentifier())
                 var reference: EventHotKeyRef? = nil
 
-                let status: OSStatus = RegisterEventHotKey(UInt32(self.hotkey.key), self.hotkey.modifier, identifier, GetApplicationEventTarget(), OptionBits(0), &reference)
+                let status: OSStatus = RegisterEventHotKey(UInt32(self.hotkey.key.rawValue), UInt32(self.hotkey.modifier.rawValue), identifier, GetApplicationEventTarget(), OptionBits(0), &reference)
 
                 if Int(status) == eventHotKeyExistsErr {
                     throw Error.hotkeyAlreadyRegistered

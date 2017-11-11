@@ -550,9 +550,9 @@
 			files = (
 				17FD0394C07886B6F517ADC2 /* Extension.Carbon.swift in Sources */,
 				17FD0333BF3DE85D648C5FAF /* Foundation.Weak.swift in Sources */,
-				17FD0EEC2A507AF66A0A0E36 /* Keyboard.Hotkey.swift in Sources */,
 				17FD0EAD038EFB45D7F88400 /* Keyboard.Key.swift in Sources */,
 				17FD0FE4E3F8DE351D981A5F /* Keyboard.Modifier.swift in Sources */,
+				17FD0EEC2A507AF66A0A0E36 /* Keyboard.Hotkey.swift in Sources */,
 				17FD0AC48080C799A307B828 /* Observer.swift in Sources */,
 				17FD02874D9AFD2E2CB0FA64 /* Observer.Notification.swift in Sources */,
 				17FD02049992AB6759BAF035 /* Observer.Notification.Handler.swift in Sources */,

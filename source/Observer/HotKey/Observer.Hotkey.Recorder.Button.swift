@@ -187,7 +187,7 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
 
         // Pressing delete key without any modifiers clears current shortcut.
 
-        if CGKeyCode(event.keyCode) == KeyboardKey.delete && self.modifier == nil && self.hotkey != nil {
+        if KeyboardKey(event) == KeyboardKey.delete && self.modifier == nil && self.hotkey != nil {
             self.hotkey = nil
             self.recording = false
             NotificationCenter.default.post(name: type(of: self).hotkeyDidRecordNotification, object: self)
@@ -196,10 +196,10 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
 
         // Pressing escape without modifiers during recording cancels it, pressing space while not recording starts it.
 
-        if self.recording && CGKeyCode(event.keyCode) == KeyboardKey.escape && self.modifier == nil {
+        if self.recording && KeyboardKey(event) == KeyboardKey.escape && self.modifier == nil {
             self.recording = false
             return true
-        } else if !self.recording && CGKeyCode(event.keyCode) == KeyboardKey.space {
+        } else if !self.recording && KeyboardKey(event) == KeyboardKey.space {
             self.recording = true
             return true
         }
@@ -213,7 +213,7 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
         // Pressing any key without modifiers is not a valid shortcut.
 
         if let modifier: KeyboardModifier = self.modifier {
-            let hotkey: KeyboardHotkey = KeyboardHotkey(key: event.keyCode, modifier: modifier)
+            let hotkey: KeyboardHotkey = KeyboardHotkey(key: KeyboardKey(event), modifier: modifier)
 
             if HotkeyCenter.default.commands.keys.contains(hotkey) && HotkeyCenter.default.commands[hotkey] != self.command {
                 NSSound.beep()
@@ -235,7 +235,7 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
 
     override open func flagsChanged(with event: NSEvent) {
         if self.recording {
-            let modifier: KeyboardModifier = KeyboardModifier(flags: event.modifierFlags).intersection([.commandKey, .controlKey, .optionKey, .shiftKey])
+            let modifier: KeyboardModifier = KeyboardModifier(event).intersection([.commandKey, .controlKey, .optionKey, .shiftKey])
             self.modifier = modifier == [] ? nil : modifier
         }
 

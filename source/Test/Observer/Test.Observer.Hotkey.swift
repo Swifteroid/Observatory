@@ -8,8 +8,8 @@ open class HotkeyObserverTestCase: XCTestCase
     open func test() {
         let observer: HotkeyObserver = HotkeyObserver(active: true)
         let modifier: CGEventFlags = CGEventFlags(rawValue: CGEventFlags.maskCommand.rawValue | CGEventFlags.maskShift.rawValue)
-        let fooKey: CGKeyCode = CGKeyCode(KeyboardKey.five)
-        let barKey: CGKeyCode = CGKeyCode(KeyboardKey.six)
+        let fooKey: CGKeyCode = CGKeyCode(KeyboardKey.five.rawValue)
+        let barKey: CGKeyCode = CGKeyCode(KeyboardKey.six.rawValue)
 
         var foo: Int = 0
         var bar: Int = 0
