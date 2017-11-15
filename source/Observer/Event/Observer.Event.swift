@@ -70,9 +70,9 @@ extension EventObserver
             handler: (global: global, local: local)))
     }
 
-    /// Register AppKit local + global handler with automatic local event forwarding.
-    @discardableResult open func add(mask: NSEvent.EventTypeMask, handler: @escaping () -> ()) -> Self {
-        /*@formatter:off*/ return self.add(mask: mask, local: { handler(); return $0 }, global: { _ in handler() }) /*@formatter:on*/
+    /// Register AppKit local + global handler with manual local event forwarding.
+    @discardableResult open func add(mask: NSEvent.EventTypeMask, handler: @escaping (NSEvent) -> NSEvent?) -> Self {
+        return self.add(mask: mask, local: handler, global: { _ = handler($0) })
     }
 
     /// Register AppKit local + global handler with automatic local event forwarding.
@@ -80,14 +80,24 @@ extension EventObserver
         /*@formatter:off*/ return self.add(mask: mask, local: { handler($0); return $0 }, global: handler) /*@formatter:on*/
     }
 
-    /// Register AppKit local + global handler with manual local event forwarding.
-    @discardableResult open func add(mask: NSEvent.EventTypeMask, handler: @escaping (NSEvent) -> NSEvent?) -> Self {
-        /*@formatter:off*/ return self.add(mask: mask, local: handler, global: { _ = handler($0) }) /*@formatter:on*/
+    /// Register AppKit local + global handler with automatic local event forwarding.
+    @discardableResult open func add(mask: NSEvent.EventTypeMask, handler: @escaping () -> ()) -> Self {
+        /*@formatter:off*/ return self.add(mask: mask, local: { handler(); return $0 }, global: { _ in handler() }) /*@formatter:on*/
     }
 
-    /// Register AppKit local handler with automatic event forwarding.
-    @discardableResult open func add(mask: NSEvent.EventTypeMask, local: @escaping () -> ()) -> Self {
-        /*@formatter:off*/ return self.add(mask: mask, local: { local(); return $0 }, global: nil) /*@formatter:on*/
+    /// Remove all handlers with specified mask.
+    @discardableResult open func remove(mask: NSEvent.EventTypeMask) -> Self {
+        self.appKitDefinitions.filter({ $0.mask == mask }).forEach({ _ = self.remove(definition: $0) })
+        return self
+    }
+}
+
+extension EventObserver
+{
+
+    /// Register AppKit local handler with manual event forwarding.
+    @discardableResult open func add(mask: NSEvent.EventTypeMask, local: @escaping (NSEvent) -> NSEvent?) -> Self {
+        return self.add(mask: mask, local: local, global: nil)
     }
 
     /// Register AppKit local handler with automatic event forwarding.
@@ -95,25 +105,23 @@ extension EventObserver
         /*@formatter:off*/ return self.add(mask: mask, local: { local($0); return $0 }, global: nil) /*@formatter:on*/
     }
 
-    /// Register AppKit local handler with manual event forwarding.
-    @discardableResult open func add(mask: NSEvent.EventTypeMask, local: @escaping (NSEvent) -> NSEvent?) -> Self {
-        /*@formatter:off*/ return self.add(mask: mask, local: local, global: nil) /*@formatter:on*/
+    /// Register AppKit local handler with automatic event forwarding.
+    @discardableResult open func add(mask: NSEvent.EventTypeMask, local: @escaping () -> ()) -> Self {
+        /*@formatter:off*/ return self.add(mask: mask, local: { local(); return $0 }, global: nil) /*@formatter:on*/
+    }
+}
+
+extension EventObserver
+{
+
+    /// Register AppKit global handler.
+    @discardableResult open func add(mask: NSEvent.EventTypeMask, global: @escaping (NSEvent) -> ()) -> Self {
+        return self.add(mask: mask, local: nil, global: global)
     }
 
     /// Register AppKit global handler.
     @discardableResult open func add(mask: NSEvent.EventTypeMask, global: @escaping () -> ()) -> Self {
-        /*@formatter:off*/ return self.add(mask: mask, local: nil, global: { _ in global() }) /*@formatter:on*/
-    }
-
-    /// Register AppKit global handler.
-    @discardableResult open func add(mask: NSEvent.EventTypeMask, global: @escaping (NSEvent) -> ()) -> Self {
-        /*@formatter:off*/ return self.add(mask: mask, local: nil, global: global) /*@formatter:on*/
-    }
-
-    /// Remove all handlers with specified mask.
-    @discardableResult open func remove(mask: NSEvent.EventTypeMask) -> Self {
-        self.appKitDefinitions.filter({ $0.mask == mask }).forEach({ _ = self.remove(definition: $0) })
-        return self
+        return self.add(mask: mask, local: nil, global: { _ in global() })
     }
 }
 
@@ -126,20 +134,20 @@ extension EventObserver
     @discardableResult open func add(mask: CGEventMask, location: CGEventTapLocation? = nil, placement: CGEventTapPlacement? = nil, options: CGEventTapOptions? = nil, handler: @escaping (CGEvent) -> CGEvent?) -> Self {
         return Handler.Carbon.Definition(
             mask: mask,
-            location: location ?? CGEventTapLocation.cgSessionEventTap,
-            placement: placement ?? CGEventTapPlacement.headInsertEventTap,
-            options: options ?? CGEventTapOptions.defaultTap,
+            location: location ?? .cgSessionEventTap,
+            placement: placement ?? .headInsertEventTap,
+            options: options ?? .defaultTap,
             handler: handler).map({ self.add(definition: $0) }) ?? self
-    }
-
-    /// Register CoreGraphics handler with automatic event forwarding.
-    @discardableResult open func add(mask: CGEventMask, location: CGEventTapLocation? = nil, placement: CGEventTapPlacement? = nil, options: CGEventTapOptions? = nil, handler: @escaping () -> ()) -> Self {
-        /*@formatter:off*/ return self.add(mask: mask, location: location, placement: placement, options: options, handler: { handler(); return $0 } as Handler.Carbon.Signature) /*@formatter:on*/
     }
 
     /// Register CoreGraphics handler with automatic event forwarding.
     @discardableResult open func add(mask: CGEventMask, location: CGEventTapLocation? = nil, placement: CGEventTapPlacement? = nil, options: CGEventTapOptions? = nil, handler: @escaping (CGEvent) -> ()) -> Self {
         /*@formatter:off*/ return self.add(mask: mask, location: location, placement: placement, options: options, handler: { handler($0); return $0 } as Handler.Carbon.Signature) /*@formatter:on*/
+    }
+
+    /// Register CoreGraphics handler with automatic event forwarding.
+    @discardableResult open func add(mask: CGEventMask, location: CGEventTapLocation? = nil, placement: CGEventTapPlacement? = nil, options: CGEventTapOptions? = nil, handler: @escaping () -> ()) -> Self {
+        /*@formatter:off*/ return self.add(mask: mask, location: location, placement: placement, options: options, handler: { handler(); return $0 } as Handler.Carbon.Signature) /*@formatter:on*/
     }
 
     @discardableResult open func remove(mask: CGEventMask) -> Self {
@@ -152,7 +160,7 @@ extension EventObserver
 
 extension EventObserver
 {
-    @discardableResult open func add(mask: NSEvent.EventTypeMask, location: CGEventTapLocation?, placement: CGEventTapPlacement? = nil, options: CGEventTapOptions? = nil, handler: @escaping () -> ()) -> Self {
+    @discardableResult open func add(mask: NSEvent.EventTypeMask, location: CGEventTapLocation?, placement: CGEventTapPlacement? = nil, options: CGEventTapOptions? = nil, handler: @escaping (CGEvent) -> CGEvent?) -> Self {
         return self.add(mask: mask.rawValue, location: location, placement: placement, options: options, handler: handler)
     }
 
@@ -160,7 +168,7 @@ extension EventObserver
         return self.add(mask: mask.rawValue, location: location, placement: placement, options: options, handler: handler)
     }
 
-    @discardableResult open func add(mask: NSEvent.EventTypeMask, location: CGEventTapLocation?, placement: CGEventTapPlacement? = nil, options: CGEventTapOptions? = nil, handler: @escaping (CGEvent) -> CGEvent?) -> Self {
+    @discardableResult open func add(mask: NSEvent.EventTypeMask, location: CGEventTapLocation?, placement: CGEventTapPlacement? = nil, options: CGEventTapOptions? = nil, handler: @escaping () -> ()) -> Self {
         return self.add(mask: mask.rawValue, location: location, placement: placement, options: options, handler: handler)
     }
 }
