@@ -16,22 +16,22 @@ open class EventObserver: AbstractObserver
     open internal(set) var appKitDefinitions: [Handler.AppKit.Definition] = []
     open internal(set) var carbonDefinitions: [Handler.Carbon.Definition] = []
 
-    internal func add(definition: Handler.AppKit.Definition) -> Self {
+    open func add(definition: Handler.AppKit.Definition) -> Self {
         self.appKitDefinitions.append(definition.activate(self.active))
         return self
     }
 
-    internal func add(definition: Handler.Carbon.Definition) -> Self {
+    open func add(definition: Handler.Carbon.Definition) -> Self {
         self.carbonDefinitions.append(definition.activate(self.active))
         return self
     }
 
-    internal func remove(definition: Handler.AppKit.Definition) -> Self {
+    open func remove(definition: Handler.AppKit.Definition) -> Self {
         self.appKitDefinitions.enumerated().first(where: { $0.1 === definition }).map({ self.appKitDefinitions.remove(at: $0.0) })?.deactivate()
         return self
     }
 
-    internal func remove(definition: Handler.Carbon.Definition) -> Self {
+    open func remove(definition: Handler.Carbon.Definition) -> Self {
         self.carbonDefinitions.enumerated().first(where: { $0.1 === definition }).map({ self.appKitDefinitions.remove(at: $0.0) })?.deactivate()
         return self
     }

@@ -45,12 +45,12 @@ open class HotkeyObserver: AbstractObserver
 
     open internal(set) var definitions: [Handler.Definition] = []
 
-    internal func add(definition: Handler.Definition) -> Self {
+    open func add(definition: Handler.Definition) -> Self {
         self.definitions.append(definition.activate(self.active))
         return self
     }
 
-    internal func remove(definition: Handler.Definition) -> Self {
+    open func remove(definition: Handler.Definition) -> Self {
         self.definitions.enumerated().first(where: { $0.1 === definition }).map({ self.definitions.remove(at: $0.0) })?.deactivate()
         return self
     }
