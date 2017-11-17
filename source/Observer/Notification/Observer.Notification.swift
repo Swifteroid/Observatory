@@ -17,13 +17,23 @@ open class NotificationObserver: AbstractObserver
 
     open private(set) var definitions: [Handler.Definition] = []
 
-    open func add(definition: Handler.Definition) -> Self {
+    @discardableResult open func add(definition: Handler.Definition) -> Self {
         self.definitions.append(definition.activate(self.active))
         return self
     }
 
-    open func remove(definition: Handler.Definition) -> Self {
+    @discardableResult open func add(definitions: [Handler.Definition]) -> Self {
+        for definition in definitions { self.add(definition: definition) }
+        return self
+    }
+
+    @discardableResult open func remove(definition: Handler.Definition) -> Self {
         self.definitions.enumerated().first(where: { $0.1 === definition }).map({ self.definitions.remove(at: $0.0) })?.deactivate()
+        return self
+    }
+
+    @discardableResult open func remove(definitions: [Handler.Definition]) -> Self {
+        for definition in definitions { self.remove(definition: definition) }
         return self
     }
 

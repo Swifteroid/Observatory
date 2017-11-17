@@ -16,23 +16,43 @@ open class EventObserver: AbstractObserver
     open internal(set) var appKitDefinitions: [Handler.AppKit.Definition] = []
     open internal(set) var carbonDefinitions: [Handler.Carbon.Definition] = []
 
-    open func add(definition: Handler.AppKit.Definition) -> Self {
+    @discardableResult open func add(definition: Handler.AppKit.Definition) -> Self {
         self.appKitDefinitions.append(definition.activate(self.active))
         return self
     }
 
-    open func add(definition: Handler.Carbon.Definition) -> Self {
+    @discardableResult open func add(definitions: [Handler.AppKit.Definition]) -> Self {
+        for definition in definitions { self.add(definition: definition) }
+        return self
+    }
+
+    @discardableResult open func add(definition: Handler.Carbon.Definition) -> Self {
         self.carbonDefinitions.append(definition.activate(self.active))
         return self
     }
 
-    open func remove(definition: Handler.AppKit.Definition) -> Self {
+    @discardableResult open func add(definitions: [Handler.Carbon.Definition]) -> Self {
+        for definition in definitions { self.add(definition: definition) }
+        return self
+    }
+
+    @discardableResult open func remove(definition: Handler.AppKit.Definition) -> Self {
         self.appKitDefinitions.enumerated().first(where: { $0.1 === definition }).map({ self.appKitDefinitions.remove(at: $0.0) })?.deactivate()
         return self
     }
 
-    open func remove(definition: Handler.Carbon.Definition) -> Self {
+    @discardableResult open func remove(definitions: [Handler.AppKit.Definition]) -> Self {
+        for definition in definitions { self.remove(definition: definition) }
+        return self
+    }
+
+    @discardableResult open func remove(definition: Handler.Carbon.Definition) -> Self {
         self.carbonDefinitions.enumerated().first(where: { $0.1 === definition }).map({ self.appKitDefinitions.remove(at: $0.0) })?.deactivate()
+        return self
+    }
+
+    @discardableResult open func remove(definitions: [Handler.Carbon.Definition]) -> Self {
+        for definition in definitions { self.remove(definition: definition) }
         return self
     }
 
