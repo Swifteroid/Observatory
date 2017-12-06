@@ -119,9 +119,9 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
             self.window!.makeFirstResponder(self)
 
             if let modifier: KeyboardModifier = self.modifier, modifier != [] {
-                title = String(describing: modifier)
+                title = self.title(forModifier: modifier)
             } else if let hotkey: KeyboardHotkey = self.hotkey {
-                title = String(describing: hotkey)
+                title = self.title(forHotkey: hotkey)
             } else {
                 title = "Record hotkey"
             }
@@ -134,7 +134,7 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
                 // will appear grayed out. If hotkey and command are set but not registered the button will have a warning.
 
                 if self.registration != nil || self.command == nil {
-                    title = String(describing: hotkey)
+                    title = self.title(forHotkey: hotkey)
                     colour = self.command == nil ? NSColor.secondaryLabelColor : NSColor.labelColor
                 } else {
 
@@ -154,6 +154,18 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
         } else {
             self.attributedTitle = NSAttributedString(string: title, attributes: [.foregroundColor: colour, .paragraphStyle: style, .font: self.font ?? NSFont.systemFont(ofSize: NSFont.systemFontSize)])
         }
+    }
+
+    open func title(forModifier modifier: KeyboardModifier) -> String {
+        return String(describing: modifier)
+    }
+
+    open func title(forKey key: KeyboardKey) -> String {
+        return String(describing: key)
+    }
+
+    open func title(forHotkey hotkey: KeyboardHotkey) -> String {
+        return String(describing: hotkey)
     }
 
     // MARK: -
