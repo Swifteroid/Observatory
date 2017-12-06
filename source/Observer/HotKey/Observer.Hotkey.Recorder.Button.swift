@@ -174,7 +174,7 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
     }
 
     open func title(forHotkey hotkey: KeyboardHotkey) -> String {
-        return String(describing: hotkey)
+        return "\(self.title(forModifier: hotkey.modifier))\(self.title(forKey: hotkey.key))"
     }
 
     // MARK: -
