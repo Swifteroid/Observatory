@@ -23,7 +23,7 @@ open class ViewController: NSViewController
     private func handleHotkeyCommandNotification(notification: Notification) {
         let info: [String: AnyObject] = notification.userInfo as! [String: AnyObject]
         let command: String = info[HotkeyCenter.NotificationUserInfo.Command] as! String
-        let hotkey: KeyboardHotkey = KeyboardHotkey(value: UInt64(info[HotkeyCenter.NotificationUserInfo.Hotkey] as! Int))
+        let hotkey: KeyboardHotkey = KeyboardHotkey(info[HotkeyCenter.NotificationUserInfo.Hotkey] as! Int)
         Swift.print(command, hotkey)
     }
 }
