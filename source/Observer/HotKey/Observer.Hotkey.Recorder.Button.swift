@@ -2,6 +2,9 @@ import AppKit
 import Foundation
 import Carbon
 
+/// - note: Earlier we used `viewWillDraw` callback to perform the update, but it doesn't always work in real life
+///         as expected, so we call it directly with internal optimisation. 
+
 open class HotkeyRecorderButton: NSButton, HotkeyRecorder
 {
 
@@ -22,8 +25,14 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
             // Should cancel recording if we're setting hotkey while recording.
 
             self.register()
-            self.recording = false
-            self.needsDisplay = true
+
+            // Wtf??? See class notes…
+
+            if self.recording != false {
+                self.recording = false
+            } else {
+                self.update()
+            }
 
             NotificationCenter.default.post(name: type(of: self).hotkeyDidChangeNotification, object: self)
         }
@@ -34,7 +43,7 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
             if self.command == oldValue { return }
 
             self.register()
-            self.needsDisplay = true
+            self.update()
         }
     }
 
@@ -76,8 +85,13 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
         didSet {
             if self.recording == oldValue { return }
 
-            self.modifier = nil
-            self.needsDisplay = true
+            // Wtf??? See class notes…
+
+            if self.modifier != nil {
+                self.modifier = nil
+            } else {
+                self.update()
+            }
 
             // Let hotkey center know that current recorder changed.
 
@@ -96,16 +110,11 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
     private var modifier: KeyboardModifier? {
         didSet {
             if self.modifier == oldValue { return }
-            self.needsDisplay = true
+            self.update()
         }
     }
 
     // MARK: -
-
-    override open func viewWillDraw() {
-        super.viewWillDraw()
-        self.update()
-    }
 
     private func update() {
 

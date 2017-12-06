@@ -9,6 +9,8 @@ open class ViewController: NSViewController
 {
     @IBOutlet private weak var buttonFoo: HotkeyRecorderButton!
     @IBOutlet private weak var buttonBar: HotkeyRecorderButton!
+    @IBOutlet private weak var buttonBaz: HotkeyRecorderButton!
+    @IBOutlet private weak var buttonQux: HotkeyRecorderButton!
 
     // MARK: intercom
 
@@ -17,6 +19,11 @@ open class ViewController: NSViewController
     // MARK: -
 
     override open func viewDidLoad() {
+        self.buttonFoo.hotkey = KeyboardHotkey(key: .one, modifier: [.commandKey, .shiftKey])
+        self.buttonBar.hotkey = KeyboardHotkey(key: .two, modifier: [.commandKey, .shiftKey])
+        self.buttonBaz.hotkey = KeyboardHotkey(key: .three, modifier: [.commandKey, .shiftKey])
+        self.buttonQux.hotkey = KeyboardHotkey(key: .four, modifier: [.commandKey, .shiftKey])
+
         hotkeyCommandObserver.add(name: HotkeyCenter.Notification.CommandDidInvoke, observee: HotkeyCenter.default, handler: { [weak self] in self?.handleHotkeyCommandNotification(notification: $0) })
     }
 
