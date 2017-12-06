@@ -152,7 +152,7 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
         if title == "" {
             NSLog("\(self) attempted to set empty title, this shouldn't be happening…")
         } else {
-            self.attributedTitle = NSAttributedString(string: title, attributes: [NSAttributedStringKey.foregroundColor: colour, NSAttributedStringKey.paragraphStyle: style])
+            self.attributedTitle = NSAttributedString(string: title, attributes: [.foregroundColor: colour, .paragraphStyle: style, .font: self.font ?? NSFont.systemFont(ofSize: NSFont.systemFontSize)])
         }
     }
 
