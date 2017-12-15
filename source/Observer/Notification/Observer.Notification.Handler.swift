@@ -22,7 +22,7 @@ extension NotificationObserver
             // MARK: -
 
             open let name: Notification.Name
-            open let observee: AnyObject?
+            open private(set) weak var observee: AnyObject?
             open let queue: OperationQueue?
             open let handler: Signature
 
