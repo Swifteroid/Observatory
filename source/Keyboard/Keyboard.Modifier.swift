@@ -25,19 +25,19 @@ public struct KeyboardModifier: RawRepresentable, OptionSet
             if flags.contains(.shift) { rawValue |= Carbon.shiftKey }
         }
 
-        self = KeyboardModifier(rawValue: rawValue)
+        self = KeyboardModifier(rawValue)
     }
 
     public let rawValue: Int
 
     // MARK: -
 
-    public static let none = KeyboardModifier(rawValue: 0)
-    public static let capsLockKey = KeyboardModifier(rawValue: Carbon.alphaLock)
-    public static let commandKey = KeyboardModifier(rawValue: Carbon.cmdKey)
-    public static let controlKey = KeyboardModifier(rawValue: Carbon.controlKey)
-    public static let optionKey = KeyboardModifier(rawValue: Carbon.optionKey)
-    public static let shiftKey = KeyboardModifier(rawValue: Carbon.shiftKey)
+    public static let none: KeyboardModifier = .init(0)
+    public static let capsLockKey: KeyboardModifier = .init(Carbon.alphaLock)
+    public static let commandKey: KeyboardModifier = .init(Carbon.cmdKey)
+    public static let controlKey: KeyboardModifier = .init(Carbon.controlKey)
+    public static let optionKey: KeyboardModifier = .init(Carbon.optionKey)
+    public static let shiftKey: KeyboardModifier = .init(Carbon.shiftKey)
 
     // MARK: -
 

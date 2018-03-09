@@ -8,11 +8,7 @@ import Carbon
 open class HotkeyRecorderButton: NSButton, HotkeyRecorder
 {
 
-    // MARK: intercom
-
     private lazy var windowNotificationObserver: NotificationObserver = NotificationObserver(active: true)
-
-    // MARK: -
 
     open var hotkey: KeyboardHotkey? {
         willSet {
@@ -47,8 +43,6 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
         }
     }
 
-    // MARK: -
-
     /// Successfully registered hotkey-command tuple.
 
     private var registration: (hotkey: KeyboardHotkey, command: String)?
@@ -79,8 +73,6 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
         }
     }
 
-    // MARK: -
-
     open var recording: Bool = false {
         didSet {
             if self.recording == oldValue { return }
@@ -103,8 +95,6 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
         }
     }
 
-    // MARK: -
-
     /// Stores temporary modifier while hotkey is being recorded.
 
     private var modifier: KeyboardModifier? {
@@ -113,8 +103,6 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
             self.update()
         }
     }
-
-    // MARK: -
 
     private func update() {
 
@@ -176,8 +164,6 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
     open func title(forHotkey hotkey: KeyboardHotkey) -> String {
         return "\(self.title(forModifier: hotkey.modifier))\(self.title(forKey: hotkey.key))"
     }
-
-    // MARK: -
 
     override open func resignFirstResponder() -> Bool {
         self.recording = false
@@ -263,8 +249,6 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
         super.flagsChanged(with: event)
     }
 
-    // MARK: -
-
     override open func viewWillMove(toWindow newWindow: NSWindow?) {
         if let oldWindow: NSWindow = self.window {
             self.windowNotificationObserver.remove(observee: oldWindow)
@@ -275,8 +259,6 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
         }
     }
 }
-
-// MARK: -
 
 extension NSMutableParagraphStyle
 {
