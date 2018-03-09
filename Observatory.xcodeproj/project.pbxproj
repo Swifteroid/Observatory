@@ -75,6 +75,7 @@
 		17FD00D92CE5001C977C34C8 /* macOS - Framework.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "macOS - Framework.xcconfig"; sourceTree = "<group>"; };
 		17FD00EBE57F094E51BF5F2D /* Keyboard.Hotkey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.Hotkey.swift; sourceTree = "<group>"; };
 		17FD01157083D648768FA804 /* Test.Observer.Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Observer.Notification.swift; sourceTree = "<group>"; };
+		17FD0152B633954A227E8C79 /* Observatory.podspec */ = {isa = PBXFileReference; lastKnownFileType = file.podspec; path = Observatory.podspec; sourceTree = "<group>"; };
 		17FD0153D441DBE8117C8705 /* Base - Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Base - Release.xcconfig"; sourceTree = "<group>"; };
 		17FD016E3AC5B7437BE4F07B /* macOS - Application.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "macOS - Application.xcconfig"; sourceTree = "<group>"; };
 		17FD0177279F255CBBB34499 /* Testing.Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Testing.Event.swift; sourceTree = "<group>"; };
@@ -371,6 +372,7 @@
 				E6D7642B1CDDBA100071CCB0 /* product */,
 				17FD0BB4EDB0784084E6A631 /* source */,
 				697EDBC98FFDECF7FF264F3A /* README.md */,
+				17FD0152B633954A227E8C79 /* Observatory.podspec */,
 			);
 			sourceTree = "<group>";
 		};
