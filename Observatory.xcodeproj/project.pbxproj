@@ -25,11 +25,9 @@
 		17FD072C4DD0B0017FFE7736 /* Observatory.h in Headers */ = {isa = PBXBuildFile; fileRef = 17FD0933F31CFB1079F482F7 /* Observatory.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		17FD07F9F23B631E4637D0A6 /* Observer.Hotkey.Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD05D4744DE4E93FCA2A14 /* Observer.Hotkey.Recorder.swift */; };
 		17FD087C06620E6017B3A284 /* Test.Keyboard.Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0579CC5DEE5BEB7C17AA /* Test.Keyboard.Key.swift */; };
-		17FD08FBEAA7C969C52E992F /* Observer.Event.Handler.Carbon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0A5B9FE9D76B1B5D3FEA /* Observer.Event.Handler.Carbon.swift */; };
 		17FD09B2BB5295082A82F90E /* Test.Observer.Hotkey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0FA9B7B55F5A9F01448A /* Test.Observer.Hotkey.swift */; };
 		17FD0ABB4197AACD5B461AB1 /* Entrypoint.Hotkey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0A49FCA26756CE44887A /* Entrypoint.Hotkey.swift */; };
 		17FD0AC48080C799A307B828 /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD07A4DFF670469F941B74 /* Observer.swift */; };
-		17FD0B840CACA4C9A3A41ECC /* Observer.Event.Handler.AppKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD00D2F27DC335914EDDAE /* Observer.Event.Handler.AppKit.swift */; };
 		17FD0C06D58B5AD1AE56E50C /* Observer.Hotkey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD034777F15075897ECD84 /* Observer.Hotkey.swift */; };
 		17FD0D2580443B055F56A981 /* Observer.Hotkey.Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD02B6BCD2C12F1A402205 /* Observer.Hotkey.Handler.swift */; };
 		17FD0EAD038EFB45D7F88400 /* Keyboard.Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD07861300584746554214 /* Keyboard.Key.swift */; };
@@ -74,7 +72,6 @@
 /* Begin PBXFileReference section */
 		087EE7921E1C1FF500093E0E /* Hotkey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hotkey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		17FD004596B009984060737D /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/Mac/Nimble.framework; sourceTree = "<group>"; };
-		17FD00D2F27DC335914EDDAE /* Observer.Event.Handler.AppKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Event.Handler.AppKit.swift; sourceTree = "<group>"; };
 		17FD00D92CE5001C977C34C8 /* macOS - Framework.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "macOS - Framework.xcconfig"; sourceTree = "<group>"; };
 		17FD00EBE57F094E51BF5F2D /* Keyboard.Hotkey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.Hotkey.swift; sourceTree = "<group>"; };
 		17FD01157083D648768FA804 /* Test.Observer.Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Observer.Notification.swift; sourceTree = "<group>"; };
@@ -101,7 +98,6 @@
 		17FD09DEC21D8E672877A6C0 /* Cartfile.private */ = {isa = PBXFileReference; lastKnownFileType = file.private; path = Cartfile.private; sourceTree = "<group>"; };
 		17FD09F1D55428F9F2757251 /* Observer.HandlerDefinition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.HandlerDefinition.swift; sourceTree = "<group>"; };
 		17FD0A49FCA26756CE44887A /* Entrypoint.Hotkey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entrypoint.Hotkey.swift; sourceTree = "<group>"; };
-		17FD0A5B9FE9D76B1B5D3FEA /* Observer.Event.Handler.Carbon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Event.Handler.Carbon.swift; sourceTree = "<group>"; };
 		17FD0C4CA3A8D388D3EDFC77 /* Test.Observer.Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Observer.Event.swift; sourceTree = "<group>"; };
 		17FD0CF623279FE20B9AAF7E /* Test.Keyboard.Hotkey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Keyboard.Hotkey.swift; sourceTree = "<group>"; };
 		17FD0D94F2B603C27C78EBBE /* Keyboard.Modifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.Modifier.swift; sourceTree = "<group>"; };
@@ -273,9 +269,7 @@
 			isa = PBXGroup;
 			children = (
 				17FD04EF01FB44C8E29934D6 /* Observer.Event.swift */,
-				17FD00D2F27DC335914EDDAE /* Observer.Event.Handler.AppKit.swift */,
 				17FD093835E63ED2A8E04C99 /* Observer.Event.Handler.swift */,
-				17FD0A5B9FE9D76B1B5D3FEA /* Observer.Event.Handler.Carbon.swift */,
 			);
 			path = Event;
 			sourceTree = "<group>";
@@ -558,8 +552,6 @@
 				17FD02049992AB6759BAF035 /* Observer.Notification.Handler.swift in Sources */,
 				17FD05A3415AA3A589D05605 /* Observer.Event.swift in Sources */,
 				17FD04A43F36324EF4643B6A /* Observer.Event.Handler.swift in Sources */,
-				17FD0B840CACA4C9A3A41ECC /* Observer.Event.Handler.AppKit.swift in Sources */,
-				17FD08FBEAA7C969C52E992F /* Observer.Event.Handler.Carbon.swift in Sources */,
 				17FD0C06D58B5AD1AE56E50C /* Observer.Hotkey.swift in Sources */,
 				17FD0D2580443B055F56A981 /* Observer.Hotkey.Handler.swift in Sources */,
 				17FD028E20DE493318D97F7B /* Observer.Hotkey.Recorder.Button.swift in Sources */,
