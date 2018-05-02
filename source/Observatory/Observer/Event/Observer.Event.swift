@@ -95,14 +95,16 @@ extension EventObserver
         return self.add(mask: mask, local: handler, global: { _ = handler($0) })
     }
 
-    /// Register AppKit local + global handler with automatic local event forwarding.
-    @discardableResult open func add(mask: NSEvent.EventTypeMask, handler: @escaping (NSEvent) -> ()) -> Self {
-        /*@formatter:off*/ return self.add(mask: mask, local: { handler($0); return $0 }, global: handler) /*@formatter:on*/
+    /// Register AppKit local + global handler with custom local event forwarding.
+    /// - parameter forward: Specifies whether to forward the event or not, default is `true`.
+    @discardableResult open func add(mask: NSEvent.EventTypeMask, handler: @escaping (NSEvent) -> (), forward: Bool = true) -> Self {
+        /*@formatter:off*/ return self.add(mask: mask, local: { handler($0); return forward ? $0 : nil }, global: handler) /*@formatter:on*/
     }
 
-    /// Register AppKit local + global handler with automatic local event forwarding.
-    @discardableResult open func add(mask: NSEvent.EventTypeMask, handler: @escaping () -> ()) -> Self {
-        /*@formatter:off*/ return self.add(mask: mask, local: { handler(); return $0 }, global: { _ in handler() }) /*@formatter:on*/
+    /// Register AppKit local + global handler with custom local event forwarding.
+    /// - parameter forward: Specifies whether to forward the event or not, default is `true`.
+    @discardableResult open func add(mask: NSEvent.EventTypeMask, handler: @escaping () -> (), forward: Bool = true) -> Self {
+        /*@formatter:off*/ return self.add(mask: mask, local: { handler(); return forward ? $0 : nil }, global: { _ in handler() }) /*@formatter:on*/
     }
 
     /// Remove all handlers with specified mask.
@@ -120,14 +122,16 @@ extension EventObserver
         return self.add(mask: mask, local: local, global: nil)
     }
 
-    /// Register AppKit local handler with automatic event forwarding.
-    @discardableResult open func add(mask: NSEvent.EventTypeMask, local: @escaping (NSEvent) -> ()) -> Self {
-        /*@formatter:off*/ return self.add(mask: mask, local: { local($0); return $0 }, global: nil) /*@formatter:on*/
+    /// Register AppKit local handler with custom local event forwarding.
+    /// - parameter forward: Specifies whether to forward the event or not, default is `true`.
+    @discardableResult open func add(mask: NSEvent.EventTypeMask, local: @escaping (NSEvent) -> (), forward: Bool = true) -> Self {
+        /*@formatter:off*/ return self.add(mask: mask, local: { local($0); return forward ? $0 : nil }, global: nil) /*@formatter:on*/
     }
 
-    /// Register AppKit local handler with automatic event forwarding.
-    @discardableResult open func add(mask: NSEvent.EventTypeMask, local: @escaping () -> ()) -> Self {
-        /*@formatter:off*/ return self.add(mask: mask, local: { local(); return $0 }, global: nil) /*@formatter:on*/
+    /// Register AppKit local handler with custom local event forwarding.
+    /// - parameter forward: Specifies whether to forward the event or not, default is `true`.
+    @discardableResult open func add(mask: NSEvent.EventTypeMask, local: @escaping () -> (), forward: Bool = true) -> Self {
+        /*@formatter:off*/ return self.add(mask: mask, local: { local(); return forward ? $0 : nil }, global: nil) /*@formatter:on*/
     }
 }
 
