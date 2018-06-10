@@ -142,7 +142,8 @@ open class HotkeyObserver: AbstractObserver
         let status: OSStatus = RemoveEventHandler(eventHandler)
         guard status == Darwin.noErr else { throw Error.uppRemoveFail }
 
-        eventHotkeyHandler.deallocate(capacity: 1)
+        eventHotkeyHandler.deinitialize(count: 1)
+        eventHotkeyHandler.deallocate()
     }
 }
 

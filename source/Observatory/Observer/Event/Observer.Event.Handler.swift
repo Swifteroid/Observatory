@@ -103,7 +103,8 @@ extension EventObserver.Handler
 
             deinit {
                 self.deactivate()
-                self.userInfo.deallocate(capacity: 1)
+                self.userInfo.deinitialize(count: 1)
+                self.userInfo.deallocate()
             }
 
             open let mask: CGEventMask
