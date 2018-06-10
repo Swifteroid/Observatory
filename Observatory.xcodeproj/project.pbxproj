@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		087EE7A11E1C26E500093E0E /* Observatory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6D7642A1CDDBA100071CCB0 /* Observatory.framework */; };
 		17FD00154E7DD4027591C5D2 /* Testing.Observation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0B7E4C2ACF3D110CDA9D /* Testing.Observation.swift */; };
 		17FD00CB84FB669705C7E473 /* Keyboard.Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0A54F5667F4CE29E2B39 /* Keyboard.Key.swift */; };
 		17FD012B602860A1D459E05A /* Observer.Hotkey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0C0324E5560F5F80CA45 /* Observer.Hotkey.swift */; };
@@ -15,14 +14,12 @@
 		17FD01BE2C8AF0115AE9DF8E /* Test.Observer.Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0549D3EA10134DC784A3 /* Test.Observer.Notification.swift */; };
 		17FD01D475A336AA93EC9F2F /* Keyboard.Modifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0A7C14DC5A257B15375D /* Keyboard.Modifier.swift */; };
 		17FD028A9B91583E857EF5EF /* Test.Observer.Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD08E9489864D454E503B4 /* Test.Observer.Event.swift */; };
-		17FD03080F29623E851E70FA /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 17FD004596B009984060737D /* Nimble.framework */; };
 		17FD0328BCF34B7BF64C7670 /* Observer.Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD03560E1CD18D16062849 /* Observer.Event.swift */; };
 		17FD03551EEEDCD9AC72C8C1 /* Foundation.Weak.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD01A9278B0EB4D979293E /* Foundation.Weak.swift */; };
 		17FD039219FCE49AC94E432F /* Observer.Hotkey.Center.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0C77FE455F60AA173A5D /* Observer.Hotkey.Center.swift */; };
 		17FD03B3118DEE40664EFF97 /* Extension.Carbon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0FC46CCA34ABA0BED1CB /* Extension.Carbon.swift */; };
 		17FD057B880D845188EA2DC8 /* Testing.Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0CC52C2436784A911E89 /* Testing.Event.swift */; };
 		17FD062C3246D204FE4BD93B /* Observer.Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD009919B2E0C5C02AE1FB /* Observer.Notification.swift */; };
-		17FD062FA3835F152943A9F9 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17FD004596B009984060737D /* Nimble.framework */; };
 		17FD066C556A49EB63E661CC /* Observer.Notification.Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0916F82FAC336830F9E0 /* Observer.Notification.Handler.swift */; };
 		17FD088C42F60A74F1C81846 /* Test.Keyboard.Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD04EB71CD7024929F934F /* Test.Keyboard.Key.swift */; };
 		17FD08BD0A91FD8A01FBD698 /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0EC2D909CCE6E3BC8A9E /* Observer.swift */; };
@@ -35,7 +32,6 @@
 		17FD0C1A4329D5233941DDE4 /* Test.Keyboard.Hotkey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD01507DE6860A0089FEAF /* Test.Keyboard.Hotkey.swift */; };
 		17FD0D9C31AB2F20A256C32E /* Observer.Hotkey.Recorder.Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0AAFBA1EB1B42F00ABE2 /* Observer.Hotkey.Recorder.Button.swift */; };
 		17FD0E596C7B56AEB4865F6A /* Observer.Hotkey.Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0F7C4A53D96FBDB8674E /* Observer.Hotkey.Handler.swift */; };
-		17FD0EBC070D00CFDDF1E42D /* Observatory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6D7642A1CDDBA100071CCB0 /* Observatory.framework */; };
 		E609DC8B1E7BC8CA00F919DD /* hotkey.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E609DC891E7BC8C400F919DD /* hotkey.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -55,19 +51,6 @@
 			remoteInfo = Observatory;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		E69201021CDDEA7B00C4FEAD /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				17FD03080F29623E851E70FA /* Nimble.framework in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		087EE7921E1C1FF500093E0E /* Hotkey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hotkey.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -114,33 +97,6 @@
 		E69200F31CDDE19100C4FEAD /* Observatory - Test.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Observatory - Test.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6D7642A1CDDBA100071CCB0 /* Observatory.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Observatory.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
-
-/* Begin PBXFrameworksBuildPhase section */
-		087EE78F1E1C1FF500093E0E /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				087EE7A11E1C26E500093E0E /* Observatory.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E69200F01CDDE19100C4FEAD /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				17FD0EBC070D00CFDDF1E42D /* Observatory.framework in Frameworks */,
-				17FD062FA3835F152943A9F9 /* Nimble.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E6D764261CDDBA100071CCB0 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		17FD00AF91A500EDFD52854A /* Observer */ = {
@@ -413,7 +369,6 @@
 			buildConfigurationList = 087EE7A01E1C1FF500093E0E /* Build configuration list for PBXNativeTarget "Hotkey" */;
 			buildPhases = (
 				087EE78E1E1C1FF500093E0E /* Sources */,
-				087EE78F1E1C1FF500093E0E /* Frameworks */,
 				087EE7901E1C1FF500093E0E /* Resources */,
 			);
 			buildRules = (
@@ -431,8 +386,6 @@
 			buildConfigurationList = E69200FD1CDDE19200C4FEAD /* Build configuration list for PBXNativeTarget "Observatory - Test" */;
 			buildPhases = (
 				E69200EF1CDDE19100C4FEAD /* Sources */,
-				E69200F01CDDE19100C4FEAD /* Frameworks */,
-				E69201021CDDEA7B00C4FEAD /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -449,9 +402,7 @@
 			buildConfigurationList = E6D764321CDDBA100071CCB0 /* Build configuration list for PBXNativeTarget "Observatory" */;
 			buildPhases = (
 				E6D764251CDDBA100071CCB0 /* Sources */,
-				E6D764261CDDBA100071CCB0 /* Frameworks */,
 				E6D764271CDDBA100071CCB0 /* Headers */,
-				E6D764281CDDBA100071CCB0 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -513,13 +464,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E609DC8B1E7BC8CA00F919DD /* hotkey.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E6D764281CDDBA100071CCB0 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -592,6 +536,7 @@
 			baseConfigurationReference = 17FD016E3AC5B7437BE4F07B /* macOS - Application.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "$(inherited)/../$(TARGET_NAME:lower).plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(FRAMEWORK_SEARCH_PATHS)";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 			};
 			name = Debug;
@@ -601,6 +546,7 @@
 			baseConfigurationReference = 17FD016E3AC5B7437BE4F07B /* macOS - Application.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "$(inherited)/../$(TARGET_NAME:lower).plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(FRAMEWORK_SEARCH_PATHS)";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 			};
 			name = Release;
@@ -609,6 +555,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 17FD08C9C8536FA561C0E4C5 /* Test.xcconfig */;
 			buildSettings = {
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(FRAMEWORK_SEARCH_PATHS)";
 			};
 			name = Debug;
 		};
@@ -616,6 +563,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 17FD08C9C8536FA561C0E4C5 /* Test.xcconfig */;
 			buildSettings = {
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(FRAMEWORK_SEARCH_PATHS)";
 			};
 			name = Release;
 		};
@@ -623,7 +571,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 17FD0ED96CA8568E523C05EA /* Base - Debug.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = dependency/Carthage/Build/Mac;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/dependency/Carthage/Build/Mac";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.swifteroid.observatory;
 				SWIFT_VERSION = 4.0;
@@ -634,7 +582,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 17FD0153D441DBE8117C8705 /* Base - Release.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = dependency/Carthage/Build/Mac;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/dependency/Carthage/Build/Mac";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.swifteroid.observatory;
 				SWIFT_VERSION = 4.0;
