@@ -1,90 +1,97 @@
-import Observatory
 import Carbon
+import Foundation
 import Nimble
-import XCTest
+import Observatory
+import Quick
 
-open class HotkeyObserverTestCase: XCTestCase
+internal class HotkeyObserverSpec: Spec
 {
-    open func test() {
-        let observer: HotkeyObserver = HotkeyObserver(active: true)
-        let modifier: CGEventFlags = CGEventFlags(rawValue: CGEventFlags.maskCommand.rawValue | CGEventFlags.maskShift.rawValue)
-        let fooKey: CGKeyCode = CGKeyCode(KeyboardKey.five.rawValue)
-        let barKey: CGKeyCode = CGKeyCode(KeyboardKey.six.rawValue)
+    override internal func spec() {
+        it("can observe hotkeys in active state") {
+            let observer: HotkeyObserver = HotkeyObserver(active: true)
+            let modifier: CGEventFlags = [.maskCommand, .maskShift]
+            let fooKey: CGKeyCode = CGKeyCode(KeyboardKey.five.rawValue)
+            let barKey: CGKeyCode = CGKeyCode(KeyboardKey.six.rawValue)
 
-        var foo: Int = 0
-        var bar: Int = 0
+            var foo: Int = 0
+            var bar: Int = 0
 
-        observer.add(hotkey: KeyboardHotkey(key: KeyboardKey.five, modifier: [KeyboardModifier.commandKey, KeyboardModifier.shiftKey])) { foo += 1 }
-        observer.add(hotkey: KeyboardHotkey(key: KeyboardKey.six, modifier: [KeyboardModifier.commandKey, KeyboardModifier.shiftKey])) { bar += 1 }
+            expect(observer.active) == true
 
-        self.postHotkeyEvent(key: fooKey, flag: modifier)
-        self.postHotkeyEvent(key: barKey, flag: modifier)
+            observer.add(hotkey: KeyboardHotkey(key: .five, modifier: [.commandKey, .shiftKey])) { foo += 1 }
+            observer.add(hotkey: KeyboardHotkey(key: .six, modifier: [.commandKey, .shiftKey])) { bar += 1 }
 
-        expect(foo).to(equal(1))
-        expect(bar).to(equal(1))
+            self.postHotkeyEvent(key: fooKey, flag: modifier)
+            self.postHotkeyEvent(key: barKey, flag: modifier)
 
-        // Deactivated observer must not catch anything.
+            expect(foo).to(equal(1))
+            expect(bar).to(equal(1))
 
-        observer.deactivate()
+            // Deactivated observer must not catch anything.
 
-        self.postHotkeyEvent(key: fooKey, flag: modifier)
-        self.postHotkeyEvent(key: barKey, flag: modifier)
+            observer.deactivate()
+            expect(observer.active) == false
 
-        expect(foo).to(equal(1))
-        expect(bar).to(equal(1))
+            self.postHotkeyEvent(key: fooKey, flag: modifier)
+            self.postHotkeyEvent(key: barKey, flag: modifier)
 
-        // Reactivated observer must work…
+            expect(foo).to(equal(1))
+            expect(bar).to(equal(1))
 
-        observer.activate()
+            // Reactivated observer must work…
 
-        self.postHotkeyEvent(key: fooKey, flag: modifier)
-        self.postHotkeyEvent(key: barKey, flag: modifier)
+            observer.activate()
+            expect(observer.active) == true
 
-        expect(foo).to(equal(2))
-        expect(bar).to(equal(2))
+            self.postHotkeyEvent(key: fooKey, flag: modifier)
+            self.postHotkeyEvent(key: barKey, flag: modifier)
 
-        // Removing must work.
+            expect(foo).to(equal(2))
+            expect(bar).to(equal(2))
 
-        observer.remove(hotkey: KeyboardHotkey(key: KeyboardKey.five, modifier: [KeyboardModifier.commandKey, KeyboardModifier.shiftKey]))
+            // Removing must work.
 
-        self.postHotkeyEvent(key: fooKey, flag: modifier)
+            observer.remove(hotkey: KeyboardHotkey(key: .five, modifier: [.commandKey, .shiftKey]))
 
-        expect(foo).to(equal(2))
-    }
+            self.postHotkeyEvent(key: fooKey, flag: modifier)
 
-    open func testValidHotkeys() {
-        let hotkeys: [KeyboardHotkey] = [
-            KeyboardHotkey(key: KeyboardKey.a, modifier: []), // Apparently regular keys can be registered without modifiers.
-            KeyboardHotkey(key: KeyboardKey.f5, modifier: []), // Function keys can be registered without modifiers.
-            KeyboardHotkey(key: KeyboardKey.a, modifier: .commandKey),
-            KeyboardHotkey(key: KeyboardKey.a, modifier: .optionKey),
-            KeyboardHotkey(key: KeyboardKey.a, modifier: .controlKey)
-        ]
-
-        for hotkey in hotkeys {
-            expect(expression: { HotkeyObserver(active: true).add(hotkey: hotkey, handler: {}) }).toNot(throwError())
+            expect(foo).to(equal(2))
         }
-    }
 
-    open func testInvalidHotkeys() {
-        let hotkeys: [KeyboardHotkey] = [
-            KeyboardHotkey(key: KeyboardKey.a, modifier: .capsLockKey), // Caps lock is not a valid modifier.
-            KeyboardHotkey(key: KeyboardKey.a, modifier: [.capsLockKey, .controlKey]) // Or any combination.
-        ]
+        it("must not produce definition error when adding valid hotkey observation") {
+            let hotkeys: [KeyboardHotkey] = [
+                KeyboardHotkey(key: KeyboardKey.a, modifier: []), // Apparently regular keys can be registered without modifiers.
+                KeyboardHotkey(key: KeyboardKey.f5, modifier: []), // Function keys can be registered without modifiers.
+                KeyboardHotkey(key: KeyboardKey.a, modifier: .commandKey),
+                KeyboardHotkey(key: KeyboardKey.a, modifier: .optionKey),
+                KeyboardHotkey(key: KeyboardKey.a, modifier: .controlKey)
+            ]
 
-        for hotkey in hotkeys {
-            expect(HotkeyObserver(active: true).add(hotkey: hotkey, handler: {}).definitions.first?.error).toNot(beNil(), description: String(describing: hotkey))
+            for hotkey in hotkeys {
+                expect(HotkeyObserver(active: true).add(hotkey: hotkey, handler: {}).definitions.first?.error).to(beNil(), description: String(describing: hotkey))
+            }
         }
-    }
 
-    open func testError() {
-        let observerFoo: HotkeyObserver = HotkeyObserver(active: true)
-        let observerBar: HotkeyObserver = HotkeyObserver(active: true)
-        let hotkey: KeyboardHotkey = KeyboardHotkey(key: KeyboardKey.five, modifier: [KeyboardModifier.commandKey, KeyboardModifier.shiftKey])
+        it("must produce definition error when adding invalid hotkey observation") {
+            let hotkeys: [KeyboardHotkey] = [
+                KeyboardHotkey(key: KeyboardKey.a, modifier: .capsLockKey), // Caps lock is not a valid modifier.
+                KeyboardHotkey(key: KeyboardKey.a, modifier: [.capsLockKey, .controlKey]) // Or any combination.
+            ]
 
-        observerFoo.add(hotkey: hotkey, handler: {})
-        observerBar.add(hotkey: hotkey, handler: {})
-        expect(observerBar.definitions.first?.error).toNot(beNil())
+            for hotkey in hotkeys {
+                expect(HotkeyObserver(active: true).add(hotkey: hotkey, handler: {}).definitions.first?.error).toNot(beNil(), description: String(describing: hotkey))
+            }
+        }
+
+        it("must produce definition error when adding the same hotkey twice") {
+            let observerFoo: HotkeyObserver = HotkeyObserver(active: true)
+            let observerBar: HotkeyObserver = HotkeyObserver(active: true)
+            let hotkey: KeyboardHotkey = KeyboardHotkey(key: KeyboardKey.five, modifier: [.commandKey, .shiftKey])
+
+            observerFoo.add(hotkey: hotkey, handler: {})
+            observerBar.add(hotkey: hotkey, handler: {})
+            expect(observerBar.definitions.first?.error).toNot(beNil())
+        }
     }
 
     private func sendHotkeyEvent(identifier: EventHotKeyID) {

@@ -1,13 +1,14 @@
-import Observatory
-import Carbon
 import Foundation
 import Nimble
-import XCTest
+import Observatory
+import Quick
 
-open class KeyboardKeyTestCase: XCTestCase
+internal class KeyboardKeySpec: Spec
 {
-    open func testGetName() {
-        expect(KeyboardKey.a.name).to(equal("A"))
-        expect(KeyboardKey.escape.name).to(equal("⎋"))
+    override internal func spec() {
+        it("can return human-readable key name") {
+            expect(KeyboardKey.a.name).to(equal("A"))
+            expect(KeyboardKey.escape.name).to(equal("⎋"))
+        }
     }
 }

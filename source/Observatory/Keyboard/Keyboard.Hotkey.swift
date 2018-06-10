@@ -1,6 +1,7 @@
 import AppKit.NSEvent
 import Foundation
 
+/// Hotkey stores key and modifier into first and second half of 32-bit raw value integer.
 public struct KeyboardHotkey: RawRepresentable
 {
     public init(rawValue: Int) {

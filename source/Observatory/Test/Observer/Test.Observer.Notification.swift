@@ -1,49 +1,54 @@
-import Observatory
+import Foundation
 import Nimble
-import XCTest
+import Observatory
+import Quick
 
-open class NotificationObserverTestCase: XCTestCase
+internal class NotificationObserverSpec: Spec
 {
-    open func test() {
-        let center: NotificationCenter = NotificationCenter.default
-        let observer: NotificationObserver = NotificationObserver(active: true)
-        let observee: AnyObject = NSObject()
+    override internal func spec() {
+        it("can observe Foundation notifications in active state") {
+            let center: NotificationCenter = NotificationCenter.default
+            let observer: NotificationObserver = NotificationObserver(active: true)
+            let observee: AnyObject = NSObject()
+            let fooName: Notification.Name = .init("foo")
+            let barName: Notification.Name = .init("bar")
 
-        var foo: Int = 0
-        var bar: Int = 0
+            var foo: Int = 0
+            var bar: Int = 0
 
-        observer.add(name: Notification.Name("foo"), observee: nil) { foo += 1 }
-        observer.add(name: Notification.Name("bar"), observee: observee) { bar += 1 }
+            observer.add(name: fooName, observee: nil) { foo += 1 }
+            observer.add(name: barName, observee: observee) { bar += 1 }
 
-        // Foo will get caught on all objects, bar will only be caught on observable.
+            // Foo will get caught on all objects, bar will only be caught on observable.
 
-        center.post(name: Notification.Name("foo"), object: nil)
-        center.post(name: Notification.Name("foo"), object: observee)
-        center.post(name: Notification.Name("bar"), object: nil)
-        center.post(name: Notification.Name("bar"), object: observee)
+            center.post(name: fooName, object: nil)
+            center.post(name: fooName, object: observee)
+            center.post(name: barName, object: nil)
+            center.post(name: barName, object: observee)
 
-        expect(foo).to(equal(2))
-        expect(bar).to(equal(1))
+            expect(foo).to(equal(2))
+            expect(bar).to(equal(1))
 
-        // Deactivated observer must not catch anything.
+            // Deactivated observer must not catch anything.
 
-        observer.active = false
+            observer.active = false
 
-        center.post(name: Notification.Name("foo"), object: observee)
-        center.post(name: Notification.Name("bar"), object: observee)
+            center.post(name: fooName, object: observee)
+            center.post(name: barName, object: observee)
 
-        expect(foo).to(equal(2))
-        expect(bar).to(equal(1))
+            expect(foo).to(equal(2))
+            expect(bar).to(equal(1))
 
-        // Reactivated observer must work…
+            // Reactivated observer must work…
 
-        observer.active = true
+            observer.active = true
 
-        center.post(name: Notification.Name("foo"), object: observee)
-        center.post(name: Notification.Name("bar"), object: observee)
+            center.post(name: fooName, object: observee)
+            center.post(name: barName, object: observee)
 
-        expect(foo).to(equal(3))
-        expect(bar).to(equal(2))
+            expect(foo).to(equal(3))
+            expect(bar).to(equal(2))
+        }
     }
 
     private func readmeSample() {

@@ -11,9 +11,9 @@ public struct KeyboardModifier: RawRepresentable, OptionSet
     public init(_ flags: NSEvent.ModifierFlags) {
         var rawValue: Int = 0
 
-        // I'll leave this as a reminder for future generation. Apparently, if you used to deal with CoreGraphics you'd know 
+        // I'll leave this as a reminder for future generations. Apparently, if you used to deal with CoreGraphics you'd know 
         // what the fuck modifier flags are made of, otherwise, you are doomed. And made they are of CoreGraphics event 
-        // source flags state, or `CGEventSource.flagsState(.hidSystemState)` to be precise. So, an empty flags will have 
+        // source flags state, or `CGEventSource.flagsState(.hidSystemState)` to be precise. So, an empty flag will have 
         // raw value not of `0` but of `UInt(CGEventSource.flagsState(.hidSystemState).rawValue)`…
 
         if flags.rawValue & NSEvent.ModifierFlags.deviceIndependentFlagsMask.rawValue != 0 {
