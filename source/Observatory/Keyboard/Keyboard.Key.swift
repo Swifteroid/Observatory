@@ -131,10 +131,7 @@ public struct KeyboardKey: RawRepresentable
     public static let f19: KeyboardKey = .init(kVK_F19)
     public static let f20: KeyboardKey = .init(kVK_F20)
 
-    // MARK: -
-
     /// Predefined names for special case keys, typically language independent.
-
     public static let names: [KeyboardKey: String] = [
         .keypadClear: "⌧",
         .keypadEnter: "⌅",
@@ -177,10 +174,7 @@ public struct KeyboardKey: RawRepresentable
         .f20: "F20"
     ]
 
-    // MARK: -
-
     /// Key name in the current keyboard input source.
-
     public var name: String? {
         return self.name(names: nil)
     }
@@ -204,7 +198,6 @@ public struct KeyboardKey: RawRepresentable
     }
 
     /// Current unicode keyboard layout, with some great insight from https://jongampark.wordpress.com/2015/07/17.
-
     private static var layout: UnsafePointer<UCKeyboardLayout>? {
         let data: NSData
 

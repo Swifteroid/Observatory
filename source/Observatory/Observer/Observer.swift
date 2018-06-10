@@ -13,13 +13,10 @@ extension Observer
     }
 }
 
-// MARK: -
-
 open class AbstractObserver: Observer
 {
     public init() {}
 
     /// Specifies whether the observer is active or not.
-
     open internal(set) var active: Bool = false
 }

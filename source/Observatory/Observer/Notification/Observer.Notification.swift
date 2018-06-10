@@ -2,7 +2,6 @@ import Foundation
 
 /// Notification observer provides an interface for registering and managing multiple notification handlers. When we register
 /// notification handler observer creates handler definition – it manages that specific notification-handler association.
-
 open class NotificationObserver: AbstractObserver
 {
     public init(active: Bool = false, center: NotificationCenter? = nil) {
@@ -10,8 +9,6 @@ open class NotificationObserver: AbstractObserver
         self.center = center
         self.activate(active)
     }
-
-    // MARK: -
 
     open var center: NotificationCenter?
 
@@ -36,8 +33,6 @@ open class NotificationObserver: AbstractObserver
         for definition in definitions { self.remove(definition: definition) }
         return self
     }
-
-    // MARK: -
 
     override open var active: Bool {
         get { return super.active }

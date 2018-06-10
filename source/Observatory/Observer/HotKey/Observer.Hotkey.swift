@@ -8,14 +8,11 @@ import Carbon
 /// http://stackoverflow.com/a/401244/458356 – How to Capture / Post system-wide Keyboard / Mouse events under Mac OS X?
 /// http://stackoverflow.com/a/4640190/458356 – OSX keyboard shortcut background application
 /// http://stackoverflow.com/a/34864422/458356
-
 private func hotkey(for event: EventRef) -> EventHotKeyID {
     let pointer: UnsafeMutablePointer<EventHotKeyID> = UnsafeMutablePointer.allocate(capacity: 1)
     GetEventParameter(event, EventParamName(kEventParamDirectObject), EventParamType(typeEventHotKeyID), nil, MemoryLayout<EventHotKeyID>.size, nil, pointer)
     return pointer.pointee
 }
-
-// MARK: -
 
 open class HotkeyObserver: AbstractObserver
 {
@@ -23,8 +20,6 @@ open class HotkeyObserver: AbstractObserver
     private typealias EventHandlerPointer = EventHandlerRef
     private typealias EventHotkeyHandler = (EventHotKeyID) -> ()
     private typealias EventHotkeyHandlerPointer = UnsafeMutablePointer<EventHotkeyHandler>
-
-    // MARK: -
 
     override public init() {
         super.init()
@@ -36,12 +31,8 @@ open class HotkeyObserver: AbstractObserver
         self.activate(active)
     }
 
-    // MARK: -
-
     private var eventHandlerPointer: EventHandlerPointer?
     private var eventHotkeyHandlerPointer: EventHotkeyHandlerPointer?
-
-    // MARK: -
 
     open internal(set) var definitions: [Handler.Definition] = []
 
@@ -65,8 +56,6 @@ open class HotkeyObserver: AbstractObserver
         return self
     }
 
-    // MARK: -
-
     override open var active: Bool {
         get { return super.active }
         set { self.activate(newValue) }
@@ -80,8 +69,6 @@ open class HotkeyObserver: AbstractObserver
     @discardableResult open func deactivate() -> Self {
         return self.activate(false)
     }
-
-    // MARK: -
 
     open private(set) var error: Swift.Error?
 
@@ -111,8 +98,6 @@ open class HotkeyObserver: AbstractObserver
 
         return self
     }
-
-    // MARK: -
 
     private func constructEventHandler() throws -> (EventHandlerPointer, EventHotkeyHandlerPointer) {
         var eventType: EventTypeSpec = EventTypeSpec(eventClass: OSType(kEventClassKeyboard), eventKind: UInt32(kEventHotKeyPressed))
@@ -162,8 +147,6 @@ extension HotkeyObserver
         return self
     }
 }
-
-// MARK: -
 
 extension HotkeyObserver
 {

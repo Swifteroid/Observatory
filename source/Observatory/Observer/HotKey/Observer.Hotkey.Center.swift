@@ -4,8 +4,6 @@ open class HotkeyCenter
 {
     open static let `default`: HotkeyCenter = HotkeyCenter()
 
-    // MARK: observers
-
     private var weakObservers: [Weak] = [] {
         didSet { try! self.update() }
     }
@@ -33,10 +31,7 @@ open class HotkeyCenter
         }
     }
 
-    // MARK: -
-
     /// Current hotkey recorder, normally is set and unset by the assigned value itself.
-
     open var recorder: HotkeyRecorder? = nil {
         didSet {
             if self.recorder === oldValue { return }
@@ -46,7 +41,6 @@ open class HotkeyCenter
 
     /// Hotkey command master registry is a single source of all hotkeys in the application and associated commands. Associated hotkeys
     /// are automatically observed and `CommandDidInvoke` notification gets posted when they get invoked.
-
     open private(set) var commands: [KeyboardHotkey: String] = [:]
 
     @discardableResult open func add(hotkey: KeyboardHotkey, command: String) throws -> Self {
@@ -62,8 +56,6 @@ open class HotkeyCenter
         self.commands.removeValue(forKey: hotkey)
         return self
     }
-
-    // MARK: -
 
     open func update() throws {
         for observer in self.observers {

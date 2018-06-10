@@ -3,8 +3,7 @@ import Foundation
 import Carbon
 
 /// - note: Earlier we used `viewWillDraw` callback to perform the update, but it doesn't always work in real life
-///         as expected, so we call it directly with internal optimisation. 
-
+///         as expected, so we call it directly with internal optimisation.
 open class HotkeyRecorderButton: NSButton, HotkeyRecorder
 {
 
@@ -44,11 +43,9 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
     }
 
     /// Successfully registered hotkey-command tuple.
-
     private var registration: (hotkey: KeyboardHotkey, command: String)?
 
-    /// Attempts to update registration to current command and hotkey. 
-
+    /// Attempts to update registration to current command and hotkey.
     private func register() {
         let oldHotkey: KeyboardHotkey? = self.registration?.hotkey
         let newHotkey: KeyboardHotkey? = self.hotkey
@@ -98,7 +95,6 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
     }
 
     /// Stores temporary modifier while hotkey is being recorded.
-
     private var modifier: KeyboardModifier? {
         didSet {
             if self.modifier == oldValue { return }
@@ -188,7 +184,6 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
     }
 
     /// Handles hotkey recording and returns true when any custom logic was invoked.
-
     override open func performKeyEquivalent(with event: NSEvent) -> Bool {
         guard self.isEnabled else {
             return false

@@ -18,10 +18,7 @@ extension HotkeyObserver
                 self.deactivate()
             }
 
-            // MARK: -
-
             /// Keeps global count track of unique ids used for hotkeys.
-
             private static var uniqueHotkeyId: UInt32 = 0
 
             private static func constructUniqueHotkeyIdentifier() -> UInt32 {
@@ -29,19 +26,13 @@ extension HotkeyObserver
                 return self.uniqueHotkeyId
             }
 
-            // MARK: -
-
             open let hotkey: KeyboardHotkey
             open let handler: Signature
-
-            // MARK: -
 
             open private(set) var hotkeyIdentifier: EventHotKeyID!
             open private(set) var hotkeyReference: EventHotKeyRef!
             open private(set) var eventHandler: EventHandlerRef!
             open private(set) var error: Swift.Error?
-
-            // MARK: -
 
             open private(set) var active: Bool = false
 
@@ -54,8 +45,6 @@ extension HotkeyObserver
                 return self.activate(false)
             }
 
-            // MARK: -
-
             open private(set) var ignored: Bool = false
 
             @discardableResult open func ignore(_ newValue: Bool = true) -> Self {
@@ -66,8 +55,6 @@ extension HotkeyObserver
             @discardableResult open func unignore() -> Self {
                 return self.ignore(false)
             }
-
-            // MARK: -
 
             @discardableResult private func update(active: Bool, ignored: Bool) -> Self {
                 let newActive: Bool = active && !ignored
@@ -89,8 +76,6 @@ extension HotkeyObserver
 
                 return self
             }
-
-            // MARK: -
 
             private func registerEventHotkey() throws {
 
@@ -121,7 +106,6 @@ extension HotkeyObserver
         }
     }
 }
-// MARK: -
 
 extension HotkeyObserver.Handler.Definition
 {

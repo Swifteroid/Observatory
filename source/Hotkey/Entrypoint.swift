@@ -12,11 +12,7 @@ open class ViewController: NSViewController
     @IBOutlet private weak var buttonBaz: HotkeyRecorderButton!
     @IBOutlet private weak var buttonQux: HotkeyRecorderButton!
 
-    // MARK: intercom
-
     private lazy var hotkeyCommandObserver: NotificationObserver = NotificationObserver(active: true)
-
-    // MARK: -
 
     override open func viewDidLoad() {
         self.buttonFoo.hotkey = KeyboardHotkey(key: .one, modifier: [.commandKey, .shiftKey])

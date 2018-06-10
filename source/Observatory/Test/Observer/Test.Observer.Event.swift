@@ -6,7 +6,6 @@ import XCTest
 /// Wow, this turned out to be a serious pain in the ass – testing events is not a joke… Doing it properly requires running 
 /// a loop, as far as I understand there's no way testing global event dispatch, because, quoting, handler will not be called
 /// for events that are sent to your own application. Instead, we check that observers sets everything up correctly.
-
 internal class EventObserverTestCase: XCTestCase
 {
     internal func testAppKit() {

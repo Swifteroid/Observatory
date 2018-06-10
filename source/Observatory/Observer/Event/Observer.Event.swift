@@ -3,15 +3,12 @@ import CoreGraphics
 
 /// Event observer provides a flexible interface for registering and managing multiple event handlers in, both, global
 /// and local contexts.
-
 open class EventObserver: AbstractObserver
 {
     public convenience init(active: Bool) {
         self.init()
         self.activate(active)
     }
-
-    // MARK: -
 
     open internal(set) var appKitDefinitions: [Handler.AppKit.Definition] = []
     open internal(set) var carbonDefinitions: [Handler.Carbon.Definition] = []
@@ -56,8 +53,6 @@ open class EventObserver: AbstractObserver
         return self
     }
 
-    // MARK: -
-
     override open var active: Bool {
         get { return super.active }
         set { self.activate(newValue) }
@@ -80,8 +75,7 @@ open class EventObserver: AbstractObserver
     }
 }
 
-// MARK: - NSEvent
-
+// NSEvent
 extension EventObserver
 {
     @discardableResult open func add(mask: NSEvent.EventTypeMask, local: ((NSEvent) -> NSEvent?)?, global: ((NSEvent) -> ())?) -> Self {
@@ -149,8 +143,7 @@ extension EventObserver
     }
 }
 
-// MARK: - CGEvent
-
+/// CGEvent
 extension EventObserver
 {
 
@@ -180,8 +173,7 @@ extension EventObserver
     }
 }
 
-// MARK: - CGEvent with NSEvent.EventTypeMask
-
+/// CGEvent with NSEvent.EventTypeMask
 extension EventObserver
 {
     @discardableResult open func add(mask: NSEvent.EventTypeMask, location: CGEventTapLocation?, placement: CGEventTapPlacement? = nil, options: CGEventTapOptions? = nil, handler: @escaping (CGEvent) -> CGEvent?) -> Self {

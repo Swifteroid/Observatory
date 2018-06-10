@@ -2,7 +2,6 @@ import AppKit.NSEvent
 import Carbon
 
 /// Check source for comments, some keys are not available on Mac OS X.
-
 public struct KeyboardModifier: RawRepresentable, OptionSet
 {
     public init(rawValue: Int) { self.rawValue = rawValue }
@@ -30,16 +29,12 @@ public struct KeyboardModifier: RawRepresentable, OptionSet
 
     public let rawValue: Int
 
-    // MARK: -
-
     public static let none: KeyboardModifier = .init(0)
     public static let capsLockKey: KeyboardModifier = .init(Carbon.alphaLock)
     public static let commandKey: KeyboardModifier = .init(Carbon.cmdKey)
     public static let controlKey: KeyboardModifier = .init(Carbon.controlKey)
     public static let optionKey: KeyboardModifier = .init(Carbon.optionKey)
     public static let shiftKey: KeyboardModifier = .init(Carbon.shiftKey)
-
-    // MARK: -
 
     public var name: String? {
         var string: String = ""

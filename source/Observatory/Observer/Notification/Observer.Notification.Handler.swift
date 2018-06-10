@@ -19,19 +19,13 @@ extension NotificationObserver
                 self.deactivate()
             }
 
-            // MARK: -
-
             open let name: Notification.Name
             open private(set) weak var observee: AnyObject?
             open let queue: OperationQueue?
             open let handler: Signature
 
-            // MARK: -
-
             open private(set) var monitor: AnyObject?
             open private(set) var center: NotificationCenter?
-
-            // MARK: -
 
             open private(set) var active: Bool = false
 

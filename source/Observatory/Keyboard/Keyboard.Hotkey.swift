@@ -24,8 +24,6 @@ public struct KeyboardHotkey: RawRepresentable
         }
     }
 
-    // MARK: -
-
     public var key: KeyboardKey
     public var modifier: KeyboardModifier
     public var rawValue: Int { return self.modifier.rawValue << 16 | self.key.rawValue }
