@@ -70,6 +70,8 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
             } catch {
                 self.registration = nil
             }
+        } else {
+            self.registration = nil
         }
     }
 
