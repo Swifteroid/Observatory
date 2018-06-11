@@ -63,6 +63,60 @@ extension EventObserver.Handler
     }
 }
 
+/// Convenience initializers.
+extension EventObserver.Handler.AppKit.Definition
+{
+
+    /// Initialize with local + global handler.
+    public convenience init(mask: NSEvent.EventTypeMask, local: ((NSEvent) -> NSEvent?)?, global: ((NSEvent) -> ())?) {
+        self.init(mask: mask, handler: (global: global, local: local))
+    }
+
+    /// Initialize with local + global handler with manual local event forwarding.
+    public convenience init(mask: NSEvent.EventTypeMask, handler: @escaping (NSEvent) -> NSEvent?) {
+        self.init(mask: mask, local: handler, global: { _ = handler($0) })
+    }
+
+    /// Initialize with local + global handler with custom local event forwarding.
+    /// - parameter forward: Specifies whether to forward the event or not, default is `true`.
+    public convenience init(mask: NSEvent.EventTypeMask, handler: @escaping (NSEvent) -> (), forward: Bool = true) {
+        /*@formatter:off*/ self.init(mask: mask, local: { handler($0); return forward ? $0 : nil }, global: handler) /*@formatter:on*/
+    }
+
+    /// Initialize with local + global handler with custom local event forwarding.
+    /// - parameter forward: Specifies whether to forward the event or not, default is `true`.
+    public convenience init(mask: NSEvent.EventTypeMask, handler: @escaping () -> (), forward: Bool = true) {
+        /*@formatter:off*/ self.init(mask: mask, local: { handler(); return forward ? $0 : nil }, global: { _ in handler() }) /*@formatter:on*/
+    }
+
+    /// Initialize with local handler with manual event forwarding.
+    public convenience init(mask: NSEvent.EventTypeMask, local: @escaping (NSEvent) -> NSEvent?) {
+        self.init(mask: mask, local: local, global: nil)
+    }
+
+    /// Initialize with local handler with custom local event forwarding.
+    /// - parameter forward: Specifies whether to forward the event or not, default is `true`.
+    public convenience init(mask: NSEvent.EventTypeMask, local: @escaping (NSEvent) -> (), forward: Bool = true) {
+        /*@formatter:off*/ self.init(mask: mask, local: { local($0); return forward ? $0 : nil }, global: nil) /*@formatter:on*/
+    }
+
+    /// Initialize with local handler with custom local event forwarding.
+    /// - parameter forward: Specifies whether to forward the event or not, default is `true`.
+    public convenience init(mask: NSEvent.EventTypeMask, local: @escaping () -> (), forward: Bool = true) {
+        /*@formatter:off*/ self.init(mask: mask, local: { local(); return forward ? $0 : nil }, global: nil) /*@formatter:on*/
+    }
+
+    /// Initialize with global handler.
+    public convenience init(mask: NSEvent.EventTypeMask, global: @escaping (NSEvent) -> ()) {
+        self.init(mask: mask, local: nil, global: global)
+    }
+
+    /// Initialize with global handler.
+    public convenience init(mask: NSEvent.EventTypeMask, global: @escaping () -> ()) {
+        self.init(mask: mask, local: nil, global: { _ in global() })
+    }
+}
+
 extension EventObserver.Handler
 {
     public struct Carbon
@@ -140,5 +194,40 @@ extension EventObserver.Handler
                 return self.activate(false)
             }
         }
+    }
+}
+
+/// Convenience initializers.
+extension EventObserver.Handler.Carbon.Definition
+{
+
+    /// Initialize with manual event forwarding.
+    public convenience init?(mask: CGEventMask, location: CGEventTapLocation? = nil, placement: CGEventTapPlacement? = nil, options: CGEventTapOptions? = nil, handler: @escaping (CGEvent) -> CGEvent?) {
+        self.init(mask: mask, location: location ?? .cgSessionEventTap, placement: placement ?? .headInsertEventTap, options: options ?? .defaultTap, handler: handler)
+    }
+
+    /// Initialize with automatic event forwarding.
+    public convenience init?(mask: CGEventMask, location: CGEventTapLocation? = nil, placement: CGEventTapPlacement? = nil, options: CGEventTapOptions? = nil, handler: @escaping (CGEvent) -> ()) {
+        /*@formatter:off*/ self.init(mask: mask, location: location, placement: placement, options: options, handler: { handler($0); return $0 } as EventObserver.Handler.Carbon.Signature) /*@formatter:on*/
+    }
+
+    /// Initialize with automatic event forwarding.
+    public convenience init?(mask: CGEventMask, location: CGEventTapLocation? = nil, placement: CGEventTapPlacement? = nil, options: CGEventTapOptions? = nil, handler: @escaping () -> ()) {
+        /*@formatter:off*/ self.init(mask: mask, location: location, placement: placement, options: options, handler: { handler(); return $0 } as EventObserver.Handler.Carbon.Signature) /*@formatter:on*/
+    }
+
+    /// Initialize with manual event forwarding.
+    public convenience init?(mask: NSEvent.EventTypeMask, location: CGEventTapLocation?, placement: CGEventTapPlacement? = nil, options: CGEventTapOptions? = nil, handler: @escaping (CGEvent) -> CGEvent?) {
+        self.init(mask: mask.rawValue, location: location, placement: placement, options: options, handler: handler)
+    }
+
+    /// Initialize with automatic event forwarding.
+    public convenience init?(mask: NSEvent.EventTypeMask, location: CGEventTapLocation?, placement: CGEventTapPlacement? = nil, options: CGEventTapOptions? = nil, handler: @escaping (CGEvent) -> ()) {
+        self.init(mask: mask.rawValue, location: location, placement: placement, options: options, handler: handler)
+    }
+
+    /// Initialize with automatic event forwarding.
+    public convenience init?(mask: NSEvent.EventTypeMask, location: CGEventTapLocation?, placement: CGEventTapPlacement? = nil, options: CGEventTapOptions? = nil, handler: @escaping () -> ()) {
+        self.init(mask: mask.rawValue, location: location, placement: placement, options: options, handler: handler)
     }
 }

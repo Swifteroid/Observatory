@@ -9,13 +9,13 @@ extension HotkeyObserver
 
         open class Definition: ObserverHandlerDefinition
         {
+            deinit {
+                self.deactivate()
+            }
+
             public init(hotkey: KeyboardHotkey, handler: @escaping Signature) {
                 self.hotkey = hotkey
                 self.handler = handler
-            }
-
-            deinit {
-                self.deactivate()
             }
 
             /// Keeps global count track of unique ids used for hotkeys.
@@ -104,6 +104,14 @@ extension HotkeyObserver
                 self.hotkeyReference = nil
             }
         }
+    }
+}
+
+/// Convenience initializers.
+extension HotkeyObserver.Handler.Definition
+{
+    public convenience init(hotkey: KeyboardHotkey, handler: @escaping () -> ()) {
+        self.init(hotkey: hotkey, handler: { _ in handler() })
     }
 }
 

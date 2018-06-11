@@ -139,7 +139,7 @@ open class HotkeyObserver: AbstractObserver
 extension HotkeyObserver
 {
     @discardableResult open func add(hotkey: KeyboardHotkey, handler: @escaping () -> ()) -> Self {
-        return self.add(definition: Handler.Definition(hotkey: hotkey, handler: { _ in handler() }))
+        return self.add(definition: Handler.Definition(hotkey: hotkey, handler: handler))
     }
 
     @discardableResult open func add(hotkey: KeyboardHotkey, handler: @escaping (KeyboardHotkey) -> ()) -> Self {
@@ -147,8 +147,7 @@ extension HotkeyObserver
     }
 
     @discardableResult open func remove(hotkey: KeyboardHotkey) -> Self {
-        self.definitions.filter({ $0.hotkey == hotkey }).forEach({ _ = self.remove(definition: $0) })
-        return self
+        return self.remove(definitions: self.definitions.filter({ $0.hotkey == hotkey }))
     }
 }
 

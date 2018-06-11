@@ -8,15 +8,15 @@ extension NotificationObserver
 
         open class Definition: ObserverHandlerDefinition
         {
+            deinit {
+                self.deactivate()
+            }
+
             init(name: Notification.Name, observee: AnyObject?, queue: OperationQueue?, handler: @escaping Signature) {
                 self.name = name
                 self.observee = observee
                 self.queue = queue
                 self.handler = handler
-            }
-
-            deinit {
-                self.deactivate()
             }
 
             open let name: Notification.Name
@@ -50,5 +50,13 @@ extension NotificationObserver
                 return self.activate(false)
             }
         }
+    }
+}
+
+/// Convenience initializers.
+extension NotificationObserver.Handler.Definition
+{
+    public convenience init(name: Notification.Name, observee: AnyObject? = nil, queue: OperationQueue? = nil, handler: @escaping () -> ()) {
+        self.init(name: name, observee: observee, queue: queue, handler: { _ in handler() })
     }
 }

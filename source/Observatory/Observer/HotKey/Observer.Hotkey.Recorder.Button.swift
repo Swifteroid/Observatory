@@ -60,10 +60,10 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
             HotkeyCenter.default.remove(hotkey: oldHotkey)
         }
 
+        // Todo: it would be good to return some status, but because definitions might not fail immediately this is a non-trivial job. Leaving it
+        // todo: as a reminder in case this ever proves to be a problem…
+
         if let newHotkey: KeyboardHotkey = newHotkey, let newCommand: HotkeyCommand = newCommand {
-
-            // Todo: this should create definition directly, check if it failed to register and provide some feedback even if just a bool.
-
             HotkeyCenter.default.add(hotkey: newHotkey, command: newCommand)
             self.registration = (newHotkey, newCommand)
         } else {

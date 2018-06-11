@@ -54,24 +54,27 @@ open class NotificationObserver: AbstractObserver
 extension NotificationObserver
 {
     @discardableResult open func add(name: Notification.Name, observee: AnyObject? = nil, queue: OperationQueue? = nil, handler: @escaping () -> ()) -> Self {
-        return self.add(definition: Handler.Definition(name: name, observee: observee, queue: queue, handler: { _ in handler() }))
+        return self.add(definition: .init(name: name, observee: observee, queue: queue, handler: handler))
     }
 
     @discardableResult open func add(name: Notification.Name, observee: AnyObject? = nil, queue: OperationQueue? = nil, handler: @escaping (Notification) -> ()) -> Self {
-        return self.add(definition: Handler.Definition(name: name, observee: observee, queue: queue, handler: handler))
+        return self.add(definition: .init(name: name, observee: observee, queue: queue, handler: handler))
     }
 
     @discardableResult open func add(names: [Notification.Name], observee: AnyObject? = nil, queue: OperationQueue? = nil, handler: @escaping () -> ()) -> Self {
-        return self.add(names: names, observee: observee, queue: queue, handler: { _ in handler() })
+        return self.add(definitions: names.map({ .init(name: $0, observee: observee, queue: queue, handler: handler) }))
     }
 
     @discardableResult open func add(names: [Notification.Name], observee: AnyObject? = nil, queue: OperationQueue? = nil, handler: @escaping (Notification) -> ()) -> Self {
-        names.forEach({ _ = self.add(name: $0, observee: observee, queue: queue, handler: handler) })
-        return self
+        return self.add(definitions: names.map({ .init(name: $0, observee: observee, queue: queue, handler: handler) }))
     }
 
     @discardableResult open func remove(name: Notification.Name? = nil, observee: AnyObject? = nil, queue: OperationQueue? = nil) -> Self {
-        self.definitions.filter({ (name != nil || observee != nil || queue != nil) && (name == nil || $0.name == name) && (observee == nil || $0.observee === observee) && (queue == nil || $0.queue == queue) }).forEach({ _ = self.remove(definition: $0) })
-        return self
+        return self.remove(definitions: self.definitions.filter({
+            (name != nil || observee != nil || queue != nil)
+                && (name == nil || $0.name == name)
+                && (observee == nil || $0.observee === observee)
+                && (queue == nil || $0.queue == queue)
+        }))
     }
 }
