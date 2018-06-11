@@ -20,6 +20,20 @@
                ReferencedContainer = "container:Observatory.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "087EE7911E1C1FF500093E0E"
+               BuildableName = "Demo - Hotkey Recorder.app"
+               BlueprintName = "Demo - Hotkey Recorder"
+               ReferencedContainer = "container:Observatory.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -39,6 +53,15 @@
             </BuildableReference>
          </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "E69200F21CDDE19100C4FEAD"
+            BuildableName = "Observatory - Test.xctest"
+            BlueprintName = "Observatory - Test"
+            ReferencedContainer = "container:Observatory.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -70,6 +93,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "E69200F21CDDE19100C4FEAD"
+            BuildableName = "Observatory - Test.xctest"
+            BlueprintName = "Observatory - Test"
+            ReferencedContainer = "container:Observatory.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

@@ -1,6 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Hotkey" type="AppleRunConfiguration" factoryName="Application" singleton="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Observatory" TARGET_NAME="Hotkey" CONFIG_NAME="Debug" SCHEME_NAME="Hotkey" RUN_TARGET_PROJECT_NAME="Observatory" RUN_TARGET_NAME="Hotkey" MAKE_ACTIVE="TRUE">
-    <envs />
-    <method />
-  </configuration>
-</component>

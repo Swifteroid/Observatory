@@ -24,22 +24,22 @@
             buildForTesting = "YES"
             buildForRunning = "YES"
             buildForProfiling = "YES"
-            buildForArchiving = "YES"
+            buildForArchiving = "NO"
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "087EE7911E1C1FF500093E0E"
-               BuildableName = "Hotkey.app"
-               BlueprintName = "Hotkey"
+               BuildableName = "Demo - Hotkey Recorder.app"
+               BlueprintName = "Demo - Hotkey Recorder"
                ReferencedContainer = "container:Observatory.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
             buildForTesting = "YES"
             buildForRunning = "YES"
-            buildForProfiling = "NO"
+            buildForProfiling = "YES"
             buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
+            buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E69200F21CDDE19100C4FEAD"
