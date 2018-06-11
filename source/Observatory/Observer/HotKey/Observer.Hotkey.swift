@@ -21,6 +21,10 @@ open class HotkeyObserver: AbstractObserver
     private typealias EventHotkeyHandler = (EventHotKeyID) -> ()
     private typealias EventHotkeyHandlerPointer = UnsafeMutablePointer<EventHotkeyHandler>
 
+    deinit {
+        HotkeyCenter.default.unregister(observer: self)
+    }
+
     override public init() {
         super.init()
         HotkeyCenter.default.register(observer: self)

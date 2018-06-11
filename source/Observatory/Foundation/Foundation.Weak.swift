@@ -1,10 +1,8 @@
 import Foundation
 
-open class Weak
+/// Weak wrapper around the object.
+internal class Weak
 {
-    open weak var value: AnyObject!
-
-    public init(value: AnyObject) {
-        self.value = value
-    }
+    internal init(value: AnyObject) { self.value = value }
+    internal weak var value: AnyObject?
 }

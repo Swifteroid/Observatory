@@ -12,7 +12,7 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
     open var hotkey: KeyboardHotkey? {
         willSet {
             if self.hotkey == newValue { return }
-            NotificationCenter.default.post(name: type(of: self).hotkeyWillChangeNotification, object: self)
+            NotificationCenter.default.post(name: HotkeyRecorderButton.hotkeyWillChangeNotification, object: self)
         }
         didSet {
             if self.hotkey == oldValue { return }
@@ -29,11 +29,11 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
                 self.update()
             }
 
-            NotificationCenter.default.post(name: type(of: self).hotkeyDidChangeNotification, object: self)
+            NotificationCenter.default.post(name: HotkeyRecorderButton.hotkeyDidChangeNotification, object: self)
         }
     }
 
-    @IBInspectable open var command: String? {
+    open var command: HotkeyCommand? {
         didSet {
             if self.command == oldValue { return }
 
@@ -43,14 +43,14 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
     }
 
     /// Successfully registered hotkey-command tuple.
-    private var registration: (hotkey: KeyboardHotkey, command: String)?
+    private var registration: (hotkey: KeyboardHotkey, command: HotkeyCommand)?
 
     /// Attempts to update registration to current command and hotkey.
     private func register() {
         let oldHotkey: KeyboardHotkey? = self.registration?.hotkey
         let newHotkey: KeyboardHotkey? = self.hotkey
-        let oldCommand: String? = self.registration?.command
-        let newCommand: String? = self.command
+        let oldCommand: HotkeyCommand? = self.registration?.command
+        let newCommand: HotkeyCommand? = self.command
 
         if newHotkey == oldHotkey && newCommand == oldCommand {
             return
@@ -60,7 +60,7 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
             HotkeyCenter.default.remove(hotkey: oldHotkey)
         }
 
-        if let newHotkey: KeyboardHotkey = newHotkey, let newCommand: String = newCommand {
+        if let newHotkey: KeyboardHotkey = newHotkey, let newCommand: HotkeyCommand = newCommand {
 
             // Todo: this should create definition directly, check if it failed to register and provide some feedback even if just a bool.
 
@@ -193,7 +193,7 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
         if KeyboardKey(event) == KeyboardKey.delete && self.modifier == nil && self.hotkey != nil {
             self.hotkey = nil
             self.recording = false
-            NotificationCenter.default.post(name: type(of: self).hotkeyDidRecordNotification, object: self)
+            NotificationCenter.default.post(name: HotkeyRecorderButton.hotkeyDidRecordNotification, object: self)
             return true
         }
 
@@ -223,7 +223,7 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
             } else {
                 self.hotkey = hotkey
                 self.recording = false
-                NotificationCenter.default.post(name: type(of: self).hotkeyDidRecordNotification, object: self)
+                NotificationCenter.default.post(name: HotkeyRecorderButton.hotkeyDidRecordNotification, object: self)
             }
         } else {
             NSSound.beep()
