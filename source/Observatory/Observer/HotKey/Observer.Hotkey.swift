@@ -2,7 +2,7 @@ import Foundation
 import Carbon
 
 /// Useful resources on how to implement shortcuts and work with carbon events.
-/// 
+///
 /// https://github.com/nathan/hush/blob/master/Hush/HotKey.swift
 /// http://dbachrach.com/blog/2005/11/program-global-hotkeys-in-cocoa-easily/
 /// http://stackoverflow.com/a/401244/458356 – How to Capture / Post system-wide Keyboard / Mouse events under Mac OS X?

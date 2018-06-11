@@ -57,16 +57,15 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
         }
 
         if let oldHotkey: KeyboardHotkey = oldHotkey, HotkeyCenter.default.commands[oldHotkey] == self.command {
-            try! HotkeyCenter.default.remove(hotkey: oldHotkey)
+            HotkeyCenter.default.remove(hotkey: oldHotkey)
         }
 
         if let newHotkey: KeyboardHotkey = newHotkey, let newCommand: String = newCommand {
-            do {
-                try HotkeyCenter.default.add(hotkey: newHotkey, command: newCommand)
-                self.registration = (newHotkey, newCommand)
-            } catch {
-                self.registration = nil
-            }
+
+            // Todo: this should create definition directly, check if it failed to register and provide some feedback even if just a bool.
+
+            HotkeyCenter.default.add(hotkey: newHotkey, command: newCommand)
+            self.registration = (newHotkey, newCommand)
         } else {
             self.registration = nil
         }

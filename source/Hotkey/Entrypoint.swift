@@ -20,13 +20,13 @@ open class ViewController: NSViewController
         self.buttonBaz.hotkey = KeyboardHotkey(key: .three, modifier: [.commandKey, .shiftKey])
         self.buttonQux.hotkey = KeyboardHotkey(key: .four, modifier: [.commandKey, .shiftKey])
 
-        hotkeyCommandObserver.add(name: HotkeyCenter.Notification.CommandDidInvoke, observee: HotkeyCenter.default, handler: { [weak self] in self?.handleHotkeyCommandNotification(notification: $0) })
+        hotkeyCommandObserver.add(name: HotkeyCenter.commandDidInvokeNotification, observee: HotkeyCenter.default, handler: { [weak self] in self?.handleHotkeyCommandNotification(notification: $0) })
     }
 
     private func handleHotkeyCommandNotification(notification: Notification) {
-        let info: [String: AnyObject] = notification.userInfo as! [String: AnyObject]
-        let command: String = info[HotkeyCenter.NotificationUserInfo.Command] as! String
-        let hotkey: KeyboardHotkey = KeyboardHotkey(info[HotkeyCenter.NotificationUserInfo.Hotkey] as! Int)
+        let info: [String: Any] = notification.userInfo as! [String: Any]
+        let command: String = info[HotkeyCenter.commandUserInfo] as! String
+        let hotkey: KeyboardHotkey = info[HotkeyCenter.hotkeyUserInfo] as! KeyboardHotkey
         Swift.print(command, hotkey)
     }
 }

@@ -5,7 +5,7 @@ open class HotkeyCenter
     open static let `default`: HotkeyCenter = HotkeyCenter()
 
     private var weakObservers: [Weak] = [] {
-        didSet { try! self.update() }
+        didSet { self.update() }
     }
 
     private var observers: [HotkeyObserver] {
@@ -27,7 +27,7 @@ open class HotkeyCenter
 
     private func handle(hotkey: KeyboardHotkey) {
         if let command: String = self.commands[hotkey] {
-            NotificationCenter.default.post(name: Notification.CommandDidInvoke, object: self, userInfo: [NotificationUserInfo.Command: command, NotificationUserInfo.Hotkey: hotkey.rawValue])
+            NotificationCenter.default.post(name: HotkeyCenter.commandDidInvokeNotification, object: self, userInfo: [HotkeyCenter.commandUserInfo: command, HotkeyCenter.hotkeyUserInfo: hotkey])
         }
     }
 
@@ -35,7 +35,7 @@ open class HotkeyCenter
     open var recorder: HotkeyRecorder? = nil {
         didSet {
             if self.recorder === oldValue { return }
-            try! self.update()
+            self.update()
         }
     }
 
@@ -43,21 +43,21 @@ open class HotkeyCenter
     /// are automatically observed and `CommandDidInvoke` notification gets posted when they get invoked.
     open private(set) var commands: [KeyboardHotkey: String] = [:]
 
-    @discardableResult open func add(hotkey: KeyboardHotkey, command: String) throws -> Self {
+    @discardableResult open func add(hotkey: KeyboardHotkey, command: String) -> Self {
         if self.commands[hotkey] == command { return self }
         if self.commands[hotkey] == nil { self.hotkeyObserver.add(hotkey: hotkey, handler: { [weak self] in self?.handle(hotkey: $0) }) }
         self.commands[hotkey] = command
         return self
     }
 
-    @discardableResult open func remove(hotkey: KeyboardHotkey) throws -> Self {
+    @discardableResult open func remove(hotkey: KeyboardHotkey) -> Self {
         if self.commands[hotkey] == nil { return self }
         self.hotkeyObserver.remove(hotkey: hotkey)
         self.commands.removeValue(forKey: hotkey)
         return self
     }
 
-    open func update() throws {
+    open func update() {
         for observer in self.observers {
             for definition in observer.definitions {
                 definition.ignore(self.recorder != nil)
@@ -68,14 +68,13 @@ open class HotkeyCenter
 
 extension HotkeyCenter
 {
-    public struct Notification
-    {
-        public static let CommandDidInvoke: Foundation.Notification.Name = Foundation.Notification.Name("HotkeyCenterCommandDidInvokeNotification")
-    }
 
-    public struct NotificationUserInfo
-    {
-        public static let Hotkey: String = "hotkey"
-        public static let Command: String = "command"
-    }
+    /// Notification name posted when a registered hotkey invokes associated command. Includes user info with hotkey and command details.
+    public static let commandDidInvokeNotification: Notification.Name = .init("\(HotkeyCenter.self)CommandDidInvokeNotification")
+
+    /// Hotkey user info key name associated with `KeyboardHotkey` value provided with `commandDidInvokeNotification` notification.
+    public static let hotkeyUserInfo: String = "hotkey"
+
+    /// Command user info key name associated with command value provided with `commandDidInvokeNotification` notification.
+    public static let commandUserInfo: String = "command"
 }

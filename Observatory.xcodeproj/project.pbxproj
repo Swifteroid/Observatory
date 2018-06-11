@@ -12,6 +12,7 @@
 		17FD012B602860A1D459E05A /* Observer.Hotkey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0C0324E5560F5F80CA45 /* Observer.Hotkey.swift */; };
 		17FD0156D1758DD5200998BE /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD078E512F21A8ECE8F335 /* Test.swift */; };
 		17FD0162D167D444D8E5ED9A /* Entrypoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD08D461EB26AE885B82AC /* Entrypoint.swift */; };
+		17FD01726959797D8FD95CC0 /* Test.Observer.Center.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD05BA1A9CA829517CF9E5 /* Test.Observer.Center.swift */; };
 		17FD01BE2C8AF0115AE9DF8E /* Test.Observer.Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0549D3EA10134DC784A3 /* Test.Observer.Notification.swift */; };
 		17FD01D475A336AA93EC9F2F /* Keyboard.Modifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0A7C14DC5A257B15375D /* Keyboard.Modifier.swift */; };
 		17FD028A9B91583E857EF5EF /* Test.Observer.Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD08E9489864D454E503B4 /* Test.Observer.Event.swift */; };
@@ -69,6 +70,7 @@
 		17FD049B29A650BABBC10CC6 /* test.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = test.plist; sourceTree = "<group>"; };
 		17FD04EB71CD7024929F934F /* Test.Keyboard.Key.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Keyboard.Key.swift; sourceTree = "<group>"; };
 		17FD0549D3EA10134DC784A3 /* Test.Observer.Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Observer.Notification.swift; sourceTree = "<group>"; };
+		17FD05BA1A9CA829517CF9E5 /* Test.Observer.Center.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Observer.Center.swift; sourceTree = "<group>"; };
 		17FD078E512F21A8ECE8F335 /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		17FD08C9C8536FA561C0E4C5 /* Test.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Test.xcconfig; sourceTree = "<group>"; };
 		17FD08D461EB26AE885B82AC /* Entrypoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entrypoint.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 				17FD0549D3EA10134DC784A3 /* Test.Observer.Notification.swift */,
 				17FD08E9489864D454E503B4 /* Test.Observer.Event.swift */,
 				17FD0AE28489C20294DE5E48 /* Test.Observer.Hotkey.swift */,
+				17FD05BA1A9CA829517CF9E5 /* Test.Observer.Center.swift */,
 			);
 			path = Observer;
 			sourceTree = "<group>";
@@ -493,6 +496,7 @@
 				17FD00154E7DD4027591C5D2 /* Testing.Observation.swift in Sources */,
 				17FD057B880D845188EA2DC8 /* Testing.Event.swift in Sources */,
 				17FD0156D1758DD5200998BE /* Test.swift in Sources */,
+				17FD01726959797D8FD95CC0 /* Test.Observer.Center.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
