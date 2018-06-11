@@ -15,7 +15,7 @@ open class NotificationObserver: AbstractObserver
     open private(set) var definitions: [Handler.Definition] = []
 
     @discardableResult open func add(definition: Handler.Definition) -> Self {
-        self.definitions.append(definition.activate(self.active))
+        self.definitions.append(definition.activate(self.isActive))
         return self
     }
 
@@ -34,15 +34,15 @@ open class NotificationObserver: AbstractObserver
         return self
     }
 
-    override open var active: Bool {
-        get { return super.active }
+    override open var isActive: Bool {
+        get { return super.isActive }
         set { self.activate(newValue) }
     }
 
     @discardableResult open func activate(_ newValue: Bool = true) -> Self {
-        if newValue == self.active { return self }
+        if newValue == self.isActive { return self }
         for definition in self.definitions { definition.activate(newValue, center: self.center) }
-        super.active = newValue
+        super.isActive = newValue
         return self
     }
 

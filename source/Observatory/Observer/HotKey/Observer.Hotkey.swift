@@ -41,7 +41,7 @@ open class HotkeyObserver: AbstractObserver
     open internal(set) var definitions: [Handler.Definition] = []
 
     @discardableResult open func add(definition: Handler.Definition) -> Self {
-        self.definitions.append(definition.activate(self.active))
+        self.definitions.append(definition.activate(self.isActive))
         return self
     }
 
@@ -60,13 +60,13 @@ open class HotkeyObserver: AbstractObserver
         return self
     }
 
-    override open var active: Bool {
-        get { return super.active }
+    override open var isActive: Bool {
+        get { return super.isActive }
         set { self.activate(newValue) }
     }
 
     @discardableResult open func activate(_ newValue: Bool = true) -> Self {
-        if newValue == self.active { return self }
+        if newValue == self.isActive { return self }
         return self.update(active: newValue)
     }
 
@@ -95,7 +95,7 @@ open class HotkeyObserver: AbstractObserver
             }
 
             self.error = nil
-            super.active = active
+            super.isActive = active
         } catch {
             self.error = error
         }

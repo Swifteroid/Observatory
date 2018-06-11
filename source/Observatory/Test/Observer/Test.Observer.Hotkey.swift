@@ -16,7 +16,7 @@ internal class HotkeyObserverSpec: Spec
             var foo: Int = 0
             var bar: Int = 0
 
-            expect(observer.active) == true
+            expect(observer.isActive) == true
 
             observer.add(hotkey: KeyboardHotkey(key: .five, modifier: [.commandKey, .shiftKey])) { foo += 1 }
             observer.add(hotkey: KeyboardHotkey(key: .six, modifier: [.commandKey, .shiftKey])) { bar += 1 }
@@ -30,7 +30,7 @@ internal class HotkeyObserverSpec: Spec
             // Deactivated observer must not catch anything.
 
             observer.deactivate()
-            expect(observer.active) == false
+            expect(observer.isActive) == false
 
             self.postHotkeyEvent(key: fooKey, flag: modifier)
             self.postHotkeyEvent(key: barKey, flag: modifier)
@@ -41,7 +41,7 @@ internal class HotkeyObserverSpec: Spec
             // Reactivated observer must work…
 
             observer.activate()
-            expect(observer.active) == true
+            expect(observer.isActive) == true
 
             self.postHotkeyEvent(key: fooKey, flag: modifier)
             self.postHotkeyEvent(key: barKey, flag: modifier)

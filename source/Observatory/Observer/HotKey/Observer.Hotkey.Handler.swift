@@ -34,22 +34,22 @@ extension HotkeyObserver
             open private(set) var eventHandler: EventHandlerRef!
             open private(set) var error: Swift.Error?
 
-            open private(set) var active: Bool = false
+            open private(set) var isActive: Bool = false
 
             @discardableResult open func activate(_ newValue: Bool = true) -> Self {
-                if newValue == self.active { return self }
-                return self.update(active: newValue, ignored: self.ignored)
+                if newValue == self.isActive { return self }
+                return self.update(active: newValue, ignored: self.isIgnored)
             }
 
             @discardableResult open func deactivate() -> Self {
                 return self.activate(false)
             }
 
-            open private(set) var ignored: Bool = false
+            open private(set) var isIgnored: Bool = false
 
             @discardableResult open func ignore(_ newValue: Bool = true) -> Self {
-                if newValue == self.ignored { return self }
-                return self.update(active: self.active, ignored: newValue)
+                if newValue == self.isIgnored { return self }
+                return self.update(active: self.isActive, ignored: newValue)
             }
 
             @discardableResult open func unignore() -> Self {
@@ -68,8 +68,8 @@ extension HotkeyObserver
                     }
 
                     self.error = nil
-                    self.active = active
-                    self.ignored = ignored
+                    self.isActive = active
+                    self.isIgnored = ignored
                 } catch {
                     self.error = error
                 }

@@ -23,8 +23,8 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
 
             // Wtf??? See class notes…
 
-            if self.recording != false {
-                self.recording = false
+            if self.isRecording != false {
+                self.isRecording = false
             } else {
                 self.update()
             }
@@ -71,9 +71,9 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
         }
     }
 
-    open var recording: Bool = false {
+    open var isRecording: Bool = false {
         didSet {
-            if self.recording == oldValue { return }
+            if self.isRecording == oldValue { return }
 
             // Wtf??? See class notes…
 
@@ -85,7 +85,7 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
 
             // Let hotkey center know that current recorder changed.
 
-            if self.recording {
+            if self.isRecording {
                 HotkeyCenter.default.recorder = self
             } else if HotkeyCenter.default.recorder === self {
                 HotkeyCenter.default.recorder = nil
@@ -109,7 +109,7 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
         let colour: NSColor
         let title: String
 
-        if self.recording {
+        if self.isRecording {
             self.window!.makeFirstResponder(self)
 
             if let modifier: KeyboardModifier = self.modifier, modifier != [] {
@@ -163,7 +163,7 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
     }
 
     override open func resignFirstResponder() -> Bool {
-        self.recording = false
+        self.isRecording = false
         return super.resignFirstResponder()
     }
 
@@ -173,7 +173,7 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
 
     override open func mouseDown(with event: NSEvent) {
         super.mouseDown(with: event)
-        self.recording = true
+        self.isRecording = true
     }
 
     override open func keyDown(with event: NSEvent) {
@@ -192,24 +192,24 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
 
         if KeyboardKey(event) == KeyboardKey.delete && self.modifier == nil && self.hotkey != nil {
             self.hotkey = nil
-            self.recording = false
+            self.isRecording = false
             NotificationCenter.default.post(name: HotkeyRecorderButton.hotkeyDidRecordNotification, object: self)
             return true
         }
 
         // Pressing escape without modifiers during recording cancels it, pressing space while not recording starts it.
 
-        if self.recording && KeyboardKey(event) == KeyboardKey.escape && self.modifier == nil {
-            self.recording = false
+        if self.isRecording && KeyboardKey(event) == KeyboardKey.escape && self.modifier == nil {
+            self.isRecording = false
             return true
-        } else if !self.recording && KeyboardKey(event) == KeyboardKey.space {
-            self.recording = true
+        } else if !self.isRecording && KeyboardKey(event) == KeyboardKey.space {
+            self.isRecording = true
             return true
         }
 
         // If not recording, there's nothing else to do…
 
-        if !self.recording {
+        if !self.isRecording {
             return super.performKeyEquivalent(with: event)
         }
 
@@ -222,7 +222,7 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
                 NSSound.beep()
             } else {
                 self.hotkey = hotkey
-                self.recording = false
+                self.isRecording = false
                 NotificationCenter.default.post(name: HotkeyRecorderButton.hotkeyDidRecordNotification, object: self)
             }
         } else {
@@ -233,11 +233,11 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
     }
 
     private func handleWindowDidResignKeyNotification() {
-        self.recording = false
+        self.isRecording = false
     }
 
     override open func flagsChanged(with event: NSEvent) {
-        if self.recording {
+        if self.isRecording {
             let modifier: KeyboardModifier = KeyboardModifier(event).intersection([.commandKey, .controlKey, .optionKey, .shiftKey])
             self.modifier = modifier == [] ? nil : modifier
         }

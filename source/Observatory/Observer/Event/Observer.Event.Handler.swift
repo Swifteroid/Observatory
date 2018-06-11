@@ -36,10 +36,10 @@ extension EventObserver.Handler
 
             open private(set) var monitor: Monitor?
 
-            open private(set) var active: Bool = false
+            open private(set) var isActive: Bool = false
 
             @discardableResult open func activate(_ newValue: Bool = true) -> Self {
-                if newValue == self.active { return self }
+                if newValue == self.isActive { return self }
 
                 if newValue {
                     self.monitor = Monitor(
@@ -52,7 +52,7 @@ extension EventObserver.Handler
                     self.monitor = nil
                 }
 
-                self.active = newValue
+                self.isActive = newValue
                 return self
             }
 
@@ -118,12 +118,12 @@ extension EventObserver.Handler
             private let tap: CFMachPort
             private let userInfo: UnsafeMutablePointer<Signature>
 
-            open var active: Bool {
+            open var isActive: Bool {
                 return CGEvent.tapIsEnabled(tap: self.tap) && CFRunLoopContainsSource(self.loop, self.source, .commonModes)
             }
 
             @discardableResult open func activate(_ newValue: Bool = true) -> Self {
-                if newValue == self.active { return self }
+                if newValue == self.isActive { return self }
 
                 if newValue {
                     CFRunLoopAddSource(self.loop, self.source, .commonModes)

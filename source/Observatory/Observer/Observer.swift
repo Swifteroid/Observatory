@@ -2,14 +2,15 @@ import Foundation
 
 public protocol Observer
 {
-    var active: Bool { get }
-    var inactive: Bool { get }
+    
+    /// Indicates whether observer is active or not.
+    var isActive: Bool { get }
 }
 
 extension Observer
 {
-    public var inactive: Bool {
-        return !self.active
+    public var isInactive: Bool {
+        return !self.isActive
     }
 }
 
@@ -17,6 +18,5 @@ open class AbstractObserver: Observer
 {
     public init() {}
 
-    /// Specifies whether the observer is active or not.
-    open internal(set) var active: Bool = false
+    open internal(set) var isActive: Bool = false
 }

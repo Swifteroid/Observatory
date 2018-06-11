@@ -4,13 +4,12 @@ import Foundation
 /// represent arguments passed into `NotificationCenter.addObserverForName` method.
 public protocol ObserverHandlerDefinition
 {
-    var active: Bool { get }
-    var inactive: Bool { get }
+    var isActive: Bool { get }
 }
 
 extension ObserverHandlerDefinition
 {
-    public var inactive: Bool {
-        return !self.active
+    public var isInactive: Bool {
+        return !self.isActive
     }
 }

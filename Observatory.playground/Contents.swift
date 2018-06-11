@@ -36,7 +36,7 @@ center.post(name: Notification.Name("baz"), object: observee)
  handy when, for example, observer must be active only when the view is visible.
  */
 
-observer!.active = false
+observer!.isActive = false
 
 /*:
  Handlers can be removed on more than one way – all by notification name, all by observable 

@@ -3,8 +3,8 @@ import Foundation
 public protocol HotkeyRecorder: class
 {
 
-    /// Recorder state.
-    var recording: Bool { get set }
+    /// Specifies whether recorder is currently recording or not.
+    var isRecording: Bool { get set }
 
     /// Current hotkey.
     var hotkey: KeyboardHotkey? { get set }

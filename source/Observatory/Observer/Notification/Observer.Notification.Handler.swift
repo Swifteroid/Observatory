@@ -27,10 +27,10 @@ extension NotificationObserver
             open private(set) var monitor: AnyObject?
             open private(set) var center: NotificationCenter?
 
-            open private(set) var active: Bool = false
+            open private(set) var isActive: Bool = false
 
             @discardableResult open func activate(_ newValue: Bool = true, center: NotificationCenter? = nil) -> Self {
-                if newValue == self.active { return self }
+                if newValue == self.isActive { return self }
 
                 if newValue {
                     let center = center ?? self.center ?? NotificationCenter.default
@@ -42,7 +42,7 @@ extension NotificationObserver
                     self.center = nil
                 }
 
-                self.active = newValue
+                self.isActive = newValue
                 return self
             }
 

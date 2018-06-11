@@ -14,7 +14,7 @@ open class EventObserver: AbstractObserver
     open internal(set) var carbonDefinitions: [Handler.Carbon.Definition] = []
 
     @discardableResult open func add(definition: Handler.AppKit.Definition) -> Self {
-        self.appKitDefinitions.append(definition.activate(self.active))
+        self.appKitDefinitions.append(definition.activate(self.isActive))
         return self
     }
 
@@ -24,7 +24,7 @@ open class EventObserver: AbstractObserver
     }
 
     @discardableResult open func add(definition: Handler.Carbon.Definition) -> Self {
-        self.carbonDefinitions.append(definition.activate(self.active))
+        self.carbonDefinitions.append(definition.activate(self.isActive))
         return self
     }
 
@@ -53,8 +53,8 @@ open class EventObserver: AbstractObserver
         return self
     }
 
-    override open var active: Bool {
-        get { return super.active }
+    override open var isActive: Bool {
+        get { return super.isActive }
         set { self.activate(newValue) }
     }
 
@@ -63,10 +63,10 @@ open class EventObserver: AbstractObserver
         // Todo: we should use common store for all definitions where they would be kept in the order 
         // todo: of adding, so we can maintain that order during activation / deactivation.
 
-        if newValue == self.active { return self }
+        if newValue == self.isActive { return self }
         for definition in self.carbonDefinitions { definition.activate(newValue) }
         for definition in self.appKitDefinitions { definition.activate(newValue) }
-        super.active = newValue
+        super.isActive = newValue
         return self
     }
 

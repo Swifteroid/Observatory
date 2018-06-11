@@ -31,7 +31,7 @@ internal class NotificationObserverSpec: Spec
 
             // Deactivated observer must not catch anything.
 
-            observer.active = false
+            observer.isActive = false
 
             center.post(name: fooName, object: observee)
             center.post(name: barName, object: observee)
@@ -41,7 +41,7 @@ internal class NotificationObserverSpec: Spec
 
             // Reactivated observer must work…
 
-            observer.active = true
+            observer.isActive = true
 
             center.post(name: fooName, object: observee)
             center.post(name: barName, object: observee)

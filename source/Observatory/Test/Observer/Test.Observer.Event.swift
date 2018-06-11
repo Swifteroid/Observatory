@@ -28,13 +28,13 @@ internal class EventObserverSpec: Spec
             expect(observer.appKitDefinitions[2].handler.local).toNot(beNil())
             expect(observer.appKitDefinitions[2].monitor).toNot(beNil())
 
-            observer.active = false
+            observer.isActive = false
 
             expect(observer.appKitDefinitions[0].monitor).to(beNil())
             expect(observer.appKitDefinitions[1].monitor).to(beNil())
             expect(observer.appKitDefinitions[2].monitor).to(beNil())
 
-            observer.active = true
+            observer.isActive = true
 
             expect(observer.appKitDefinitions[0].monitor).toNot(beNil())
             expect(observer.appKitDefinitions[1].monitor).toNot(beNil())
@@ -52,7 +52,7 @@ internal class EventObserverSpec: Spec
             Event.postMouseEvent(type: CGEventType.rightMouseUp)
             observation.assert(count: 2)
 
-            observer.active = false
+            observer.isActive = false
             Event.postMouseEvent(type: CGEventType.leftMouseDown)
             Event.postMouseEvent(type: CGEventType.leftMouseUp)
             observation.assert(count: 0)
