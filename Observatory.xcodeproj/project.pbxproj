@@ -431,15 +431,15 @@
 				TargetAttributes = {
 					087EE7911E1C1FF500093E0E = {
 						CreatedOnToolsVersion = 7.3.1;
-						LastSwiftMigration = 0820;
+						LastSwiftMigration = 1020;
 					};
 					E69200F21CDDE19100C4FEAD = {
 						CreatedOnToolsVersion = 7.3;
-						LastSwiftMigration = 0820;
+						LastSwiftMigration = 1020;
 					};
 					E6D764291CDDBA100071CCB0 = {
 						CreatedOnToolsVersion = 7.3;
-						LastSwiftMigration = 0820;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -449,7 +449,6 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
 			);
 			mainGroup = E6D764201CDDBA100071CCB0;
@@ -546,6 +545,7 @@
 				INFOPLIST_FILE = "$(inherited)/../demo.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(FRAMEWORK_SEARCH_PATHS)";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -556,6 +556,7 @@
 				INFOPLIST_FILE = "$(inherited)/../demo.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(FRAMEWORK_SEARCH_PATHS)";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -564,6 +565,7 @@
 			baseConfigurationReference = 17FD08C9C8536FA561C0E4C5 /* Test.xcconfig */;
 			buildSettings = {
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(FRAMEWORK_SEARCH_PATHS)";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -572,6 +574,7 @@
 			baseConfigurationReference = 17FD08C9C8536FA561C0E4C5 /* Test.xcconfig */;
 			buildSettings = {
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(FRAMEWORK_SEARCH_PATHS)";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -601,6 +604,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 17FD00D92CE5001C977C34C8 /* macOS - Framework.xcconfig */;
 			buildSettings = {
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -608,6 +612,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 17FD00D92CE5001C977C34C8 /* macOS - Framework.xcconfig */;
 			buildSettings = {
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

@@ -26,8 +26,8 @@ extension HotkeyObserver
                 return self.uniqueHotkeyId
             }
 
-            open let hotkey: KeyboardHotkey
-            open let handler: Signature
+            public let hotkey: KeyboardHotkey
+            public let handler: Signature
 
             open private(set) var hotkeyIdentifier: EventHotKeyID!
             open private(set) var hotkeyReference: EventHotKeyRef!

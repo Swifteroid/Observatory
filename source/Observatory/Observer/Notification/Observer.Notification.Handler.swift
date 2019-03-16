@@ -19,10 +19,10 @@ extension NotificationObserver
                 self.handler = handler
             }
 
-            open let name: Notification.Name
+            public let name: Notification.Name
             open private(set) weak var observee: AnyObject?
-            open let queue: OperationQueue?
-            open let handler: Signature
+            public let queue: OperationQueue?
+            public let handler: Signature
 
             open private(set) var monitor: AnyObject?
             open private(set) var center: NotificationCenter?

@@ -31,8 +31,8 @@ extension EventObserver.Handler
                 self.deactivate()
             }
 
-            open let mask: NSEvent.EventTypeMask
-            open let handler: Handler
+            public let mask: NSEvent.EventTypeMask
+            public let handler: Handler
 
             open private(set) var monitor: Monitor?
 
@@ -161,11 +161,11 @@ extension EventObserver.Handler
                 self.userInfo.deallocate()
             }
 
-            open let mask: CGEventMask
-            open let location: CGEventTapLocation
-            open let placement: CGEventTapPlacement
-            open let options: CGEventTapOptions
-            open let handler: Signature
+            public let mask: CGEventMask
+            public let location: CGEventTapLocation
+            public let placement: CGEventTapPlacement
+            public let options: CGEventTapOptions
+            public let handler: Signature
 
             private let loop: CFRunLoop
             private let source: CFRunLoopSource

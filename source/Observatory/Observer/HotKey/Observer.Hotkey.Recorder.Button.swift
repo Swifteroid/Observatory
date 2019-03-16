@@ -105,7 +105,7 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
 
         // In case if title is empty, we still need a valid paragraph style…
 
-        let style: NSMutableParagraphStyle = self.attributedTitle.attribute(NSAttributedStringKey.paragraphStyle, at: 0, effectiveRange: nil) as! NSMutableParagraphStyle? ?? NSMutableParagraphStyle(alignment: self.alignment)
+        let style: NSMutableParagraphStyle = self.attributedTitle.attribute(NSAttributedString.Key.paragraphStyle, at: 0, effectiveRange: nil) as! NSMutableParagraphStyle? ?? NSMutableParagraphStyle(alignment: self.alignment)
         let colour: NSColor
         let title: String
 

@@ -5,7 +5,7 @@ import Foundation
 /// whilst `recorder` value is not `nil`, see related property for details.
 open class HotkeyCenter
 {
-    open static let `default`: HotkeyCenter = HotkeyCenter()
+    public static let `default`: HotkeyCenter = HotkeyCenter()
 
     private var weakObservers: [Weak] = [] {
         didSet { self.update() }

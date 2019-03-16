@@ -149,7 +149,7 @@ extension EventObserver
 }
 
 /// Needed for below.
-fileprivate extension EventObserver
+extension EventObserver
 {
     fileprivate func add(definition: Handler.Carbon.Definition?) -> Self {
         if let definition: Handler.Carbon.Definition = definition { return self.add(definition: definition) } else { return self }
