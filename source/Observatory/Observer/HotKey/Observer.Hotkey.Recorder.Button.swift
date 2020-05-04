@@ -57,6 +57,7 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder {
     open var isRecording: Bool = false {
         didSet {
             if self.isRecording == oldValue { return }
+            if self.isRecording { self.makeFirstResponder() } else { self.restoreFirstResponder() }
             if self.modifier != nil { self.modifier = nil } else { self.update() }
             // Let hotkey center know that current recorder changed.
             if self.isRecording {
@@ -75,6 +76,24 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder {
         }
     }
 
+    /// Temporarily stores the reference to original first responder during hotkey recording.
+    private weak var originalFirstResponder: NSResponder?
+
+    // Makes self as the the first responder and stores the original first responder reference for later restoration.
+    private func makeFirstResponder() {
+        // Self might already be the first responder,
+        let currentFirstResponder: NSResponder? = self.window?.firstResponder
+        if self.originalFirstResponder == nil { self.originalFirstResponder = currentFirstResponder }
+        if currentFirstResponder !== self { self.window?.makeFirstResponder(self) }
+    }
+
+    // Restores the original first responder if self is the current first responder and clears the original first responder reference.
+    private func restoreFirstResponder() {
+        let currentFirstResponder: NSResponder? = self.window?.firstResponder
+        if currentFirstResponder === self && currentFirstResponder !== self.originalFirstResponder { self.window?.makeFirstResponder(self.originalFirstResponder) }
+        self.originalFirstResponder = nil
+    }
+
     private func update() {
         // In case if title is empty, we still need a valid paragraph style…
         let style: NSMutableParagraphStyle = self.attributedTitle.attribute(NSAttributedString.Key.paragraphStyle, at: 0, effectiveRange: nil) as! NSMutableParagraphStyle? ?? NSMutableParagraphStyle(alignment: self.alignment)
@@ -82,7 +101,8 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder {
         let title: String
 
         if self.isRecording {
-            self.window!.makeFirstResponder(self)
+            // Make sure the receiver is the first responder.
+            self.makeFirstResponder()
             if let modifier: KeyboardModifier = self.modifier, modifier != [] {
                 title = self.title(forModifier: modifier)
             } else if let hotkey: KeyboardHotkey = self.hotkey {
@@ -160,7 +180,7 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder {
         if self.isRecording && (self.modifier == nil && KeyboardKey(event) == KeyboardKey.escape || self.isKeyEquivalent(event)) {
             self.isRecording = false
             return true
-        } else if !self.isRecording && (self.modifier == nil && KeyboardKey(event) == KeyboardKey.space || self.isKeyEquivalent(event)) {
+        } else if !self.isRecording && (self.window?.firstResponder === self && self.modifier == nil && KeyboardKey(event) == KeyboardKey.space || self.isKeyEquivalent(event)) {
             self.isRecording = true
             return true
         }
