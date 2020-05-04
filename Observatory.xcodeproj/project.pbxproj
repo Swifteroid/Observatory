@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -445,10 +445,11 @@
 				};
 			};
 			buildConfigurationList = E6D764241CDDBA100071CCB0 /* Build configuration list for PBXProject "Observatory" */;
-			compatibilityVersion = "Xcode 8.0";
+			compatibilityVersion = "Xcode 11.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				Base,
 			);
 			mainGroup = E6D764201CDDBA100071CCB0;
@@ -543,9 +544,11 @@
 			baseConfigurationReference = 17FD016E3AC5B7437BE4F07B /* macOS - Application.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "$(inherited)/../demo.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(FRAMEWORK_SEARCH_PATHS)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS)",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -554,9 +557,11 @@
 			baseConfigurationReference = 17FD016E3AC5B7437BE4F07B /* macOS - Application.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "$(inherited)/../demo.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(FRAMEWORK_SEARCH_PATHS)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS)",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -564,8 +569,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 17FD08C9C8536FA561C0E4C5 /* Test.xcconfig */;
 			buildSettings = {
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(FRAMEWORK_SEARCH_PATHS)";
-				SWIFT_VERSION = 5.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS)",
+				);
 			};
 			name = Debug;
 		};
@@ -573,8 +580,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 17FD08C9C8536FA561C0E4C5 /* Test.xcconfig */;
 			buildSettings = {
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(FRAMEWORK_SEARCH_PATHS)";
-				SWIFT_VERSION = 5.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS)",
+				);
 			};
 			name = Release;
 		};
@@ -585,7 +594,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/dependency/Carthage/Build/Mac";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.swifteroid.observatory;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -596,7 +605,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/dependency/Carthage/Build/Mac";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.swifteroid.observatory;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -604,7 +613,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 17FD00D92CE5001C977C34C8 /* macOS - Framework.xcconfig */;
 			buildSettings = {
-				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -612,7 +620,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 17FD00D92CE5001C977C34C8 /* macOS - Framework.xcconfig */;
 			buildSettings = {
-				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
