@@ -1,12 +1,10 @@
 import AppKit
 import Observatory
 
-@NSApplicationMain class AppDelegate: NSObject, NSApplicationDelegate
-{
+@NSApplicationMain class AppDelegate: NSObject, NSApplicationDelegate {
 }
 
-open class ViewController: NSViewController
-{
+open class ViewController: NSViewController {
     @IBOutlet private weak var buttonFoo: HotkeyRecorderButton!
     @IBOutlet private weak var buttonBar: HotkeyRecorderButton!
     @IBOutlet private weak var buttonBaz: HotkeyRecorderButton!
@@ -32,16 +30,14 @@ open class ViewController: NSViewController
     }
 }
 
-extension KeyboardHotkey
-{
+extension KeyboardHotkey {
     fileprivate static let foo: KeyboardHotkey = .init(key: .one, modifier: [.commandKey, .shiftKey])
     fileprivate static let bar: KeyboardHotkey = .init(key: .two, modifier: [.commandKey, .shiftKey])
     fileprivate static let baz: KeyboardHotkey = .init(key: .three, modifier: [.commandKey, .shiftKey])
     fileprivate static let qux: KeyboardHotkey = .init(key: .four, modifier: [.commandKey, .shiftKey])
 }
 
-extension HotkeyCommand
-{
+extension HotkeyCommand {
     fileprivate static let foo: HotkeyCommand = .init("foo")
     fileprivate static let bar: HotkeyCommand = .init("bar")
     fileprivate static let baz: HotkeyCommand = .init("baz")

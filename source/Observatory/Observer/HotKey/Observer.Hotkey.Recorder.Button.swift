@@ -4,8 +4,7 @@ import Carbon
 
 /// - note: Earlier we used `viewWillDraw` callback to perform the update, but it doesn't always work in real life
 ///         as expected, so we call it directly with internal optimisation.
-open class HotkeyRecorderButton: NSButton, HotkeyRecorder
-{
+open class HotkeyRecorderButton: NSButton, HotkeyRecorder {
 
     private lazy var windowNotificationObserver: NotificationObserver = NotificationObserver(active: true)
 
@@ -151,15 +150,15 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
     }
 
     open func title(forModifier modifier: KeyboardModifier) -> String {
-        return String(describing: modifier)
+        String(describing: modifier)
     }
 
     open func title(forKey key: KeyboardKey) -> String {
-        return String(describing: key)
+        String(describing: key)
     }
 
     open func title(forHotkey hotkey: KeyboardHotkey) -> String {
-        return "\(self.title(forModifier: hotkey.modifier))\(self.title(forKey: hotkey.key))"
+        "\(self.title(forModifier: hotkey.modifier))\(self.title(forKey: hotkey.key))"
     }
 
     override open func resignFirstResponder() -> Bool {
@@ -168,7 +167,7 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
     }
 
     override open var acceptsFirstResponder: Bool {
-        return self.isEnabled
+        self.isEnabled
     }
 
     override open func mouseDown(with event: NSEvent) {
@@ -256,16 +255,14 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
     }
 }
 
-extension NSMutableParagraphStyle
-{
+extension NSMutableParagraphStyle {
     fileprivate convenience init(alignment: NSTextAlignment) {
         self.init()
         self.alignment = alignment
     }
 }
 
-extension NSButton
-{
+extension NSButton {
     /// Checks if the event matches the button's key equivalent configuration.
     public func isKeyEquivalent(_ event: NSEvent) -> Bool {
         // 1. NSButton stores key equivalent string either in upper or lower case depending on whether Shift key
@@ -278,8 +275,7 @@ extension NSButton
     }
 }
 
-extension KeyboardModifier
-{
+extension KeyboardModifier {
     /// Creates new keyboard modifier from the key equivalent string and modifier flags. If the key equivalent is an uppercase string
     /// the shift modifier flag will be included into the modifier flags.
     fileprivate init(_ keyEquivalent: String, _ flags: NSEvent.ModifierFlags) {

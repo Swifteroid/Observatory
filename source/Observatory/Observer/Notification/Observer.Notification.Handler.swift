@@ -1,13 +1,10 @@
 import Foundation
 
-extension NotificationObserver
-{
-    public struct Handler
-    {
-        public typealias Signature = (Notification) -> ()
+extension NotificationObserver {
+    public struct Handler {
+        public typealias Signature = (Notification) -> Void
 
-        open class Definition: ObserverHandlerDefinition
-        {
+        open class Definition: ObserverHandlerDefinition {
             deinit {
                 self.deactivate()
             }
@@ -47,16 +44,15 @@ extension NotificationObserver
             }
 
             @discardableResult open func deactivate() -> Self {
-                return self.activate(false)
+                self.activate(false)
             }
         }
     }
 }
 
 /// Convenience initializers.
-extension NotificationObserver.Handler.Definition
-{
-    public convenience init(name: Notification.Name, observee: AnyObject? = nil, queue: OperationQueue? = nil, handler: @escaping () -> ()) {
+extension NotificationObserver.Handler.Definition {
+    public convenience init(name: Notification.Name, observee: AnyObject? = nil, queue: OperationQueue? = nil, handler: @escaping () -> Void) {
         self.init(name: name, observee: observee, queue: queue, handler: { _ in handler() })
     }
 }

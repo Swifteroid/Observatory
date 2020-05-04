@@ -2,8 +2,7 @@ import Foundation
 
 /// Notification observer provides an interface for registering and managing multiple notification handlers. When we register
 /// notification handler observer creates handler definition – it manages that specific notification-handler association.
-open class NotificationObserver: AbstractObserver
-{
+open class NotificationObserver: AbstractObserver {
     public init(active: Bool = false, center: NotificationCenter? = nil) {
         super.init()
         self.center = center
@@ -35,7 +34,7 @@ open class NotificationObserver: AbstractObserver
     }
 
     override open var isActive: Bool {
-        get { return super.isActive }
+        get { super.isActive }
         set { self.activate(newValue) }
     }
 
@@ -47,30 +46,29 @@ open class NotificationObserver: AbstractObserver
     }
 
     @discardableResult open func deactivate() -> Self {
-        return self.activate(false)
+        self.activate(false)
     }
 }
 
-extension NotificationObserver
-{
-    @discardableResult open func add(name: Notification.Name, observee: AnyObject? = nil, queue: OperationQueue? = nil, handler: @escaping () -> ()) -> Self {
-        return self.add(definition: .init(name: name, observee: observee, queue: queue, handler: handler))
+extension NotificationObserver {
+    @discardableResult open func add(name: Notification.Name, observee: AnyObject? = nil, queue: OperationQueue? = nil, handler: @escaping () -> Void) -> Self {
+        self.add(definition: .init(name: name, observee: observee, queue: queue, handler: handler))
     }
 
-    @discardableResult open func add(name: Notification.Name, observee: AnyObject? = nil, queue: OperationQueue? = nil, handler: @escaping (Notification) -> ()) -> Self {
-        return self.add(definition: .init(name: name, observee: observee, queue: queue, handler: handler))
+    @discardableResult open func add(name: Notification.Name, observee: AnyObject? = nil, queue: OperationQueue? = nil, handler: @escaping (Notification) -> Void) -> Self {
+        self.add(definition: .init(name: name, observee: observee, queue: queue, handler: handler))
     }
 
-    @discardableResult open func add(names: [Notification.Name], observee: AnyObject? = nil, queue: OperationQueue? = nil, handler: @escaping () -> ()) -> Self {
-        return self.add(definitions: names.map({ .init(name: $0, observee: observee, queue: queue, handler: handler) }))
+    @discardableResult open func add(names: [Notification.Name], observee: AnyObject? = nil, queue: OperationQueue? = nil, handler: @escaping () -> Void) -> Self {
+        self.add(definitions: names.map({ .init(name: $0, observee: observee, queue: queue, handler: handler) }))
     }
 
-    @discardableResult open func add(names: [Notification.Name], observee: AnyObject? = nil, queue: OperationQueue? = nil, handler: @escaping (Notification) -> ()) -> Self {
-        return self.add(definitions: names.map({ .init(name: $0, observee: observee, queue: queue, handler: handler) }))
+    @discardableResult open func add(names: [Notification.Name], observee: AnyObject? = nil, queue: OperationQueue? = nil, handler: @escaping (Notification) -> Void) -> Self {
+        self.add(definitions: names.map({ .init(name: $0, observee: observee, queue: queue, handler: handler) }))
     }
 
     @discardableResult open func remove(name: Notification.Name? = nil, observee: AnyObject? = nil, queue: OperationQueue? = nil) -> Self {
-        return self.remove(definitions: self.definitions.filter({
+        self.remove(definitions: self.definitions.filter({
             (name != nil || observee != nil || queue != nil)
                 && (name == nil || $0.name == name)
                 && (observee == nil || $0.observee === observee)

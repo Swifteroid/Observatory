@@ -1,14 +1,11 @@
 import Foundation
 import Carbon
 
-extension HotkeyObserver
-{
-    public struct Handler
-    {
-        public typealias Signature = (KeyboardHotkey) -> ()
+extension HotkeyObserver {
+    public struct Handler {
+        public typealias Signature = (KeyboardHotkey) -> Void
 
-        open class Definition: ObserverHandlerDefinition
-        {
+        open class Definition: ObserverHandlerDefinition {
             deinit {
                 self.deactivate()
             }
@@ -42,7 +39,7 @@ extension HotkeyObserver
             }
 
             @discardableResult open func deactivate() -> Self {
-                return self.activate(false)
+                self.activate(false)
             }
 
             open private(set) var isIgnored: Bool = false
@@ -53,7 +50,7 @@ extension HotkeyObserver
             }
 
             @discardableResult open func unignore() -> Self {
-                return self.ignore(false)
+                self.ignore(false)
             }
 
             @discardableResult private func update(active: Bool, ignored: Bool) -> Self {
@@ -82,7 +79,7 @@ extension HotkeyObserver
                 // Todo: should use proper signature, find examples…
 
                 let identifier: EventHotKeyID = EventHotKeyID(signature: 0, id: type(of: self).constructUniqueHotkeyIdentifier())
-                var reference: EventHotKeyRef? = nil
+                var reference: EventHotKeyRef?
 
                 let status: OSStatus = RegisterEventHotKey(UInt32(self.hotkey.key.rawValue), UInt32(self.hotkey.modifier.rawValue), identifier, GetApplicationEventTarget(), OptionBits(0), &reference)
 
@@ -108,17 +105,14 @@ extension HotkeyObserver
 }
 
 /// Convenience initializers.
-extension HotkeyObserver.Handler.Definition
-{
-    public convenience init(hotkey: KeyboardHotkey, handler: @escaping () -> ()) {
+extension HotkeyObserver.Handler.Definition {
+    public convenience init(hotkey: KeyboardHotkey, handler: @escaping () -> Void) {
         self.init(hotkey: hotkey, handler: { _ in handler() })
     }
 }
 
-extension HotkeyObserver.Handler.Definition
-{
-    public enum Error: Swift.Error
-    {
+extension HotkeyObserver.Handler.Definition {
+    public enum Error: Swift.Error {
         case hotkeyAlreadyRegistered
         case hotkeyRegisterFail(status: OSStatus)
         case hotkeyUnregisterFail(status: OSStatus)

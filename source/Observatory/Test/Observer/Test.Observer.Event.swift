@@ -4,11 +4,10 @@ import Nimble
 import Observatory
 import Quick
 
-/// Wow, this turned out to be a serious pain in the ass – testing events is not a joke… Doing it properly requires running 
+/// Wow, this turned out to be a serious pain in the ass – testing events is not a joke… Doing it properly requires running
 /// a loop, as far as I understand there's no way testing global event dispatch, because, quoting, handler will not be called
 /// for events that are sent to your own application. Instead, we check that observers sets everything up correctly.
-internal class EventObserverSpec: Spec
-{
+internal class EventObserverSpec: Spec {
     override internal func spec() {
         it("can observe AppKit events in active state") {
             let observer: EventObserver = EventObserver(active: true)

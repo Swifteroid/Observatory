@@ -14,11 +14,10 @@ private func hotkey(for event: EventRef) -> EventHotKeyID {
     return pointer.pointee
 }
 
-open class HotkeyObserver: AbstractObserver
-{
+open class HotkeyObserver: AbstractObserver {
     private typealias EventHandler = EventHandlerUPP
     private typealias EventHandlerPointer = EventHandlerRef
-    private typealias EventHotkeyHandler = (EventHotKeyID) -> ()
+    private typealias EventHotkeyHandler = (EventHotKeyID) -> Void
     private typealias EventHotkeyHandlerPointer = UnsafeMutablePointer<EventHotkeyHandler>
 
     deinit {
@@ -61,7 +60,7 @@ open class HotkeyObserver: AbstractObserver
     }
 
     override open var isActive: Bool {
-        get { return super.isActive }
+        get { super.isActive }
         set { self.activate(newValue) }
     }
 
@@ -71,7 +70,7 @@ open class HotkeyObserver: AbstractObserver
     }
 
     @discardableResult open func deactivate() -> Self {
-        return self.activate(false)
+        self.activate(false)
     }
 
     open private(set) var error: Swift.Error?
@@ -107,7 +106,7 @@ open class HotkeyObserver: AbstractObserver
         var eventType: EventTypeSpec = EventTypeSpec(eventClass: OSType(kEventClassKeyboard), eventKind: UInt32(kEventHotKeyPressed))
 
         let eventHandler: EventHandler
-        var eventHandlerPointer: EventHandlerPointer? = nil
+        var eventHandlerPointer: EventHandlerPointer?
         let eventHotkeyHandlerPointer: UnsafeMutablePointer<EventHotkeyHandler> = UnsafeMutablePointer.allocate(capacity: 1)
 
         eventHandler = { (nextHandler: EventHandlerCallRef?, event: EventRef?, pointer: UnsafeMutableRawPointer?) -> OSStatus in
@@ -136,25 +135,22 @@ open class HotkeyObserver: AbstractObserver
     }
 }
 
-extension HotkeyObserver
-{
-    @discardableResult open func add(hotkey: KeyboardHotkey, handler: @escaping () -> ()) -> Self {
-        return self.add(definition: Handler.Definition(hotkey: hotkey, handler: handler))
+extension HotkeyObserver {
+    @discardableResult open func add(hotkey: KeyboardHotkey, handler: @escaping () -> Void) -> Self {
+        self.add(definition: Handler.Definition(hotkey: hotkey, handler: handler))
     }
 
-    @discardableResult open func add(hotkey: KeyboardHotkey, handler: @escaping (KeyboardHotkey) -> ()) -> Self {
-        return self.add(definition: Handler.Definition(hotkey: hotkey, handler: handler))
+    @discardableResult open func add(hotkey: KeyboardHotkey, handler: @escaping (KeyboardHotkey) -> Void) -> Self {
+        self.add(definition: Handler.Definition(hotkey: hotkey, handler: handler))
     }
 
     @discardableResult open func remove(hotkey: KeyboardHotkey) -> Self {
-        return self.remove(definitions: self.definitions.filter({ $0.hotkey == hotkey }))
+        self.remove(definitions: self.definitions.filter({ $0.hotkey == hotkey }))
     }
 }
 
-extension HotkeyObserver
-{
-    public enum Error: Swift.Error
-    {
+extension HotkeyObserver {
+    public enum Error: Swift.Error {
         case uppInstallFailed
         case uppRemoveFail
     }

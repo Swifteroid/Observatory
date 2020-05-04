@@ -2,8 +2,7 @@ import AppKit.NSEvent
 import Carbon
 
 /// Check source for comments, some keys are not available on Mac OS X.
-public struct KeyboardModifier: RawRepresentable, OptionSet
-{
+public struct KeyboardModifier: RawRepresentable, OptionSet {
     public init(rawValue: Int) { self.rawValue = rawValue }
     public init(_ rawValue: Int) { self.init(rawValue: rawValue) }
     public init(_ event: NSEvent) { self.init(event.modifierFlags) }
@@ -11,9 +10,9 @@ public struct KeyboardModifier: RawRepresentable, OptionSet
     public init(_ flags: NSEvent.ModifierFlags) {
         var rawValue: Int = 0
 
-        // I'll leave this as a reminder for future generations. Apparently, if you used to deal with CoreGraphics you'd know 
-        // what the fuck modifier flags are made of, otherwise, you are doomed. And made they are of CoreGraphics event 
-        // source flags state, or `CGEventSource.flagsState(.hidSystemState)` to be precise. So, an empty flag will have 
+        // I'll leave this as a reminder for future generations. Apparently, if you used to deal with CoreGraphics you'd know
+        // what the fuck modifier flags are made of, otherwise, you are doomed. And made they are of CoreGraphics event
+        // source flags state, or `CGEventSource.flagsState(.hidSystemState)` to be precise. So, an empty flag will have
         // raw value not of `0` but of `UInt(CGEventSource.flagsState(.hidSystemState).rawValue)`…
 
         if flags.rawValue & NSEvent.ModifierFlags.deviceIndependentFlagsMask.rawValue != 0 {
@@ -49,14 +48,12 @@ public struct KeyboardModifier: RawRepresentable, OptionSet
     }
 }
 
-extension KeyboardModifier: Equatable, Hashable
-{
-    public var hashValue: Int { return Int(self.rawValue) }
+extension KeyboardModifier: Equatable, Hashable {
+    public var hashValue: Int { Int(self.rawValue) }
 }
 
-extension KeyboardModifier: CustomStringConvertible
-{
+extension KeyboardModifier: CustomStringConvertible {
     public var description: String {
-        return self.name ?? ""
+        self.name ?? ""
     }
 }

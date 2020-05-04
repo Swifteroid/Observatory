@@ -1,10 +1,9 @@
 import Foundation
 
-/// Hotkey center provides a simple interface for registering predefined hotkey commands. It sub-manages active hotkey 
-/// recorder and all hotkey observers. There's an important detail to keep in mind, that all observers get disabled 
+/// Hotkey center provides a simple interface for registering predefined hotkey commands. It sub-manages active hotkey
+/// recorder and all hotkey observers. There's an important detail to keep in mind, that all observers get disabled
 /// whilst `recorder` value is not `nil`, see related property for details.
-open class HotkeyCenter
-{
+open class HotkeyCenter {
     public static let `default`: HotkeyCenter = HotkeyCenter()
 
     private var weakObservers: [Weak] = [] {
@@ -12,7 +11,7 @@ open class HotkeyCenter
     }
 
     private var observers: [HotkeyObserver] {
-        get { return weakObservers.reduce([], { $1.value == nil ? $0 : $0 + [$1.value as! HotkeyObserver] }) }
+        get { weakObservers.reduce([], { $1.value == nil ? $0 : $0 + [$1.value as! HotkeyObserver] }) }
         set { self.weakObservers = newValue.map({ Weak(value: $0) }) }
     }
 
@@ -71,8 +70,7 @@ open class HotkeyCenter
     }
 }
 
-extension HotkeyCenter
-{
+extension HotkeyCenter {
 
     /// Notification name posted when a registered hotkey invokes associated command. Includes user info with hotkey and command details.
     public static let commandDidInvokeNotification: Notification.Name = .init("\(HotkeyCenter.self)CommandDidInvokeNotification")
@@ -84,14 +82,12 @@ extension HotkeyCenter
     public static let commandUserInfo: String = "command"
 }
 
-public struct HotkeyCommand: RawRepresentable, Hashable
-{
+public struct HotkeyCommand: RawRepresentable, Hashable {
     public init(rawValue: String) { self.rawValue = rawValue }
     public init(_ rawValue: String) { self.rawValue = rawValue }
     public let rawValue: String
 }
 
-extension HotkeyCommand: CustomStringConvertible
-{
-    public var description: String { return self.rawValue }
+extension HotkeyCommand: CustomStringConvertible {
+    public var description: String { self.rawValue }
 }

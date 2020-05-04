@@ -3,8 +3,7 @@ import Nimble
 import Observatory
 import Quick
 
-internal class NotificationObserverSpec: Spec
-{
+internal class NotificationObserverSpec: Spec {
     override internal func spec() {
         it("can observe Foundation notifications in active state") {
             let center: NotificationCenter = NotificationCenter.default

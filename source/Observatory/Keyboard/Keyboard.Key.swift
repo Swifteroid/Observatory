@@ -1,8 +1,7 @@
 import AppKit.NSEvent
 import Carbon
 
-public struct KeyboardKey: RawRepresentable
-{
+public struct KeyboardKey: RawRepresentable {
     public init(rawValue: Int) { self.rawValue = rawValue }
     public init(_ rawValue: Int) { self.init(rawValue: rawValue) }
     public init(_ keyCode: CGKeyCode) { self.init(Int(keyCode)) }
@@ -171,12 +170,12 @@ public struct KeyboardKey: RawRepresentable
         .f17: "F17",
         .f18: "F18",
         .f19: "F19",
-        .f20: "F20"
+        .f20: "F20",
     ]
 
     /// Key name in the current keyboard input source.
     public var name: String? {
-        return self.name(names: nil)
+        self.name(names: nil)
     }
 
     public func name(names: [KeyboardKey: String]?) -> String? {
@@ -201,8 +200,8 @@ public struct KeyboardKey: RawRepresentable
     private static var layout: UnsafePointer<UCKeyboardLayout>? {
         let data: NSData
 
-        // What is interesting is that kTISPropertyUnicodeKeyLayoutData is still used when it queries last ASCII capable keyboard. It 
-        // is TISCopyCurrentASCIICapableKeyboardLayoutInputSource() not TISCopyCurrentASCIICapableKeyboardInputSource() to call. The latter 
+        // What is interesting is that kTISPropertyUnicodeKeyLayoutData is still used when it queries last ASCII capable keyboard. It
+        // is TISCopyCurrentASCIICapableKeyboardLayoutInputSource() not TISCopyCurrentASCIICapableKeyboardInputSource() to call. The latter
         // does not guarantee that it would return an keyboard input with a layout.
 
         if let pointer = TISGetInputSourceProperty(TISCopyCurrentKeyboardInputSource().takeUnretainedValue(), kTISPropertyUnicodeKeyLayoutData) {
@@ -217,14 +216,12 @@ public struct KeyboardKey: RawRepresentable
     }
 }
 
-extension KeyboardKey: Equatable, Hashable
-{
-    public var hashValue: Int { return Int(self.rawValue) }
+extension KeyboardKey: Equatable, Hashable {
+    public var hashValue: Int { Int(self.rawValue) }
 }
 
-extension KeyboardKey: CustomStringConvertible
-{
+extension KeyboardKey: CustomStringConvertible {
     public var description: String {
-        return self.name ?? ""
+        self.name ?? ""
     }
 }

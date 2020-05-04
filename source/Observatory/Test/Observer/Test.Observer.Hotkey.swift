@@ -4,8 +4,7 @@ import Nimble
 import Observatory
 import Quick
 
-internal class HotkeyObserverSpec: Spec
-{
+internal class HotkeyObserverSpec: Spec {
     override internal func spec() {
         it("can observe hotkeys in active state") {
             let observer: HotkeyObserver = HotkeyObserver(active: true)
@@ -64,7 +63,7 @@ internal class HotkeyObserverSpec: Spec
                 KeyboardHotkey(key: KeyboardKey.f5, modifier: []), // Function keys can be registered without modifiers.
                 KeyboardHotkey(key: KeyboardKey.a, modifier: .commandKey),
                 KeyboardHotkey(key: KeyboardKey.a, modifier: .optionKey),
-                KeyboardHotkey(key: KeyboardKey.a, modifier: .controlKey)
+                KeyboardHotkey(key: KeyboardKey.a, modifier: .controlKey),
             ]
 
             for hotkey in hotkeys {
@@ -75,7 +74,7 @@ internal class HotkeyObserverSpec: Spec
         it("must produce definition error when adding invalid hotkey observation") {
             let hotkeys: [KeyboardHotkey] = [
                 KeyboardHotkey(key: KeyboardKey.a, modifier: .capsLockKey), // Caps lock is not a valid modifier.
-                KeyboardHotkey(key: KeyboardKey.a, modifier: [.capsLockKey, .controlKey]) // Or any combination.
+                KeyboardHotkey(key: KeyboardKey.a, modifier: [.capsLockKey, .controlKey]), // Or any combination.
             ]
 
             for hotkey in hotkeys {
