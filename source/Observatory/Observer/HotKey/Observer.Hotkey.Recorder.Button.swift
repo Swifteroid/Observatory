@@ -199,10 +199,10 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder
 
         // Pressing escape without modifiers during recording cancels it, pressing space while not recording starts it.
 
-        if self.isRecording && KeyboardKey(event) == KeyboardKey.escape && self.modifier == nil {
+        if self.isRecording && self.modifier == nil && (KeyboardKey(event) == KeyboardKey.escape || self.isKeyEquivalent(event)) {
             self.isRecording = false
             return true
-        } else if !self.isRecording && KeyboardKey(event) == KeyboardKey.space {
+        } else if !self.isRecording && self.modifier == nil && (KeyboardKey(event) == KeyboardKey.space || self.isKeyEquivalent(event)) {
             self.isRecording = true
             return true
         }
@@ -261,5 +261,29 @@ extension NSMutableParagraphStyle
     fileprivate convenience init(alignment: NSTextAlignment) {
         self.init()
         self.alignment = alignment
+    }
+}
+
+extension NSButton
+{
+    /// Checks if the event matches the button's key equivalent configuration.
+    public func isKeyEquivalent(_ event: NSEvent) -> Bool {
+        // 1. NSButton stores key equivalent string either in upper or lower case depending on whether Shift key
+        //    was pressed or not. At the same time the modifier is doesn't include Shift.
+        // 2. NSEvent characters are returned in lower case when Shift key is pressed WITH other modifiers. Using
+        //    characters ignoring modifiers returns the string in correct case.
+
+        //    Todo: This still might need better testing with other modifiers, like CapsLock.
+        event.charactersIgnoringModifiers == self.keyEquivalent && KeyboardModifier(event.modifierFlags) == KeyboardModifier(self.keyEquivalent, self.keyEquivalentModifierMask)
+    }
+}
+
+extension KeyboardModifier
+{
+    /// Creates new keyboard modifier from the key equivalent string and modifier flags. If the key equivalent is an uppercase string
+    /// the shift modifier flag will be included into the modifier flags.
+    fileprivate init(_ keyEquivalent: String, _ flags: NSEvent.ModifierFlags) {
+        let isUppercase = keyEquivalent.allSatisfy({ $0.isUppercase })
+        self.init(isUppercase ? flags.union(.shift) : flags)
     }
 }
