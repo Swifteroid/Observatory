@@ -10,10 +10,11 @@ public struct KeyboardModifier: RawRepresentable, OptionSet {
     public init(_ flags: NSEvent.ModifierFlags) {
         var rawValue: Int = 0
 
-        // I'll leave this as a reminder for future generations. Apparently, if you used to deal with CoreGraphics you'd know
+        // ✊ Leaving this as a reminder for future generations. Apparently, if you used to deal with CoreGraphics you'd know
         // what the fuck modifier flags are made of, otherwise, you are doomed. And made they are of CoreGraphics event
         // source flags state, or `CGEventSource.flagsState(.hidSystemState)` to be precise. So, an empty flag will have
-        // raw value not of `0` but of `UInt(CGEventSource.flagsState(.hidSystemState).rawValue)`…
+        // raw value not of `0` but of `UInt(CGEventSource.flagsState(.hidSystemState).rawValue)`… For that reason, it's a real
+        // pain in the ass to compare self-made modifier flags with ones coming from an `NSEvent`.
 
         if flags.rawValue & NSEvent.ModifierFlags.deviceIndependentFlagsMask.rawValue != 0 {
             if flags.contains(.capsLock) { rawValue |= Carbon.alphaLock }
@@ -37,13 +38,11 @@ public struct KeyboardModifier: RawRepresentable, OptionSet {
 
     public var name: String? {
         var string: String = ""
-
-        if self.contains(.capsLockKey) { string += "⇪" }
-        if self.contains(.commandKey) { string += "⌘" }
         if self.contains(.controlKey) { string += "⌃" }
         if self.contains(.optionKey) { string += "⌥" }
+        if self.contains(.capsLockKey) { string += "⇪" }
         if self.contains(.shiftKey) { string += "⇧" }
-
+        if self.contains(.commandKey) { string += "⌘" }
         return string == "" ? nil : string
     }
 }
