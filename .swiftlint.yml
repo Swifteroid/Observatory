@@ -1,8 +1,19 @@
 # https://github.com/realm/SwiftLint#configuration
 # https://realm.github.io/SwiftLint/rule-directory.html
+# swiftlint rules
 
 included: source
+
+opt_in_rules:
+  - explicit_self
+  - explicit_top_level_acl
+  - modifier_order
+  - prefer_self_type_over_type_of_self
+
 disabled_rules:
+  - cyclomatic_complexity
+  - discarded_notification_center_observer
+  - duplicate_imports
   - file_length
   - force_cast
   - force_try
@@ -12,15 +23,17 @@ disabled_rules:
   - large_tuple
   - line_length
   - nesting
+  - opening_brace
   - private_over_fileprivate
   - redundant_discardable_let
   - type_body_length
+  - type_name
+  - unused_closure_parameter
+  - unused_setter_value # https://github.com/realm/SwiftLint/issues/2585
+  - weak_delegate
 
 trailing_comma:
   mandatory_comma: true
-
-trailing_whitespace:
-  ignores_comments: false
 
 vertical_whitespace:
   max_empty_lines: 2

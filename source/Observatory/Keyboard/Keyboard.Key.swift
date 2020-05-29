@@ -179,8 +179,8 @@ public struct KeyboardKey: RawRepresentable {
     }
 
     public func name(names: [KeyboardKey: String]?) -> String? {
-        if let name: String = names?[self] ?? type(of: self).names[self] { return name }
-        guard let layout: UnsafePointer<UCKeyboardLayout> = type(of: self).layout else { return nil }
+        if let name: String = names?[self] ?? Self.names[self] { return name }
+        guard let layout: UnsafePointer<UCKeyboardLayout> = Self.layout else { return nil }
 
         let maxStringLength: Int = 4
         var stringBuffer: [UniChar] = [UniChar](repeating: 0, count: maxStringLength)

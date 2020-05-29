@@ -78,7 +78,7 @@ extension HotkeyObserver {
 
                 // Todo: should use proper signature, find examples…
 
-                let identifier: EventHotKeyID = EventHotKeyID(signature: 0, id: type(of: self).constructUniqueHotkeyIdentifier())
+                let identifier: EventHotKeyID = EventHotKeyID(signature: 0, id: Self.constructUniqueHotkeyIdentifier())
                 var reference: EventHotKeyRef?
 
                 let status: OSStatus = RegisterEventHotKey(UInt32(self.hotkey.key.rawValue), UInt32(self.hotkey.modifier.rawValue), identifier, GetApplicationEventTarget(), OptionBits(0), &reference)
