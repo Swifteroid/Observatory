@@ -81,8 +81,9 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder {
 
     // Makes self as the the first responder and stores the original first responder reference for later restoration.
     private func makeFirstResponder() {
-        // Self might already be the first responder,
-        let currentFirstResponder: NSResponder? = self.window?.firstResponder
+        // Check if another instance of `Self` is already the first responder and use it's value instead. 
+        var currentFirstResponder: NSResponder? = self.window?.firstResponder
+        if let recorder = currentFirstResponder as? Self, recorder.isRecording { currentFirstResponder = recorder.originalFirstResponder }
         if self.originalFirstResponder == nil { self.originalFirstResponder = currentFirstResponder }
         if currentFirstResponder !== self { self.window?.makeFirstResponder(self) }
     }

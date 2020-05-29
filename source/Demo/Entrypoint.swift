@@ -21,6 +21,11 @@ open class ViewController: NSViewController {
         hotkeyCommandObserver.add(name: HotkeyCenter.commandDidInvokeNotification, observee: HotkeyCenter.default, handler: { [weak self] in self?.handleHotkeyCommandNotification(notification: $0) })
     }
 
+    override open func viewDidAppear() {
+        /// Reset first responder, do it asynchronously, because the window will modify it once presented.
+        DispatchQueue.main.async(execute: { self.view.window?.makeFirstResponder(nil) })
+    }
+
     private func handleHotkeyCommandNotification(notification: Notification) {
         let info: [String: Any] = notification.userInfo as! [String: Any]
         let command: HotkeyCommand = info[HotkeyCenter.commandUserInfo] as! HotkeyCommand
