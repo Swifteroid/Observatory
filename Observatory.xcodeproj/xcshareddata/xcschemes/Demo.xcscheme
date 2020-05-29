@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E69200F21CDDE19100C4FEAD"
-               BuildableName = "Observatory - Test.xctest"
-               BlueprintName = "Observatory - Test"
+               BlueprintIdentifier = "087EE7911E1C1FF500093E0E"
+               BuildableName = "Demo.app"
+               BlueprintName = "Demo"
                ReferencedContainer = "container:Observatory.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,9 +28,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "087EE7911E1C1FF500093E0E"
-               BuildableName = "Demo - Hotkey Recorder.app"
-               BlueprintName = "Demo - Hotkey Recorder"
+               BlueprintIdentifier = "E69200F21CDDE19100C4FEAD"
+               BuildableName = "Observatory-Test.xctest"
+               BlueprintName = "Observatory-Test"
                ReferencedContainer = "container:Observatory.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -44,23 +44,13 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E69200F21CDDE19100C4FEAD"
-            BuildableName = "Observatory - Test.xctest"
-            BlueprintName = "Observatory - Test"
+            BlueprintIdentifier = "087EE7911E1C1FF500093E0E"
+            BuildableName = "Demo.app"
+            BlueprintName = "Demo"
             ReferencedContainer = "container:Observatory.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E69200F21CDDE19100C4FEAD"
-               BuildableName = "Observatory - Test.xctest"
-               BlueprintName = "Observatory - Test"
-               ReferencedContainer = "container:Observatory.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -73,15 +63,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E69200F21CDDE19100C4FEAD"
-            BuildableName = "Observatory - Test.xctest"
-            BlueprintName = "Observatory - Test"
+            BlueprintIdentifier = "087EE7911E1C1FF500093E0E"
+            BuildableName = "Demo.app"
+            BlueprintName = "Demo"
             ReferencedContainer = "container:Observatory.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
       <LocationScenarioReference
          identifier = "com.apple.dt.IDEFoundation.CurrentLocationScenarioIdentifier"
          referenceType = "1">
@@ -93,15 +84,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E69200F21CDDE19100C4FEAD"
-            BuildableName = "Observatory - Test.xctest"
-            BlueprintName = "Observatory - Test"
+            BlueprintIdentifier = "087EE7911E1C1FF500093E0E"
+            BuildableName = "Demo.app"
+            BlueprintName = "Demo"
             ReferencedContainer = "container:Observatory.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

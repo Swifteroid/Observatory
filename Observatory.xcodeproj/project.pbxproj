@@ -55,7 +55,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		087EE7921E1C1FF500093E0E /* Demo - Hotkey Recorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Demo - Hotkey Recorder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		087EE7921E1C1FF500093E0E /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		17FD0007A26B7B85FC5190C0 /* Observer.Event.Handler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Event.Handler.swift; sourceTree = "<group>"; };
 		17FD004596B009984060737D /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/Mac/Nimble.framework; sourceTree = "<group>"; };
 		17FD009919B2E0C5C02AE1FB /* Observer.Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Notification.swift; sourceTree = "<group>"; };
@@ -101,7 +101,7 @@
 		E656926724ABE1D20072C839 /* macOS-Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "macOS-Framework.xcconfig"; sourceTree = "<group>"; };
 		E656926824ABE1D20072C839 /* Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = "<group>"; };
 		E656926924ABE1DF0072C839 /* macOS-Application.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "macOS-Application.xcconfig"; sourceTree = "<group>"; };
-		E69200F31CDDE19100C4FEAD /* Observatory - Test.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Observatory - Test.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E69200F31CDDE19100C4FEAD /* Observatory-Test.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Observatory-Test.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6D7642A1CDDBA100071CCB0 /* Observatory.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Observatory.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -330,8 +330,8 @@
 			isa = PBXGroup;
 			children = (
 				E6D7642A1CDDBA100071CCB0 /* Observatory.framework */,
-				E69200F31CDDE19100C4FEAD /* Observatory - Test.xctest */,
-				087EE7921E1C1FF500093E0E /* Demo - Hotkey Recorder.app */,
+				E69200F31CDDE19100C4FEAD /* Observatory-Test.xctest */,
+				087EE7921E1C1FF500093E0E /* Demo.app */,
 			);
 			name = product;
 			sourceTree = "<group>";
@@ -350,9 +350,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		087EE7911E1C1FF500093E0E /* Demo - Hotkey Recorder */ = {
+		087EE7911E1C1FF500093E0E /* Demo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 087EE7A01E1C1FF500093E0E /* Build configuration list for PBXNativeTarget "Demo - Hotkey Recorder" */;
+			buildConfigurationList = 087EE7A01E1C1FF500093E0E /* Build configuration list for PBXNativeTarget "Demo" */;
 			buildPhases = (
 				087EE78E1E1C1FF500093E0E /* Sources */,
 				087EE7901E1C1FF500093E0E /* Resources */,
@@ -362,14 +362,14 @@
 			dependencies = (
 				087EE7A31E1C26EE00093E0E /* PBXTargetDependency */,
 			);
-			name = "Demo - Hotkey Recorder";
+			name = Demo;
 			productName = Hotkey;
-			productReference = 087EE7921E1C1FF500093E0E /* Demo - Hotkey Recorder.app */;
+			productReference = 087EE7921E1C1FF500093E0E /* Demo.app */;
 			productType = "com.apple.product-type.application";
 		};
-		E69200F21CDDE19100C4FEAD /* Observatory - Test */ = {
+		E69200F21CDDE19100C4FEAD /* Observatory-Test */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E69200FD1CDDE19200C4FEAD /* Build configuration list for PBXNativeTarget "Observatory - Test" */;
+			buildConfigurationList = E69200FD1CDDE19200C4FEAD /* Build configuration list for PBXNativeTarget "Observatory-Test" */;
 			buildPhases = (
 				E69200EF1CDDE19100C4FEAD /* Sources */,
 			);
@@ -378,9 +378,9 @@
 			dependencies = (
 				E69200FA1CDDE19200C4FEAD /* PBXTargetDependency */,
 			);
-			name = "Observatory - Test";
+			name = "Observatory-Test";
 			productName = Observatoryt;
-			productReference = E69200F31CDDE19100C4FEAD /* Observatory - Test.xctest */;
+			productReference = E69200F31CDDE19100C4FEAD /* Observatory-Test.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		E6D764291CDDBA100071CCB0 /* Observatory */ = {
@@ -437,9 +437,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				087EE7911E1C1FF500093E0E /* Demo */,
 				E6D764291CDDBA100071CCB0 /* Observatory */,
-				E69200F21CDDE19100C4FEAD /* Observatory - Test */,
-				087EE7911E1C1FF500093E0E /* Demo - Hotkey Recorder */,
+				E69200F21CDDE19100C4FEAD /* Observatory-Test */,
 			);
 		};
 /* End PBXProject section */
@@ -606,7 +606,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		087EE7A01E1C1FF500093E0E /* Build configuration list for PBXNativeTarget "Demo - Hotkey Recorder" */ = {
+		087EE7A01E1C1FF500093E0E /* Build configuration list for PBXNativeTarget "Demo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				087EE79E1E1C1FF500093E0E /* Debug */,
@@ -615,7 +615,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E69200FD1CDDE19200C4FEAD /* Build configuration list for PBXNativeTarget "Observatory - Test" */ = {
+		E69200FD1CDDE19200C4FEAD /* Build configuration list for PBXNativeTarget "Observatory-Test" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E69200FB1CDDE19200C4FEAD /* Debug */,

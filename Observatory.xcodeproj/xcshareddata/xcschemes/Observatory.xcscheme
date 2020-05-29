@@ -29,8 +29,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "087EE7911E1C1FF500093E0E"
-               BuildableName = "Demo - Hotkey Recorder.app"
-               BlueprintName = "Demo - Hotkey Recorder"
+               BuildableName = "Demo.app"
+               BlueprintName = "Demo"
                ReferencedContainer = "container:Observatory.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -43,8 +43,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E69200F21CDDE19100C4FEAD"
-               BuildableName = "Observatory - Test.xctest"
-               BlueprintName = "Observatory - Test"
+               BuildableName = "Observatory-Test.xctest"
+               BlueprintName = "Observatory-Test"
                ReferencedContainer = "container:Observatory.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -70,8 +70,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E69200F21CDDE19100C4FEAD"
-               BuildableName = "Observatory - Test.xctest"
-               BlueprintName = "Observatory - Test"
+               BuildableName = "Observatory-Test.xctest"
+               BlueprintName = "Observatory-Test"
                ReferencedContainer = "container:Observatory.xcodeproj">
             </BuildableReference>
          </TestableReference>
