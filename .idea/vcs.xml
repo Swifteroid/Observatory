@@ -2,6 +2,7 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/dependency/Git/xcconfigs" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/dependency/git/gitignore" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/dependency/git/xenomorph" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/dependency/git/xenomorph/dependency/xcconfigs" vcs="Git" />

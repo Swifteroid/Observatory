@@ -59,11 +59,8 @@
 		17FD0007A26B7B85FC5190C0 /* Observer.Event.Handler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Event.Handler.swift; sourceTree = "<group>"; };
 		17FD004596B009984060737D /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/Mac/Nimble.framework; sourceTree = "<group>"; };
 		17FD009919B2E0C5C02AE1FB /* Observer.Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Notification.swift; sourceTree = "<group>"; };
-		17FD00D92CE5001C977C34C8 /* macOS - Framework.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "macOS - Framework.xcconfig"; sourceTree = "<group>"; };
 		17FD01507DE6860A0089FEAF /* Test.Keyboard.Hotkey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Keyboard.Hotkey.swift; sourceTree = "<group>"; };
 		17FD0152B633954A227E8C79 /* Observatory.podspec */ = {isa = PBXFileReference; lastKnownFileType = file.podspec; path = Observatory.podspec; sourceTree = "<group>"; };
-		17FD0153D441DBE8117C8705 /* Base - Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Base - Release.xcconfig"; sourceTree = "<group>"; };
-		17FD016E3AC5B7437BE4F07B /* macOS - Application.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "macOS - Application.xcconfig"; sourceTree = "<group>"; };
 		17FD017771C4B54857A16DAD /* Keyboard.Hotkey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.Hotkey.swift; sourceTree = "<group>"; };
 		17FD01A9278B0EB4D979293E /* Foundation.Weak.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Foundation.Weak.swift; sourceTree = "<group>"; };
 		17FD03560E1CD18D16062849 /* Observer.Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Event.swift; sourceTree = "<group>"; };
@@ -71,9 +68,9 @@
 		17FD04EB71CD7024929F934F /* Test.Keyboard.Key.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Keyboard.Key.swift; sourceTree = "<group>"; };
 		17FD0549D3EA10134DC784A3 /* Test.Observer.Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Observer.Notification.swift; sourceTree = "<group>"; };
 		17FD05BA1A9CA829517CF9E5 /* Test.Observer.Center.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Observer.Center.swift; sourceTree = "<group>"; };
+		17FD06C9E65BB65192F229B4 /* Base-Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Base-Release.xcconfig"; sourceTree = "<group>"; };
 		17FD078E512F21A8ECE8F335 /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
-		17FD0872935075E62744FA2B /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; name = .gitignore; path = dependency/git/gitignore/xcode/.gitignore; sourceTree = "<group>"; };
-		17FD08C9C8536FA561C0E4C5 /* Test.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Test.xcconfig; sourceTree = "<group>"; };
+		17FD0872935075E62744FA2B /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		17FD08D461EB26AE885B82AC /* Entrypoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entrypoint.swift; sourceTree = "<group>"; };
 		17FD08E9489864D454E503B4 /* Test.Observer.Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Observer.Event.swift; sourceTree = "<group>"; };
 		17FD0916F82FAC336830F9E0 /* Observer.Notification.Handler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Notification.Handler.swift; sourceTree = "<group>"; };
@@ -90,16 +87,20 @@
 		17FD0D3172AE37DB859D5545 /* Observatory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Observatory.h; sourceTree = "<group>"; };
 		17FD0D519D5AF487EBB652BE /* Observer.Hotkey.Recorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Hotkey.Recorder.swift; sourceTree = "<group>"; };
 		17FD0D539B72A4A1B5DFCEBE /* Observer.HandlerDefinition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.HandlerDefinition.swift; sourceTree = "<group>"; };
+		17FD0E4746A067ADA237320D /* Base-Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Base-Debug.xcconfig"; sourceTree = "<group>"; };
 		17FD0EC2D909CCE6E3BC8A9E /* Observer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
-		17FD0ED96CA8568E523C05EA /* Base - Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Base - Debug.xcconfig"; sourceTree = "<group>"; };
 		17FD0F7C4A53D96FBDB8674E /* Observer.Hotkey.Handler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Hotkey.Handler.swift; sourceTree = "<group>"; };
 		17FD0FC46CCA34ABA0BED1CB /* Extension.Carbon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.Carbon.swift; sourceTree = "<group>"; };
 		691492DAECCDA8F37886F020 /* framework.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = framework.plist; sourceTree = "<group>"; };
-		692C0EE3AC3E3172836E1B96 /* demo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = demo.plist; sourceTree = "<group>"; };
+		692C0EE3AC3E3172836E1B96 /* application.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = application.plist; sourceTree = "<group>"; };
 		697EDBC98FFDECF7FF264F3A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		69D782B1BF1A76BD24B7144E /* Cartfile.resolved */ = {isa = PBXFileReference; lastKnownFileType = file.resolved; path = Cartfile.resolved; sourceTree = "<group>"; };
 		E609DC891E7BC8C400F919DD /* demo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = demo.storyboard; sourceTree = "<group>"; };
 		E609DC8C1E7BCA3200F919DD /* Nimble.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Nimble.framework.dSYM; path = Carthage/Build/Mac/Nimble.framework.dSYM; sourceTree = "<group>"; };
+		E656926624ABE1D20072C839 /* macOS-Test.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "macOS-Test.xcconfig"; sourceTree = "<group>"; };
+		E656926724ABE1D20072C839 /* macOS-Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "macOS-Framework.xcconfig"; sourceTree = "<group>"; };
+		E656926824ABE1D20072C839 /* Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = "<group>"; };
+		E656926924ABE1DF0072C839 /* macOS-Application.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "macOS-Application.xcconfig"; sourceTree = "<group>"; };
 		E69200F31CDDE19100C4FEAD /* Observatory - Test.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Observatory - Test.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6D7642A1CDDBA100071CCB0 /* Observatory.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Observatory.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -116,19 +117,10 @@
 			path = Observer;
 			sourceTree = "<group>";
 		};
-		17FD021F68C207D6BE5401EE /* configuration */ = {
-			isa = PBXGroup;
-			children = (
-				17FD067BD7183F4497D8FE33 /* Configuration */,
-				17FD045154CDB984B09CE2DB /* Target */,
-			);
-			name = configuration;
-			sourceTree = "<group>";
-		};
 		17FD030F7F2C5CA3191B2040 /* accessory */ = {
 			isa = PBXGroup;
 			children = (
-				17FD021F68C207D6BE5401EE /* configuration */,
+				17FD076FFBC955C0E64AC684 /* configuration */,
 				692739BC3F963DB95B757C64 /* info */,
 				69FE70738BA9A7D2F71070B9 /* storyboard */,
 			);
@@ -142,16 +134,6 @@
 			);
 			name = framework;
 			sourceTree = "<group>";
-		};
-		17FD045154CDB984B09CE2DB /* Target */ = {
-			isa = PBXGroup;
-			children = (
-				17FD098E9D4F645F95274057 /* macOS */,
-				17FD08C9C8536FA561C0E4C5 /* Test.xcconfig */,
-			);
-			name = Target;
-			path = dependency/git/xenomorph/source/Target;
-			sourceTree = SOURCE_ROOT;
 		};
 		17FD0498F691994B815B5FB3 /* dependency */ = {
 			isa = PBXGroup;
@@ -174,22 +156,25 @@
 			path = Keyboard;
 			sourceTree = "<group>";
 		};
-		17FD067BD7183F4497D8FE33 /* Configuration */ = {
-			isa = PBXGroup;
-			children = (
-				17FD0ED96CA8568E523C05EA /* Base - Debug.xcconfig */,
-				17FD0153D441DBE8117C8705 /* Base - Release.xcconfig */,
-			);
-			name = Configuration;
-			path = dependency/git/xenomorph/source/Configuration;
-			sourceTree = SOURCE_ROOT;
-		};
 		17FD075D9838C94D43A9D2A5 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
 				17FD08D461EB26AE885B82AC /* Entrypoint.swift */,
 			);
 			path = Demo;
+			sourceTree = "<group>";
+		};
+		17FD076FFBC955C0E64AC684 /* configuration */ = {
+			isa = PBXGroup;
+			children = (
+				E656926824ABE1D20072C839 /* Base.xcconfig */,
+				17FD0E4746A067ADA237320D /* Base-Debug.xcconfig */,
+				17FD06C9E65BB65192F229B4 /* Base-Release.xcconfig */,
+				E656926924ABE1DF0072C839 /* macOS-Application.xcconfig */,
+				E656926724ABE1D20072C839 /* macOS-Framework.xcconfig */,
+				E656926624ABE1D20072C839 /* macOS-Test.xcconfig */,
+			);
+			path = configuration;
 			sourceTree = "<group>";
 		};
 		17FD079314E43D0AE5DC0DA8 /* Extension */ = {
@@ -217,15 +202,6 @@
 			path = Foundation;
 			sourceTree = "<group>";
 		};
-		17FD098E9D4F645F95274057 /* macOS */ = {
-			isa = PBXGroup;
-			children = (
-				17FD00D92CE5001C977C34C8 /* macOS - Framework.xcconfig */,
-				17FD016E3AC5B7437BE4F07B /* macOS - Application.xcconfig */,
-			);
-			path = macOS;
-			sourceTree = "<group>";
-		};
 		17FD09950698908EEF7D7425 /* Notification */ = {
 			isa = PBXGroup;
 			children = (
@@ -238,13 +214,13 @@
 		17FD09F540CD71F300A55FCB /* Observatory */ = {
 			isa = PBXGroup;
 			children = (
-				17FD0930137C805C35C762B4 /* Foundation */,
 				17FD079314E43D0AE5DC0DA8 /* Extension */,
+				17FD0930137C805C35C762B4 /* Foundation */,
 				17FD05AECFC1FAE469284C0F /* Keyboard */,
-				17FD0E1C100943CB2E5A1608 /* Test */,
 				17FD0B3FA5AE2DB923C5697E /* Observer */,
-				17FD0D3172AE37DB859D5545 /* Observatory.h */,
+				17FD0E1C100943CB2E5A1608 /* Test */,
 				17FD0865B2ECB4388EC47754 /* Testing */,
+				17FD0D3172AE37DB859D5545 /* Observatory.h */,
 			);
 			path = Observatory;
 			sourceTree = "<group>";
@@ -278,10 +254,10 @@
 		17FD0B3FA5AE2DB923C5697E /* Observer */ = {
 			isa = PBXGroup;
 			children = (
-				17FD0EC2D909CCE6E3BC8A9E /* Observer.swift */,
-				17FD09950698908EEF7D7425 /* Notification */,
 				17FD0A502C015FEFB24C8941 /* Event */,
 				17FD0E8CA6D8B4653615047D /* HotKey */,
+				17FD09950698908EEF7D7425 /* Notification */,
+				17FD0EC2D909CCE6E3BC8A9E /* Observer.swift */,
 				17FD0D539B72A4A1B5DFCEBE /* Observer.HandlerDefinition.swift */,
 			);
 			path = Observer;
@@ -321,7 +297,7 @@
 		692739BC3F963DB95B757C64 /* info */ = {
 			isa = PBXGroup;
 			children = (
-				692C0EE3AC3E3172836E1B96 /* demo.plist */,
+				692C0EE3AC3E3172836E1B96 /* application.plist */,
 				691492DAECCDA8F37886F020 /* framework.plist */,
 				17FD049B29A650BABBC10CC6 /* test.plist */,
 			);
@@ -545,9 +521,8 @@
 /* Begin XCBuildConfiguration section */
 		087EE79E1E1C1FF500093E0E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 17FD016E3AC5B7437BE4F07B /* macOS - Application.xcconfig */;
+			baseConfigurationReference = E656926924ABE1DF0072C839 /* macOS-Application.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "$(inherited)/../demo.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS)",
@@ -558,9 +533,8 @@
 		};
 		087EE79F1E1C1FF500093E0E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 17FD016E3AC5B7437BE4F07B /* macOS - Application.xcconfig */;
+			baseConfigurationReference = E656926924ABE1DF0072C839 /* macOS-Application.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "$(inherited)/../demo.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS)",
@@ -571,29 +545,31 @@
 		};
 		E69200FB1CDDE19200C4FEAD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 17FD08C9C8536FA561C0E4C5 /* Test.xcconfig */;
+			baseConfigurationReference = E656926624ABE1D20072C839 /* macOS-Test.xcconfig */;
 			buildSettings = {
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS)",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(inherited).test";
 			};
 			name = Debug;
 		};
 		E69200FC1CDDE19200C4FEAD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 17FD08C9C8536FA561C0E4C5 /* Test.xcconfig */;
+			baseConfigurationReference = E656926624ABE1D20072C839 /* macOS-Test.xcconfig */;
 			buildSettings = {
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS)",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(inherited).test";
 			};
 			name = Release;
 		};
 		E6D764301CDDBA100071CCB0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 17FD0ED96CA8568E523C05EA /* Base - Debug.xcconfig */;
+			baseConfigurationReference = 17FD0E4746A067ADA237320D /* Base-Debug.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/dependency/Carthage/Build/Mac";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
@@ -604,7 +580,7 @@
 		};
 		E6D764311CDDBA100071CCB0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 17FD0153D441DBE8117C8705 /* Base - Release.xcconfig */;
+			baseConfigurationReference = 17FD06C9E65BB65192F229B4 /* Base-Release.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/dependency/Carthage/Build/Mac";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
@@ -615,14 +591,14 @@
 		};
 		E6D764331CDDBA100071CCB0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 17FD00D92CE5001C977C34C8 /* macOS - Framework.xcconfig */;
+			baseConfigurationReference = E656926724ABE1D20072C839 /* macOS-Framework.xcconfig */;
 			buildSettings = {
 			};
 			name = Debug;
 		};
 		E6D764341CDDBA100071CCB0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 17FD00D92CE5001C977C34C8 /* macOS - Framework.xcconfig */;
+			baseConfigurationReference = E656926724ABE1D20072C839 /* macOS-Framework.xcconfig */;
 			buildSettings = {
 			};
 			name = Release;

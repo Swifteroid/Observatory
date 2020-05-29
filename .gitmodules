@@ -1,6 +1,3 @@
-[submodule "dependency/git/xenomorph"]
-	path = dependency/git/xenomorph
-	url = https://github.com/swifteroid/xenomorph
-[submodule "dependency/git/gitignore"]
-	path = dependency/git/gitignore
-	url = https://github.com/bitwild/gitignore
+[submodule "dependency/Git/xcconfigs"]
+	path = dependency/Git/xcconfigs
+	url = https://github.com/xcconfigs/xcconfigs
