@@ -44,13 +44,21 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder {
             HotkeyCenter.default.remove(hotkey: oldHotkey)
         }
 
-        // Todo: It would be good to return some status, but because definitions might not fail immediately this is a non-trivial job. Leaving it
+        // Todo: It would be good to return some status, but because definitions might not fail immediately this is not a trivial task. Leaving it
         // todo: as a reminder in case this ever proves to be a problem…
         if let newHotkey: KeyboardHotkey = newHotkey, let newCommand: HotkeyCommand = newCommand {
             HotkeyCenter.default.add(hotkey: newHotkey, command: newCommand)
             self.registration = (newHotkey, newCommand)
         } else {
             self.registration = nil
+        }
+    }
+
+    /// Stores temporary modifier while hotkey is being recorded.
+    private var modifier: KeyboardModifier? {
+        didSet {
+            if self.modifier == oldValue { return }
+            self.update()
         }
     }
 
@@ -65,14 +73,6 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder {
             } else if HotkeyCenter.default.recorder === self {
                 HotkeyCenter.default.recorder = nil
             }
-        }
-    }
-
-    /// Stores temporary modifier while hotkey is being recorded.
-    private var modifier: KeyboardModifier? {
-        didSet {
-            if self.modifier == oldValue { return }
-            self.update()
         }
     }
 
@@ -94,56 +94,38 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder {
         self.originalFirstResponder = nil
     }
 
+    /// Updates the button's title and appearance.
     private func update() {
-        // In case if title is empty, we still need a valid paragraph style…
+        // ✊ Even when the title is empty, we still need a valid paragraph style.
         let style: NSMutableParagraphStyle = self.attributedTitle.attribute(NSAttributedString.Key.paragraphStyle, at: 0, effectiveRange: nil) as! NSMutableParagraphStyle? ?? NSMutableParagraphStyle(alignment: self.alignment)
-        let colour: NSColor
+        let modifier = self.modifier == nil || self.modifier == [] ? nil : self.modifier
+        let hotkey = self.hotkey
+        let color: NSColor
         let title: String
 
         if self.isRecording {
-            // Make sure the receiver is the first responder.
-            self.makeFirstResponder()
-            if let modifier: KeyboardModifier = self.modifier, modifier != [] {
-                title = self.title(forModifier: modifier)
-            } else if let hotkey: KeyboardHotkey = self.hotkey {
-                title = self.title(forHotkey: hotkey)
-            } else {
-                title = "Record hotkey"
-            }
-            colour = self.modifier == nil ? NSColor.tertiaryLabelColor : NSColor.secondaryLabelColor
+            title = modifier.map({ self.title(forModifier: $0) }) ?? hotkey.map({ self.title(forHotkey: $0) }) ?? "Record hotkey"
+            color = self.modifier == nil ? NSColor.tertiaryLabelColor : NSColor.secondaryLabelColor
         } else {
-            if let hotkey: KeyboardHotkey = self.hotkey {
-                // Hotkey and command are set and registered the button will appear normal. If hotkey is set but command is not the button
-                // will appear grayed out. If hotkey and command are set but not registered the button will have a warning.
-                if self.registration != nil || self.command == nil {
-                    title = self.title(forHotkey: hotkey)
-                    colour = self.command == nil ? NSColor.secondaryLabelColor : NSColor.labelColor
-                } else {
-                    // Todo: this is all fancy shmancy, but we need a proper solution here…
-                    title = "☠️"
-                    colour = NSColor.secondaryLabelColor
-                }
-            } else {
-                title = "Click to record hotkey"
-                colour = NSColor.labelColor
-            }
+            title = hotkey.map({ self.title(forHotkey: $0) }) ?? "Click to record hotkey"
+            color = NSColor.labelColor
         }
 
-        if title == "" {
-            NSLog("\(self) attempted to set empty title, this shouldn't be happening…")
-        } else {
-            self.attributedTitle = NSAttributedString(string: title, attributes: [.foregroundColor: colour, .paragraphStyle: style, .font: self.font ?? NSFont.systemFont(ofSize: NSFont.systemFontSize)])
-        }
+        if title == "" { NSLog("\(self) attempted to set empty title, this shouldn't be happening…") }
+        self.attributedTitle = NSAttributedString(string: title, attributes: [.foregroundColor: color, .paragraphStyle: style, .font: self.font ?? NSFont.systemFont(ofSize: NSFont.systemFontSize)])
     }
 
+    /// Returns the receiver's title for the keyboard modifier.
     open func title(forModifier modifier: KeyboardModifier) -> String {
         String(describing: modifier)
     }
 
+    /// Returns the receiver's title for the keyboard key. 
     open func title(forKey key: KeyboardKey) -> String {
         String(describing: key)
     }
 
+    /// Returns the receiver's title for the keyboard hotkey.
     open func title(forHotkey hotkey: KeyboardHotkey) -> String {
         "\(self.title(forModifier: hotkey.modifier))\(self.title(forKey: hotkey.key))"
     }
