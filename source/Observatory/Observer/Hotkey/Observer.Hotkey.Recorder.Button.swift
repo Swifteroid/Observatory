@@ -5,6 +5,13 @@ import Carbon
 /// NSButton-based control for recording and managing hotkeys. Unlike regular button, it will send actions
 /// when the associated hotkey gets modified as the result of user input.
 open class HotkeyRecorderButton: NSButton, HotkeyRecorder {
+    override public init(frame frameRect: NSRect) { super.init(frame: frameRect); self._init() }
+    public required init?(coder: NSCoder) { super.init(coder: coder); self._init() }
+
+    private func _init() {
+        self.update()
+    }
+
     private lazy var windowNotificationObserver: NotificationObserver = NotificationObserver(active: true)
 
     open var hotkey: KeyboardHotkey? {
