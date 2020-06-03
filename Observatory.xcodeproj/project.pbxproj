@@ -10,29 +10,28 @@
 		17FD00154E7DD4027591C5D2 /* Testing.Observation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0B7E4C2ACF3D110CDA9D /* Testing.Observation.swift */; };
 		17FD00CB84FB669705C7E473 /* Keyboard.Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0A54F5667F4CE29E2B39 /* Keyboard.Key.swift */; };
 		17FD012B602860A1D459E05A /* Observer.Hotkey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0C0324E5560F5F80CA45 /* Observer.Hotkey.swift */; };
+		17FD0148328306B2C2A1C505 /* Test.Shortcut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD06581333B3906BE6258A /* Test.Shortcut.swift */; };
 		17FD0156D1758DD5200998BE /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD078E512F21A8ECE8F335 /* Test.swift */; };
 		17FD0162D167D444D8E5ED9A /* Entrypoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD08D461EB26AE885B82AC /* Entrypoint.swift */; };
-		17FD01726959797D8FD95CC0 /* Test.Observer.Center.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD05BA1A9CA829517CF9E5 /* Test.Observer.Center.swift */; };
+		17FD019C5C7935EDF1E25882 /* Shortcut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0FB54AAAEB24AB193225 /* Shortcut.swift */; };
 		17FD01BE2C8AF0115AE9DF8E /* Test.Observer.Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0549D3EA10134DC784A3 /* Test.Observer.Notification.swift */; };
 		17FD01D475A336AA93EC9F2F /* Keyboard.Modifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0A7C14DC5A257B15375D /* Keyboard.Modifier.swift */; };
 		17FD028A9B91583E857EF5EF /* Test.Observer.Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD08E9489864D454E503B4 /* Test.Observer.Event.swift */; };
 		17FD0328BCF34B7BF64C7670 /* Observer.Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD03560E1CD18D16062849 /* Observer.Event.swift */; };
-		17FD03551EEEDCD9AC72C8C1 /* Foundation.Weak.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD01A9278B0EB4D979293E /* Foundation.Weak.swift */; };
-		17FD039219FCE49AC94E432F /* Observer.Hotkey.Center.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0C77FE455F60AA173A5D /* Observer.Hotkey.Center.swift */; };
-		17FD03B3118DEE40664EFF97 /* Extension.Carbon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0FC46CCA34ABA0BED1CB /* Extension.Carbon.swift */; };
 		17FD057B880D845188EA2DC8 /* Testing.Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0CC52C2436784A911E89 /* Testing.Event.swift */; };
 		17FD062C3246D204FE4BD93B /* Observer.Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD009919B2E0C5C02AE1FB /* Observer.Notification.swift */; };
 		17FD066C556A49EB63E661CC /* Observer.Notification.Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0916F82FAC336830F9E0 /* Observer.Notification.Handler.swift */; };
 		17FD088C42F60A74F1C81846 /* Test.Keyboard.Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD04EB71CD7024929F934F /* Test.Keyboard.Key.swift */; };
+		17FD08933236D7505E7FCF22 /* Shortcut.Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD01D08B3B6F5738B54CEE /* Shortcut.Recorder.swift */; };
+		17FD0895BDF08CF3ED5FEA49 /* Shortcut.Recorder.Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD04AABD313E9B5316521D /* Shortcut.Recorder.Button.swift */; };
 		17FD08BD0A91FD8A01FBD698 /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0EC2D909CCE6E3BC8A9E /* Observer.swift */; };
+		17FD093654260D5761C05F6E /* Shortcut.Center.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD09AD38D24C3C1205E9BE /* Shortcut.Center.swift */; };
 		17FD09D3A526167E7A8F531D /* Test.Observer.Hotkey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0AE28489C20294DE5E48 /* Test.Observer.Hotkey.swift */; };
-		17FD0A09CC6EAEF2CD550FE5 /* Observer.Hotkey.Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0D519D5AF487EBB652BE /* Observer.Hotkey.Recorder.swift */; };
 		17FD0A41F80C0E3C87DFF5C2 /* Observatory.h in Headers */ = {isa = PBXBuildFile; fileRef = 17FD0D3172AE37DB859D5545 /* Observatory.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		17FD0A6270752A2959E61CF9 /* Keyboard.Hotkey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD017771C4B54857A16DAD /* Keyboard.Hotkey.swift */; };
 		17FD0A7B3145FFD47C972C40 /* Observer.Event.Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0007A26B7B85FC5190C0 /* Observer.Event.Handler.swift */; };
 		17FD0BCDD00D6AF24E42FBD6 /* Observer.HandlerDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0D539B72A4A1B5DFCEBE /* Observer.HandlerDefinition.swift */; };
 		17FD0C1A4329D5233941DDE4 /* Test.Keyboard.Hotkey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD01507DE6860A0089FEAF /* Test.Keyboard.Hotkey.swift */; };
-		17FD0D9C31AB2F20A256C32E /* Observer.Hotkey.Recorder.Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0AAFBA1EB1B42F00ABE2 /* Observer.Hotkey.Recorder.Button.swift */; };
 		17FD0E596C7B56AEB4865F6A /* Observer.Hotkey.Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0F7C4A53D96FBDB8674E /* Observer.Hotkey.Handler.swift */; };
 		E609DC8B1E7BC8CA00F919DD /* demo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E609DC891E7BC8C400F919DD /* demo.storyboard */; };
 /* End PBXBuildFile section */
@@ -62,12 +61,13 @@
 		17FD01507DE6860A0089FEAF /* Test.Keyboard.Hotkey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Keyboard.Hotkey.swift; sourceTree = "<group>"; };
 		17FD0152B633954A227E8C79 /* Observatory.podspec */ = {isa = PBXFileReference; lastKnownFileType = file.podspec; path = Observatory.podspec; sourceTree = "<group>"; };
 		17FD017771C4B54857A16DAD /* Keyboard.Hotkey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.Hotkey.swift; sourceTree = "<group>"; };
-		17FD01A9278B0EB4D979293E /* Foundation.Weak.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Foundation.Weak.swift; sourceTree = "<group>"; };
+		17FD01D08B3B6F5738B54CEE /* Shortcut.Recorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shortcut.Recorder.swift; sourceTree = "<group>"; };
 		17FD03560E1CD18D16062849 /* Observer.Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Event.swift; sourceTree = "<group>"; };
 		17FD049B29A650BABBC10CC6 /* test.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = test.plist; sourceTree = "<group>"; };
+		17FD04AABD313E9B5316521D /* Shortcut.Recorder.Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shortcut.Recorder.Button.swift; sourceTree = "<group>"; };
 		17FD04EB71CD7024929F934F /* Test.Keyboard.Key.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Keyboard.Key.swift; sourceTree = "<group>"; };
 		17FD0549D3EA10134DC784A3 /* Test.Observer.Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Observer.Notification.swift; sourceTree = "<group>"; };
-		17FD05BA1A9CA829517CF9E5 /* Test.Observer.Center.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Observer.Center.swift; sourceTree = "<group>"; };
+		17FD06581333B3906BE6258A /* Test.Shortcut.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Shortcut.swift; sourceTree = "<group>"; };
 		17FD06C9E65BB65192F229B4 /* Base-Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Base-Release.xcconfig"; sourceTree = "<group>"; };
 		17FD078E512F21A8ECE8F335 /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		17FD0872935075E62744FA2B /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -75,22 +75,20 @@
 		17FD08E9489864D454E503B4 /* Test.Observer.Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Observer.Event.swift; sourceTree = "<group>"; };
 		17FD0916F82FAC336830F9E0 /* Observer.Notification.Handler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Notification.Handler.swift; sourceTree = "<group>"; };
 		17FD094B1DAE4CF98579274D /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		17FD09AD38D24C3C1205E9BE /* Shortcut.Center.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shortcut.Center.swift; sourceTree = "<group>"; };
 		17FD09DEC21D8E672877A6C0 /* Cartfile.private */ = {isa = PBXFileReference; lastKnownFileType = file.private; path = Cartfile.private; sourceTree = "<group>"; };
 		17FD0A54F5667F4CE29E2B39 /* Keyboard.Key.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.Key.swift; sourceTree = "<group>"; };
 		17FD0A7C14DC5A257B15375D /* Keyboard.Modifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.Modifier.swift; sourceTree = "<group>"; };
-		17FD0AAFBA1EB1B42F00ABE2 /* Observer.Hotkey.Recorder.Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Hotkey.Recorder.Button.swift; sourceTree = "<group>"; };
 		17FD0AE28489C20294DE5E48 /* Test.Observer.Hotkey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Observer.Hotkey.swift; sourceTree = "<group>"; };
 		17FD0B7E4C2ACF3D110CDA9D /* Testing.Observation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Testing.Observation.swift; sourceTree = "<group>"; };
 		17FD0C0324E5560F5F80CA45 /* Observer.Hotkey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Hotkey.swift; sourceTree = "<group>"; };
-		17FD0C77FE455F60AA173A5D /* Observer.Hotkey.Center.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Hotkey.Center.swift; sourceTree = "<group>"; };
 		17FD0CC52C2436784A911E89 /* Testing.Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Testing.Event.swift; sourceTree = "<group>"; };
 		17FD0D3172AE37DB859D5545 /* Observatory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Observatory.h; sourceTree = "<group>"; };
-		17FD0D519D5AF487EBB652BE /* Observer.Hotkey.Recorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Hotkey.Recorder.swift; sourceTree = "<group>"; };
 		17FD0D539B72A4A1B5DFCEBE /* Observer.HandlerDefinition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.HandlerDefinition.swift; sourceTree = "<group>"; };
 		17FD0E4746A067ADA237320D /* Base-Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Base-Debug.xcconfig"; sourceTree = "<group>"; };
 		17FD0EC2D909CCE6E3BC8A9E /* Observer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
 		17FD0F7C4A53D96FBDB8674E /* Observer.Hotkey.Handler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Hotkey.Handler.swift; sourceTree = "<group>"; };
-		17FD0FC46CCA34ABA0BED1CB /* Extension.Carbon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.Carbon.swift; sourceTree = "<group>"; };
+		17FD0FB54AAAEB24AB193225 /* Shortcut.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shortcut.swift; sourceTree = "<group>"; };
 		691492DAECCDA8F37886F020 /* framework.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = framework.plist; sourceTree = "<group>"; };
 		692C0EE3AC3E3172836E1B96 /* application.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = application.plist; sourceTree = "<group>"; };
 		697EDBC98FFDECF7FF264F3A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -112,9 +110,19 @@
 				17FD0549D3EA10134DC784A3 /* Test.Observer.Notification.swift */,
 				17FD08E9489864D454E503B4 /* Test.Observer.Event.swift */,
 				17FD0AE28489C20294DE5E48 /* Test.Observer.Hotkey.swift */,
-				17FD05BA1A9CA829517CF9E5 /* Test.Observer.Center.swift */,
 			);
 			path = Observer;
+			sourceTree = "<group>";
+		};
+		17FD00CF6AE1E6CB712F9CBA /* Shortcut */ = {
+			isa = PBXGroup;
+			children = (
+				17FD0FB54AAAEB24AB193225 /* Shortcut.swift */,
+				17FD09AD38D24C3C1205E9BE /* Shortcut.Center.swift */,
+				17FD04AABD313E9B5316521D /* Shortcut.Recorder.Button.swift */,
+				17FD01D08B3B6F5738B54CEE /* Shortcut.Recorder.swift */,
+			);
+			path = Shortcut;
 			sourceTree = "<group>";
 		};
 		17FD030F7F2C5CA3191B2040 /* accessory */ = {
@@ -144,6 +152,14 @@
 				69D782B1BF1A76BD24B7144E /* Cartfile.resolved */,
 			);
 			path = dependency;
+			sourceTree = "<group>";
+		};
+		17FD04EDF9644FF010EB95D3 /* Shortcut */ = {
+			isa = PBXGroup;
+			children = (
+				17FD06581333B3906BE6258A /* Test.Shortcut.swift */,
+			);
+			path = Shortcut;
 			sourceTree = "<group>";
 		};
 		17FD05AECFC1FAE469284C0F /* Keyboard */ = {
@@ -177,14 +193,6 @@
 			path = configuration;
 			sourceTree = "<group>";
 		};
-		17FD079314E43D0AE5DC0DA8 /* Extension */ = {
-			isa = PBXGroup;
-			children = (
-				17FD0FC46CCA34ABA0BED1CB /* Extension.Carbon.swift */,
-			);
-			path = Extension;
-			sourceTree = "<group>";
-		};
 		17FD0865B2ECB4388EC47754 /* Testing */ = {
 			isa = PBXGroup;
 			children = (
@@ -192,14 +200,6 @@
 				17FD0CC52C2436784A911E89 /* Testing.Event.swift */,
 			);
 			path = Testing;
-			sourceTree = "<group>";
-		};
-		17FD0930137C805C35C762B4 /* Foundation */ = {
-			isa = PBXGroup;
-			children = (
-				17FD01A9278B0EB4D979293E /* Foundation.Weak.swift */,
-			);
-			path = Foundation;
 			sourceTree = "<group>";
 		};
 		17FD09950698908EEF7D7425 /* Notification */ = {
@@ -214,13 +214,12 @@
 		17FD09F540CD71F300A55FCB /* Observatory */ = {
 			isa = PBXGroup;
 			children = (
-				17FD079314E43D0AE5DC0DA8 /* Extension */,
-				17FD0930137C805C35C762B4 /* Foundation */,
 				17FD05AECFC1FAE469284C0F /* Keyboard */,
 				17FD0B3FA5AE2DB923C5697E /* Observer */,
 				17FD0E1C100943CB2E5A1608 /* Test */,
 				17FD0865B2ECB4388EC47754 /* Testing */,
 				17FD0D3172AE37DB859D5545 /* Observatory.h */,
+				17FD00CF6AE1E6CB712F9CBA /* Shortcut */,
 			);
 			path = Observatory;
 			sourceTree = "<group>";
@@ -278,6 +277,7 @@
 				17FD00AF91A500EDFD52854A /* Observer */,
 				17FD09FAB36FCB8416A21EDB /* Keyboard */,
 				17FD078E512F21A8ECE8F335 /* Test.swift */,
+				17FD04EDF9644FF010EB95D3 /* Shortcut */,
 			);
 			path = Test;
 			sourceTree = "<group>";
@@ -287,9 +287,6 @@
 			children = (
 				17FD0C0324E5560F5F80CA45 /* Observer.Hotkey.swift */,
 				17FD0F7C4A53D96FBDB8674E /* Observer.Hotkey.Handler.swift */,
-				17FD0AAFBA1EB1B42F00ABE2 /* Observer.Hotkey.Recorder.Button.swift */,
-				17FD0C77FE455F60AA173A5D /* Observer.Hotkey.Center.swift */,
-				17FD0D519D5AF487EBB652BE /* Observer.Hotkey.Recorder.swift */,
 			);
 			path = Hotkey;
 			sourceTree = "<group>";
@@ -476,7 +473,7 @@
 				17FD00154E7DD4027591C5D2 /* Testing.Observation.swift in Sources */,
 				17FD057B880D845188EA2DC8 /* Testing.Event.swift in Sources */,
 				17FD0156D1758DD5200998BE /* Test.swift in Sources */,
-				17FD01726959797D8FD95CC0 /* Test.Observer.Center.swift in Sources */,
+				17FD0148328306B2C2A1C505 /* Test.Shortcut.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -484,22 +481,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				17FD03551EEEDCD9AC72C8C1 /* Foundation.Weak.swift in Sources */,
-				17FD03B3118DEE40664EFF97 /* Extension.Carbon.swift in Sources */,
-				17FD0A6270752A2959E61CF9 /* Keyboard.Hotkey.swift in Sources */,
 				17FD00CB84FB669705C7E473 /* Keyboard.Key.swift in Sources */,
+				17FD0A6270752A2959E61CF9 /* Keyboard.Hotkey.swift in Sources */,
 				17FD01D475A336AA93EC9F2F /* Keyboard.Modifier.swift in Sources */,
 				17FD08BD0A91FD8A01FBD698 /* Observer.swift in Sources */,
-				17FD062C3246D204FE4BD93B /* Observer.Notification.swift in Sources */,
-				17FD066C556A49EB63E661CC /* Observer.Notification.Handler.swift in Sources */,
+				17FD0BCDD00D6AF24E42FBD6 /* Observer.HandlerDefinition.swift in Sources */,
 				17FD0328BCF34B7BF64C7670 /* Observer.Event.swift in Sources */,
 				17FD0A7B3145FFD47C972C40 /* Observer.Event.Handler.swift in Sources */,
 				17FD012B602860A1D459E05A /* Observer.Hotkey.swift in Sources */,
 				17FD0E596C7B56AEB4865F6A /* Observer.Hotkey.Handler.swift in Sources */,
-				17FD0D9C31AB2F20A256C32E /* Observer.Hotkey.Recorder.Button.swift in Sources */,
-				17FD039219FCE49AC94E432F /* Observer.Hotkey.Center.swift in Sources */,
-				17FD0A09CC6EAEF2CD550FE5 /* Observer.Hotkey.Recorder.swift in Sources */,
-				17FD0BCDD00D6AF24E42FBD6 /* Observer.HandlerDefinition.swift in Sources */,
+				17FD062C3246D204FE4BD93B /* Observer.Notification.swift in Sources */,
+				17FD066C556A49EB63E661CC /* Observer.Notification.Handler.swift in Sources */,
+				17FD019C5C7935EDF1E25882 /* Shortcut.swift in Sources */,
+				17FD093654260D5761C05F6E /* Shortcut.Center.swift in Sources */,
+				17FD08933236D7505E7FCF22 /* Shortcut.Recorder.swift in Sources */,
+				17FD0895BDF08CF3ED5FEA49 /* Shortcut.Recorder.Button.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

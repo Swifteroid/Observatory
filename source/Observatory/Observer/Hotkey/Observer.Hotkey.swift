@@ -20,15 +20,6 @@ open class HotkeyObserver: AbstractObserver {
     private typealias EventHotkeyHandler = (EventHotKeyID) -> Void
     private typealias EventHotkeyHandlerPointer = UnsafeMutablePointer<EventHotkeyHandler>
 
-    deinit {
-        HotkeyCenter.default.unregister(observer: self)
-    }
-
-    override public init() {
-        super.init()
-        HotkeyCenter.default.register(observer: self)
-    }
-
     public convenience init(active: Bool) {
         self.init()
         self.activate(active)
@@ -151,7 +142,14 @@ extension HotkeyObserver {
 
 extension HotkeyObserver {
     public enum Error: Swift.Error {
+        /// Cannot install universal procedure pointer.
         case uppInstallFailed
+        /// Cannot remove universal procedure pointer.
         case uppRemoveFail
     }
+}
+
+/// Here we make EventHotKeyID instances comparable using `==` operator.
+extension EventHotKeyID: Equatable {
+    public static func == (lhs: Self, rhs: Self) -> Bool { lhs.signature == rhs.signature && lhs.id == rhs.id }
 }

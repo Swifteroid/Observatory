@@ -9,16 +9,16 @@ internal class HotkeyObserverSpec: Spec {
         it("can observe hotkeys in active state") {
             let observer: HotkeyObserver = HotkeyObserver(active: true)
             let modifier: CGEventFlags = [.maskCommand, .maskShift]
-            let fooKey: CGKeyCode = CGKeyCode(KeyboardKey.five.rawValue)
-            let barKey: CGKeyCode = CGKeyCode(KeyboardKey.six.rawValue)
+            let fooKey: CGKeyCode = CGKeyCode(KeyboardKey.one.rawValue)
+            let barKey: CGKeyCode = CGKeyCode(KeyboardKey.two.rawValue)
 
             var foo: Int = 0
             var bar: Int = 0
 
             expect(observer.isActive) == true
 
-            observer.add(hotkey: KeyboardHotkey(key: .five, modifier: [.commandKey, .shiftKey])) { foo += 1 }
-            observer.add(hotkey: KeyboardHotkey(key: .six, modifier: [.commandKey, .shiftKey])) { bar += 1 }
+            observer.add(hotkey: KeyboardHotkey(key: .one, modifier: [.commandKey, .shiftKey])) { foo += 1 }
+            observer.add(hotkey: KeyboardHotkey(key: .two, modifier: [.commandKey, .shiftKey])) { bar += 1 }
 
             self.postHotkeyEvent(key: fooKey, flag: modifier)
             self.postHotkeyEvent(key: barKey, flag: modifier)
@@ -50,7 +50,7 @@ internal class HotkeyObserverSpec: Spec {
 
             // Removing must work.
 
-            observer.remove(hotkey: KeyboardHotkey(key: .five, modifier: [.commandKey, .shiftKey]))
+            observer.remove(hotkey: KeyboardHotkey(key: .one, modifier: [.commandKey, .shiftKey]))
 
             self.postHotkeyEvent(key: fooKey, flag: modifier)
 
@@ -85,7 +85,7 @@ internal class HotkeyObserverSpec: Spec {
         it("must produce definition error when adding the same hotkey twice") {
             let observerFoo: HotkeyObserver = HotkeyObserver(active: true)
             let observerBar: HotkeyObserver = HotkeyObserver(active: true)
-            let hotkey: KeyboardHotkey = KeyboardHotkey(key: KeyboardKey.five, modifier: [.commandKey, .shiftKey])
+            let hotkey: KeyboardHotkey = KeyboardHotkey(key: KeyboardKey.one, modifier: [.commandKey, .shiftKey])
 
             observerFoo.add(hotkey: hotkey, handler: {})
             observerBar.add(hotkey: hotkey, handler: {})
@@ -95,8 +95,8 @@ internal class HotkeyObserverSpec: Spec {
 
     private func readmeSample() {
         let observer: HotkeyObserver = HotkeyObserver(active: true)
-        let fooHotkey: KeyboardHotkey = KeyboardHotkey(key: KeyboardKey.five, modifier: [.commandKey, .shiftKey])
-        let barHotkey: KeyboardHotkey = KeyboardHotkey(key: KeyboardKey.six, modifier: [.commandKey, .shiftKey])
+        let fooHotkey: KeyboardHotkey = KeyboardHotkey(key: KeyboardKey.one, modifier: [.commandKey, .shiftKey])
+        let barHotkey: KeyboardHotkey = KeyboardHotkey(key: KeyboardKey.two, modifier: [.commandKey, .shiftKey])
 
         observer
             .add(hotkey: fooHotkey) { Swift.print("Such foo…") }

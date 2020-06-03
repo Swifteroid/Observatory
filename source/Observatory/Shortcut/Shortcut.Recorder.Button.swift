@@ -2,9 +2,9 @@ import AppKit
 import Foundation
 import Carbon
 
-/// NSButton-based control for recording and managing hotkeys. Unlike regular button, it will send actions
-/// when the associated hotkey gets modified as the result of user input.
-open class HotkeyRecorderButton: NSButton, HotkeyRecorder {
+/// NSButton-based control for recording shortcut hotkeys. Unlike regular button, it will send actions
+/// when the associated hotkey gets modified as the result of the user input.
+open class ShortcutRecorderButton: NSButton, ShortcutRecorder {
     override public init(frame frameRect: NSRect) { super.init(frame: frameRect); self._init() }
     public required init?(coder: NSCoder) { super.init(coder: coder); self._init() }
 
@@ -12,52 +12,19 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder {
         self.update()
     }
 
-    private lazy var windowNotificationObserver: NotificationObserver = NotificationObserver(active: true)
+    /// Window notification observer.
+    private let observer: NotificationObserver = NotificationObserver(active: true)
 
-    open var hotkey: KeyboardHotkey? {
+    open var shortcut: Shortcut? {
         willSet {
-            if newValue == self.hotkey { return }
-            NotificationCenter.default.post(name: Self.hotkeyWillChangeNotification, object: self)
+            if newValue == self.shortcut { return }
+            NotificationCenter.default.post(name: Self.shortcutWillChangeNotification, object: self)
         }
         didSet {
-            if self.hotkey == oldValue { return }
+            if self.shortcut == oldValue { return }
             // Should cancel recording if the hotkey gets set during active recording.
-            self.register()
             if self.isRecording != false { self.isRecording = false } else { self.update() }
-            NotificationCenter.default.post(name: Self.hotkeyDidChangeNotification, object: self)
-        }
-    }
-
-    open var command: HotkeyCommand? {
-        didSet {
-            if self.command == oldValue { return }
-            self.register()
-            self.update()
-        }
-    }
-
-    /// Successfully registered hotkey-command tuple.
-    private var registration: (hotkey: KeyboardHotkey, command: HotkeyCommand)?
-
-    /// Attempts to update registration to the current command and hotkey.
-    private func register() {
-        let oldHotkey: KeyboardHotkey? = self.registration?.hotkey
-        let newHotkey: KeyboardHotkey? = self.hotkey
-        let oldCommand: HotkeyCommand? = self.registration?.command
-        let newCommand: HotkeyCommand? = self.command
-        if newHotkey == oldHotkey && newCommand == oldCommand { return }
-
-        if let oldHotkey: KeyboardHotkey = oldHotkey, HotkeyCenter.default.commands[oldHotkey] == self.command {
-            HotkeyCenter.default.remove(hotkey: oldHotkey)
-        }
-
-        // Todo: It would be good to return some status, but because definitions might not fail immediately this is not a trivial task. Leaving it
-        // todo: as a reminder in case this ever proves to be a problem…
-        if let newHotkey: KeyboardHotkey = newHotkey, let newCommand: HotkeyCommand = newCommand {
-            HotkeyCenter.default.add(hotkey: newHotkey, command: newCommand)
-            self.registration = (newHotkey, newCommand)
-        } else {
-            self.registration = nil
+            NotificationCenter.default.post(name: Self.shortcutDidChangeNotification, object: self)
         }
     }
 
@@ -74,11 +41,11 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder {
             if self.isRecording == oldValue { return }
             if self.isRecording { self.makeFirstResponder() } else { self.restoreFirstResponder() }
             if self.modifier != nil { self.modifier = nil } else { self.update() }
-            // Let hotkey center know that current recorder changed.
+            // Let the shortcut center know that current recorder has changed.
             if self.isRecording {
-                HotkeyCenter.default.recorder = self
-            } else if HotkeyCenter.default.recorder === self {
-                HotkeyCenter.default.recorder = nil
+                ShortcutCenter.default.recorder = self
+            } else if ShortcutCenter.default.recorder === self {
+                ShortcutCenter.default.recorder = nil
             }
         }
     }
@@ -107,15 +74,18 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder {
         // ✊ Even when the title is empty, we still need a valid paragraph style.
         let style: NSMutableParagraphStyle = self.attributedTitle.attribute(NSAttributedString.Key.paragraphStyle, at: 0, effectiveRange: nil) as! NSMutableParagraphStyle? ?? NSMutableParagraphStyle(alignment: self.alignment)
         let modifier = self.modifier == nil || self.modifier == [] ? nil : self.modifier
-        let hotkey = self.hotkey
+        let hotkey = self.shortcut?.hotkey
         let color: NSColor
         let title: String
 
-        if self.isRecording {
-            title = modifier.map({ self.title(forModifier: $0) }) ?? hotkey.map({ self.title(forHotkey: $0) }) ?? "Record hotkey"
+        if self.shortcut == nil {
+            title = "INVALID"
+            color = NSColor.red
+        } else if self.isRecording {
+            title = modifier.map({ self.title(forModifier: $0) }) ?? hotkey.map({ self.title(forHotkey: $0) }) ?? "Record shortcut"
             color = self.modifier == nil ? NSColor.tertiaryLabelColor : NSColor.secondaryLabelColor
         } else {
-            title = hotkey.map({ self.title(forHotkey: $0) }) ?? "Click to record hotkey"
+            title = hotkey.map({ self.title(forHotkey: $0) }) ?? "Click to record shortcut"
             color = NSColor.labelColor
         }
 
@@ -158,8 +128,8 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder {
         if !self.isEnabled { return false }
 
         // Pressing delete key without any modifiers clears current shortcut.
-        if (self.isRecording || self.window?.firstResponder === self) && self.modifier == nil && self.hotkey != nil && KeyboardKey(event) == KeyboardKey.delete {
-            self.hotkey = nil
+        if (self.isRecording || self.window?.firstResponder === self) && self.modifier == nil && self.shortcut != nil && KeyboardKey(event) == KeyboardKey.delete {
+            self.shortcut?.hotkey = nil
             self.isRecording = false
             NotificationCenter.default.post(name: Self.hotkeyDidRecordNotification, object: self)
             let _ = self.sendAction(self.action, to: self.target)
@@ -183,10 +153,11 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder {
         // Pressing any key without modifiers is not a valid shortcut.
         if let modifier: KeyboardModifier = self.modifier {
             let hotkey: KeyboardHotkey = KeyboardHotkey(key: KeyboardKey(event), modifier: modifier)
-            if HotkeyCenter.default.commands.keys.contains(hotkey) && HotkeyCenter.default.commands[hotkey] != self.command {
+            let shortcut: Shortcut? = self.shortcut
+            if ShortcutCenter.default.shortcuts.contains(where: { $0 !== shortcut && $0.hotkey == hotkey }) {
                 NSSound.beep()
             } else {
-                self.hotkey = hotkey
+                self.shortcut?.hotkey = hotkey
                 self.isRecording = false
                 NotificationCenter.default.post(name: Self.hotkeyDidRecordNotification, object: self)
                 let _ = self.sendAction(self.action, to: self.target)
@@ -210,10 +181,10 @@ open class HotkeyRecorderButton: NSButton, HotkeyRecorder {
     /// You must invoke super when overriding this method.
     override open func viewWillMove(toWindow newWindow: NSWindow?) {
         if let oldWindow: NSWindow = self.window {
-            self.windowNotificationObserver.remove(observee: oldWindow)
+            self.observer.remove(observee: oldWindow)
         }
         if let newWindow: NSWindow = newWindow {
-            self.windowNotificationObserver.add(name: NSWindow.didResignKeyNotification, observee: newWindow, handler: { [weak self] in self?.isRecording = false })
+            self.observer.add(name: NSWindow.didResignKeyNotification, observee: newWindow, handler: { [weak self] in self?.isRecording = false })
         }
     }
 }
