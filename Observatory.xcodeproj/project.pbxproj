@@ -255,7 +255,7 @@
 			isa = PBXGroup;
 			children = (
 				17FD0A502C015FEFB24C8941 /* Event */,
-				17FD0E8CA6D8B4653615047D /* HotKey */,
+				17FD0E8CA6D8B4653615047D /* Hotkey */,
 				17FD09950698908EEF7D7425 /* Notification */,
 				17FD0EC2D909CCE6E3BC8A9E /* Observer.swift */,
 				17FD0D539B72A4A1B5DFCEBE /* Observer.HandlerDefinition.swift */,
@@ -282,7 +282,7 @@
 			path = Test;
 			sourceTree = "<group>";
 		};
-		17FD0E8CA6D8B4653615047D /* HotKey */ = {
+		17FD0E8CA6D8B4653615047D /* Hotkey */ = {
 			isa = PBXGroup;
 			children = (
 				17FD0C0324E5560F5F80CA45 /* Observer.Hotkey.swift */,
@@ -291,7 +291,7 @@
 				17FD0C77FE455F60AA173A5D /* Observer.Hotkey.Center.swift */,
 				17FD0D519D5AF487EBB652BE /* Observer.Hotkey.Recorder.swift */,
 			);
-			path = HotKey;
+			path = Hotkey;
 			sourceTree = "<group>";
 		};
 		692739BC3F963DB95B757C64 /* info */ = {

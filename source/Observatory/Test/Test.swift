@@ -7,12 +7,12 @@ internal class Spec: QuickSpec {
 
     /// This was something cool and used in some other testing, can't remember… Leaving as a reminder.
     private func sendHotkeyEvent(identifier: EventHotKeyID) {
-        let eventHotKeyIdPointer: UnsafeMutablePointer<EventHotKeyID> = UnsafeMutablePointer.allocate(capacity: 1)
-        eventHotKeyIdPointer.initialize(to: identifier)
+        let eventHotKeyIDPointer: UnsafeMutablePointer<EventHotKeyID> = UnsafeMutablePointer.allocate(capacity: 1)
+        eventHotKeyIDPointer.initialize(to: identifier)
 
         var eventPointer: OpaquePointer?
         CreateEvent(nil, UInt32(kEventClassKeyboard), UInt32(kEventHotKeyPressed), 0, 0, &eventPointer)
-        SetEventParameter(eventPointer, EventParamName(kEventParamDirectObject), EventParamType(typeEventHotKeyID), MemoryLayout<EventHotKeyID>.size, eventHotKeyIdPointer)
+        SetEventParameter(eventPointer, EventParamName(kEventParamDirectObject), EventParamType(typeEventHotKeyID), MemoryLayout<EventHotKeyID>.size, eventHotKeyIDPointer)
 
         // We send event directly to our application target only.
 

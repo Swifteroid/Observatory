@@ -16,11 +16,11 @@ extension HotkeyObserver {
             }
 
             /// Keeps global count track of unique ids used for hotkeys.
-            private static var uniqueHotkeyId: UInt32 = 0
+            private static var uniqueHotkeyIdentifier: UInt32 = 0
 
             private static func constructUniqueHotkeyIdentifier() -> UInt32 {
-                defer { self.uniqueHotkeyId += 1 }
-                return self.uniqueHotkeyId
+                defer { self.uniqueHotkeyIdentifier += 1 }
+                return self.uniqueHotkeyIdentifier
             }
 
             public let hotkey: KeyboardHotkey
