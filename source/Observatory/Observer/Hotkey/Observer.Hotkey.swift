@@ -112,14 +112,14 @@ open class HotkeyObserver: AbstractObserver {
         // Create universal procedure pointer, so it can be passed to C.
 
         let status: OSStatus = InstallEventHandler(GetApplicationEventTarget(), eventHandler, 1, &eventType, eventHotkeyHandlerPointer, &eventHandlerPointer)
-        guard status == Darwin.noErr else { throw Error.uppInstallFailed }
+        guard status == Darwin.noErr else { throw Error.cannotInstallUPP }
 
         return (eventHandlerPointer!, eventHotkeyHandlerPointer)
     }
 
     private func destructEventHandler(_ eventHandler: EventHandlerPointer, eventHotkeyHandler: EventHotkeyHandlerPointer) throws {
         let status: OSStatus = RemoveEventHandler(eventHandler)
-        guard status == Darwin.noErr else { throw Error.uppRemoveFail }
+        guard status == Darwin.noErr else { throw Error.cannotUninstallUPP }
 
         eventHotkeyHandler.deinitialize(count: 1)
         eventHotkeyHandler.deallocate()
@@ -143,9 +143,9 @@ extension HotkeyObserver {
 extension HotkeyObserver {
     public enum Error: Swift.Error {
         /// Cannot install universal procedure pointer.
-        case uppInstallFailed
+        case cannotInstallUPP
         /// Cannot remove universal procedure pointer.
-        case uppRemoveFail
+        case cannotUninstallUPP
     }
 }
 

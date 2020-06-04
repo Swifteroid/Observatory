@@ -86,7 +86,7 @@ extension HotkeyObserver {
                 if Int(status) == eventHotKeyExistsErr {
                     throw Error.hotkeyAlreadyRegistered
                 } else if status != Darwin.noErr {
-                    throw Error.hotkeyRegisterFail(status: status)
+                    throw Error.cannotRegisterHotkey(status: status)
                 }
 
                 self.hotkeyIdentifier = identifier
@@ -95,7 +95,7 @@ extension HotkeyObserver {
 
             private func unregisterEventHotkey() throws {
                 let status: OSStatus = UnregisterEventHotKey(self.hotkeyReference)
-                guard status == Darwin.noErr else { throw Error.hotkeyUnregisterFail(status: status) }
+                guard status == Darwin.noErr else { throw Error.cannotUnregisterHotkey(status: status) }
 
                 self.hotkeyIdentifier = nil
                 self.hotkeyReference = nil
@@ -114,7 +114,7 @@ extension HotkeyObserver.Handler.Definition {
 extension HotkeyObserver.Handler.Definition {
     public enum Error: Swift.Error {
         case hotkeyAlreadyRegistered
-        case hotkeyRegisterFail(status: OSStatus)
-        case hotkeyUnregisterFail(status: OSStatus)
+        case cannotRegisterHotkey(status: OSStatus)
+        case cannotUnregisterHotkey(status: OSStatus)
     }
 }
