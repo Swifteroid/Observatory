@@ -73,13 +73,14 @@ internal class ShortcutSpec: Spec {
         }
 
         it("must post notifications when registered shortcut gets invoked") {
-            let shortcut = Shortcut(KeyboardHotkey(key: .one, modifier: [.commandKey, .shiftKey]))
+            let hotkey = KeyboardHotkey(key: .one, modifier: [.commandKey, .shiftKey])
+            let shortcut = Shortcut(hotkey)
             let center: ShortcutCenter = .default
 
             expect(expression: { self.postHotkeyEvent(key: CGKeyCode(KeyboardKey.one.rawValue), flag: [.maskCommand, .maskShift]) })
                 .to(postNotifications(equal([
-                    Notification(name: ShortcutCenter.willInvokeShortcutNotification, object: center, userInfo: [ShortcutCenter.shortcutUserInfo: shortcut]),
-                    Notification(name: ShortcutCenter.didInvokeShortcutNotification, object: center, userInfo: [ShortcutCenter.shortcutUserInfo: shortcut]),
+                    Notification(name: ShortcutCenter.willInvokeShortcutNotification, object: center, userInfo: [ShortcutCenter.shortcutUserInfo: shortcut, ShortcutCenter.hotkeyUserInfo: hotkey]),
+                    Notification(name: ShortcutCenter.didInvokeShortcutNotification, object: center, userInfo: [ShortcutCenter.shortcutUserInfo: shortcut, ShortcutCenter.hotkeyUserInfo: hotkey]),
                 ])))
         }
     }

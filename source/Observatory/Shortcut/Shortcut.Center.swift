@@ -29,11 +29,11 @@ open class ShortcutCenter {
     /// Registers the shortcut-hotkey pair.
     private func add(_ shortcut: Shortcut, _ hotkey: KeyboardHotkey) {
         if self.registrations.contains(where: { $0.shortcut == shortcut || $0.definition.hotkey == hotkey }) {
-            return self.notify(Self.cannotRegisterShortcutNotification, shortcut)
+            return self.notify(Self.cannotRegisterShortcutNotification, shortcut, hotkey)
         }
 
         if let _ = self.observer.error {
-            return self.notify(Self.cannotRegisterShortcutNotification, shortcut)
+            return self.notify(Self.cannotRegisterShortcutNotification, shortcut, hotkey)
         }
 
         let definition = HotkeyObserver.Handler.Definition(hotkey: hotkey, handler: { [weak self] in self?.invoke($0) })
@@ -41,11 +41,11 @@ open class ShortcutCenter {
 
         if let _ = definition.error {
             self.observer.remove(definition: definition)
-            return self.notify(Self.cannotRegisterShortcutNotification, shortcut)
+            return self.notify(Self.cannotRegisterShortcutNotification, shortcut, hotkey)
         }
 
         self.registrations.append(Registration(shortcut, definition))
-        self.notify(Self.didRegisterShortcutNotification, shortcut)
+        self.notify(Self.didRegisterShortcutNotification, shortcut, hotkey)
     }
 
     /// Unregisters the shortcut.
@@ -56,7 +56,7 @@ open class ShortcutCenter {
 
         let registration = self.registrations.remove(at: index)
         self.observer.remove(definition: registration.definition)
-        self.notify(Self.didUnregisterShortcutNotification, shortcut)
+        self.notify(Self.didUnregisterShortcutNotification, shortcut, registration.definition.hotkey)
     }
 
     /// Updates the shortcut registration.
@@ -76,9 +76,9 @@ open class ShortcutCenter {
     /// Invokes a registered shortcut with the hotkey.
     private func invoke(_ hotkey: KeyboardHotkey) {
         guard let shortcut = self.shortcuts.first(where: { $0.hotkey == hotkey }) else { return }
-        self.notify(Self.willInvokeShortcutNotification, shortcut)
+        self.notify(Self.willInvokeShortcutNotification, shortcut, hotkey)
         shortcut.invoke()
-        self.notify(Self.didInvokeShortcutNotification, shortcut)
+        self.notify(Self.didInvokeShortcutNotification, shortcut, hotkey)
     }
 }
 
@@ -95,27 +95,31 @@ extension ShortcutCenter {
 
 extension ShortcutCenter {
     /// Convenience notification posting.
-    fileprivate func notify(_ name: Notification.Name, _ shortcut: Shortcut) {
-        NotificationCenter.default.post(name: name, object: self, userInfo: [Self.shortcutUserInfo: shortcut])
+    fileprivate func notify(_ name: Notification.Name, _ shortcut: Shortcut, _ hotkey: KeyboardHotkey) {
+        NotificationCenter.default.post(name: name, object: self, userInfo: [Self.shortcutUserInfo: shortcut, Self.hotkeyUserInfo: hotkey])
     }
 }
 
 extension ShortcutCenter {
-    /// Posted after failing to register a shortcut. Includes `userInfo` with the `shortcut` key.
+    /// Posted after failing to register a shortcut. Includes `userInfo` with `shortcut` and `hotkey` keys.
     public static let cannotRegisterShortcutNotification = Notification.Name("\(ShortcutCenter.self)CannotNotRegisterShortcutNotification")
 
-    /// Posted after successfully registering a shortcut. Includes `userInfo` with the `shortcut` key.
+    /// Posted after successfully registering a shortcut. Includes `userInfo` with `shortcut` and `hotkey` keys.
     public static let didRegisterShortcutNotification = Notification.Name("\(ShortcutCenter.self)DidRegisterShortcutNotification")
 
-    /// Posted after successfully unregistering a shortcut. Includes `userInfo` with the `shortcut` key.
+    /// Posted after successfully unregistering a shortcut. Includes `userInfo` with `shortcut` and `hotkey` keys.
     public static let didUnregisterShortcutNotification = Notification.Name("\(ShortcutCenter.self)DidUnregisterShortcutNotification")
 
-    /// Posted prior invoking a registered shortcut. Includes `userInfo` with the `shortcut` key.
+    /// Posted prior invoking a registered shortcut. Includes `userInfo` with `shortcut` and `hotkey` keys.
     public static let willInvokeShortcutNotification = Notification.Name("\(ShortcutCenter.self)WillInvokeShortcutNotification")
 
-    /// Posted after invoking a registered shortcut. Includes `userInfo` with the `shortcut` key.
+    /// Posted after invoking a registered shortcut. Includes `userInfo` with `shortcut` and `hotkey` keys.
     public static let didInvokeShortcutNotification = Notification.Name("\(ShortcutCenter.self)DidInvokeShortcutNotification")
 
     /// Notification `userInfo` key containing the `Shortcut` object.
     public static let shortcutUserInfo = "shortcut"
+
+    /// Notification `userInfo` key containing the `KeyboardHotkey` object. This is used alongside `shortcut` key to provide
+    /// the `KeyboardHotkey` value when it might be already changed in the `Shortcut` object.
+    public static let hotkeyUserInfo = "hotkey"
 }
