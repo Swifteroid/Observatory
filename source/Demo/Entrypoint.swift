@@ -19,7 +19,7 @@ open class ViewController: NSViewController {
         self.buttonBar.shortcut = .bar
         self.buttonBaz.shortcut = .baz
         self.buttonQux.shortcut = .qux
-        self.buttonFex.shortcut = Shortcut()
+        self.buttonFex.shortcut = .fex
 
         observer.add(name: ShortcutCenter.willInvokeShortcutNotification, observee: ShortcutCenter.default, handler: { [weak self] in self?.handleShortcutCenterNotification(notification: $0) })
         observer.add(name: ShortcutCenter.didInvokeShortcutNotification, observee: ShortcutCenter.default, handler: { [weak self] in self?.handleShortcutCenterNotification(notification: $0) })
@@ -35,11 +35,27 @@ open class ViewController: NSViewController {
         let shortcut: Shortcut = info[ShortcutCenter.shortcutUserInfo] as! Shortcut
         Swift.print("\(notification.name.rawValue): \(shortcut)")
     }
+
+    @IBAction private func reset(_ sender: Any?) {
+        self.buttonFoo.shortcut?.hotkey = .foo
+        self.buttonBar.shortcut?.hotkey = .bar
+        self.buttonBaz.shortcut?.hotkey = .baz
+        self.buttonQux.shortcut?.hotkey = .qux
+        self.buttonFex.shortcut?.hotkey = nil
+    }
+}
+
+extension KeyboardHotkey {
+    fileprivate static let foo = KeyboardHotkey(key: .one, modifier: [.commandKey, .shiftKey])
+    fileprivate static let bar = KeyboardHotkey(key: .two, modifier: [.commandKey, .shiftKey])
+    fileprivate static let baz = KeyboardHotkey(key: .three, modifier: [.commandKey, .shiftKey])
+    fileprivate static let qux = KeyboardHotkey(key: .four, modifier: [.commandKey, .shiftKey])
 }
 
 extension Shortcut {
-    fileprivate static let foo = Shortcut(KeyboardHotkey(key: .one, modifier: [.commandKey, .shiftKey]))
-    fileprivate static let bar = Shortcut(KeyboardHotkey(key: .two, modifier: [.commandKey, .shiftKey]))
-    fileprivate static let baz = Shortcut(KeyboardHotkey(key: .three, modifier: [.commandKey, .shiftKey]))
-    fileprivate static let qux = Shortcut(KeyboardHotkey(key: .four, modifier: [.commandKey, .shiftKey]))
+    fileprivate static let foo = Shortcut(.foo)
+    fileprivate static let bar = Shortcut(.bar)
+    fileprivate static let baz = Shortcut(.baz)
+    fileprivate static let qux = Shortcut(.qux)
+    fileprivate static let fex = Shortcut()
 }
