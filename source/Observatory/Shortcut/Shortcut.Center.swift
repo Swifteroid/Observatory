@@ -28,12 +28,23 @@ open class ShortcutCenter {
 
     /// Registers the shortcut-hotkey pair.
     private func add(_ shortcut: Shortcut, _ hotkey: KeyboardHotkey) {
-        guard !self.registrations.contains(where: { $0.shortcut == shortcut || $0.hotkey == hotkey }) else {
+        if self.registrations.contains(where: { $0.shortcut == shortcut || $0.definition.hotkey == hotkey }) {
             return self.notify(Self.cannotRegisterShortcutNotification, shortcut)
         }
 
-        self.registrations.append(Registration(shortcut, hotkey))
-        self.observer.add(hotkey: hotkey, handler: { [weak self] in self?.invoke($0) })
+        if let _ = self.observer.error {
+            return self.notify(Self.cannotRegisterShortcutNotification, shortcut)
+        }
+
+        let definition = HotkeyObserver.Handler.Definition(hotkey: hotkey, handler: { [weak self] in self?.invoke($0) })
+        self.observer.add(definition: definition)
+
+        if let _ = definition.error {
+            self.observer.remove(definition: definition)
+            return self.notify(Self.cannotRegisterShortcutNotification, shortcut)
+        }
+
+        self.registrations.append(Registration(shortcut, definition))
         self.notify(Self.didRegisterShortcutNotification, shortcut)
     }
 
@@ -44,13 +55,13 @@ open class ShortcutCenter {
         }
 
         let registration = self.registrations.remove(at: index)
-        self.observer.remove(hotkey: registration.hotkey)
+        self.observer.remove(definition: registration.definition)
         self.notify(Self.didUnregisterShortcutNotification, shortcut)
     }
 
     /// Updates the shortcut registration.
     internal func update(_ shortcut: Shortcut) {
-        let oldHotkey = self.registrations.first(where: { $0.shortcut == shortcut })?.hotkey
+        let oldHotkey = self.registrations.first(where: { $0.shortcut == shortcut })?.definition.hotkey
         let newHotkey = shortcut.hotkey
 
         // Need to register if the new hotkey is okay. 
@@ -73,12 +84,12 @@ open class ShortcutCenter {
 
 extension ShortcutCenter {
     fileprivate struct Registration {
-        init(_ shortcut: Shortcut, _ hotkey: KeyboardHotkey) {
+        fileprivate init(_ shortcut: Shortcut, _ definition: HotkeyObserver.Handler.Definition) {
             self.shortcut = shortcut
-            self.hotkey = hotkey
+            self.definition = definition
         }
         fileprivate let shortcut: Shortcut
-        fileprivate let hotkey: KeyboardHotkey
+        fileprivate let definition: HotkeyObserver.Handler.Definition
     }
 }
 
