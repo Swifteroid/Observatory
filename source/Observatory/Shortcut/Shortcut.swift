@@ -73,7 +73,7 @@ extension Shortcut: Hashable {
 }
 
 extension Shortcut: CustomStringConvertible {
-    public var description: String { "<\(Self.self): 0x\(String(Int(bitPattern: Unmanaged.passUnretained(self).toOpaque()), radix: 16)), hotkey:\(self.hotkey?.description ?? "nil"), observations: \(self.observations.count)>" }
+    public var description: String { "<\(Self.self): 0x\(String(Int(bitPattern: Unmanaged.passUnretained(self).toOpaque()), radix: 16)), hotkey: \(self.hotkey?.description ?? "nil"), observations: \(self.observations.count)>" }
 }
 
 extension Shortcut {

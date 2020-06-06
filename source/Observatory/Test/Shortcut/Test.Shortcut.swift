@@ -60,8 +60,8 @@ internal class ShortcutSpec: Spec {
 
             expect(expression: { self.postHotkeyEvent(key: CGKeyCode(KeyboardKey.one.rawValue), flag: [.maskCommand, .maskShift]) })
                 .to(postNotifications(equal([
-                    Notification(name: ShortcutCenter.shortcutWillInvokeNotification, object: center, userInfo: [ShortcutCenter.shortcutUserInfo: shortcut]),
-                    Notification(name: ShortcutCenter.shortcutDidInvokeNotification, object: center, userInfo: [ShortcutCenter.shortcutUserInfo: shortcut]),
+                    Notification(name: ShortcutCenter.willInvokeShortcutNotification, object: center, userInfo: [ShortcutCenter.shortcutUserInfo: shortcut]),
+                    Notification(name: ShortcutCenter.didInvokeShortcutNotification, object: center, userInfo: [ShortcutCenter.shortcutUserInfo: shortcut]),
                 ])))
         }
     }
