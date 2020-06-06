@@ -54,6 +54,24 @@ internal class ShortcutSpec: Spec {
             expect(callbacks) == 1
         }
 
+        it("must post notifications when hotkey gets changed") {
+            // Keep shortcut disabled to avoid `ShortcutCenter` registration notifications.
+            let shortcut = Shortcut(isEnabled: false)
+            let hotkey = KeyboardHotkey(key: .one, modifier: [.commandKey, .shiftKey])
+
+            expect(expression: { shortcut.hotkey = hotkey })
+                .to(postNotifications(equal([
+                    Notification(name: Shortcut.hotkeyWillChangeNotification, object: shortcut, userInfo: [Shortcut.hotkeyUserInfo: hotkey]),
+                    Notification(name: Shortcut.hotkeyDidChangeNotification, object: shortcut, userInfo: [Shortcut.hotkeyUserInfo: hotkey]),
+                ])))
+
+            expect(expression: { shortcut.hotkey = nil })
+                .to(postNotifications(equal([
+                    Notification(name: Shortcut.hotkeyWillChangeNotification, object: shortcut, userInfo: [Shortcut.hotkeyUserInfo: nil as KeyboardHotkey? as Any]),
+                    Notification(name: Shortcut.hotkeyDidChangeNotification, object: shortcut, userInfo: [Shortcut.hotkeyUserInfo: nil as KeyboardHotkey? as Any]),
+                ])))
+        }
+
         it("must post notifications when registered shortcut gets invoked") {
             let shortcut = Shortcut(KeyboardHotkey(key: .one, modifier: [.commandKey, .shiftKey]))
             let center: ShortcutCenter = .default

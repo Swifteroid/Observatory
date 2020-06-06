@@ -12,7 +12,7 @@ open class ShortcutRecorderButton: NSButton, ShortcutRecorder {
         self.update()
     }
 
-    /// Window notification observer.
+    /// Shortcut and window notification observer.
     private let observer: NotificationObserver = NotificationObserver(active: true)
 
     open var shortcut: Shortcut? {
@@ -22,6 +22,9 @@ open class ShortcutRecorderButton: NSButton, ShortcutRecorder {
         }
         didSet {
             if self.shortcut == oldValue { return }
+            // Update shortcut hotkey change observation.
+            if let shortcut = oldValue { self.observer.remove(observee: shortcut) }
+            if let shortcut = self.shortcut { self.observer.add(name: Shortcut.hotkeyDidChangeNotification, observee: shortcut, handler: { [weak self] in self?.update() }) }
             // Should cancel recording if the hotkey gets set during active recording.
             if self.isRecording != false { self.isRecording = false } else { self.update() }
             NotificationCenter.default.post(name: Self.shortcutDidChangeNotification, object: self)

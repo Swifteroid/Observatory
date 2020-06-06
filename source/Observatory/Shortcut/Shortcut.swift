@@ -13,7 +13,15 @@ open class Shortcut {
     /// The shortcut's hotkey. If hotkey is not provided or not valid the shortcut will not registered in the default
     /// `ShortcutCenter`.
     open var hotkey: KeyboardHotkey? {
-        didSet { self.update() }
+        willSet {
+            if newValue == self.hotkey { return }
+            NotificationCenter.default.post(name: Self.hotkeyWillChangeNotification, object: self, userInfo: [Self.hotkeyUserInfo: newValue as Any])
+        }
+        didSet {
+            if self.hotkey == oldValue { return }
+            NotificationCenter.default.post(name: Self.hotkeyDidChangeNotification, object: self, userInfo: [Self.hotkeyUserInfo: self.hotkey as Any])
+            self.update()
+        }
     }
 
     /// Specifies whether the shortcut is enabled or not. When not enabled shortcut will not be registered in the default
@@ -84,4 +92,15 @@ extension Shortcut {
         fileprivate init(_ action: @escaping Action) { self.action = action }
         fileprivate let action: Action
     }
+}
+
+extension Shortcut {
+    /// Posted prior updating the shortcut property. Includes `userInfo` with the `hotkey` key.
+    public static let hotkeyWillChangeNotification = Notification.Name("\(Shortcut.self)HotkeyWillChangeNotification")
+
+    /// Posted after updating the shortcut property. Includes `userInfo` with the `hotkey` key.
+    public static let hotkeyDidChangeNotification = Notification.Name("\(Shortcut.self)HotkeyDidChangeNotification")
+
+    /// Notification `userInfo` key containing the `KeyboardHotkey` value.
+    public static let hotkeyUserInfo = "hotkey"
 }

@@ -117,5 +117,5 @@ extension ShortcutCenter {
     public static let didInvokeShortcutNotification = Notification.Name("\(ShortcutCenter.self)DidInvokeShortcutNotification")
 
     /// Notification `userInfo` key containing the `Shortcut` object.
-    public static let shortcutUserInfo: String = "shortcut"
+    public static let shortcutUserInfo = "shortcut"
 }
