@@ -107,9 +107,9 @@
 		17FD00AF91A500EDFD52854A /* Observer */ = {
 			isa = PBXGroup;
 			children = (
-				17FD0549D3EA10134DC784A3 /* Test.Observer.Notification.swift */,
 				17FD08E9489864D454E503B4 /* Test.Observer.Event.swift */,
 				17FD0AE28489C20294DE5E48 /* Test.Observer.Hotkey.swift */,
+				17FD0549D3EA10134DC784A3 /* Test.Observer.Notification.swift */,
 			);
 			path = Observer;
 			sourceTree = "<group>";
@@ -119,8 +119,8 @@
 			children = (
 				17FD0FB54AAAEB24AB193225 /* Shortcut.swift */,
 				17FD09AD38D24C3C1205E9BE /* Shortcut.Center.swift */,
-				17FD04AABD313E9B5316521D /* Shortcut.Recorder.Button.swift */,
 				17FD01D08B3B6F5738B54CEE /* Shortcut.Recorder.swift */,
+				17FD04AABD313E9B5316521D /* Shortcut.Recorder.Button.swift */,
 			);
 			path = Shortcut;
 			sourceTree = "<group>";
@@ -196,8 +196,8 @@
 		17FD0865B2ECB4388EC47754 /* Testing */ = {
 			isa = PBXGroup;
 			children = (
-				17FD0B7E4C2ACF3D110CDA9D /* Testing.Observation.swift */,
 				17FD0CC52C2436784A911E89 /* Testing.Event.swift */,
+				17FD0B7E4C2ACF3D110CDA9D /* Testing.Observation.swift */,
 			);
 			path = Testing;
 			sourceTree = "<group>";
@@ -216,10 +216,10 @@
 			children = (
 				17FD05AECFC1FAE469284C0F /* Keyboard */,
 				17FD0B3FA5AE2DB923C5697E /* Observer */,
+				17FD00CF6AE1E6CB712F9CBA /* Shortcut */,
 				17FD0E1C100943CB2E5A1608 /* Test */,
 				17FD0865B2ECB4388EC47754 /* Testing */,
 				17FD0D3172AE37DB859D5545 /* Observatory.h */,
-				17FD00CF6AE1E6CB712F9CBA /* Shortcut */,
 			);
 			path = Observatory;
 			sourceTree = "<group>";
@@ -227,8 +227,8 @@
 		17FD09FAB36FCB8416A21EDB /* Keyboard */ = {
 			isa = PBXGroup;
 			children = (
-				17FD04EB71CD7024929F934F /* Test.Keyboard.Key.swift */,
 				17FD01507DE6860A0089FEAF /* Test.Keyboard.Hotkey.swift */,
+				17FD04EB71CD7024929F934F /* Test.Keyboard.Key.swift */,
 			);
 			path = Keyboard;
 			sourceTree = "<group>";
@@ -265,8 +265,8 @@
 		17FD0BB4EDB0784084E6A631 /* source */ = {
 			isa = PBXGroup;
 			children = (
-				17FD09F540CD71F300A55FCB /* Observatory */,
 				17FD075D9838C94D43A9D2A5 /* Demo */,
+				17FD09F540CD71F300A55FCB /* Observatory */,
 			);
 			path = source;
 			sourceTree = "<group>";
@@ -276,8 +276,8 @@
 			children = (
 				17FD00AF91A500EDFD52854A /* Observer */,
 				17FD09FAB36FCB8416A21EDB /* Keyboard */,
-				17FD078E512F21A8ECE8F335 /* Test.swift */,
 				17FD04EDF9644FF010EB95D3 /* Shortcut */,
+				17FD078E512F21A8ECE8F335 /* Test.swift */,
 			);
 			path = Test;
 			sourceTree = "<group>";
@@ -318,8 +318,8 @@
 				17FD0BB4EDB0784084E6A631 /* source */,
 				17FD0872935075E62744FA2B /* .gitignore */,
 				17FD094B1DAE4CF98579274D /* .swiftlint.yml */,
-				697EDBC98FFDECF7FF264F3A /* README.md */,
 				17FD0152B633954A227E8C79 /* Observatory.podspec */,
+				697EDBC98FFDECF7FF264F3A /* README.md */,
 			);
 			sourceTree = "<group>";
 		};
