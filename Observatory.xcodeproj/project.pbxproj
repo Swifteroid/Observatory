@@ -88,6 +88,7 @@
 		17FD0E4746A067ADA237320D /* Base-Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Base-Debug.xcconfig"; sourceTree = "<group>"; };
 		17FD0EC2D909CCE6E3BC8A9E /* Observer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
 		17FD0F7C4A53D96FBDB8674E /* Observer.Hotkey.Handler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Hotkey.Handler.swift; sourceTree = "<group>"; };
+		17FD0F994461E499BAC659EB /* Package.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		17FD0FB54AAAEB24AB193225 /* Shortcut.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shortcut.swift; sourceTree = "<group>"; };
 		691492DAECCDA8F37886F020 /* framework.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = framework.plist; sourceTree = "<group>"; };
 		692C0EE3AC3E3172836E1B96 /* application.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = application.plist; sourceTree = "<group>"; };
@@ -319,6 +320,7 @@
 				17FD0872935075E62744FA2B /* .gitignore */,
 				17FD094B1DAE4CF98579274D /* .swiftlint.yml */,
 				17FD0152B633954A227E8C79 /* Observatory.podspec */,
+				17FD0F994461E499BAC659EB /* Package.swift */,
 				697EDBC98FFDECF7FF264F3A /* README.md */,
 			);
 			sourceTree = "<group>";
