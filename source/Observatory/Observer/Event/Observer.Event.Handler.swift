@@ -1,3 +1,4 @@
+import AppKit.NSEvent
 import Foundation
 
 extension EventObserver {
@@ -38,8 +39,8 @@ extension EventObserver.Handler {
 
                 if newValue {
                     self.monitor = Monitor(
-                        local: self.handler.local.map({ NSEvent.addLocalMonitorForEvents(matching: self.mask, handler: $0) as Any }),
-                        global: self.handler.global.map({ NSEvent.addGlobalMonitorForEvents(matching: self.mask, handler: $0) as Any })
+                        global: self.handler.global.map({ NSEvent.addGlobalMonitorForEvents(matching: self.mask, handler: $0) as Any }),
+                        local: self.handler.local.map({ NSEvent.addLocalMonitorForEvents(matching: self.mask, handler: $0) as Any })
                     )
                 } else if let monitor = self.monitor {
                     monitor.local.map({ NSEvent.removeMonitor($0) })

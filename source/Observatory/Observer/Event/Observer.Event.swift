@@ -1,3 +1,4 @@
+import AppKit.NSEvent
 import Foundation
 import CoreGraphics
 

@@ -59,17 +59,15 @@ internal class ShortcutSpec: Spec {
             let shortcut = Shortcut(isEnabled: false)
             let hotkey = KeyboardHotkey(key: .one, modifier: [.commandKey, .shiftKey])
 
-            expect(expression: { shortcut.hotkey = hotkey })
-                .to(postNotifications(equal([
-                    Notification(name: Shortcut.hotkeyWillChangeNotification, object: shortcut, userInfo: [Shortcut.hotkeyUserInfo: hotkey]),
-                    Notification(name: Shortcut.hotkeyDidChangeNotification, object: shortcut, userInfo: [Shortcut.hotkeyUserInfo: hotkey]),
-                ])))
+            expect({ shortcut.hotkey = hotkey }).to(postNotifications(equal([
+                Notification(name: Shortcut.hotkeyWillChangeNotification, object: shortcut, userInfo: [Shortcut.hotkeyUserInfo: hotkey]),
+                Notification(name: Shortcut.hotkeyDidChangeNotification, object: shortcut, userInfo: [Shortcut.hotkeyUserInfo: hotkey]),
+            ])))
 
-            expect(expression: { shortcut.hotkey = nil })
-                .to(postNotifications(equal([
-                    Notification(name: Shortcut.hotkeyWillChangeNotification, object: shortcut, userInfo: [Shortcut.hotkeyUserInfo: nil as KeyboardHotkey? as Any]),
-                    Notification(name: Shortcut.hotkeyDidChangeNotification, object: shortcut, userInfo: [Shortcut.hotkeyUserInfo: nil as KeyboardHotkey? as Any]),
-                ])))
+            expect({ shortcut.hotkey = nil }).to(postNotifications(equal([
+                Notification(name: Shortcut.hotkeyWillChangeNotification, object: shortcut, userInfo: [Shortcut.hotkeyUserInfo: nil as KeyboardHotkey? as Any]),
+                Notification(name: Shortcut.hotkeyDidChangeNotification, object: shortcut, userInfo: [Shortcut.hotkeyUserInfo: nil as KeyboardHotkey? as Any]),
+            ])))
         }
 
         it("must post notifications when registered shortcut gets invoked") {
@@ -77,11 +75,10 @@ internal class ShortcutSpec: Spec {
             let shortcut = Shortcut(hotkey)
             let center: ShortcutCenter = .default
 
-            expect(expression: { self.postHotkeyEvent(key: CGKeyCode(KeyboardKey.one.rawValue), flag: [.maskCommand, .maskShift]) })
-                .to(postNotifications(equal([
-                    Notification(name: ShortcutCenter.willInvokeShortcutNotification, object: center, userInfo: [ShortcutCenter.shortcutUserInfo: shortcut, ShortcutCenter.hotkeyUserInfo: hotkey]),
-                    Notification(name: ShortcutCenter.didInvokeShortcutNotification, object: center, userInfo: [ShortcutCenter.shortcutUserInfo: shortcut, ShortcutCenter.hotkeyUserInfo: hotkey]),
-                ])))
+            expect({ self.postHotkeyEvent(key: CGKeyCode(KeyboardKey.one.rawValue), flag: [.maskCommand, .maskShift]) }).to(postNotifications(equal([
+                Notification(name: ShortcutCenter.willInvokeShortcutNotification, object: center, userInfo: [ShortcutCenter.shortcutUserInfo: shortcut, ShortcutCenter.hotkeyUserInfo: hotkey]),
+                Notification(name: ShortcutCenter.didInvokeShortcutNotification, object: center, userInfo: [ShortcutCenter.shortcutUserInfo: shortcut, ShortcutCenter.hotkeyUserInfo: hotkey]),
+            ])))
         }
     }
 }

@@ -1,3 +1,4 @@
+import AppKit.NSEvent
 import Carbon
 import Foundation
 import Nimble
