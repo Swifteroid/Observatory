@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol ShortcutRecorder: class {
+public protocol ShortcutRecorder: AnyObject {
 
     /// Specifies whether recorder is currently recording or not.
     var isRecording: Bool { get set }
