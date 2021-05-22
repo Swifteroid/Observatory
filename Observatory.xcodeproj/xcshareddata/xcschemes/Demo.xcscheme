@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0820"
+   LastUpgradeVersion = "1250"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -17,20 +17,6 @@
                BlueprintIdentifier = "087EE7911E1C1FF500093E0E"
                BuildableName = "Demo.app"
                BlueprintName = "Demo"
-               ReferencedContainer = "container:Observatory.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E69200F21CDDE19100C4FEAD"
-               BuildableName = "Observatory-Test.xctest"
-               BlueprintName = "Observatory-Test"
                ReferencedContainer = "container:Observatory.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

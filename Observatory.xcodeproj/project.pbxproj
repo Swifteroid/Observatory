@@ -377,7 +377,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 1250;
 				ORGANIZATIONNAME = Swifteroid;
 				TargetAttributes = {
 					087EE7911E1C1FF500093E0E = {
@@ -497,6 +497,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E656926924ABE1DF0072C839 /* macOS-Application.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -504,6 +508,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E656926924ABE1DF0072C839 /* macOS-Application.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};
