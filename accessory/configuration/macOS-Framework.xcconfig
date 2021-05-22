@@ -1,4 +1,0 @@
-#include "../../dependency/Git/xcconfigs/macOS/macOS-Framework.xcconfig"
-
-// Default info.plist file location.
-INFOPLIST_FILE = $(inherited)/framework.plist

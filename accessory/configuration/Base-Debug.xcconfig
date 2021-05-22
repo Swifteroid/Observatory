@@ -1,2 +1,0 @@
-#include "../../dependency/Git/xcconfigs/Base/Configurations/Debug.xcconfig"
-#include "Base.xcconfig"

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -27,13 +27,15 @@
 		17FD08BD0A91FD8A01FBD698 /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0EC2D909CCE6E3BC8A9E /* Observer.swift */; };
 		17FD093654260D5761C05F6E /* Shortcut.Center.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD09AD38D24C3C1205E9BE /* Shortcut.Center.swift */; };
 		17FD09D3A526167E7A8F531D /* Test.Observer.Hotkey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0AE28489C20294DE5E48 /* Test.Observer.Hotkey.swift */; };
-		17FD0A41F80C0E3C87DFF5C2 /* Observatory.h in Headers */ = {isa = PBXBuildFile; fileRef = 17FD0D3172AE37DB859D5545 /* Observatory.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		17FD0A6270752A2959E61CF9 /* Keyboard.Hotkey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD017771C4B54857A16DAD /* Keyboard.Hotkey.swift */; };
 		17FD0A7B3145FFD47C972C40 /* Observer.Event.Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0007A26B7B85FC5190C0 /* Observer.Event.Handler.swift */; };
 		17FD0BCDD00D6AF24E42FBD6 /* Observer.HandlerDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0D539B72A4A1B5DFCEBE /* Observer.HandlerDefinition.swift */; };
 		17FD0C1A4329D5233941DDE4 /* Test.Keyboard.Hotkey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD01507DE6860A0089FEAF /* Test.Keyboard.Hotkey.swift */; };
 		17FD0E596C7B56AEB4865F6A /* Observer.Hotkey.Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0F7C4A53D96FBDB8674E /* Observer.Hotkey.Handler.swift */; };
 		E609DC8B1E7BC8CA00F919DD /* demo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E609DC891E7BC8C400F919DD /* demo.storyboard */; };
+		E690D12A267D1ADC002FD479 /* Observatory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6D7642A1CDDBA100071CCB0 /* Observatory.framework */; };
+		E690D12B267D1AFE002FD479 /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = E6FA8A8B267D08C200F0C878 /* Nimble */; };
+		E690D12C267D1AFE002FD479 /* Quick in Frameworks */ = {isa = PBXBuildFile; productRef = E6FA8A8D267D08D900F0C878 /* Quick */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,7 +69,6 @@
 		17FD04EB71CD7024929F934F /* Test.Keyboard.Key.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Keyboard.Key.swift; sourceTree = "<group>"; };
 		17FD0549D3EA10134DC784A3 /* Test.Observer.Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Observer.Notification.swift; sourceTree = "<group>"; };
 		17FD06581333B3906BE6258A /* Test.Shortcut.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Shortcut.swift; sourceTree = "<group>"; };
-		17FD06C9E65BB65192F229B4 /* Base-Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Base-Release.xcconfig"; sourceTree = "<group>"; };
 		17FD078E512F21A8ECE8F335 /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		17FD0872935075E62744FA2B /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		17FD08D461EB26AE885B82AC /* Entrypoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entrypoint.swift; sourceTree = "<group>"; };
@@ -81,9 +82,7 @@
 		17FD0B7E4C2ACF3D110CDA9D /* Testing.Observation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Testing.Observation.swift; sourceTree = "<group>"; };
 		17FD0C0324E5560F5F80CA45 /* Observer.Hotkey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Hotkey.swift; sourceTree = "<group>"; };
 		17FD0CC52C2436784A911E89 /* Testing.Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Testing.Event.swift; sourceTree = "<group>"; };
-		17FD0D3172AE37DB859D5545 /* Observatory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Observatory.h; sourceTree = "<group>"; };
 		17FD0D539B72A4A1B5DFCEBE /* Observer.HandlerDefinition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.HandlerDefinition.swift; sourceTree = "<group>"; };
-		17FD0E4746A067ADA237320D /* Base-Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Base-Debug.xcconfig"; sourceTree = "<group>"; };
 		17FD0EC2D909CCE6E3BC8A9E /* Observer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
 		17FD0F7C4A53D96FBDB8674E /* Observer.Hotkey.Handler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Hotkey.Handler.swift; sourceTree = "<group>"; };
 		17FD0F994461E499BAC659EB /* Package.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
@@ -92,13 +91,34 @@
 		692C0EE3AC3E3172836E1B96 /* application.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = application.plist; sourceTree = "<group>"; };
 		697EDBC98FFDECF7FF264F3A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		E609DC891E7BC8C400F919DD /* demo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = demo.storyboard; sourceTree = "<group>"; };
-		E656926624ABE1D20072C839 /* macOS-Test.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "macOS-Test.xcconfig"; sourceTree = "<group>"; };
-		E656926724ABE1D20072C839 /* macOS-Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "macOS-Framework.xcconfig"; sourceTree = "<group>"; };
-		E656926824ABE1D20072C839 /* Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = "<group>"; };
-		E656926924ABE1DF0072C839 /* macOS-Application.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "macOS-Application.xcconfig"; sourceTree = "<group>"; };
+		E690D111267D19F6002FD479 /* macOS-Application.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "macOS-Application.xcconfig"; sourceTree = "<group>"; };
+		E690D112267D19F6002FD479 /* macOS-Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "macOS-Framework.xcconfig"; sourceTree = "<group>"; };
+		E690D113267D19F6002FD479 /* macOS-StaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "macOS-StaticLibrary.xcconfig"; sourceTree = "<group>"; };
+		E690D114267D19F6002FD479 /* macOS-Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "macOS-Base.xcconfig"; sourceTree = "<group>"; };
+		E690D115267D19F6002FD479 /* macOS-XCTest.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "macOS-XCTest.xcconfig"; sourceTree = "<group>"; };
+		E690D116267D19F6002FD479 /* macOS-DynamicLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "macOS-DynamicLibrary.xcconfig"; sourceTree = "<group>"; };
+		E690D124267D1A73002FD479 /* Profile.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Profile.xcconfig; sourceTree = "<group>"; };
+		E690D125267D1A73002FD479 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		E690D126267D1A73002FD479 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		E690D127267D1A73002FD479 /* Test.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Test.xcconfig; sourceTree = "<group>"; };
+		E690D12D267D1B0C002FD479 /* Package.resolved */ = {isa = PBXFileReference; lastKnownFileType = text; path = Package.resolved; sourceTree = "<group>"; };
+		E690D12E267D1B14002FD479 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		E69200F31CDDE19100C4FEAD /* Observatory-Test.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Observatory-Test.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6D7642A1CDDBA100071CCB0 /* Observatory.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Observatory.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E690D128267D1AD5002FD479 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E690D12A267D1ADC002FD479 /* Observatory.framework in Frameworks */,
+				E690D12C267D1AFE002FD479 /* Quick in Frameworks */,
+				E690D12B267D1AFE002FD479 /* Nimble in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		17FD00AF91A500EDFD52854A /* Observer */ = {
@@ -125,7 +145,7 @@
 		17FD030F7F2C5CA3191B2040 /* accessory */ = {
 			isa = PBXGroup;
 			children = (
-				17FD076FFBC955C0E64AC684 /* configuration */,
+				E690D10F267D19E0002FD479 /* configuration */,
 				692739BC3F963DB95B757C64 /* info */,
 				69FE70738BA9A7D2F71070B9 /* storyboard */,
 			);
@@ -158,19 +178,6 @@
 			path = Demo;
 			sourceTree = "<group>";
 		};
-		17FD076FFBC955C0E64AC684 /* configuration */ = {
-			isa = PBXGroup;
-			children = (
-				E656926824ABE1D20072C839 /* Base.xcconfig */,
-				17FD0E4746A067ADA237320D /* Base-Debug.xcconfig */,
-				17FD06C9E65BB65192F229B4 /* Base-Release.xcconfig */,
-				E656926924ABE1DF0072C839 /* macOS-Application.xcconfig */,
-				E656926724ABE1D20072C839 /* macOS-Framework.xcconfig */,
-				E656926624ABE1D20072C839 /* macOS-Test.xcconfig */,
-			);
-			path = configuration;
-			sourceTree = "<group>";
-		};
 		17FD0865B2ECB4388EC47754 /* Testing */ = {
 			isa = PBXGroup;
 			children = (
@@ -197,7 +204,6 @@
 				17FD00CF6AE1E6CB712F9CBA /* Shortcut */,
 				17FD0E1C100943CB2E5A1608 /* Test */,
 				17FD0865B2ECB4388EC47754 /* Testing */,
-				17FD0D3172AE37DB859D5545 /* Observatory.h */,
 			);
 			path = Observatory;
 			sourceTree = "<group>";
@@ -279,6 +285,41 @@
 			path = storyboard;
 			sourceTree = "<group>";
 		};
+		E690D10F267D19E0002FD479 /* configuration */ = {
+			isa = PBXGroup;
+			children = (
+				E690D123267D1A73002FD479 /* Base */,
+				E690D110267D19F6002FD479 /* macOS */,
+			);
+			name = configuration;
+			sourceTree = "<group>";
+		};
+		E690D110267D19F6002FD479 /* macOS */ = {
+			isa = PBXGroup;
+			children = (
+				E690D114267D19F6002FD479 /* macOS-Base.xcconfig */,
+				E690D113267D19F6002FD479 /* macOS-StaticLibrary.xcconfig */,
+				E690D116267D19F6002FD479 /* macOS-DynamicLibrary.xcconfig */,
+				E690D112267D19F6002FD479 /* macOS-Framework.xcconfig */,
+				E690D111267D19F6002FD479 /* macOS-Application.xcconfig */,
+				E690D115267D19F6002FD479 /* macOS-XCTest.xcconfig */,
+			);
+			name = macOS;
+			path = dependency/Git/xcconfigs/macOS;
+			sourceTree = SOURCE_ROOT;
+		};
+		E690D123267D1A73002FD479 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				E690D125267D1A73002FD479 /* Debug.xcconfig */,
+				E690D126267D1A73002FD479 /* Release.xcconfig */,
+				E690D127267D1A73002FD479 /* Test.xcconfig */,
+				E690D124267D1A73002FD479 /* Profile.xcconfig */,
+			);
+			name = Base;
+			path = dependency/Git/xcconfigs/Base/Configurations;
+			sourceTree = SOURCE_ROOT;
+		};
 		E6D764201CDDBA100071CCB0 = {
 			isa = PBXGroup;
 			children = (
@@ -287,8 +328,10 @@
 				17FD0BB4EDB0784084E6A631 /* source */,
 				17FD0872935075E62744FA2B /* .gitignore */,
 				17FD094B1DAE4CF98579274D /* .swiftlint.yml */,
-				17FD0152B633954A227E8C79 /* Observatory.podspec */,
 				17FD0F994461E499BAC659EB /* Package.swift */,
+				E690D12D267D1B0C002FD479 /* Package.resolved */,
+				17FD0152B633954A227E8C79 /* Observatory.podspec */,
+				E690D12E267D1B14002FD479 /* LICENSE.md */,
 				697EDBC98FFDECF7FF264F3A /* README.md */,
 			);
 			sourceTree = "<group>";
@@ -304,17 +347,6 @@
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
-
-/* Begin PBXHeadersBuildPhase section */
-		E6D764271CDDBA100071CCB0 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				17FD0A41F80C0E3C87DFF5C2 /* Observatory.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		087EE7911E1C1FF500093E0E /* Demo */ = {
@@ -339,6 +371,7 @@
 			buildConfigurationList = E69200FD1CDDE19200C4FEAD /* Build configuration list for PBXNativeTarget "Observatory-Test" */;
 			buildPhases = (
 				E69200EF1CDDE19100C4FEAD /* Sources */,
+				E690D128267D1AD5002FD479 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -359,7 +392,6 @@
 			buildConfigurationList = E6D764321CDDBA100071CCB0 /* Build configuration list for PBXNativeTarget "Observatory" */;
 			buildPhases = (
 				E6D764251CDDBA100071CCB0 /* Sources */,
-				E6D764271CDDBA100071CCB0 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -396,7 +428,7 @@
 				};
 			};
 			buildConfigurationList = E6D764241CDDBA100071CCB0 /* Build configuration list for PBXProject "Observatory" */;
-			compatibilityVersion = "Xcode 11.0";
+			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -495,73 +527,88 @@
 /* Begin XCBuildConfiguration section */
 		087EE79E1E1C1FF500093E0E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E656926924ABE1DF0072C839 /* macOS-Application.xcconfig */;
+			baseConfigurationReference = E690D111267D19F6002FD479 /* macOS-Application.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = "$(inherited)/application.plist";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
 		087EE79F1E1C1FF500093E0E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E656926924ABE1DF0072C839 /* macOS-Application.xcconfig */;
+			baseConfigurationReference = E690D111267D19F6002FD479 /* macOS-Application.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = "$(inherited)/application.plist";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};
 		E69200FB1CDDE19200C4FEAD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E656926624ABE1D20072C839 /* macOS-Test.xcconfig */;
+			baseConfigurationReference = E690D115267D19F6002FD479 /* macOS-XCTest.xcconfig */;
 			buildSettings = {
+				INFOPLIST_FILE = "$(inherited)/test.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "$(inherited).test";
 			};
 			name = Debug;
 		};
 		E69200FC1CDDE19200C4FEAD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E656926624ABE1D20072C839 /* macOS-Test.xcconfig */;
+			baseConfigurationReference = E690D115267D19F6002FD479 /* macOS-XCTest.xcconfig */;
 			buildSettings = {
+				INFOPLIST_FILE = "$(inherited)/test.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "$(inherited).test";
 			};
 			name = Release;
 		};
 		E6D764301CDDBA100071CCB0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 17FD0E4746A067ADA237320D /* Base-Debug.xcconfig */;
+			baseConfigurationReference = E690D125267D1A73002FD479 /* Debug.xcconfig */;
 			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				INFOPLIST_FILE = accessory/info;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.swifteroid.observatory;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_TREAT_WARNINGS_AS_ERRORS = NO;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
 		E6D764311CDDBA100071CCB0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 17FD06C9E65BB65192F229B4 /* Base-Release.xcconfig */;
+			baseConfigurationReference = E690D126267D1A73002FD479 /* Release.xcconfig */;
 			buildSettings = {
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				INFOPLIST_FILE = accessory/info;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.swifteroid.observatory;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_TREAT_WARNINGS_AS_ERRORS = NO;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
 		E6D764331CDDBA100071CCB0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E656926724ABE1D20072C839 /* macOS-Framework.xcconfig */;
+			baseConfigurationReference = E690D112267D19F6002FD479 /* macOS-Framework.xcconfig */;
 			buildSettings = {
+				INFOPLIST_FILE = "$(inherited)/framework.plist";
 			};
 			name = Debug;
 		};
 		E6D764341CDDBA100071CCB0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E656926724ABE1D20072C839 /* macOS-Framework.xcconfig */;
+			baseConfigurationReference = E690D112267D19F6002FD479 /* macOS-Framework.xcconfig */;
 			buildSettings = {
+				INFOPLIST_FILE = "$(inherited)/framework.plist";
 			};
 			name = Release;
 		};
