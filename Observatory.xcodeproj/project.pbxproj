@@ -56,7 +56,6 @@
 /* Begin PBXFileReference section */
 		087EE7921E1C1FF500093E0E /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		17FD0007A26B7B85FC5190C0 /* Observer.Event.Handler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Event.Handler.swift; sourceTree = "<group>"; };
-		17FD004596B009984060737D /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/Mac/Nimble.framework; sourceTree = "<group>"; };
 		17FD009919B2E0C5C02AE1FB /* Observer.Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Notification.swift; sourceTree = "<group>"; };
 		17FD01507DE6860A0089FEAF /* Test.Keyboard.Hotkey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Keyboard.Hotkey.swift; sourceTree = "<group>"; };
 		17FD0152B633954A227E8C79 /* Observatory.podspec */ = {isa = PBXFileReference; lastKnownFileType = file.podspec; path = Observatory.podspec; sourceTree = "<group>"; };
@@ -76,7 +75,6 @@
 		17FD0916F82FAC336830F9E0 /* Observer.Notification.Handler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Notification.Handler.swift; sourceTree = "<group>"; };
 		17FD094B1DAE4CF98579274D /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		17FD09AD38D24C3C1205E9BE /* Shortcut.Center.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shortcut.Center.swift; sourceTree = "<group>"; };
-		17FD09DEC21D8E672877A6C0 /* Cartfile.private */ = {isa = PBXFileReference; lastKnownFileType = file.private; path = Cartfile.private; sourceTree = "<group>"; };
 		17FD0A54F5667F4CE29E2B39 /* Keyboard.Key.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.Key.swift; sourceTree = "<group>"; };
 		17FD0A7C14DC5A257B15375D /* Keyboard.Modifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.Modifier.swift; sourceTree = "<group>"; };
 		17FD0AE28489C20294DE5E48 /* Test.Observer.Hotkey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Observer.Hotkey.swift; sourceTree = "<group>"; };
@@ -93,9 +91,7 @@
 		691492DAECCDA8F37886F020 /* framework.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = framework.plist; sourceTree = "<group>"; };
 		692C0EE3AC3E3172836E1B96 /* application.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = application.plist; sourceTree = "<group>"; };
 		697EDBC98FFDECF7FF264F3A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		69D782B1BF1A76BD24B7144E /* Cartfile.resolved */ = {isa = PBXFileReference; lastKnownFileType = file.resolved; path = Cartfile.resolved; sourceTree = "<group>"; };
 		E609DC891E7BC8C400F919DD /* demo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = demo.storyboard; sourceTree = "<group>"; };
-		E609DC8C1E7BCA3200F919DD /* Nimble.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Nimble.framework.dSYM; path = Carthage/Build/Mac/Nimble.framework.dSYM; sourceTree = "<group>"; };
 		E656926624ABE1D20072C839 /* macOS-Test.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "macOS-Test.xcconfig"; sourceTree = "<group>"; };
 		E656926724ABE1D20072C839 /* macOS-Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "macOS-Framework.xcconfig"; sourceTree = "<group>"; };
 		E656926824ABE1D20072C839 /* Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = "<group>"; };
@@ -134,25 +130,6 @@
 				69FE70738BA9A7D2F71070B9 /* storyboard */,
 			);
 			path = accessory;
-			sourceTree = "<group>";
-		};
-		17FD03E8A37E50A7B5870714 /* framework */ = {
-			isa = PBXGroup;
-			children = (
-				17FD004596B009984060737D /* Nimble.framework */,
-			);
-			name = framework;
-			sourceTree = "<group>";
-		};
-		17FD0498F691994B815B5FB3 /* dependency */ = {
-			isa = PBXGroup;
-			children = (
-				17FD0A6F774EB410DD7ED045 /* dsym */,
-				17FD03E8A37E50A7B5870714 /* framework */,
-				17FD09DEC21D8E672877A6C0 /* Cartfile.private */,
-				69D782B1BF1A76BD24B7144E /* Cartfile.resolved */,
-			);
-			path = dependency;
 			sourceTree = "<group>";
 		};
 		17FD04EDF9644FF010EB95D3 /* Shortcut */ = {
@@ -243,14 +220,6 @@
 			path = Event;
 			sourceTree = "<group>";
 		};
-		17FD0A6F774EB410DD7ED045 /* dsym */ = {
-			isa = PBXGroup;
-			children = (
-				E609DC8C1E7BCA3200F919DD /* Nimble.framework.dSYM */,
-			);
-			name = dsym;
-			sourceTree = "<group>";
-		};
 		17FD0B3FA5AE2DB923C5697E /* Observer */ = {
 			isa = PBXGroup;
 			children = (
@@ -314,7 +283,6 @@
 			isa = PBXGroup;
 			children = (
 				17FD030F7F2C5CA3191B2040 /* accessory */,
-				17FD0498F691994B815B5FB3 /* dependency */,
 				E6D7642B1CDDBA100071CCB0 /* product */,
 				17FD0BB4EDB0784084E6A631 /* source */,
 				17FD0872935075E62744FA2B /* .gitignore */,
@@ -378,6 +346,10 @@
 				E69200FA1CDDE19200C4FEAD /* PBXTargetDependency */,
 			);
 			name = "Observatory-Test";
+			packageProductDependencies = (
+				E6FA8A8B267D08C200F0C878 /* Nimble */,
+				E6FA8A8D267D08D900F0C878 /* Quick */,
+			);
 			productName = Observatoryt;
 			productReference = E69200F31CDDE19100C4FEAD /* Observatory-Test.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -432,6 +404,10 @@
 				Base,
 			);
 			mainGroup = E6D764201CDDBA100071CCB0;
+			packageReferences = (
+				E6FA8A8A267D08C200F0C878 /* XCRemoteSwiftPackageReference "Nimble" */,
+				E6FA8A8C267D08D900F0C878 /* XCRemoteSwiftPackageReference "Quick" */,
+			);
 			productRefGroup = E6D7642B1CDDBA100071CCB0 /* product */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -467,14 +443,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				17FD057B880D845188EA2DC8 /* Testing.Event.swift in Sources */,
+				17FD00154E7DD4027591C5D2 /* Testing.Observation.swift in Sources */,
+				17FD0156D1758DD5200998BE /* Test.swift in Sources */,
+				17FD0C1A4329D5233941DDE4 /* Test.Keyboard.Hotkey.swift in Sources */,
+				17FD088C42F60A74F1C81846 /* Test.Keyboard.Key.swift in Sources */,
 				17FD01BE2C8AF0115AE9DF8E /* Test.Observer.Notification.swift in Sources */,
 				17FD028A9B91583E857EF5EF /* Test.Observer.Event.swift in Sources */,
 				17FD09D3A526167E7A8F531D /* Test.Observer.Hotkey.swift in Sources */,
-				17FD088C42F60A74F1C81846 /* Test.Keyboard.Key.swift in Sources */,
-				17FD0C1A4329D5233941DDE4 /* Test.Keyboard.Hotkey.swift in Sources */,
-				17FD00154E7DD4027591C5D2 /* Testing.Observation.swift in Sources */,
-				17FD057B880D845188EA2DC8 /* Testing.Event.swift in Sources */,
-				17FD0156D1758DD5200998BE /* Test.swift in Sources */,
 				17FD0148328306B2C2A1C505 /* Test.Shortcut.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -521,11 +497,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E656926924ABE1DF0072C839 /* macOS-Application.xcconfig */;
 			buildSettings = {
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(FRAMEWORK_SEARCH_PATHS)",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
 			};
 			name = Debug;
 		};
@@ -533,11 +504,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E656926924ABE1DF0072C839 /* macOS-Application.xcconfig */;
 			buildSettings = {
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(FRAMEWORK_SEARCH_PATHS)",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
 			};
 			name = Release;
 		};
@@ -545,10 +511,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E656926624ABE1D20072C839 /* macOS-Test.xcconfig */;
 			buildSettings = {
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(FRAMEWORK_SEARCH_PATHS)",
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = "$(inherited).test";
 			};
 			name = Debug;
@@ -557,10 +519,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E656926624ABE1D20072C839 /* macOS-Test.xcconfig */;
 			buildSettings = {
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(FRAMEWORK_SEARCH_PATHS)",
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = "$(inherited).test";
 			};
 			name = Release;
@@ -569,7 +527,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 17FD0E4746A067ADA237320D /* Base-Debug.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/dependency/Carthage/Build/Mac";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.swifteroid.observatory;
 				SWIFT_VERSION = 5.0;
@@ -580,7 +537,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 17FD06C9E65BB65192F229B4 /* Base-Release.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/dependency/Carthage/Build/Mac";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.swifteroid.observatory;
 				SWIFT_VERSION = 5.0;
@@ -641,6 +597,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E6FA8A8A267D08C200F0C878 /* XCRemoteSwiftPackageReference "Nimble" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Quick/Nimble.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.2.0;
+			};
+		};
+		E6FA8A8C267D08D900F0C878 /* XCRemoteSwiftPackageReference "Quick" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Quick/Quick.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E6FA8A8B267D08C200F0C878 /* Nimble */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E6FA8A8A267D08C200F0C878 /* XCRemoteSwiftPackageReference "Nimble" */;
+			productName = Nimble;
+		};
+		E6FA8A8D267D08D900F0C878 /* Quick */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E6FA8A8C267D08D900F0C878 /* XCRemoteSwiftPackageReference "Quick" */;
+			productName = Quick;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E6D764211CDDBA100071CCB0 /* Project object */;
 }

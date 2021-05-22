@@ -16,8 +16,5 @@
 /.idea/dictionaries
 /.idea/runConfigurations
 
-# Carthage
-/dependency/Carthage/*
-
 # SPM
 /.build
