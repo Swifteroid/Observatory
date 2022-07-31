@@ -32,6 +32,7 @@
 		17FD0BCDD00D6AF24E42FBD6 /* Observer.HandlerDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0D539B72A4A1B5DFCEBE /* Observer.HandlerDefinition.swift */; };
 		17FD0C1A4329D5233941DDE4 /* Test.Keyboard.Hotkey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD01507DE6860A0089FEAF /* Test.Keyboard.Hotkey.swift */; };
 		17FD0E596C7B56AEB4865F6A /* Observer.Hotkey.Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0F7C4A53D96FBDB8674E /* Observer.Hotkey.Handler.swift */; };
+		48517292289869DC00B66C61 /* Observatory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6D7642A1CDDBA100071CCB0 /* Observatory.framework */; };
 		E609DC8B1E7BC8CA00F919DD /* demo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E609DC891E7BC8C400F919DD /* demo.storyboard */; };
 		E690D12A267D1ADC002FD479 /* Observatory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6D7642A1CDDBA100071CCB0 /* Observatory.framework */; };
 		E690D12B267D1AFE002FD479 /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = E6FA8A8B267D08C200F0C878 /* Nimble */; };
@@ -108,6 +109,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		48517290289869D700B66C61 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				48517292289869DC00B66C61 /* Observatory.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E690D128267D1AD5002FD479 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -355,6 +364,7 @@
 			buildPhases = (
 				087EE78E1E1C1FF500093E0E /* Sources */,
 				087EE7901E1C1FF500093E0E /* Resources */,
+				48517290289869D700B66C61 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -601,6 +611,7 @@
 			baseConfigurationReference = E690D112267D19F6002FD479 /* macOS-Framework.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "$(inherited)/framework.plist";
+				MACH_O_TYPE = staticlib;
 			};
 			name = Debug;
 		};
@@ -609,6 +620,7 @@
 			baseConfigurationReference = E690D112267D19F6002FD479 /* macOS-Framework.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "$(inherited)/framework.plist";
+				MACH_O_TYPE = staticlib;
 			};
 			name = Release;
 		};
@@ -659,7 +671,7 @@
 			repositoryURL = "https://github.com/Quick/Nimble.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 9.2.0;
+				minimumVersion = 10.0.0;
 			};
 		};
 		E6FA8A8C267D08D900F0C878 /* XCRemoteSwiftPackageReference "Quick" */ = {
@@ -667,7 +679,7 @@
 			repositoryURL = "https://github.com/Quick/Quick.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 4.0.0;
+				minimumVersion = 5.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

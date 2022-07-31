@@ -10,8 +10,8 @@ let package = Package(
         .library(name: "Observatory", targets: ["Observatory"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/Quick/Nimble.git", from: "9.0.0"),
-        .package(url: "https://github.com/Quick/Quick.git", from: "3.0.0"),
+        .package(url: "https://github.com/Quick/Nimble.git", from: "10.0.0"),
+        .package(url: "https://github.com/Quick/Quick.git", from: "5.0.0"),
     ],
     targets: [
         .target(name: "Observatory", path: "source/Observatory", exclude: ["Test", "Testing"]),
