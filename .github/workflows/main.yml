@@ -1,0 +1,60 @@
+# https://docs.github.com/en/actions/learn-github-actions/variables#default-environment-variables
+# https://github.com/peripheryapp/periphery/blob/master/.github/workflows/test.yml
+
+name: Lint & Test
+
+on:
+  push:
+  pull_request:
+    types: [ opened, reopened ]
+  workflow_dispatch:
+
+jobs:
+  main:
+    name: Lint & Test
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout Git
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+
+      # ⚙️ Tools
+
+      - name: Install Homebrew
+        uses: tecolicom/actions-use-homebrew-tools@v1
+        with:
+          tools: xcbeautify
+          cache: yes
+
+
+      # 📦 Cache
+
+      - name: Cache SPM
+        id: cache-spm
+        uses: actions/cache@v3
+        with:
+          path: .build
+          key: ${{ runner.os }}-spm-${{ hashFiles('Package.swift', 'Package.resolved') }}
+          restore-keys: ${{ runner.os }}-spm-
+
+
+      # 💅 Lint
+
+      - name: Run SwiftLint
+        run: swiftlint lint --quiet --strict # --reporter github-actions-logging
+
+
+      # 🧪 Resolve, Build, Test SPM
+
+      - name: Resolve SPM
+        if: steps.cache-spm.outputs.cache-hit != 'true'
+        run: swift package resolve
+
+      - name: Build SPM
+        run: swift build --build-tests
+
+      - name: Test SPM
+        run: swift test 2>&1 | xcbeautify
