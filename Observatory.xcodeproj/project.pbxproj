@@ -564,6 +564,7 @@
 			baseConfigurationReference = E690D115267D19F6002FD479 /* macOS-XCTest.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "$(inherited)/test.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(inherited).test";
 			};
 			name = Debug;
@@ -573,6 +574,7 @@
 			baseConfigurationReference = E690D115267D19F6002FD479 /* macOS-XCTest.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "$(inherited)/test.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(inherited).test";
 			};
 			name = Release;
@@ -584,7 +586,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				INFOPLIST_FILE = accessory/info;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.swifteroid.observatory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = NO;
@@ -598,7 +600,7 @@
 			buildSettings = {
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				INFOPLIST_FILE = accessory/info;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.swifteroid.observatory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = NO;
@@ -671,7 +673,7 @@
 			repositoryURL = "https://github.com/Quick/Nimble.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 10.0.0;
+				minimumVersion = 11.0.0;
 			};
 		};
 		E6FA8A8C267D08D900F0C878 /* XCRemoteSwiftPackageReference "Quick" */ = {

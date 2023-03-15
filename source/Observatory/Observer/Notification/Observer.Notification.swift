@@ -48,9 +48,9 @@ open class NotificationObserver: AbstractObserver {
     @discardableResult open func deactivate() -> Self {
         self.activate(false)
     }
-}
 
-extension NotificationObserver {
+    // MARK: -
+
     @discardableResult open func add(name: Notification.Name, observee: AnyObject? = nil, queue: OperationQueue? = nil, handler: @escaping () -> Void) -> Self {
         self.add(definition: .init(name: name, observee: observee, queue: queue, handler: handler))
     }

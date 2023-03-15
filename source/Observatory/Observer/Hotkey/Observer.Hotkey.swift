@@ -124,9 +124,11 @@ open class HotkeyObserver: AbstractObserver {
         eventHotkeyHandler.deinitialize(count: 1)
         eventHotkeyHandler.deallocate()
     }
-}
 
-extension HotkeyObserver {
+
+    // MARK: -
+
+
     @discardableResult open func add(hotkey: KeyboardHotkey, handler: @escaping () -> Void) -> Self {
         self.add(definition: Handler.Definition(hotkey: hotkey, handler: handler))
     }

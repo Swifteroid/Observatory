@@ -10,7 +10,6 @@
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "A1415912-30D9-46F9-843E-00D947CDCCD7",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "5B180034B55A95756EE394C97170F0057EF486DE" : "observatory\/",
-    "FB92343999F4DECE54225E041E190E57FF949DB8" : "observatory\/dependency\/git\/xenomorph\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "Observatory",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
