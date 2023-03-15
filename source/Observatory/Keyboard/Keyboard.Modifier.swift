@@ -48,11 +48,9 @@ public struct KeyboardModifier: RawRepresentable, OptionSet {
 }
 
 extension KeyboardModifier: Equatable, Hashable {
-    public var hashValue: Int { Int(self.rawValue) }
+    public func hash(into hasher: inout Hasher) { hasher.combine(self.rawValue) }
 }
 
 extension KeyboardModifier: CustomStringConvertible {
-    public var description: String {
-        self.name ?? ""
-    }
+    public var description: String { self.name ?? "" }
 }

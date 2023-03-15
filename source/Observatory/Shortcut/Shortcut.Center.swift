@@ -11,7 +11,7 @@ open class ShortcutCenter {
 
     /// Current hotkey recorder, normally is set and unset by the assigned value itself. Whilst it's set all registered
     /// observers get disabled, to avoid triggering commands during recording.
-    open var recorder: ShortcutRecorder? = nil {
+    open var recorder: ShortcutRecorder? {
         didSet {
             if self.recorder === oldValue { return }
             /// Disables registered hotkey observers if there's an active hotkey recorder and enables them if there's not.
@@ -32,14 +32,14 @@ open class ShortcutCenter {
             return self.notify(Self.cannotRegisterShortcutNotification, shortcut, hotkey)
         }
 
-        if let _ = self.observer.error {
+        if self.observer.error != nil {
             return self.notify(Self.cannotRegisterShortcutNotification, shortcut, hotkey)
         }
 
         let definition = HotkeyObserver.Handler.Definition(hotkey: hotkey, handler: { [weak self] in self?.invoke($0) })
         self.observer.add(definition: definition)
 
-        if let _ = definition.error {
+        if definition.error != nil {
             self.observer.remove(definition: definition)
             return self.notify(Self.cannotRegisterShortcutNotification, shortcut, hotkey)
         }
@@ -64,9 +64,9 @@ open class ShortcutCenter {
         let oldHotkey = self.registrations.first(where: { $0.shortcut == shortcut })?.definition.hotkey
         let newHotkey = shortcut.hotkey
 
-        // Need to register if the new hotkey is okay. 
+        // Need to register if the new hotkey is okay.
         let needsRegister = newHotkey != nil && shortcut.isValid && shortcut.isEnabled
-        // Need to unregister if hotkey is already registered but doesn't need to be or if hotkeys are different. 
+        // Need to unregister if hotkey is already registered but doesn't need to be or if hotkeys are different.
         let needsUnregister = oldHotkey != nil && !needsRegister || newHotkey != oldHotkey
 
         if needsUnregister { self.remove(shortcut) }

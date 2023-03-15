@@ -217,11 +217,9 @@ public struct KeyboardKey: RawRepresentable {
 }
 
 extension KeyboardKey: Equatable, Hashable {
-    public var hashValue: Int { Int(self.rawValue) }
+    public func hash(into hasher: inout Hasher) { hasher.combine(self.rawValue) }
 }
 
 extension KeyboardKey: CustomStringConvertible {
-    public var description: String {
-        self.name ?? ""
-    }
+    public var description: String { self.name ?? "" }
 }

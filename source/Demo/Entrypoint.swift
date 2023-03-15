@@ -1,7 +1,7 @@
 import AppKit
 import Observatory
 
-@NSApplicationMain class AppDelegate: NSObject, NSApplicationDelegate {
+@NSApplicationMain public class AppDelegate: NSObject, NSApplicationDelegate {
 }
 
 open class ViewController: NSViewController {

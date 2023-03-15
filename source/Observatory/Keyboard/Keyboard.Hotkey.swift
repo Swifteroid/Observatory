@@ -30,11 +30,9 @@ public struct KeyboardHotkey: RawRepresentable {
 }
 
 extension KeyboardHotkey: Equatable, Hashable {
-    public var hashValue: Int { Int(self.rawValue) }
+    public func hash(into hasher: inout Hasher) { hasher.combine(self.rawValue) }
 }
 
 extension KeyboardHotkey: CustomStringConvertible {
-    public var description: String {
-        "\(self.modifier.name ?? "")\(self.key.name ?? "")"
-    }
+    public var description: String { "\(self.modifier.name ?? "")\(self.key.name ?? "")" }
 }

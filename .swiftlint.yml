@@ -4,8 +4,10 @@
 
 included: source
 
-opt_in_rules:
+analyzer_rules:
   - explicit_self
+
+opt_in_rules:
   - explicit_top_level_acl
   - modifier_order
   - prefer_self_type_over_type_of_self
