@@ -16,6 +16,11 @@ public struct KeyboardModifier: RawRepresentable, OptionSet {
         // raw value not of `0` but of `UInt(CGEventSource.flagsState(.hidSystemState).rawValue)`… For that reason, it's a real
         // pain in the ass to compare self-made modifier flags with ones coming from an `NSEvent`.
 
+        // ✊ Also, there's a funny Caps Lock behavior – it's not included in a key down event when `.command` flag is also
+        // present. This might be done on purpose, but probably not what you're expecting. However, the Caps Lock flag remains
+        // available inside `NSEvent.modifierFlags`… 🤯 So, if you need Caps Lock info – initialize your modifier from that
+        // and not the actual `NSEvent` instance… or do a union… or handle it else how.
+
         if flags.rawValue & NSEvent.ModifierFlags.deviceIndependentFlagsMask.rawValue != 0 {
             if flags.contains(.capsLock) { rawValue |= Carbon.alphaLock }
             if flags.contains(.option) { rawValue |= Carbon.optionKey }
