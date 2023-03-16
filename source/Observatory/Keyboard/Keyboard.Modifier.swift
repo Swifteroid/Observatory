@@ -42,12 +42,15 @@ public struct KeyboardModifier: RawRepresentable, OptionSet {
     public static let shiftKey: KeyboardModifier = .init(Carbon.shiftKey)
 
     public var name: String? {
+        // Keep the order: https://developer.apple.com/design/human-interface-guidelines/inputs/keyboards/#custom-keyboard-shortcuts
+        //  > List modifier keys in the correct order. If you use more than one modifier key in a custom
+        //  > shortcut, always list them in this order: Control, Option, Shift, Command.
         var string: String = ""
-        if self.contains(.controlKey) { string += "⌃" }
-        if self.contains(.optionKey) { string += "⌥" }
-        if self.contains(.capsLockKey) { string += "⇪" }
-        if self.contains(.shiftKey) { string += "⇧" }
-        if self.contains(.commandKey) { string += "⌘" }
+        if self.contains(.controlKey) { string += KeyboardKey.control.name ?? "" }
+        if self.contains(.optionKey) { string += KeyboardKey.option.name ?? "" }
+        if self.contains(.capsLockKey) { string += KeyboardKey.capsLock.name ?? "" }
+        if self.contains(.shiftKey) { string += KeyboardKey.shift.name ?? "" }
+        if self.contains(.commandKey) { string += KeyboardKey.command.name ?? "" }
         return string == "" ? nil : string
     }
 }
