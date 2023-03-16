@@ -1,6 +1,7 @@
 import AppKit.NSEvent
 import Carbon
 
+/// Represents a keyboard key. Don't forget – there are different keyboard layouts for handling different languages.
 public struct KeyboardKey: RawRepresentable {
     public init(rawValue: Int) { self.rawValue = rawValue }
     public init(_ rawValue: Int) { self.init(rawValue: rawValue) }
@@ -130,10 +131,48 @@ public struct KeyboardKey: RawRepresentable {
     public static let f19: KeyboardKey = .init(kVK_F19)
     public static let f20: KeyboardKey = .init(kVK_F20)
 
-    /// Predefined names for special case keys, typically language independent.
+    public var name: String? {
+        self.name(map: Self.names)
+    }
+
+    public func name(map names: [KeyboardKey: String]) -> String? {
+        self.name(layout: .ascii, custom: names)
+    }
+
+    public func name(layout: Layout, custom map: [KeyboardKey: String]? = nil) -> String? {
+        self.name(layout: layout.pointer, custom: map)
+    }
+
+    public func name(layout: UnsafePointer<UCKeyboardLayout>?, custom map: [KeyboardKey: String]? = nil) -> String? {
+        if let name = map?[self] { return name }
+        guard let layout = layout ?? Layout.ascii.pointer else { return nil }
+
+        let maxStringLength = 4 as Int
+        var stringBuffer = [UniChar](repeating: 0, count: maxStringLength)
+        var stringLength = 0 as Int
+
+        let modifierKeys = 0 as UInt32
+        var deadKeys = 0 as UInt32
+        let keyboardType = UInt32(LMGetKbdType())
+
+        let status = UCKeyTranslate(layout, CGKeyCode(self.rawValue), CGKeyCode(kUCKeyActionDown), modifierKeys, keyboardType, UInt32(kUCKeyTranslateNoDeadKeysMask), &deadKeys, maxStringLength, &stringLength, &stringBuffer)
+        guard status == Darwin.noErr else { return nil }
+
+        return String(utf16CodeUnits: stringBuffer, count: stringLength).uppercased()
+    }
+}
+
+extension KeyboardKey {
+    /// Predefined name map for keys, mostly the ones that are language independent and not available via `UCKeyTranslate`.
     public static let names: [KeyboardKey: String] = [
         .keypadClear: "⌧",
         .keypadEnter: "⌅",
+
+        .capsLock: "⇪",
+        .command: "⌘",
+        .control: "⌃", .rightControl: "⌃",
+        .option: "⌥", .rightOption: "⌥",
+        .shift: "⇧", .rightShift: "⇧",
 
         .delete: "⌫",
         .downArrow: "↓",
@@ -147,7 +186,7 @@ public struct KeyboardKey: RawRepresentable {
         .pageUp: "⇞",
         .return: "↩",
         .rightArrow: "→",
-        .space: "Space",
+        .space: "␣",
         .tab: "⇥",
         .upArrow: "↑",
 
@@ -172,48 +211,6 @@ public struct KeyboardKey: RawRepresentable {
         .f19: "F19",
         .f20: "F20",
     ]
-
-    /// Key name in the current keyboard input source.
-    public var name: String? {
-        self.name(names: nil)
-    }
-
-    public func name(names: [KeyboardKey: String]?) -> String? {
-        if let name: String = names?[self] ?? Self.names[self] { return name }
-        guard let layout: UnsafePointer<UCKeyboardLayout> = Self.layout else { return nil }
-
-        let maxStringLength: Int = 4
-        var stringBuffer: [UniChar] = [UniChar](repeating: 0, count: maxStringLength)
-        var stringLength: Int = 0
-
-        let modifierKeys: UInt32 = 0
-        var deadKeys: UInt32 = 0
-        let keyboardType: UInt32 = UInt32(LMGetKbdType())
-
-        let status: OSStatus = UCKeyTranslate(layout, CGKeyCode(self.rawValue), CGKeyCode(kUCKeyActionDown), modifierKeys, keyboardType, UInt32(kUCKeyTranslateNoDeadKeysMask), &deadKeys, maxStringLength, &stringLength, &stringBuffer)
-        guard status == Darwin.noErr else { return nil }
-
-        return String(utf16CodeUnits: stringBuffer, count: stringLength).uppercased()
-    }
-
-    /// Current unicode keyboard layout, with some great insight from https://jongampark.wordpress.com/2015/07/17.
-    private static var layout: UnsafePointer<UCKeyboardLayout>? {
-        let data: NSData
-
-        // What is interesting is that kTISPropertyUnicodeKeyLayoutData is still used when it queries last ASCII capable keyboard. It
-        // is TISCopyCurrentASCIICapableKeyboardLayoutInputSource() not TISCopyCurrentASCIICapableKeyboardInputSource() to call. The latter
-        // does not guarantee that it would return an keyboard input with a layout.
-
-        if let pointer = TISGetInputSourceProperty(TISCopyCurrentKeyboardInputSource().takeUnretainedValue(), kTISPropertyUnicodeKeyLayoutData) {
-            data = unsafeBitCast(pointer, to: CFData.self) as NSData
-        } else if let pointer = TISGetInputSourceProperty(TISCopyCurrentASCIICapableKeyboardLayoutInputSource().takeUnretainedValue(), kTISPropertyUnicodeKeyLayoutData) {
-            data = unsafeBitCast(pointer, to: CFData.self) as NSData
-        } else {
-            return nil
-        }
-
-        return data.bytes.bindMemory(to: UCKeyboardLayout.self, capacity: data.length)
-    }
 }
 
 extension KeyboardKey: Equatable, Hashable {
@@ -221,5 +218,32 @@ extension KeyboardKey: Equatable, Hashable {
 }
 
 extension KeyboardKey: CustomStringConvertible {
-    public var description: String { self.name ?? "" }
+    public var description: String { self.name(map: Self.names) ?? "" }
+}
+
+extension KeyboardKey {
+    public enum Layout {
+        case ascii
+        case current
+    }
+}
+
+extension KeyboardKey.Layout {
+    /// The unicode keyboard layout, with some great insight from:
+    ///  - https://jongampark.wordpress.com/2015/07/17.
+    ///  - https://github.com/cocoabits/MASShortcut/issues/60
+    public var pointer: UnsafePointer<UCKeyboardLayout>? {
+
+        // ✊ What is interesting is that kTISPropertyUnicodeKeyLayoutData is still used when it queries last ASCII capable keyboard. It
+        // is TISCopyCurrentASCIICapableKeyboardLayoutInputSource() not TISCopyCurrentASCIICapableKeyboardInputSource() to call. The latter
+        // does not guarantee that it would return an keyboard input with a layout.
+
+        var inputSource: TISInputSource?
+        switch self {
+            case .ascii: inputSource = TISCopyCurrentASCIICapableKeyboardLayoutInputSource().takeUnretainedValue()
+            case .current: inputSource = TISCopyCurrentKeyboardInputSource().takeUnretainedValue()
+        }
+        let layoutData = inputSource.map({ unsafeBitCast(TISGetInputSourceProperty($0, kTISPropertyUnicodeKeyLayoutData), to: CFData.self) as NSData })
+        return layoutData.map({ $0.bytes.bindMemory(to: UCKeyboardLayout.self, capacity: $0.length) })
+    }
 }
