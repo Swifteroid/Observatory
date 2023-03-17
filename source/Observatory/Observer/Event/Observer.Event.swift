@@ -147,22 +147,26 @@ open class EventObserver: AbstractObserver {
 
     // MARK: CGEvent with CGEventMask
 
-
+    /// Note, for this to work the process must have Accessibility Control permission enabled
+    /// in Security & Privacy system preferences.
     fileprivate func add(definition: Handler.Carbon.Definition?) -> Self {
         if let definition: Handler.Carbon.Definition = definition { return self.add(definition: definition) } else { return self }
     }
 
-    /// Register CoreGraphics handler with manual event forwarding.
+    /// Register CoreGraphics handler with manual event forwarding. Note, for this to work the process must have
+    /// Accessibility Control permission enabled in Security & Privacy system preferences.
     @discardableResult open func add(mask: CGEventMask, location: CGEventTapLocation? = nil, placement: CGEventTapPlacement? = nil, options: CGEventTapOptions? = nil, handler: @escaping (CGEvent) -> CGEvent?) -> Self {
         self.add(definition: Handler.Carbon.Definition(mask: mask, location: location, placement: placement, options: options, handler: handler))
     }
 
-    /// Register CoreGraphics handler with automatic event forwarding.
+    /// Register CoreGraphics handler with automatic event forwarding. Note, for this to work the process must have
+    /// Accessibility Control permission enabled in Security & Privacy system preferences.
     @discardableResult open func add(mask: CGEventMask, location: CGEventTapLocation? = nil, placement: CGEventTapPlacement? = nil, options: CGEventTapOptions? = nil, handler: @escaping (CGEvent) -> Void) -> Self {
         self.add(definition: Handler.Carbon.Definition(mask: mask, location: location, placement: placement, options: options, handler: handler))
     }
 
-    /// Register CoreGraphics handler with automatic event forwarding.
+    /// Register CoreGraphics handler with automatic event forwarding. Note, for this to work the process must have
+    /// Accessibility Control permission enabled in Security & Privacy system preferences.
     @discardableResult open func add(mask: CGEventMask, location: CGEventTapLocation? = nil, placement: CGEventTapPlacement? = nil, options: CGEventTapOptions? = nil, handler: @escaping () -> Void) -> Self {
         self.add(definition: Handler.Carbon.Definition(mask: mask, location: location, placement: placement, options: options, handler: handler))
     }
@@ -175,17 +179,20 @@ open class EventObserver: AbstractObserver {
     // MARK: CGEvent with NSEvent.EventTypeMask
 
 
-    /// Register CoreGraphics handler with manual event forwarding.
+    /// Register CoreGraphics handler with manual event forwarding. Note, for this to work the process must have
+    /// Accessibility Control permission enabled in Security & Privacy system preferences.
     @discardableResult open func add(mask: NSEvent.EventTypeMask, location: CGEventTapLocation?, placement: CGEventTapPlacement? = nil, options: CGEventTapOptions? = nil, handler: @escaping (CGEvent) -> CGEvent?) -> Self {
         self.add(definition: Handler.Carbon.Definition(mask: mask.rawValue, location: location, placement: placement, options: options, handler: handler))
     }
 
-    /// Register CoreGraphics handler with automatic event forwarding.
+    /// Register CoreGraphics handler with automatic event forwarding. Note, for this to work the process must have
+    /// Accessibility Control permission enabled in Security & Privacy system preferences.
     @discardableResult open func add(mask: NSEvent.EventTypeMask, location: CGEventTapLocation?, placement: CGEventTapPlacement? = nil, options: CGEventTapOptions? = nil, handler: @escaping (CGEvent) -> Void) -> Self {
         self.add(definition: Handler.Carbon.Definition(mask: mask.rawValue, location: location, placement: placement, options: options, handler: handler))
     }
 
-    /// Register CoreGraphics handler with automatic event forwarding.
+    /// Register CoreGraphics handler with automatic event forwarding. Note, for this to work the process must have
+    /// Accessibility Control permission enabled in Security & Privacy system preferences.
     @discardableResult open func add(mask: NSEvent.EventTypeMask, location: CGEventTapLocation?, placement: CGEventTapPlacement? = nil, options: CGEventTapOptions? = nil, handler: @escaping () -> Void) -> Self {
         self.add(definition: Handler.Carbon.Definition(mask: mask.rawValue, location: location, placement: placement, options: options, handler: handler))
     }
