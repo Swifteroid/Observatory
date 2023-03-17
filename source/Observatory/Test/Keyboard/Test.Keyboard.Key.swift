@@ -20,7 +20,7 @@ internal class KeyboardKeySpec: Spec {
             let layoutData = inputSource.map({ unsafeBitCast(TISGetInputSourceProperty($0, kTISPropertyUnicodeKeyLayoutData), to: CFData.self) as NSData })
             let layout = layoutData.map({ $0.bytes.bindMemory(to: UCKeyboardLayout.self, capacity: $0.length) })
             expect(layout).toNot(beNil())
-            KeyboardKey.a.name(layout: layout) == "Ф"
+            expect(KeyboardKey.a.name(layout: layout)) == "Ф"
         }
     }
 }
