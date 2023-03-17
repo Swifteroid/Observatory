@@ -4,14 +4,26 @@
 name: Lint & Test
 
 on:
-  push:
+  push: { branches: [ main ] }
   pull_request:
-    types: [ opened, reopened ]
   workflow_dispatch:
 
 jobs:
+  skip:
+    name: Pre-Check & Skip
+    continue-on-error: true
+    runs-on: ubuntu-latest
+    outputs:
+      should_skip: ${{ steps.check.outputs.should_skip }}
+    steps:
+      - name: Skip duplicate actions
+        id: check
+        uses: fkirc/skip-duplicate-actions@v5
+
   main:
     name: Lint & Test
+    needs: skip
+    if: needs.skip.outputs.should_skip != 'true'
     runs-on: macos-latest
 
     steps:
