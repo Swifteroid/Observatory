@@ -1,7 +1,10 @@
 import AppKit.NSEvent
 import Carbon
 
-/// Check source for comments, some keys are not available on Mac OS X.
+/// The `KeyboardModifier` uses Carbon key constants as raw values and not `CGEventFlags` nor `NSEvent.ModifierFlags`,
+/// because the modifier's raw values are used directly for hotkeys. Carbon's corresponding raw values are not directly
+/// compatible with the ones / in AppKit or Core Graphics. Some keys are not available in macOS – the standard modifiers
+/// for hotkeys are considered to be Caps Lock, Command, Control, Option and Shift keys, hence using only them here.
 public struct KeyboardModifier: RawRepresentable, OptionSet {
     public init(rawValue: Int) { self.rawValue = rawValue }
     public init(_ rawValue: Int) { self.init(rawValue: rawValue) }
@@ -69,4 +72,26 @@ extension KeyboardModifier: Equatable, Hashable {
 
 extension KeyboardModifier: CustomStringConvertible {
     public var description: String { self.name ?? "" }
+}
+
+extension CGEventFlags {
+    public init(modifier: KeyboardModifier) {
+        self.init()
+        if modifier.contains(.controlKey) { self.insert(.maskControl) }
+        if modifier.contains(.optionKey) { self.insert(.maskAlternate) }
+        if modifier.contains(.capsLockKey) { self.insert(.maskAlphaShift) }
+        if modifier.contains(.shiftKey) { self.insert(.maskShift) }
+        if modifier.contains(.commandKey) { self.insert(.maskCommand) }
+    }
+}
+
+extension NSEvent.ModifierFlags {
+    public init(modifier: KeyboardModifier) {
+        self.init()
+        if modifier.contains(.controlKey) { self.insert(.control) }
+        if modifier.contains(.optionKey) { self.insert(.option) }
+        if modifier.contains(.capsLockKey) { self.insert(.capsLock) }
+        if modifier.contains(.shiftKey) { self.insert(.shift) }
+        if modifier.contains(.commandKey) { self.insert(.command) }
+    }
 }
