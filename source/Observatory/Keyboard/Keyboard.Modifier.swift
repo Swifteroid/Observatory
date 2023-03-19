@@ -23,9 +23,9 @@ public struct KeyboardModifier: RawRepresentable, OptionSet {
 
         if flags.rawValue & NSEvent.ModifierFlags.deviceIndependentFlagsMask.rawValue != 0 {
             if flags.contains(.capsLock) { rawValue |= Carbon.alphaLock }
-            if flags.contains(.option) { rawValue |= Carbon.optionKey }
             if flags.contains(.command) { rawValue |= Carbon.cmdKey }
             if flags.contains(.control) { rawValue |= Carbon.controlKey }
+            if flags.contains(.option) { rawValue |= Carbon.optionKey }
             if flags.contains(.shift) { rawValue |= Carbon.shiftKey }
         }
 
@@ -41,17 +41,25 @@ public struct KeyboardModifier: RawRepresentable, OptionSet {
     public static let optionKey: KeyboardModifier = .init(Carbon.optionKey)
     public static let shiftKey: KeyboardModifier = .init(Carbon.shiftKey)
 
+    /// The name of the modifier.
     public var name: String? {
+        let name = self.keys.compactMap({ $0.name }).joined(separator: "")
+        return name == "" ? nil : name
+    }
+
+    /// Returns keys associated with the modifier. Note, different keys can result in the same modifier, if you need
+    /// the precise keys and in precise order they were pressed, this needs to be tracked done with event tracking.
+    public var keys: [KeyboardKey] {
         // Keep the order: https://developer.apple.com/design/human-interface-guidelines/inputs/keyboards/#custom-keyboard-shortcuts
         //  > List modifier keys in the correct order. If you use more than one modifier key in a custom
         //  > shortcut, always list them in this order: Control, Option, Shift, Command.
-        var string: String = ""
-        if self.contains(.controlKey) { string += KeyboardKey.control.name ?? "" }
-        if self.contains(.optionKey) { string += KeyboardKey.option.name ?? "" }
-        if self.contains(.capsLockKey) { string += KeyboardKey.capsLock.name ?? "" }
-        if self.contains(.shiftKey) { string += KeyboardKey.shift.name ?? "" }
-        if self.contains(.commandKey) { string += KeyboardKey.command.name ?? "" }
-        return string == "" ? nil : string
+        var keys = [KeyboardKey]()
+        if self.contains(.controlKey) { keys.append(KeyboardKey.control) }
+        if self.contains(.optionKey) { keys.append(KeyboardKey.option) }
+        if self.contains(.capsLockKey) { keys.append(KeyboardKey.capsLock) }
+        if self.contains(.shiftKey) { keys.append(KeyboardKey.shift) }
+        if self.contains(.commandKey) { keys.append(KeyboardKey.command) }
+        return keys
     }
 }
 
