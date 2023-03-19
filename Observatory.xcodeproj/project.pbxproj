@@ -32,6 +32,7 @@
 		17FD0BCDD00D6AF24E42FBD6 /* Observer.HandlerDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0D539B72A4A1B5DFCEBE /* Observer.HandlerDefinition.swift */; };
 		17FD0C1A4329D5233941DDE4 /* Test.Keyboard.Hotkey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD01507DE6860A0089FEAF /* Test.Keyboard.Hotkey.swift */; };
 		17FD0E596C7B56AEB4865F6A /* Observer.Hotkey.Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD0F7C4A53D96FBDB8674E /* Observer.Hotkey.Handler.swift */; };
+		196807DF7B07BBFAF1E7BCB4 /* Test.Keyboard.Modifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1968096E1E1189C984B6F696 /* Test.Keyboard.Modifier.swift */; };
 		48517292289869DC00B66C61 /* Observatory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6D7642A1CDDBA100071CCB0 /* Observatory.framework */; };
 		E609DC8B1E7BC8CA00F919DD /* demo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E609DC891E7BC8C400F919DD /* demo.storyboard */; };
 		E690D12A267D1ADC002FD479 /* Observatory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6D7642A1CDDBA100071CCB0 /* Observatory.framework */; };
@@ -88,6 +89,7 @@
 		17FD0F7C4A53D96FBDB8674E /* Observer.Hotkey.Handler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Hotkey.Handler.swift; sourceTree = "<group>"; };
 		17FD0F994461E499BAC659EB /* Package.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		17FD0FB54AAAEB24AB193225 /* Shortcut.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shortcut.swift; sourceTree = "<group>"; };
+		1968096E1E1189C984B6F696 /* Test.Keyboard.Modifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Keyboard.Modifier.swift; sourceTree = "<group>"; };
 		691492DAECCDA8F37886F020 /* framework.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = framework.plist; sourceTree = "<group>"; };
 		692C0EE3AC3E3172836E1B96 /* application.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = application.plist; sourceTree = "<group>"; };
 		697EDBC98FFDECF7FF264F3A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 			children = (
 				17FD01507DE6860A0089FEAF /* Test.Keyboard.Hotkey.swift */,
 				17FD04EB71CD7024929F934F /* Test.Keyboard.Key.swift */,
+				1968096E1E1189C984B6F696 /* Test.Keyboard.Modifier.swift */,
 			);
 			path = Keyboard;
 			sourceTree = "<group>";
@@ -259,8 +262,8 @@
 		17FD0E1C100943CB2E5A1608 /* Test */ = {
 			isa = PBXGroup;
 			children = (
-				17FD00AF91A500EDFD52854A /* Observer */,
 				17FD09FAB36FCB8416A21EDB /* Keyboard */,
+				17FD00AF91A500EDFD52854A /* Observer */,
 				17FD04EDF9644FF010EB95D3 /* Shortcut */,
 				17FD078E512F21A8ECE8F335 /* Test.swift */,
 			);
@@ -485,14 +488,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				17FD0156D1758DD5200998BE /* Test.swift in Sources */,
 				17FD057B880D845188EA2DC8 /* Testing.Event.swift in Sources */,
 				17FD00154E7DD4027591C5D2 /* Testing.Observation.swift in Sources */,
-				17FD0156D1758DD5200998BE /* Test.swift in Sources */,
 				17FD0C1A4329D5233941DDE4 /* Test.Keyboard.Hotkey.swift in Sources */,
 				17FD088C42F60A74F1C81846 /* Test.Keyboard.Key.swift in Sources */,
-				17FD01BE2C8AF0115AE9DF8E /* Test.Observer.Notification.swift in Sources */,
+				196807DF7B07BBFAF1E7BCB4 /* Test.Keyboard.Modifier.swift in Sources */,
 				17FD028A9B91583E857EF5EF /* Test.Observer.Event.swift in Sources */,
 				17FD09D3A526167E7A8F531D /* Test.Observer.Hotkey.swift in Sources */,
+				17FD01BE2C8AF0115AE9DF8E /* Test.Observer.Notification.swift in Sources */,
 				17FD0148328306B2C2A1C505 /* Test.Shortcut.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
