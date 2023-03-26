@@ -8,6 +8,27 @@ public struct KeyboardKey: RawRepresentable {
     public init(_ keyCode: CGKeyCode) { self.init(Int(keyCode)) }
     public init(_ event: NSEvent) { self.init(Int(event.keyCode)) }
 
+    public init?(_ name: String) { self.init(name, custom: Self.names) }
+    public init?(_ name: String, custom map: [KeyboardKey: String]) { self.init(name, layout: .ascii, custom: map) }
+    public init?(_ name: String, layout: Layout, custom map: [KeyboardKey: String]? = nil) { self.init(name, layout: layout.pointer, custom: map) }
+
+    /// Attempts to create a KeyboardKey from the corresponding name in the specified (or default, otherwise) keyboard layout.
+    public init?(_ name: String, layout: UnsafePointer<UCKeyboardLayout>?, custom map: [KeyboardKey: String]? = nil) {
+        if name.isEmpty { return nil }
+        // 😍 Oh this is priceless… Couldn't find an easy way to map a character into key code, but obviously this should be possible
+        // by somehow digesting the keyboard layout data. A sillsdev/Ukelele might be a good source of inspiration along with
+        // the CarbonCore/UnicodeUtilities.h. With some inspiration from browserstack/OSXVNC we can also just iterate through
+        // all available key codes and compare the name, of which there should be only 127 (0x7F) tops based on the highest virtual
+        // key code constant in HIToolbox/Events.h. This probably has some limitations, including performance, but should be a decent
+        // solution for the most typical situations.
+        let string = name.uppercased()
+        for i in 0x00 ... 0x7F where KeyboardKey(i).name(layout: layout, custom: map)?.uppercased() == string {
+            self.init(i)
+            return
+        }
+        return nil
+    }
+
     public let rawValue: Int
 
     public static let a: KeyboardKey = .init(kVK_ANSI_A)
@@ -132,11 +153,11 @@ public struct KeyboardKey: RawRepresentable {
     public static let f20: KeyboardKey = .init(kVK_F20)
 
     public var name: String? {
-        self.name(map: Self.names)
+        self.name(custom: Self.names)
     }
 
-    public func name(map names: [KeyboardKey: String]) -> String? {
-        self.name(layout: .ascii, custom: names)
+    public func name(custom map: [KeyboardKey: String]) -> String? {
+        self.name(layout: .ascii, custom: map)
     }
 
     public func name(layout: Layout, custom map: [KeyboardKey: String]? = nil) -> String? {
@@ -218,7 +239,7 @@ extension KeyboardKey: Equatable, Hashable {
 }
 
 extension KeyboardKey: CustomStringConvertible {
-    public var description: String { self.name(map: Self.names) ?? "" }
+    public var description: String { self.name(custom: Self.names) ?? "" }
 }
 
 extension KeyboardKey {
