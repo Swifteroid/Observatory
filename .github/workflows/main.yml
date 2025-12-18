@@ -28,7 +28,7 @@ jobs:
 
     steps:
       - name: Checkout Git
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
         with:
           submodules: recursive
 
@@ -38,7 +38,7 @@ jobs:
       - name: Install Homebrew
         uses: tecolicom/actions-use-homebrew-tools@v1
         with:
-          tools: xcbeautify
+          tools: xcbeautify swiftlint
           cache: yes
 
 
@@ -46,7 +46,7 @@ jobs:
 
       - name: Cache SPM
         id: cache-spm
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: .build
           key: ${{ runner.os }}-spm-${{ hashFiles('Package.swift', 'Package.resolved') }}
