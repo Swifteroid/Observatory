@@ -38,19 +38,38 @@ internal class KeyboardKeySpec: Spec {
         }
 
         it("can handle multi-threading") {
-            let queue = OperationQueue()
-            queue.maxConcurrentOperationCount = 25
-            for _ in 0 ..< 100 {
-                queue.addOperation({
-                    for _ in 0 ..< 1 {
-                        autoreleasepool {
-                            _ = KeyboardKey.a.name(layout: .ascii)
-                            _ = KeyboardKey.escape.name(layout: .ascii)
+            waitUntil(action: { done in
+                let queue = OperationQueue()
+                queue.maxConcurrentOperationCount = max(4, ProcessInfo.processInfo.activeProcessorCount * 2)
+
+                // Stress-testing on main vs. background thread – this is what causes the failures. It appears TIS call must first originate
+                // from the main thread, so it's placed on the main queue before layout data will attempt to call this. Note, under other
+                // circumstances, this can / would be fine, so it's engineered as it is is on purpose.
+
+                // To verify that this fails two things need to be done:
+                //  - Disable caching inside Layout's data.
+                //  - Disable main-thread calling inside Thread's mainly, or don't use mainly at all.
+
+                for _ in 0 ..< 2500 {
+                    queue.addOperation({
+                        DispatchQueue.main.async {
+                            autoreleasepool {
+                                // This line seems to be the culprit on macOS Sequoia 15.7.2 (24G325) – without it, the test passes.
+                                _ = TISCreateInputSourceList(nil, true).takeRetainedValue()
+                                guard let source = TISCopyCurrentKeyboardInputSource()?.takeRetainedValue() else { fatalError() }
+                                guard TISGetInputSourceProperty(source, kTISPropertyUnicodeKeyLayoutData) != nil else { fatalError() }
+                            }
                         }
-                    }
-                })
-            }
-            queue.waitUntilAllOperationsAreFinished()
+
+                        autoreleasepool {
+                            // Without proper main-thread handling, this would crash…
+                            expect(KeyboardKey.Layout.allCases.randomElement()!.data) != nil
+                        }
+                    })
+                }
+
+                queue.addBarrierBlock({ DispatchQueue.main.async(execute: done) })
+            })
         }
 
         it("can get layout data quickly") {
@@ -69,7 +88,7 @@ extension UCKeyboardLayout {
         // Using properties filter to get the language doesn't work as expected and returns a different input… 🤔
         let inputSources = TISCreateInputSourceList(nil, true).takeRetainedValue() as? [TISInputSource]
         guard let inputSource = inputSources?.first(where: { unsafeBitCast(TISGetInputSourceProperty($0, kTISPropertyInputSourceID), to: CFString.self) as String == id }) else { return nil }
-        guard let data = TISGetInputSourceProperty(inputSource, kTISPropertyUnicodeKeyLayoutData)  else { return nil }
+        guard let data = TISGetInputSourceProperty(inputSource, kTISPropertyUnicodeKeyLayoutData) else { return nil }
         guard let data = Unmanaged<AnyObject>.fromOpaque(data).takeUnretainedValue() as? NSData, data.count > 0 else { return nil }
         return Data(referencing: data)
     }

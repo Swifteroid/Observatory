@@ -1,7 +1,7 @@
 import AppKit.NSEvent
 import Carbon
 
-/// Represents a keyboard key. Don't forget – there are different keyboard layouts for handling different languages.
+/// Represents a physical keyboard key. Don't forget – there are different keyboard layouts for handling different languages.
 public struct KeyboardKey: RawRepresentable {
     public init(rawValue: Int) { self.rawValue = rawValue }
     public init(_ rawValue: Int) { self.init(rawValue: rawValue) }
@@ -29,6 +29,7 @@ public struct KeyboardKey: RawRepresentable {
         return nil
     }
 
+    /// The virtual key code, CGKeyCode.
     public let rawValue: Int
 
     public static let a: KeyboardKey = .init(kVK_ANSI_A)
@@ -152,12 +153,14 @@ public struct KeyboardKey: RawRepresentable {
     public static let f19: KeyboardKey = .init(kVK_F19)
     public static let f20: KeyboardKey = .init(kVK_F20)
 
+    /// Returns the key name in current ASCII layout if available, and if not, falls back to the current layout no matter whether ASCII or not.
     public var name: String? {
         self.name(custom: Self.names)
     }
 
+    /// Returns the key name in current ASCII layout if available, and if not, falls back to the current layout no matter whether ASCII or not.
     public func name(custom map: [KeyboardKey: String]) -> String? {
-        self.name(layout: .ascii, custom: map)
+        self.name(layout: .ascii, custom: map) ?? self.name(layout: .current, custom: map)
     }
 
     public func name(layout: Layout, custom map: [KeyboardKey: String]? = nil) -> String? {
@@ -240,7 +243,7 @@ extension KeyboardKey: Equatable, Hashable {
 }
 
 extension KeyboardKey: CustomStringConvertible {
-    public var description: String { self.name(custom: Self.names) ?? "" }
+    public var description: String { self.name(custom: Self.names) ?? "Key Code: \(self.rawValue)" }
 }
 
 extension KeyboardKey {
@@ -251,29 +254,78 @@ extension KeyboardKey {
 }
 
 extension KeyboardKey.Layout {
-    /// Needed for serializing access to Carbon’s TIS keyboard layout APIs, which can crash under concurrent calls,
+    /// Needed for serializing access to Carbon's TIS keyboard layout APIs, which can crash under concurrent calls,
     /// ensuring layout data retrieval is thread-safe.
     private static let lock = NSLock()
+
+    /// Cache layout data by input source – this minimizes calls to Carbon's TIS, which are super-unstable and thread-unsafe…
+    fileprivate static var cache: [Self: Data] = [:]
+    private static func invalidateCaches() { Self.lock.withLock({ Self.cache = [:] }) }
+
+    /// Input source change observers.
+    private static var observers: [NSObjectProtocol] = []
+    private static func observe() -> [NSObjectProtocol] {
+        // https://leopard-adc.pepas.com/documentation/TextFonts/Reference/TextInputSourcesReference/TextInputSourcesReference.pdf
+        let notifications = [kTISNotifySelectedKeyboardInputSourceChanged, kTISNotifyEnabledKeyboardInputSourcesChanged].compactMap({ Notification.Name($0 as String) })
+        return notifications.map({ DistributedNotificationCenter.default().addObserver(forName: $0, object: nil, queue: nil, using: { _ in Self.invalidateCaches() }) })
+    }
+
 
     /// The unicode keyboard layout, with some great insight from:
     ///  - https://jongampark.wordpress.com/2015/07/17.
     ///  - https://github.com/cocoabits/MASShortcut/issues/60
     public var data: Data? {
-        Self.lock.lock()
-        defer { Self.lock.unlock() }
+        // We still want the locking, but not while waiting for the main-thread dispatch, as it can produce short-deadlocks.
 
-        // ✊ What is interesting is that kTISPropertyUnicodeKeyLayoutData is still used when it queries last ASCII capable keyboard. It
-        // is TISCopyCurrentASCIICapableKeyboardLayoutInputSource() not TISCopyCurrentASCIICapableKeyboardInputSource() to call. The latter
-        // does not guarantee that it would return an keyboard input with a layout.
+        var data: Data? = Self.lock.withLock({
+            if let data = Self.cache[self] { return data }
+            if Self.observers.isEmpty { Self.observers = Self.observe() }
+            return nil
+        })
 
-        var inputSource: TISInputSource?
-        switch self {
-            case .ascii: inputSource = TISCopyCurrentASCIICapableKeyboardLayoutInputSource()?.takeRetainedValue()
-            case .current: inputSource = TISCopyCurrentKeyboardInputSource()?.takeRetainedValue()
+        do {
+            data = try Thread.mainly(timeout: .milliseconds(50), {
+                Self.lock.withLock({
+                    // ✊ What is interesting is that kTISPropertyUnicodeKeyLayoutData is still used when it queries last ASCII capable keyboard. It
+                    // is TISCopyCurrentASCIICapableKeyboardLayoutInputSource() not TISCopyCurrentASCIICapableKeyboardInputSource() to call. The latter
+                    // does not guarantee that it would return an keyboard input with a layout.
+                    let inputSource = switch self {
+                        case .ascii: TISCopyCurrentASCIICapableKeyboardLayoutInputSource()?.takeRetainedValue()
+                        case .current: TISCopyCurrentKeyboardInputSource()?.takeRetainedValue()
+                    }
+                    guard let inputSource else { return nil }
+                    guard let data = TISGetInputSourceProperty(inputSource, kTISPropertyUnicodeKeyLayoutData) else { return nil }
+                    guard let data = Unmanaged<AnyObject>.fromOpaque(data).takeUnretainedValue() as? NSData, data.count > 0 else { return nil }
+                    // Hard-copy the data to avoid any external modifications.
+                    return Data(data as Data)
+                })
+            })
+        } catch {
+            NSLog("Failed to retrieve keyboard layout data: TIS API couldn't be called on the main thread.")
         }
-        guard let inputSource else { return nil }
-        guard let data = TISGetInputSourceProperty(inputSource, kTISPropertyUnicodeKeyLayoutData) else { return nil }
-        guard let data = Unmanaged<AnyObject>.fromOpaque(data).takeUnretainedValue() as? NSData, data.count > 0 else { return nil }
-        return Data(referencing: data)
+
+        if let data { Self.lock.withLock({ Self.cache[self] = data }) }
+        return data
+    }
+}
+
+extension Thread {
+    fileprivate enum Error: Swift.Error { case timeout }
+    @discardableResult fileprivate static func mainly<T>(timeout: DispatchTimeInterval, _ action: @escaping () -> T) throws -> T {
+        if Thread.isMainThread { return action() }
+        let semaphore = (dispatch: DispatchSemaphore(value: 0), work: DispatchSemaphore(value: 0))
+        var result: T?
+        var item: DispatchWorkItem?
+        item = DispatchWorkItem {
+            // If we timed out before the item even started, we cancel it and it should no-op.
+            semaphore.dispatch.signal()
+            defer { semaphore.work.signal() }
+            if item?.isCancelled == false { result = action() }
+        }
+        // Only time out if the main queue couldn't begin running our block. But once started, wait for completion…
+        if let item { DispatchQueue.main.async(execute: item) }
+        if semaphore.dispatch.wait(timeout: .now() + timeout) == .timedOut { item?.cancel(); throw Error.timeout }
+        semaphore.work.wait()
+        if let result { return result } else { throw Error.timeout }
     }
 }
