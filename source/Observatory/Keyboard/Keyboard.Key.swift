@@ -277,28 +277,26 @@ extension KeyboardKey.Layout {
     public var data: Data? {
         // We still want the locking, but not while waiting for the main-thread dispatch, as it can produce short-deadlocks.
 
-        var data: Data? = Self.lock.withLock({
-            if let data = Self.cache[self] { return data }
-            if Self.observers.isEmpty { Self.observers = Self.observe() }
-            return nil
-        })
+        if let data = Self.lock.withLock({ Self.cache[self] }) { return data }
+        Self.lock.withLock({ if Self.observers.isEmpty { Self.observers = Self.observe() } })
+        var data: Data?
 
         do {
             data = try Thread.mainly(timeout: .milliseconds(50), {
-                Self.lock.withLock({
-                    // ✊ What is interesting is that kTISPropertyUnicodeKeyLayoutData is still used when it queries last ASCII capable keyboard. It
-                    // is TISCopyCurrentASCIICapableKeyboardLayoutInputSource() not TISCopyCurrentASCIICapableKeyboardInputSource() to call. The latter
-                    // does not guarantee that it would return an keyboard input with a layout.
-                    let inputSource = switch self {
-                        case .ascii: TISCopyCurrentASCIICapableKeyboardLayoutInputSource()?.takeRetainedValue()
-                        case .current: TISCopyCurrentKeyboardInputSource()?.takeRetainedValue()
-                    }
-                    guard let inputSource else { return nil }
-                    guard let data = TISGetInputSourceProperty(inputSource, kTISPropertyUnicodeKeyLayoutData) else { return nil }
-                    guard let data = Unmanaged<AnyObject>.fromOpaque(data).takeUnretainedValue() as? NSData, data.count > 0 else { return nil }
-                    // Hard-copy the data to avoid any external modifications.
-                    return Data(data as Data)
-                })
+                // 🧪 If testing outside the main thread, make sure to lock this, otherwise will cause a different crash…
+                // Self.lock.withLock({})
+                // ✊ What is interesting is that kTISPropertyUnicodeKeyLayoutData is still used when it queries last ASCII capable keyboard. It
+                // is TISCopyCurrentASCIICapableKeyboardLayoutInputSource() not TISCopyCurrentASCIICapableKeyboardInputSource() to call. The latter
+                // does not guarantee that it would return an keyboard input with a layout.
+                let inputSource = switch self {
+                    case .ascii: TISCopyCurrentASCIICapableKeyboardLayoutInputSource()?.takeRetainedValue()
+                    case .current: TISCopyCurrentKeyboardInputSource()?.takeRetainedValue()
+                }
+                guard let inputSource else { return nil }
+                guard let data = TISGetInputSourceProperty(inputSource, kTISPropertyUnicodeKeyLayoutData) else { return nil }
+                guard let data = Unmanaged<AnyObject>.fromOpaque(data).takeUnretainedValue() as? NSData, data.count > 0 else { return nil }
+                // Hard-copy the data to avoid any external modifications.
+                return Data(data as Data)
             })
         } catch {
             NSLog("Failed to retrieve keyboard layout data: TIS API couldn't be called on the main thread.")
