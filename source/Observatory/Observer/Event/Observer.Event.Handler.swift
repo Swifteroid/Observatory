@@ -18,37 +18,58 @@ extension EventObserver.Handler {
             public typealias Handler = (global: GlobalSignature?, local: LocalSignature?)
             public typealias Monitor = (global: Any?, local: Any?)
 
-            init(mask: NSEvent.EventTypeMask, handler: Handler) {
-                self.mask = mask
-                self.handler = handler
-            }
-
             deinit {
                 self.deactivate()
             }
 
+            internal init(monitoring: Monitoring? = nil, mask: NSEvent.EventTypeMask, handler: Handler) {
+                self.mask = mask
+                self.handler = handler
+                self.monitoring = monitoring ?? Monitoring.default
+            }
+
+            internal var monitoring: Monitoring
             public let mask: NSEvent.EventTypeMask
             public let handler: Handler
 
-            open private(set) var monitor: Monitor?
+            private let lock: NSRecursiveLock = NSRecursiveLock()
+            private var token: UInt = 0
 
+            open private(set) var monitor: Monitor?
             open private(set) var isActive: Bool = false
 
             @discardableResult open func activate(_ newValue: Bool = true) -> Self {
+                self.lock.lock()
+                defer { self.lock.unlock() }
+
                 if newValue == self.isActive { return self }
 
-                if newValue {
-                    self.monitor = Monitor(
-                        global: self.handler.global.map({ NSEvent.addGlobalMonitorForEvents(matching: self.mask, handler: $0) as Any }),
-                        local: self.handler.local.map({ NSEvent.addLocalMonitorForEvents(matching: self.mask, handler: $0) as Any })
-                    )
-                } else if let monitor = self.monitor {
-                    monitor.local.map({ NSEvent.removeMonitor($0) })
-                    monitor.global.map({ NSEvent.removeMonitor($0) })
-                    self.monitor = nil
+                self.token = self.token &+ 1
+                let token: UInt = self.token
+
+                // Assign here to support reentrancy.
+                self.isActive = newValue
+
+                let oldMonitor = self.monitor
+                let newMonitor = newValue ? Monitor(
+                    global: self.handler.global.flatMap({ handler in
+                        self.monitoring.observe(global: self.mask, { [weak self] in if let self, self.lock.withLock({ self.token }) == token { handler($0) } })
+                    }),
+                    local: self.handler.local.flatMap({ handler in
+                        self.monitoring.observe(local: self.mask, { [weak self] in if let self, self.lock.withLock({ self.token }) == token { handler($0) } else { $0 } })
+                    })
+                ) : nil
+
+                // If by some miracle a reentry happens – not 100% sure, but a few crashes point at this – this checks if the activation
+                // is stale and cleans up the redundant monitors in favor of recent ones.
+                if token != self.token {
+                    self.monitoring.unobserve(newMonitor)
+                    return self
                 }
 
-                self.isActive = newValue
+                self.monitor = newMonitor
+                self.monitoring.unobserve(oldMonitor)
+
                 return self
             }
 
@@ -56,6 +77,30 @@ extension EventObserver.Handler {
                 self.activate(false)
             }
         }
+    }
+}
+
+extension EventObserver.Handler.AppKit.Definition {
+    /// This is a proxy for testing.
+    internal class Monitoring {
+        internal static let `default`: Monitoring = Monitoring()
+        internal init() {}
+        internal func observe(global mask: NSEvent.EventTypeMask, _ handler: @escaping (NSEvent) -> Void) -> Any? {
+            NSEvent.addGlobalMonitorForEvents(matching: mask, handler: { [weak self] in self?.receive(global: $0, handler: handler) })
+        }
+        internal func observe(local mask: NSEvent.EventTypeMask, _ handler: @escaping (NSEvent) -> NSEvent?) -> Any? {
+            NSEvent.addLocalMonitorForEvents(matching: mask, handler: { [weak self] in self?.receive(local: $0, handler: handler) })
+        }
+        internal func unobserve(_ monitor: Any) { NSEvent.removeMonitor(monitor) }
+        internal func receive(global event: NSEvent, handler: @escaping (NSEvent) -> Void){ handler(event) }
+        internal func receive(local event: NSEvent, handler: @escaping (NSEvent) -> NSEvent?) -> NSEvent? { handler(event) }
+    }
+}
+
+extension EventObserver.Handler.AppKit.Definition.Monitoring {
+    fileprivate func unobserve(_ monitor: EventObserver.Handler.AppKit.Definition.Monitor?) {
+        if let local = monitor?.local { self.unobserve(local) }
+        if let global = monitor?.global { self.unobserve(global) }
     }
 }
 
