@@ -5,7 +5,7 @@ import Observatory
 import Quick
 
 internal class HotkeyObserverSpec: Spec {
-    override internal func spec() {
+    override internal class func spec() {
         it("can observe hotkeys in active state") {
             let observer: HotkeyObserver = HotkeyObserver(active: true)
             let modifier: CGEventFlags = [.maskCommand, .maskShift]
@@ -67,7 +67,8 @@ internal class HotkeyObserverSpec: Spec {
             ]
 
             for hotkey in hotkeys {
-                expect(HotkeyObserver(active: true).add(hotkey: hotkey, handler: {}).definitions.first?.error).to(beNil(), description: String(describing: hotkey))
+                let error = HotkeyObserver(active: true).add(hotkey: hotkey, handler: {}).definitions.first?.error
+                expect(error) == nil
             }
         }
 
@@ -78,7 +79,8 @@ internal class HotkeyObserverSpec: Spec {
             ]
 
             for hotkey in hotkeys {
-                expect(HotkeyObserver(active: true).add(hotkey: hotkey, handler: {}).definitions.first?.error).toNot(beNil(), description: String(describing: hotkey))
+                let error = HotkeyObserver(active: true).add(hotkey: hotkey, handler: {}).definitions.first?.error
+                expect(error) != nil
             }
         }
 
@@ -89,7 +91,7 @@ internal class HotkeyObserverSpec: Spec {
 
             observerFoo.add(hotkey: hotkey, handler: {})
             observerBar.add(hotkey: hotkey, handler: {})
-            expect(observerBar.definitions.first?.error).toNot(beNil())
+            expect(observerBar.definitions.first?.error) != nil
         }
     }
 

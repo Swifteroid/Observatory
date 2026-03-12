@@ -4,7 +4,7 @@ import Observatory
 import Quick
 
 internal class NotificationObserverSpec: Spec {
-    override internal func spec() {
+    override internal class func spec() {
         it("can observe Foundation notifications in active state") {
             let center: NotificationCenter = NotificationCenter.default
             let observer: NotificationObserver = NotificationObserver(active: true)

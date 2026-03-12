@@ -5,7 +5,7 @@ import Observatory
 import Quick
 
 internal class ShortcutSpec: Spec {
-    override internal func spec() {
+    override internal class func spec() {
 
         // Do this prior running any tests to "flush" the `NSWillBecomeMultiThreadedNotification` notification, which fails tests
         // that expect certain notifications.

@@ -5,10 +5,10 @@ import Observatory
 import Quick
 
 internal class KeyboardKeySpec: Spec {
-    override internal func spec() {
+    override internal class func spec() {
         it("can init with string") {
-            expect(KeyboardKey("")).to(beNil())
-            expect(KeyboardKey("…")).to(beNil())
+            expect(KeyboardKey("")) == nil
+            expect(KeyboardKey("…")) == nil
             expect(KeyboardKey("a")) == .a
             expect(KeyboardKey("A")) == .a
             expect(KeyboardKey("⎋")) == .escape
@@ -18,7 +18,7 @@ internal class KeyboardKeySpec: Spec {
 
         it("can init with string in specified keyboard layout") {
             let layout = UCKeyboardLayout.data(for: "com.apple.keylayout.Ukrainian")
-            expect(layout).toNot(beNil())
+            expect(layout) != nil
             expect(KeyboardKey("ф", layout: layout)) == .a
             expect(KeyboardKey("Ф", layout: layout)) == .a
         }
@@ -33,7 +33,7 @@ internal class KeyboardKeySpec: Spec {
 
         it("can return key name in specified keyboard layout") {
             let layout = UCKeyboardLayout.data(for: "com.apple.keylayout.Ukrainian")
-            expect(layout).toNot(beNil())
+            expect(layout) != nil
             expect(KeyboardKey.a.name(layout: layout)) == "Ф"
         }
 

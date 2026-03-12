@@ -6,7 +6,7 @@ import Observatory
 import Quick
 
 internal class KeyboardModifierSpec: Spec {
-    override internal func spec() {
+    override internal class func spec() {
         it("can return keys") {
             expect(KeyboardModifier.capsLockKey.keys) == [.capsLock]
             expect(KeyboardModifier.commandKey.keys) == [.command]

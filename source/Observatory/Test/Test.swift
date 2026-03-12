@@ -6,7 +6,7 @@ import Quick
 internal class Spec: QuickSpec {
 
     /// This was something cool and used in some other testing, can't remember… Leaving as a reminder.
-    private func sendHotkeyEvent(identifier: EventHotKeyID) {
+    private static func sendHotkeyEvent(identifier: EventHotKeyID) {
         let eventHotKeyIDPointer: UnsafeMutablePointer<EventHotKeyID> = UnsafeMutablePointer.allocate(capacity: 1)
         eventHotKeyIDPointer.initialize(to: identifier)
 
@@ -20,7 +20,7 @@ internal class Spec: QuickSpec {
     }
 
     /// Posts a real hotkey event, make sure to not invoke dangerous hotkeys with it… ⚠️
-    internal func postHotkeyEvent(key: CGKeyCode, flag: CGEventFlags) {
+    internal static func postHotkeyEvent(key: CGKeyCode, flag: CGEventFlags) {
         let downEvent: CGEvent = CGEvent(keyboardEventSource: nil, virtualKey: key, keyDown: true)!
         let upEvent: CGEvent = CGEvent(keyboardEventSource: nil, virtualKey: key, keyDown: false)!
         downEvent.flags = flag
