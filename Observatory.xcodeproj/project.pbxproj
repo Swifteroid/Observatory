@@ -62,7 +62,6 @@
 		17FD0007A26B7B85FC5190C0 /* Observer.Event.Handler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Event.Handler.swift; sourceTree = "<group>"; };
 		17FD009919B2E0C5C02AE1FB /* Observer.Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Notification.swift; sourceTree = "<group>"; };
 		17FD01507DE6860A0089FEAF /* Test.Keyboard.Hotkey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Keyboard.Hotkey.swift; sourceTree = "<group>"; };
-		17FD0152B633954A227E8C79 /* Observatory.podspec */ = {isa = PBXFileReference; lastKnownFileType = file.podspec; path = Observatory.podspec; sourceTree = "<group>"; };
 		17FD017771C4B54857A16DAD /* Keyboard.Hotkey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.Hotkey.swift; sourceTree = "<group>"; };
 		17FD01D08B3B6F5738B54CEE /* Shortcut.Recorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shortcut.Recorder.swift; sourceTree = "<group>"; };
 		17FD03560E1CD18D16062849 /* Observer.Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Event.swift; sourceTree = "<group>"; };
@@ -342,7 +341,6 @@
 				17FD094B1DAE4CF98579274D /* .swiftlint.yml */,
 				17FD0F994461E499BAC659EB /* Package.swift */,
 				E690D12D267D1B0C002FD479 /* Package.resolved */,
-				17FD0152B633954A227E8C79 /* Observatory.podspec */,
 				E690D12E267D1B14002FD479 /* LICENSE.md */,
 				697EDBC98FFDECF7FF264F3A /* README.md */,
 			);
