@@ -1,8 +1,7 @@
 import AppKit
 import Observatory
 
-@NSApplicationMain public class AppDelegate: NSObject, NSApplicationDelegate {
-}
+@main public class AppDelegate: NSObject, NSApplicationDelegate {}
 
 open class ViewController: NSViewController {
     @IBOutlet private weak var buttonFoo: ShortcutRecorderButton!
@@ -26,7 +25,7 @@ open class ViewController: NSViewController {
     }
 
     override open func viewDidAppear() {
-        /// Reset first responder, do it asynchronously, because the window will modify it once presented.
+        // Reset first responder, do it asynchronously, because the window will modify it once presented.
         DispatchQueue.main.async(execute: { self.view.window?.makeFirstResponder(nil) })
     }
 

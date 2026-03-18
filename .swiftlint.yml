@@ -8,34 +8,33 @@ analyzer_rules:
   - explicit_self
 
 opt_in_rules:
+  - explicit_acl
   - explicit_top_level_acl
   - modifier_order
+  - pattern_matching_keywords
   - prefer_self_type_over_type_of_self
 
 disabled_rules:
   - cyclomatic_complexity
-  - discarded_notification_center_observer
-  - duplicate_imports
   - file_length
   - force_cast
-  - force_try
   - function_body_length
-  - function_parameter_count
   - identifier_name
   - large_tuple
   - line_length
   - nesting
   - opening_brace
   - private_over_fileprivate
-  - redundant_discardable_let
+  - reduce_boolean
+  - todo
   - type_body_length
-  - type_name
-  - unused_closure_parameter
-  - unused_setter_value # https://github.com/realm/SwiftLint/issues/2585
-  - weak_delegate
+  - unneeded_override
 
 trailing_comma:
   mandatory_comma: true
+
+trailing_whitespace:
+  ignores_comments: false
 
 vertical_whitespace:
   max_empty_lines: 2

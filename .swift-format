@@ -1,0 +1,11 @@
+{
+  "dotChainWrappingBehaviour": "preserve",
+  "indentation": { "spaces": 4 },
+  "indentSwitchCaseLabels": true,
+  "insertSpaces": true,
+  "lineLength": 1000,
+  "maximumBlankLines": 2,
+  "spacesBeforeEndOfLineComments": 1,
+  "tabWidth": 4,
+  "version": 1
+}

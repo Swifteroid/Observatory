@@ -2,8 +2,7 @@ import AppKit.NSEvent
 import Foundation
 
 extension EventObserver {
-    public struct Handler {
-    }
+    public struct Handler {}
 }
 
 extension EventObserver.Handler {
@@ -92,7 +91,7 @@ extension EventObserver.Handler.AppKit.Definition {
             NSEvent.addLocalMonitorForEvents(matching: mask, handler: { [weak self] in self?.receive(local: $0, handler: handler) })
         }
         internal func unobserve(_ monitor: Any) { NSEvent.removeMonitor(monitor) }
-        internal func receive(global event: NSEvent, handler: @escaping (NSEvent) -> Void){ handler(event) }
+        internal func receive(global event: NSEvent, handler: @escaping (NSEvent) -> Void) { handler(event) }
         internal func receive(local event: NSEvent, handler: @escaping (NSEvent) -> NSEvent?) -> NSEvent? { handler(event) }
     }
 }
@@ -170,7 +169,7 @@ extension EventObserver.Handler {
                 let userInfo: UnsafeMutablePointer<Signature> = UnsafeMutablePointer.allocate(capacity: 1)
                 userInfo.initialize(to: { mask & CGEventMask(1 << $0.type.rawValue) > 0 ? handler($0) : $0 })
 
-                let callback: CGEventTapCallBack = { (proxy: CGEventTapProxy, type: CGEventType, event: CGEvent, handler: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? in
+                let callback: CGEventTapCallBack = { _, _, event, handler in
                     UnsafeMutablePointer<Signature>(OpaquePointer(handler!)).pointee(event).map({ Unmanaged.passUnretained($0) })
                 }
 

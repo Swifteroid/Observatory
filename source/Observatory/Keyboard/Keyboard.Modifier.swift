@@ -46,7 +46,7 @@ public struct KeyboardModifier: RawRepresentable, OptionSet {
 
     /// The name of the modifier.
     public var name: String? {
-        let name = self.keys.compactMap({ $0.name }).joined(separator: "")
+        let name = self.keys.compactMap(\.name).joined(separator: "")
         return name == "" ? nil : name
     }
 

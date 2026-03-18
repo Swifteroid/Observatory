@@ -72,6 +72,8 @@
 		17FD06581333B3906BE6258A /* Test.Shortcut.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Shortcut.swift; sourceTree = "<group>"; };
 		17FD078E512F21A8ECE8F335 /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		17FD0872935075E62744FA2B /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		17FD0873935075E62744FA2B /* .swift-format */ = {isa = PBXFileReference; lastKnownFileType = text; path = ".swift-format"; sourceTree = "<group>"; };
+		17FD0874935075E62744FA2B /* .swiftformat */ = {isa = PBXFileReference; lastKnownFileType = file.swiftformat; path = .swiftformat; sourceTree = "<group>"; };
 		17FD08D461EB26AE885B82AC /* Entrypoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entrypoint.swift; sourceTree = "<group>"; };
 		17FD08E9489864D454E503B4 /* Test.Observer.Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Observer.Event.swift; sourceTree = "<group>"; };
 		17FD0916F82FAC336830F9E0 /* Observer.Notification.Handler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Notification.Handler.swift; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 		17FD0F7C4A53D96FBDB8674E /* Observer.Hotkey.Handler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Hotkey.Handler.swift; sourceTree = "<group>"; };
 		17FD0F994461E499BAC659EB /* Package.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		17FD0FB54AAAEB24AB193225 /* Shortcut.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shortcut.swift; sourceTree = "<group>"; };
+		17FD0FB64AAAEB24AB193225 /* Mintfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Mintfile; sourceTree = "<group>"; };
 		1968096E1E1189C984B6F696 /* Test.Keyboard.Modifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Keyboard.Modifier.swift; sourceTree = "<group>"; };
 		691492DAECCDA8F37886F020 /* framework.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = framework.plist; sourceTree = "<group>"; };
 		692C0EE3AC3E3172836E1B96 /* application.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = application.plist; sourceTree = "<group>"; };
@@ -338,7 +341,10 @@
 				E6D7642B1CDDBA100071CCB0 /* product */,
 				17FD0BB4EDB0784084E6A631 /* source */,
 				17FD0872935075E62744FA2B /* .gitignore */,
+				17FD0873935075E62744FA2B /* .swift-format */,
+				17FD0874935075E62744FA2B /* .swiftformat */,
 				17FD094B1DAE4CF98579274D /* .swiftlint.yml */,
+				17FD0FB64AAAEB24AB193225 /* Mintfile */,
 				17FD0F994461E499BAC659EB /* Package.swift */,
 				E690D12D267D1B0C002FD479 /* Package.resolved */,
 				E690D12E267D1B14002FD479 /* LICENSE.md */,

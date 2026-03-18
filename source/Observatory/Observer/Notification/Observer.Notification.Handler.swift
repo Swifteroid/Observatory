@@ -9,7 +9,7 @@ extension NotificationObserver {
                 self.deactivate()
             }
 
-            init(name: Notification.Name, observee: AnyObject?, queue: OperationQueue?, handler: @escaping Signature) {
+            internal init(name: Notification.Name, observee: AnyObject?, queue: OperationQueue?, handler: @escaping Signature) {
                 self.name = name
                 self.observee = observee
                 self.queue = queue

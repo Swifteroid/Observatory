@@ -119,7 +119,7 @@ internal class AppKitEventObserverSpec: Spec {
             let start = DispatchSemaphore(value: 0)
             let group = DispatchGroup()
 
-            for index in 0..<16 {
+            for index in 0 ..< 16 {
                 group.enter()
                 queue.async {
                     start.wait()
@@ -128,7 +128,7 @@ internal class AppKitEventObserverSpec: Spec {
                 }
             }
 
-            for _ in 0..<16 { start.signal() }
+            for _ in 0 ..< 16 { start.signal() }
             group.wait()
 
             definition.activate(false)
@@ -136,7 +136,6 @@ internal class AppKitEventObserverSpec: Spec {
             expect(definition.monitor) == nil
         }
     }
-
 }
 
 internal class CarbonEventObserverSpec: Spec {

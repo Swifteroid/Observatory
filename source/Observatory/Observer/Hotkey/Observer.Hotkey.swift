@@ -1,5 +1,5 @@
-import Foundation
 import Carbon
+import Foundation
 
 /// Useful resources on how to implement shortcuts and work with carbon events.
 ///

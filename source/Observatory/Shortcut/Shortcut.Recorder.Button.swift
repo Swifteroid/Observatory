@@ -1,6 +1,6 @@
 import AppKit
-import Foundation
 import Carbon
+import Foundation
 
 /// NSButton-based control for recording shortcut hotkeys. Unlike regular button, it will send actions
 /// when the associated hotkey gets modified as the result of the user input.
@@ -56,16 +56,16 @@ open class ShortcutRecorderButton: NSButton, ShortcutRecorder {
     /// Temporarily stores the reference to original first responder during hotkey recording.
     private weak var originalFirstResponder: NSResponder?
 
-    // Makes self as the the first responder and stores the original first responder reference for later restoration.
+    /// Makes self as the the first responder and stores the original first responder reference for later restoration.
     private func makeFirstResponder() {
-        // Check if another instance of `Self` is already the first responder and use it's value instead. 
+        // Check if another instance of `Self` is already the first responder and use it's value instead.
         var currentFirstResponder: NSResponder? = self.window?.firstResponder
         if let recorder = currentFirstResponder as? Self, recorder.isRecording { currentFirstResponder = recorder.originalFirstResponder }
         if self.originalFirstResponder == nil { self.originalFirstResponder = currentFirstResponder }
         if currentFirstResponder !== self { self.window?.makeFirstResponder(self) }
     }
 
-    // Restores the original first responder if self is the current first responder and clears the original first responder reference.
+    /// Restores the original first responder if self is the current first responder and clears the original first responder reference.
     private func restoreFirstResponder() {
         let currentFirstResponder: NSResponder? = self.window?.firstResponder
         if currentFirstResponder === self && currentFirstResponder !== self.originalFirstResponder { self.window?.makeFirstResponder(self.originalFirstResponder) }
@@ -101,7 +101,7 @@ open class ShortcutRecorderButton: NSButton, ShortcutRecorder {
         String(describing: modifier)
     }
 
-    /// Returns the receiver's title for the keyboard key. 
+    /// Returns the receiver's title for the keyboard key.
     open func title(forKey key: KeyboardKey) -> String {
         String(describing: key)
     }
@@ -135,7 +135,7 @@ open class ShortcutRecorderButton: NSButton, ShortcutRecorder {
             self.shortcut?.hotkey = nil
             self.isRecording = false
             NotificationCenter.default.post(name: Self.hotkeyDidRecordNotification, object: self)
-            let _ = self.sendAction(self.action, to: self.target)
+            _ = self.sendAction(self.action, to: self.target)
             return true
         }
 
@@ -163,7 +163,7 @@ open class ShortcutRecorderButton: NSButton, ShortcutRecorder {
                 self.shortcut?.hotkey = hotkey
                 self.isRecording = false
                 NotificationCenter.default.post(name: Self.hotkeyDidRecordNotification, object: self)
-                let _ = self.sendAction(self.action, to: self.target)
+                _ = self.sendAction(self.action, to: self.target)
             }
         } else {
             NSSound.beep()
@@ -216,7 +216,7 @@ extension KeyboardModifier {
     /// Creates new keyboard modifier from the key equivalent string and modifier flags. If the key equivalent is an uppercase string
     /// the shift modifier flag will be included into the modifier flags.
     fileprivate init(_ keyEquivalent: String, _ flags: NSEvent.ModifierFlags) {
-        let isUppercase = keyEquivalent.allSatisfy({ $0.isUppercase })
+        let isUppercase = keyEquivalent.allSatisfy(\.isUppercase)
         self.init(isUppercase ? flags.union(.shift) : flags)
     }
 }

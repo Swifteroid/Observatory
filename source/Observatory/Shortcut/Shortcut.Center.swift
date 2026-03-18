@@ -14,7 +14,7 @@ open class ShortcutCenter {
     open var recorder: ShortcutRecorder? {
         didSet {
             if self.recorder === oldValue { return }
-            /// Disables registered hotkey observers if there's an active hotkey recorder and enables them if there's not.
+            // Disables registered hotkey observers if there's an active hotkey recorder and enables them if there's not.
             let isIgnored: Bool = self.recorder != nil
             self.observer.isActive = !isIgnored
         }
@@ -24,7 +24,7 @@ open class ShortcutCenter {
     private var registrations: [Registration] = []
 
     /// All shortcuts registered in the center.
-    open var shortcuts: [Shortcut] { self.registrations.lazy.map({ $0.shortcut }) }
+    open var shortcuts: [Shortcut] { self.registrations.lazy.map(\.shortcut) }
 
     /// Registers the shortcut-hotkey pair.
     private func add(_ shortcut: Shortcut, _ hotkey: KeyboardHotkey) {

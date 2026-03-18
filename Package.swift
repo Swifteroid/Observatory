@@ -1,10 +1,10 @@
-// swift-tools-version: 5.7
+// swift-tools-version: 5.9
 import PackageDescription
 
 let package = Package(
     name: "Observatory",
     platforms: [
-        .macOS(.v10_13)
+        .macOS(.v10_15)
     ],
     products: [
         .library(name: "Observatory", targets: ["Observatory"]),
@@ -17,14 +17,13 @@ let package = Package(
         .target(
             name: "Observatory",
             path: "source/Observatory",
-            exclude: ["Test", "Testing"]
+            exclude: ["Test", "Testing"],
         ),
         .testTarget(
             name: "Observatory-Test",
             dependencies: ["Observatory", "Quick", "Nimble"],
             path: "source/Observatory",
-            exclude: ["Keyboard", "Observer", "Shortcut"]
-            // sources: ["Test", "Testing"] // Since tools 5.3 this alone doesn't work and produces a warning… no need for it really…
+            exclude: ["Keyboard", "Observer", "Shortcut"],
         ),
     ],
     swiftLanguageVersions: [.v5]

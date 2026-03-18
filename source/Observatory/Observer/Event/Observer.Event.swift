@@ -1,6 +1,6 @@
 import AppKit.NSEvent
-import Foundation
 import CoreGraphics
+import Foundation
 
 /// Event observer provides a flexible interface for registering and managing multiple event handlers in, both, global
 /// and local contexts.
@@ -150,7 +150,7 @@ open class EventObserver: AbstractObserver {
     /// Note, for this to work the process must have Accessibility Control permission enabled
     /// in Security & Privacy system preferences.
     fileprivate func add(definition: Handler.Carbon.Definition?) -> Self {
-        if let definition: Handler.Carbon.Definition = definition { return self.add(definition: definition) } else { return self }
+        if let definition: Handler.Carbon.Definition = definition { self.add(definition: definition) } else { self }
     }
 
     /// Register CoreGraphics handler with manual event forwarding. Note, for this to work the process must have

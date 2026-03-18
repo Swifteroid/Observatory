@@ -1,0 +1,38 @@
+--swiftversion 5.9
+
+## Configure rules:
+--closure-void preserve
+--else-position same-line
+--extension-acl on-declarations
+--guard-else same-line
+--import-grouping testable-first
+--linebreaks lf
+--semicolons inline
+--trim-whitespace always
+
+### Disable unwanted rules:
+--disable andOperator
+--disable blankLinesAtStartOfScope
+--disable blankLinesBetweenScopes
+--disable consecutiveBlankLines
+--disable genericExtensions
+--disable hoistAwait
+--disable hoistPatternLet
+--disable hoistTry
+--disable indent
+--disable numberFormatting
+--disable opaqueGenericParameters
+--disable redundantFileprivate
+--disable redundantInternal
+--disable redundantSelf
+--disable redundantType
+--disable strongOutlets
+--disable todos
+--disable trailingClosures
+--disable unusedArguments
+--disable void
+--disable wrapArguments
+--disable wrapFunctionBodies
+--disable wrapLoopBodies
+--disable wrapMultilineStatementBraces
+--disable wrapPropertyBodies

@@ -6,7 +6,7 @@ import Foundation
 open class Shortcut {
     public init(_ hotkey: KeyboardHotkey? = nil, isEnabled: Bool? = nil) {
         self.hotkey = hotkey
-        if let isEnabled = isEnabled { self.isEnabled = isEnabled }
+        if let isEnabled { self.isEnabled = isEnabled }
         self.update()
     }
 
@@ -35,7 +35,7 @@ open class Shortcut {
         ShortcutCenter.default.shortcuts.contains(self)
     }
 
-    /// Checks whether the shortcut is valid. The default implementation checks if the modifier contains command, control or option keys, 
+    /// Checks whether the shortcut is valid. The default implementation checks if the modifier contains command, control or option keys,
     /// thus, disallowing "plain" combinations with shift and caps-lock modifiers.
     open var isValid: Bool {
         guard let modifier = self.hotkey?.modifier else { return false }

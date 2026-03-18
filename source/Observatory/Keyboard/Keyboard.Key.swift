@@ -260,7 +260,7 @@ extension KeyboardKey.Layout {
 
     /// Cache layout data by input source – this minimizes calls to Carbon's TIS, which are super-unstable and thread-unsafe…
     fileprivate static var cache: [Self: Data] = [:]
-    private static func invalidateCaches() { Self.lock.withLock({ Self.cache = [:] }) }
+    private static func invalidateCaches() { self.lock.withLock({ Self.cache = [:] }) }
 
     /// Input source change observers.
     private static var observers: [NSObjectProtocol] = []
