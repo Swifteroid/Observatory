@@ -41,6 +41,7 @@ internal class ShortcutSpec: Spec {
         }
 
         it("can add and remove observations") {
+            try self.requireAccessibilityControl()
             let shortcut: Shortcut = Shortcut(KeyboardHotkey(key: .one, modifier: [.commandKey, .shiftKey]))
             let observation: Any?
             var callbacks: Int = 0
@@ -71,6 +72,7 @@ internal class ShortcutSpec: Spec {
         }
 
         it("must post notifications when registered shortcut gets invoked") {
+            try self.requireAccessibilityControl()
             let hotkey = KeyboardHotkey(key: .one, modifier: [.commandKey, .shiftKey])
             let shortcut = Shortcut(hotkey)
             let center: ShortcutCenter = .default

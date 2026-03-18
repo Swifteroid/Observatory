@@ -7,6 +7,7 @@ import Quick
 internal class HotkeyObserverSpec: Spec {
     override internal class func spec() {
         it("can observe hotkeys in active state") {
+            try self.requireAccessibilityControl()
             let observer: HotkeyObserver = HotkeyObserver(active: true)
             let modifier: CGEventFlags = [.maskCommand, .maskShift]
             let fooKey: CGKeyCode = CGKeyCode(KeyboardKey.one.rawValue)

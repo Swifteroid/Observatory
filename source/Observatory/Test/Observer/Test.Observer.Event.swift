@@ -141,6 +141,7 @@ internal class AppKitEventObserverSpec: Spec {
 internal class CarbonEventObserverSpec: Spec {
     override internal class func spec() {
         it("can observe events in active state") {
+            try self.requireAccessibilityControl()
             let observer = EventObserver(active: true)
             let observation = Observation()
 

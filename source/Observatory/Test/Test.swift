@@ -2,8 +2,14 @@ import Carbon
 import Foundation
 import Nimble
 import Quick
+import XCTest
 
 internal class Spec: QuickSpec {
+    internal class func requireAccessibilityControl() throws {
+        if ProcessInfo.processInfo.environment["ACCESSIBILITY_CONTROL"] == "0" {
+            throw XCTSkip("Skipping tests that require Accessibility Control.")
+        }
+    }
 
     /// This was something cool and used in some other testing, can't remember… Leaving as a reminder.
     private static func sendHotkeyEvent(identifier: EventHotKeyID) {

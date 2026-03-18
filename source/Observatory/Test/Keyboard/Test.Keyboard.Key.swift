@@ -38,8 +38,12 @@ internal class KeyboardKeySpec: Spec {
         }
 
         it("can handle multi-threading") {
-            waitUntil(action: { done in
+            expect(KeyboardKey.Layout.ascii.data) != nil
+            expect(KeyboardKey.Layout.current.data) != nil
+
+            waitUntil(timeout: .seconds(5), action: { done in
                 let queue = OperationQueue()
+                let mainQueueGroup = DispatchGroup()
                 queue.maxConcurrentOperationCount = max(4, ProcessInfo.processInfo.activeProcessorCount * 2)
 
                 // Stress-testing on main vs. background thread – this is what causes the failures. It appears TIS call must first originate
@@ -52,6 +56,7 @@ internal class KeyboardKeySpec: Spec {
 
                 for _ in 0 ..< 2500 {
                     queue.addOperation({
+                        mainQueueGroup.enter()
                         DispatchQueue.main.async {
                             autoreleasepool {
                                 // This line seems to be the culprit on macOS Sequoia 15.7.2 (24G325) – without it, the test passes.
@@ -59,16 +64,17 @@ internal class KeyboardKeySpec: Spec {
                                 guard let source = TISCopyCurrentKeyboardInputSource()?.takeRetainedValue() else { fatalError() }
                                 guard TISGetInputSourceProperty(source, kTISPropertyUnicodeKeyLayoutData) != nil else { fatalError() }
                             }
+                            mainQueueGroup.leave()
                         }
 
                         autoreleasepool {
-                            // Without proper main-thread handling, this would crash…
+                            // Layout data is cached first to keep this focused on concurrent reads instead of timing-sensitive cold starts.
                             expect(KeyboardKey.Layout.allCases.randomElement()!.data) != nil
                         }
                     })
                 }
 
-                queue.addBarrierBlock({ DispatchQueue.main.async(execute: done) })
+                queue.addBarrierBlock({ mainQueueGroup.notify(queue: .main, execute: done) })
             })
         }
 

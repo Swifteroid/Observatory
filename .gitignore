@@ -18,3 +18,5 @@
 
 # SPM
 /.build
+/dependency/Swift
+/dependency/Xcode

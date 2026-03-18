@@ -8,6 +8,10 @@ on:
   pull_request:
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   skip:
     name: Pre-Check & Skip
@@ -27,46 +31,96 @@ jobs:
     runs-on: macos-latest
 
     steps:
+
+      # 🚦 Prepare & Checkout
+
       - name: Checkout Git
         uses: actions/checkout@v6
         with:
           submodules: recursive
 
+      - name: Set up Homebrew
+        run: brew install mint xcbeautify
 
-      # ⚙️ Tools
-
-      - name: Install Homebrew
-        uses: tecolicom/actions-use-homebrew-tools@v1
+      - name: Cache Mint
+        id: cache-mint
+        uses: actions/cache@v5
         with:
-          tools: xcbeautify swiftlint
-          cache: yes
+          path: ~/.mint
+          key: ${{ runner.os }}-mint-${{ hashFiles('Mintfile') }}
+          restore-keys: ${{ runner.os }}-mint-
 
-
-      # 📦 Cache
-
-      - name: Cache SPM
-        id: cache-spm
-        uses: actions/cache@v4
-        with:
-          path: .build
-          key: ${{ runner.os }}-spm-${{ hashFiles('Package.swift', 'Package.resolved') }}
-          restore-keys: ${{ runner.os }}-spm-
+      - name: Set up Mint
+        run: mint bootstrap
 
 
       # 💅 Lint
 
       - name: Run SwiftLint
-        run: swiftlint lint --quiet --strict # --reporter github-actions-logging
+        run: mint run swiftlint lint --quiet --strict ./source
+
+      - name: Run SwiftFormat
+        run: mint run swiftformat --lint ./source
 
 
-      # 🧪 Resolve, Build, Test SPM
+      # 🐧 SPM
 
-      - name: Resolve SPM
+      - name: Cache SPM
+        id: cache-spm
+        uses: actions/cache@v5
+        with:
+          path: |
+            dependency/Swift
+            dependency/Xcode
+          key: ${{ runner.os }}-spm-${{ hashFiles('Package.swift', 'Package.resolved', 'Observatory.xcworkspace/xcshareddata/swiftpm/Package.resolved') }}
+          restore-keys: ${{ runner.os }}-spm-
+
+      - name: Resolve Swift dependencies
         if: steps.cache-spm.outputs.cache-hit != 'true'
-        run: swift package resolve
+        run: swift package --scratch-path dependency/Swift resolve
 
-      - name: Build SPM
-        run: swift build --build-tests
 
-      - name: Test SPM
-        run: swift test 2>&1 | xcbeautify
+      # 🛠️ Xcode
+
+      - name: Resolve Xcode dependencies
+        if: steps.cache-spm.outputs.cache-hit != 'true'
+        run: |
+          xcodebuild \
+            -workspace "Observatory.xcworkspace" \
+            -scheme "Observatory" \
+            -resolvePackageDependencies \
+            -clonedSourcePackagesDirPath dependency/Xcode
+
+
+      # 🚧 Build
+
+      - name: Build Swift tests
+        run: swift build --build-tests --scratch-path dependency/Swift
+
+      - name: Build Xcode tests
+        run: |
+          set -o pipefail && xcodebuild clean build-for-testing \
+            -workspace "Observatory.xcworkspace" \
+            -scheme "Observatory-Test" \
+            -destination "platform=macOS,arch=$(uname -m)" \
+            -disableAutomaticPackageResolution \
+            -clonedSourcePackagesDirPath "dependency/Xcode" \
+            | tee "build.log" | xcbeautify
+
+
+      # 🧪 Test
+
+      - name: Test Swift
+        run: set -o pipefail && swift test --scratch-path dependency/Swift 2>&1 | xcbeautify
+
+      - name: Test Xcode
+        env:
+          TEST_RUNNER_ACCESSIBILITY_CONTROL: 0
+        run: |
+          set -o pipefail && xcodebuild test \
+            -workspace "Observatory.xcworkspace" \
+            -scheme "Observatory-Test" \
+            -destination "platform=macOS,arch=$(uname -m)" \
+            -disableAutomaticPackageResolution \
+            -clonedSourcePackagesDirPath "dependency/Xcode" \
+            | xcbeautify

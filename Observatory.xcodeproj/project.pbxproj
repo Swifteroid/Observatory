@@ -74,6 +74,7 @@
 		17FD0872935075E62744FA2B /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		17FD0873935075E62744FA2B /* .swift-format */ = {isa = PBXFileReference; lastKnownFileType = text; path = ".swift-format"; sourceTree = "<group>"; };
 		17FD0874935075E62744FA2B /* .swiftformat */ = {isa = PBXFileReference; lastKnownFileType = file.swiftformat; path = .swiftformat; sourceTree = "<group>"; };
+		17FD0875935075E62744FA2B /* main.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = main.yml; sourceTree = "<group>"; };
 		17FD08D461EB26AE885B82AC /* Entrypoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entrypoint.swift; sourceTree = "<group>"; };
 		17FD08E9489864D454E503B4 /* Test.Observer.Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Observer.Event.swift; sourceTree = "<group>"; };
 		17FD0916F82FAC336830F9E0 /* Observer.Notification.Handler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Notification.Handler.swift; sourceTree = "<group>"; };
@@ -189,6 +190,22 @@
 				17FD08D461EB26AE885B82AC /* Entrypoint.swift */,
 			);
 			path = Demo;
+			sourceTree = "<group>";
+		};
+		17FD075E9838C94D43A9D2A5 /* .github */ = {
+			isa = PBXGroup;
+			children = (
+				17FD075F9838C94D43A9D2A5 /* workflows */,
+			);
+			path = .github;
+			sourceTree = "<group>";
+		};
+		17FD075F9838C94D43A9D2A5 /* workflows */ = {
+			isa = PBXGroup;
+			children = (
+				17FD0875935075E62744FA2B /* main.yml */,
+			);
+			path = workflows;
 			sourceTree = "<group>";
 		};
 		17FD0865B2ECB4388EC47754 /* Testing */ = {
@@ -337,6 +354,7 @@
 		E6D764201CDDBA100071CCB0 = {
 			isa = PBXGroup;
 			children = (
+				17FD075E9838C94D43A9D2A5 /* .github */,
 				17FD030F7F2C5CA3191B2040 /* accessory */,
 				E6D7642B1CDDBA100071CCB0 /* product */,
 				17FD0BB4EDB0784084E6A631 /* source */,
