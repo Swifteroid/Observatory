@@ -27,6 +27,10 @@ public struct KeyboardHotkey: RawRepresentable {
     public var key: KeyboardKey
     public var modifier: KeyboardModifier
     public var rawValue: Int { self.modifier.rawValue << 16 | self.key.rawValue }
+
+    /// Returns the hotkey's name with its key named in the layout, like ⇧⌘6 in the neutral layout for storing or logging it – keys without
+    /// characters, like Escape, take their names from `KeyboardKey.names`.
+    public func name(layout: KeyboardKey.Layout) -> String { "\(self.modifier.name ?? "")\(self.key.name(layout: layout, custom: KeyboardKey.names) ?? "")" }
 }
 
 extension KeyboardHotkey: Equatable, Hashable {
