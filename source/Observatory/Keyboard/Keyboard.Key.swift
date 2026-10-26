@@ -250,6 +250,9 @@ extension KeyboardKey {
     public enum Layout: CaseIterable {
         case ascii
         case current
+        /// Region-neutral layout, ABC, or US with the same characters where ABC is missing, which names keys the same whatever layouts the
+        /// user has, like for storing or logging them.
+        case neutral
     }
 }
 
@@ -291,6 +294,7 @@ extension KeyboardKey.Layout {
                 let inputSource = switch self {
                     case .ascii: TISCopyCurrentASCIICapableKeyboardLayoutInputSource()?.takeRetainedValue()
                     case .current: TISCopyCurrentKeyboardInputSource()?.takeRetainedValue()
+                    case .neutral: ["com.apple.keylayout.ABC", "com.apple.keylayout.US"].lazy.compactMap({ (TISCreateInputSourceList([kTISPropertyInputSourceID: $0] as CFDictionary, true)?.takeRetainedValue() as? [TISInputSource])?.first }).first
                 }
                 guard let inputSource else { return nil }
                 guard let data = TISGetInputSourceProperty(inputSource, kTISPropertyUnicodeKeyLayoutData) else { return nil }

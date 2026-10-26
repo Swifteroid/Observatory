@@ -35,6 +35,9 @@ internal class KeyboardKeySpec: Spec {
             let layout = UCKeyboardLayout.data(for: "com.apple.keylayout.Ukrainian")
             expect(layout) != nil
             expect(KeyboardKey.a.name(layout: layout)) == "Ф"
+            // The neutral layout names keys the same whatever layout the user has, unlike French, which has § on the 6 key.
+            expect(KeyboardKey.six.name(layout: UCKeyboardLayout.data(for: "com.apple.keylayout.French"))) == "§"
+            expect(KeyboardKey.six.name(layout: .neutral)) == "6"
         }
 
         it("can handle multi-threading") {
