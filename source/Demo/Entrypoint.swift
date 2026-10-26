@@ -20,8 +20,8 @@ open class ViewController: NSViewController {
         self.buttonQux.shortcut = .qux
         self.buttonFex.shortcut = .fex
 
-        observer.add(name: ShortcutCenter.willInvokeShortcutNotification, observee: ShortcutCenter.default, handler: { [weak self] in self?.handleShortcutCenterNotification(notification: $0) })
-        observer.add(name: ShortcutCenter.didInvokeShortcutNotification, observee: ShortcutCenter.default, handler: { [weak self] in self?.handleShortcutCenterNotification(notification: $0) })
+        self.observer.add(name: ShortcutCenter.willInvokeShortcutNotification, observee: ShortcutCenter.default, handler: { [weak self] in self?.handleShortcutCenterNotification(notification: $0) })
+        self.observer.add(name: ShortcutCenter.didInvokeShortcutNotification, observee: ShortcutCenter.default, handler: { [weak self] in self?.handleShortcutCenterNotification(notification: $0) })
     }
 
     override open func viewDidAppear() {

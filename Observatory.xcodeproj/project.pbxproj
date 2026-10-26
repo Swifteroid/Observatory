@@ -65,7 +65,6 @@
 		17FD017771C4B54857A16DAD /* Keyboard.Hotkey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.Hotkey.swift; sourceTree = "<group>"; };
 		17FD01D08B3B6F5738B54CEE /* Shortcut.Recorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shortcut.Recorder.swift; sourceTree = "<group>"; };
 		17FD03560E1CD18D16062849 /* Observer.Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.Event.swift; sourceTree = "<group>"; };
-		17FD049B29A650BABBC10CC6 /* test.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = test.plist; sourceTree = "<group>"; };
 		17FD04AABD313E9B5316521D /* Shortcut.Recorder.Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shortcut.Recorder.Button.swift; sourceTree = "<group>"; };
 		17FD04EB71CD7024929F934F /* Test.Keyboard.Key.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Keyboard.Key.swift; sourceTree = "<group>"; };
 		17FD0549D3EA10134DC784A3 /* Test.Observer.Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Observer.Notification.swift; sourceTree = "<group>"; };
@@ -93,20 +92,8 @@
 		17FD0FB54AAAEB24AB193225 /* Shortcut.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shortcut.swift; sourceTree = "<group>"; };
 		17FD0FB64AAAEB24AB193225 /* Mintfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Mintfile; sourceTree = "<group>"; };
 		1968096E1E1189C984B6F696 /* Test.Keyboard.Modifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.Keyboard.Modifier.swift; sourceTree = "<group>"; };
-		691492DAECCDA8F37886F020 /* framework.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = framework.plist; sourceTree = "<group>"; };
-		692C0EE3AC3E3172836E1B96 /* application.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = application.plist; sourceTree = "<group>"; };
 		697EDBC98FFDECF7FF264F3A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		E609DC891E7BC8C400F919DD /* demo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = demo.storyboard; sourceTree = "<group>"; };
-		E690D111267D19F6002FD479 /* macOS-Application.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "macOS-Application.xcconfig"; sourceTree = "<group>"; };
-		E690D112267D19F6002FD479 /* macOS-Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "macOS-Framework.xcconfig"; sourceTree = "<group>"; };
-		E690D113267D19F6002FD479 /* macOS-StaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "macOS-StaticLibrary.xcconfig"; sourceTree = "<group>"; };
-		E690D114267D19F6002FD479 /* macOS-Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "macOS-Base.xcconfig"; sourceTree = "<group>"; };
-		E690D115267D19F6002FD479 /* macOS-XCTest.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "macOS-XCTest.xcconfig"; sourceTree = "<group>"; };
-		E690D116267D19F6002FD479 /* macOS-DynamicLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "macOS-DynamicLibrary.xcconfig"; sourceTree = "<group>"; };
-		E690D124267D1A73002FD479 /* Profile.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Profile.xcconfig; sourceTree = "<group>"; };
-		E690D125267D1A73002FD479 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
-		E690D126267D1A73002FD479 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
-		E690D127267D1A73002FD479 /* Test.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Test.xcconfig; sourceTree = "<group>"; };
 		E690D12D267D1B0C002FD479 /* Package.resolved */ = {isa = PBXFileReference; lastKnownFileType = text; path = Package.resolved; sourceTree = "<group>"; };
 		E690D12E267D1B14002FD479 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		E69200F31CDDE19100C4FEAD /* Observatory-Test.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Observatory-Test.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -159,8 +146,6 @@
 		17FD030F7F2C5CA3191B2040 /* accessory */ = {
 			isa = PBXGroup;
 			children = (
-				E690D10F267D19E0002FD479 /* configuration */,
-				692739BC3F963DB95B757C64 /* info */,
 				69FE70738BA9A7D2F71070B9 /* storyboard */,
 			);
 			path = accessory;
@@ -298,16 +283,6 @@
 			path = Hotkey;
 			sourceTree = "<group>";
 		};
-		692739BC3F963DB95B757C64 /* info */ = {
-			isa = PBXGroup;
-			children = (
-				692C0EE3AC3E3172836E1B96 /* application.plist */,
-				691492DAECCDA8F37886F020 /* framework.plist */,
-				17FD049B29A650BABBC10CC6 /* test.plist */,
-			);
-			path = info;
-			sourceTree = "<group>";
-		};
 		69FE70738BA9A7D2F71070B9 /* storyboard */ = {
 			isa = PBXGroup;
 			children = (
@@ -315,41 +290,6 @@
 			);
 			path = storyboard;
 			sourceTree = "<group>";
-		};
-		E690D10F267D19E0002FD479 /* configuration */ = {
-			isa = PBXGroup;
-			children = (
-				E690D123267D1A73002FD479 /* Base */,
-				E690D110267D19F6002FD479 /* macOS */,
-			);
-			name = configuration;
-			sourceTree = "<group>";
-		};
-		E690D110267D19F6002FD479 /* macOS */ = {
-			isa = PBXGroup;
-			children = (
-				E690D114267D19F6002FD479 /* macOS-Base.xcconfig */,
-				E690D113267D19F6002FD479 /* macOS-StaticLibrary.xcconfig */,
-				E690D116267D19F6002FD479 /* macOS-DynamicLibrary.xcconfig */,
-				E690D112267D19F6002FD479 /* macOS-Framework.xcconfig */,
-				E690D111267D19F6002FD479 /* macOS-Application.xcconfig */,
-				E690D115267D19F6002FD479 /* macOS-XCTest.xcconfig */,
-			);
-			name = macOS;
-			path = dependency/Git/xcconfigs/macOS;
-			sourceTree = SOURCE_ROOT;
-		};
-		E690D123267D1A73002FD479 /* Base */ = {
-			isa = PBXGroup;
-			children = (
-				E690D125267D1A73002FD479 /* Debug.xcconfig */,
-				E690D126267D1A73002FD479 /* Release.xcconfig */,
-				E690D127267D1A73002FD479 /* Test.xcconfig */,
-				E690D124267D1A73002FD479 /* Profile.xcconfig */,
-			);
-			name = Base;
-			path = dependency/Git/xcconfigs/Base/Configurations;
-			sourceTree = SOURCE_ROOT;
 		};
 		E6D764201CDDBA100071CCB0 = {
 			isa = PBXGroup;
@@ -444,7 +384,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 1250;
+				LastUpgradeCheck = 2630;
 				ORGANIZATIONNAME = Swifteroid;
 				TargetAttributes = {
 					087EE7911E1C1FF500093E0E = {
@@ -563,33 +503,23 @@
 /* Begin XCBuildConfiguration section */
 		087EE79E1E1C1FF500093E0E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E690D111267D19F6002FD479 /* macOS-Application.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = "$(inherited)/application.plist";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = demo;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(inherited).demo";
 			};
 			name = Debug;
 		};
 		087EE79F1E1C1FF500093E0E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E690D111267D19F6002FD479 /* macOS-Application.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = "$(inherited)/application.plist";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = demo;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(inherited).demo";
 			};
 			name = Release;
 		};
 		E69200FB1CDDE19200C4FEAD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E690D115267D19F6002FD479 /* macOS-XCTest.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "$(inherited)/test.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(inherited).test";
 			};
@@ -597,9 +527,7 @@
 		};
 		E69200FC1CDDE19200C4FEAD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E690D115267D19F6002FD479 /* macOS-XCTest.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "$(inherited)/test.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(inherited).test";
 			};
@@ -607,47 +535,45 @@
 		};
 		E6D764301CDDBA100071CCB0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E690D125267D1A73002FD479 /* Debug.xcconfig */;
 			buildSettings = {
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
-				INFOPLIST_FILE = accessory/info;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_USE_SEPARATE_HEADERMAPS = YES;
+				ENABLE_TESTABILITY = YES;
+				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.swifteroid.observatory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_TREAT_WARNINGS_AS_ERRORS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
 		E6D764311CDDBA100071CCB0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E690D126267D1A73002FD479 /* Release.xcconfig */;
 			buildSettings = {
-				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
-				INFOPLIST_FILE = accessory/info;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_USE_SEPARATE_HEADERMAPS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.swifteroid.observatory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_TREAT_WARNINGS_AS_ERRORS = NO;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
 		E6D764331CDDBA100071CCB0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E690D112267D19F6002FD479 /* macOS-Framework.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "$(inherited)/framework.plist";
+				DEFINES_MODULE = YES;
 				MACH_O_TYPE = staticlib;
 			};
 			name = Debug;
 		};
 		E6D764341CDDBA100071CCB0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E690D112267D19F6002FD479 /* macOS-Framework.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "$(inherited)/framework.plist";
+				DEFINES_MODULE = YES;
 				MACH_O_TYPE = staticlib;
 			};
 			name = Release;

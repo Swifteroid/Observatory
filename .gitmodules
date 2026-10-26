@@ -1,3 +1,0 @@
-[submodule "dependency/Git/xcconfigs"]
-	path = dependency/Git/xcconfigs
-	url = https://github.com/xcconfigs/xcconfigs

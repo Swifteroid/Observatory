@@ -1,3 +1,4 @@
+# https://docs.github.com/en/actions/reference/workflows-and-actions/contexts
 # https://docs.github.com/en/actions/learn-github-actions/variables#default-environment-variables
 # https://github.com/peripheryapp/periphery/blob/master/.github/workflows/test.yml
 
@@ -12,115 +13,124 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+defaults:
+  run:
+    shell: bash # Explicit Bash enables pipefail for every run step.
+
 jobs:
   skip:
     name: Pre-Check & Skip
     continue-on-error: true
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     outputs:
       should_skip: ${{ steps.check.outputs.should_skip }}
     steps:
       - name: Skip duplicate actions
         id: check
-        uses: fkirc/skip-duplicate-actions@v5
+        uses: fkirc/skip-duplicate-actions@v5.3.2
 
   main:
     name: Lint & Test
     needs: skip
     if: needs.skip.outputs.should_skip != 'true'
-    runs-on: macos-latest
+    runs-on: macos-26
 
     steps:
 
       # 🚦 Prepare & Checkout
 
       - name: Checkout Git
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
+
+
+      # 📦 Cache
+
+      - name: SPM cache
+        uses: actions/cache@v6
+        id: cache-spm
         with:
-          submodules: recursive
+          key: ${{ runner.os }}-spm-${{ hashFiles('Package.swift', 'Package.resolved', 'Observatory.xcworkspace/xcshareddata/swiftpm/Package.resolved') }}
+          restore-keys: ${{ runner.os }}-spm-
+          path: |
+            dependency/Swift
+            dependency/Xcode
+
+      - name: Mint cache
+        uses: actions/cache@v6
+        id: cache-mint
+        with:
+          key: ${{ runner.os }}-mint-${{ hashFiles('Mintfile') }}
+          restore-keys: ${{ runner.os }}-mint-
+          path: ~/.mint
+
+
+      # 🛠️ Tools
 
       - name: Set up Homebrew
         run: brew install mint xcbeautify
 
-      - name: Cache Mint
-        id: cache-mint
-        uses: actions/cache@v5
-        with:
-          path: ~/.mint
-          key: ${{ runner.os }}-mint-${{ hashFiles('Mintfile') }}
-          restore-keys: ${{ runner.os }}-mint-
-
       - name: Set up Mint
+        if: steps.cache-mint.outputs.cache-hit != 'true'
         run: mint bootstrap
 
 
       # 💅 Lint
 
       - name: Run SwiftLint
-        run: mint run swiftlint lint --quiet --strict ./source
+        run: mint run swiftlint lint --quiet --strict "./source"
 
       - name: Run SwiftFormat
-        run: mint run swiftformat --lint ./source
+        run: mint run swiftformat --lint "./source"
 
 
-      # 🐧 SPM
-
-      - name: Cache SPM
-        id: cache-spm
-        uses: actions/cache@v5
-        with:
-          path: |
-            dependency/Swift
-            dependency/Xcode
-          key: ${{ runner.os }}-spm-${{ hashFiles('Package.swift', 'Package.resolved', 'Observatory.xcworkspace/xcshareddata/swiftpm/Package.resolved') }}
-          restore-keys: ${{ runner.os }}-spm-
+      # 🐧 Install SPM
 
       - name: Resolve Swift dependencies
         if: steps.cache-spm.outputs.cache-hit != 'true'
-        run: swift package --scratch-path dependency/Swift resolve
-
-
-      # 🛠️ Xcode
+        run: swift package --scratch-path "./dependency/Swift" resolve
 
       - name: Resolve Xcode dependencies
         if: steps.cache-spm.outputs.cache-hit != 'true'
         run: |
           xcodebuild \
-            -workspace "Observatory.xcworkspace" \
+            -workspace "./Observatory.xcworkspace" \
             -scheme "Observatory" \
             -resolvePackageDependencies \
-            -clonedSourcePackagesDirPath dependency/Xcode
-
-
-      # 🚧 Build
-
-      - name: Build Swift tests
-        run: swift build --build-tests --scratch-path dependency/Swift
-
-      - name: Build Xcode tests
-        run: |
-          set -o pipefail && xcodebuild clean build-for-testing \
-            -workspace "Observatory.xcworkspace" \
-            -scheme "Observatory-Test" \
-            -destination "platform=macOS,arch=$(uname -m)" \
-            -disableAutomaticPackageResolution \
-            -clonedSourcePackagesDirPath "dependency/Xcode" \
-            | tee "build.log" | xcbeautify
+            -clonedSourcePackagesDirPath "./dependency/Xcode"
 
 
       # 🧪 Test
 
+      - name: Build Swift
+        run: swift build --build-tests --scratch-path "./dependency/Swift"
+
       - name: Test Swift
-        run: set -o pipefail && swift test --scratch-path dependency/Swift 2>&1 | xcbeautify
+        run: swift test --skip-build --scratch-path "./dependency/Swift" 2>&1 | xcbeautify
+
+      - name: Build Xcode
+        run: |
+          xcodebuild clean build-for-testing \
+            -workspace "./Observatory.xcworkspace" \
+            -scheme "Observatory-Test" \
+            -destination "platform=macOS,arch=$(uname -m)" \
+            -skipPackageUpdates \
+            -disableAutomaticPackageResolution \
+            -clonedSourcePackagesDirPath "./dependency/Xcode" \
+            COMPILER_INDEX_STORE_ENABLE=NO \
+            | tee "./build.log" | xcbeautify
 
       - name: Test Xcode
         env:
           TEST_RUNNER_ACCESSIBILITY_CONTROL: 0
         run: |
-          set -o pipefail && xcodebuild test \
-            -workspace "Observatory.xcworkspace" \
+          xcodebuild test-without-building \
+            -workspace "./Observatory.xcworkspace" \
             -scheme "Observatory-Test" \
             -destination "platform=macOS,arch=$(uname -m)" \
-            -disableAutomaticPackageResolution \
-            -clonedSourcePackagesDirPath "dependency/Xcode" \
             | xcbeautify
+
+
+      # 🔬 Analyze
+
+      - name: Analyze SwiftLint
+        run: mint run swiftlint analyze --quiet --strict --compiler-log-path "./build.log" "./source"

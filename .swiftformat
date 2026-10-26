@@ -26,6 +26,7 @@
 --disable redundantInternal
 --disable redundantSelf
 --disable redundantType
+--disable repeatedGuard
 --disable strongOutlets
 --disable todos
 --disable trailingClosures
@@ -33,6 +34,8 @@
 --disable void
 --disable wrapArguments
 --disable wrapFunctionBodies
+--disable wrapIfExpressionBodies
+--disable wrapIfStatementBodies
 --disable wrapLoopBodies
 --disable wrapMultilineStatementBraces
 --disable wrapPropertyBodies
